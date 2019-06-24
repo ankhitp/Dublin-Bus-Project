@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+
+  <head>
+    <style>
+       /* Set the size of the div element that contains the map */
+      #map {
+        height: 70vh;  /* The height is 400 pixels */
+        width: 575.98px;  /* The width is the width of the web page */
+       }
+
+    </style>
+
+  </head>
+
+  <body>
+
+      <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+                {% include 'navbar.html' %}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">    
+              <p>Map page of App<p>
+            </div>
+            <div class="col-4">a</div>   
+            <div class="col-4">b</div>
+          </div>
+
+          <div class="row">
+              <div class="col-12" id="map"></div>
+          </div>
+
+          <div class="row">
+            
+            <div class="col-12" id="footer">
+
+                {% include 'tabs.html' %}
+
+        </div>
+
+        </div>
+      </div>
+
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-hR-mSsuP9TGDFilrtWVmxNR_t1i-qYo&callback=initMap">
+    </script>
+  </body>
+  {% endblock %}

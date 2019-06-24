@@ -1,0 +1,51 @@
+
+/* Nav bar at top and tabs (nav-pills) at bottom */
+
+/* all vh heights should add up to 100% */
+
+.nav nav-pills{
+    margin-left: 0px;
+    padding: 0px;
+    color: green;
+    border-radius:.0rem;
+    margin-right: 0px;
+    /* height:50px; */
+}
+
+/* top of page navbar */
+.navbar {
+    background: green;
+    height: 10vh;
+}
+
+.nav{
+    background: purple;
+    height: 20vh;
+    width: 100%;
+    padding: 0px;
+    padding-right: 0px;
+    margin: 0px;
+}
+
+
+
+  #map {
+    height: 70vh;
+  }
+
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+    /* margin-right: auto;
+    margin-left: auto; */
+  }
+
+#footer-nav{
+    background: yellow;
+    height:20vh;
+    width: 100%;
+    padding: 0px;
+
+}
+
+
