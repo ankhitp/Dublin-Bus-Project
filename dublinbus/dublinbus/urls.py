@@ -16,12 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
+from map.views import map_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('map/', include('map.urls')),
+    # path('map/', include('map.urls')),
+    path('map/', map_view.as_view(), name='map'),
     path('favourites/', include('favourites.urls')),
     path('more/', include('more.urls')),
     path('routes/', include('routes.urls')),
     path('journeyplan/', include('journeyplan.urls')),
+    # path('map/', post_new, name='map'),
+
+
 ]

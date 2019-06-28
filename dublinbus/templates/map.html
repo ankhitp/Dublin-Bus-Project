@@ -25,13 +25,30 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-4">
-                <p>Map page of App
-                <p>
+                <div class="col-12">
+                </div>
             </div>
-            <div class="col-4">a</div>
-            <div class="col-4">b</div>
-        </div>
+
+        <div class="row">
+            <div class="col-12">
+                    <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+            </div>
+
+
+            <div class="row">
+                    <div class="col-12">
+                            <h2>
+                                    {{text}}
+                                </h2>
+                                    </div>
+                    </div>
+
+      
 
         <div class="row">
             <div class="col-12" id="map"></div>
@@ -51,9 +68,7 @@
 
         // Initialize and add the map
         function initMap() {
-            // The location of Uluru
             var dublin = {lat: 53.33306, lng: -6.24889};
-            // The map, centered at Uluru
             var map = new google.maps.Map(
                 document.getElementById('map'), {zoom: 14, center: dublin});
             // The marker, positioned at Uluru
@@ -61,9 +76,9 @@
             addMarker(map)
         };
 
-        //get the stop data from JSON file
-        //this line in js cannot get the JSON, but when it in html, it can get
-        var data = {{loadjson | safe}};
+        // get the stop data from JSON file
+        // this line in js cannot get the JSON, but when it in html, it can get
+        // var data = {{loadjson | safe}};
 
         // {#console.log(data[6]);#}
 
@@ -88,10 +103,15 @@
 
             }
         }
+
     </script>
 
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-hR-mSsuP9TGDFilrtWVmxNR_t1i-qYo&callback=initMap">
     </script>
+        <script src="{% static 'initmap.js' %}"></script>
+        <script src="{% static 'addmarker.js' %}"></script>
+
+
     </body>
 {% endblock %}
