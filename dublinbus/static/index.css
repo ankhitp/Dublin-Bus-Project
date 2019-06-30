@@ -1,51 +1,134 @@
 
 /* Nav bar at top and tabs (nav-pills) at bottom */
 
+
+/* Customize the navbar links to be fill the entire space of the .navbar */
+/* .navbar .navbar-inner {
+  padding: 0;
+}
+
+.navbar .nav {
+  margin: 0;
+  display: table;
+  width: 100%;
+  color: orange;
+  background: orange:
+}
+
+.navbar .nav li {
+  display: table-cell;
+  width: 1%;
+  float: none;
+}
+
+.navbar .nav li a {
+  font-weight: bold;
+  text-align: center;
+  border-left: 1px solid rgba(255, 255, 255, .75);
+  border-right: 1px solid rgba(0, 0, 0, .1);
+}
+
+.navbar .nav li:first-child a {
+  border-left: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.navbar .nav li:last-child a {
+  border-right: 0;
+  border-radius: 0 3px 3px 0;
+} */
+
 /* all vh heights should add up to 100% */
 
 .nav nav-pills{
-    margin-left: 0px;
-    padding: 0px;
-    color: green;
-    border-radius:.0rem;
-    margin-right: 0px;
-    /* height:50px; */
+  margin-left: 0px;
+  padding: 0px;
+  color: orange;
+  border-radius:.0rem;
+  margin-right: 0px;
 }
 
-/* top of page navbar */
 .navbar {
-    background: green;
-    height: 10vh;
+  background: green;
+  height: 10vh;
 }
 
 .nav{
-    background: purple;
-    height: 20vh;
-    width: 100%;
-    padding: 0px;
-    padding-right: 0px;
-    margin: 0px;
+  background: greenyellow;
+  height: 10vh;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
 }
 
+#myicon{
+  font-size: 20px;
+}
+.nav nav-pills nav-justified{
+padding: 0px;
+background: purple;
+margin: 0px;
+width: 100%;
+}
 
-
-  #map {
-    height: 70vh;
-  }
-
-.container-fluid {
-    padding-right: 0px;
-    padding-left: 0px;
-    /* margin-right: auto;
-    margin-left: auto; */
-  }
 
 #footer-nav{
-    background: yellow;
-    height:20vh;
-    width: 100%;
-    padding: 0px;
+  background: rgb(241, 238, 238);
+  padding-top: 15%;
+  height: 10vh;
+  border-style: solid;
+  border-top: 0px;
+  border-bottom: 0px;
+  border-width: 2px;
+  border-color: white;
+  font-size: 10px;
+  color: rgb(117, 111, 111);
+
 
 }
 
+.nav-link{
+  color: white;
 
+}
+
+#nav-link active{
+}
+
+
+.row { 
+  margin: auto;
+}
+
+.col-12{
+  margin: 0px;
+  padding: 0px;
+}
+/* .ul>nav nav-pills nav-justified
+.nav-item
+
+.tab
+.ul 
+.nav>li>a 
+
+.nav-link active
+
+.nav-link */
+
+
+
+.container-fluid {
+  padding-right: 0px;
+  padding-left: 0px;
+  /* margin-right: auto;
+  margin-left: auto; */
+}
+
+.icon-container{
+  text-align: center;
+
+}
+
+/* #footer-nav
+.footer-nav
+#footer */
