@@ -68,47 +68,7 @@
 
         </div>
     </div>
-    <script>
-
-        // Initialize and add the map
-        // function initMap() {
-        //     var dublin = {lat: 53.33306, lng: -6.24889};
-        //     var map = new google.maps.Map(
-        //         document.getElementById('map'), {zoom: 14, center: dublin});
-        //     // The marker, positioned at Uluru
-        //     var marker = new google.maps.Marker({position: dublin, map: map});
-        //     addMarker(map)
-        // };
-
-        // get the stop data from JSON file
-        // this line in js cannot get the JSON, but when it in html, it can get
-        // var data = {{loadjson | safe}};
-
-        // {#console.log(data[6]);#}
-
-
-        function addMarker(map) {
-            for (var i = 0, length = data.length; i < length; i++) {
-                var busdata = data[i];
-                // {#Console.log(busdata);#}
-                var myLatLng = {lat: parseFloat(busdata.stop_lat), lng: parseFloat(busdata.stop_lon)};
-
-                // Creating  markers and putting it on the map
-
-                // {#var image = 'https://image.flaticon.com/icons/svg/164/164955.svg';#}
-                // {#var image = "{% static '../../static/img/bus.png' %}";#}
-                var marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    title: busdata.actual_stop_id + "\n" + busdata.stop_name,
-                    // {#icon: image,#}
-
-                });
-
-            }
-        }
-
-    </script>
+  
 
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-hR-mSsuP9TGDFilrtWVmxNR_t1i-qYo&callback=initMap">
