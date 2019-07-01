@@ -5,5 +5,5 @@
                 document.getElementById('map'), {zoom: 14, center: dublin});
             // The marker, positioned at Uluru
             var marker = new google.maps.Marker({position: dublin, map: map});
-            addMarker(map)
+            addMarker(map,data);
         };
