@@ -68,7 +68,7 @@
         function addMarker(map) {
             //get the stop data from JSON file
             //this line in js cannot get the JSON, but when it in html, it can get
-            var data = {{load | safe}};
+            var data = {{ load | safe}};
 
             for (var i = 0, length = data.length; i < length; i++) {
                 var busdata = data[i];

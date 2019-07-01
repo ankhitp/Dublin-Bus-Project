@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['137.43.49.53', '0.0.0.0', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'map.apps.MapConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -148,4 +149,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = '/static/'
+# STATIC_ROOT = '/static/'

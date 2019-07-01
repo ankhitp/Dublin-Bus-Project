@@ -1,51 +1,181 @@
+/* General styles */
 
-/* Nav bar at top and tabs (nav-pills) at bottom */
+div.container-fluid {
+  padding-right: 0px;
+  padding-left: 0px;
+  padding: 0px;
+  width: 100%;
 
-/* all vh heights should add up to 100% */
-
-.nav nav-pills{
-    margin-left: 0px;
-    padding: 0px;
-    color: green;
-    border-radius:.0rem;
-    margin-right: 0px;
-    /* height:50px; */
 }
 
-/* top of page navbar */
+body,html{
+  height: 100vh;
+  /* width: 100%; */
+  margin: 0;
+  padding: 0;
+  background:rgba(2, 147, 222, 0.5) !important;
+  /* opacity: 0.5; */
+  font-family: 'Roboto', sans-serif;
+  }
+
+.row { 
+  margin: auto;
+}
+
+div.col-12{
+  padding:0px;
+  margin: 0px;
+  width: 100%;
+}
+
+div.col-3{
+  height: 7vh;
+  padding-right: 0px;
+  padding-top: 0px;
+  /* padding: 0px; */
+}
+div.col-6{
+  padding: 0px;
+  text-align: center;
+}
+
+/* Header styles */
+
+#header-row{
+  height: 7vh;
+  background: rgba(4, 36, 85, 0.5);
+  padding: 0px;
+  line-height: 6vh;
+  font-size: 4vh;
+  color: white;
+  font-family: 'Roboto';
+}
+
+.smalllogo{
+  height: 7vh;
+  width: 7vh;
+  line-height: 7vh;
+}
+
+
+/* search bar styles */
+
+  .searchbar{
+  margin-bottom: auto;
+  margin-top: auto;
+  height: 5vh;
+  background-color: #353b48;
+  border-radius: 30px;
+  }
+
+  .search_input{
+  color: white;
+  border: 0;
+  outline: 0;
+  background: none;
+  width: 0;
+  caret-color:transparent;
+  line-height: 5vh;
+  transition: width 0.4s linear;
+  }
+
+  .searchbar:hover > .search_input{
+  padding: 0 10px;
+  width: 450px;
+  caret-color:#042455;
+  transition: width 0.4s linear;
+  }
+
+  .searchbar:hover > .search_icon{
+  background: white;
+  color: #042455;
+  }
+
+  .search_icon{
+  height: 5vh;
+  width: 5vh;
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color:white;
+  }
+
+
+/* Nav bar used for tabs (nav-pills) at bottom */
+
+
+.nav nav-pills{
+  margin-left: 0px;
+  padding: 0px;
+  /* color: orange; */
+  border-radius:.0rem;
+  margin-right: 0px;
+}
+
 .navbar {
-    background: green;
-    height: 10vh;
+  background: green;
+  height: 5vh;
 }
 
 .nav{
-    background: purple;
-    height: 20vh;
-    width: 100%;
-    padding: 0px;
-    padding-right: 0px;
-    margin: 0px;
+  background: white;
+  height: 15vh;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
 }
 
 
+.nav nav-pills nav-justified{
+padding: 0px;
+background: purple;
+margin: 0px;
+width: 100%;
+}
 
-  #map {
-    height: 70vh;
-  }
-
-.container-fluid {
-    padding-right: 0px;
-    padding-left: 0px;
-    /* margin-right: auto;
-    margin-left: auto; */
-  }
 
 #footer-nav{
-    background: yellow;
-    height:20vh;
-    width: 100%;
-    padding: 0px;
+  background:  rgb(134, 131, 131);
+  /* padding-top: 15%; */
+  height: 15vh;
+  border-style: solid;
+  border-top: 4px;
+  border-bottom: 0px;
+  border-width: 1px;
+  border-color: white;
+  color:  rgb(212, 209, 209);
+  font-family: 'Roboto';
 
 }
 
+.nav-link{
+  color: white;
 
+}
+
+/* #nav-link active{
+} */
+
+/* .ul>nav nav-pills nav-justified
+.nav-item
+
+.tab
+.ul 
+.nav>li>a 
+
+.nav-link active
+
+.nav-link */
+
+
+.icon-container{
+  text-align: center;
+  font-size: 2vh;
+}
+
+#myicon{
+  font-size: 5vh;
+  padding-top: 2vh;
+}
