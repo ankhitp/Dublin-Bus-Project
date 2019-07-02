@@ -3,8 +3,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.template import loader
-
-from .models import *
+from django_user_agents.utils import get_user_agent
 
 from dublinbus.settings import TEMPLATES
 from django.views.generic import TemplateView
@@ -21,7 +20,13 @@ class map_view(TemplateView):
         form = MapForm()
         json_data = open('static/files/stops_info.json')
         stops_data = json.load(json_data)
-        return render(request, self.template_name, {'form':form, 'load': stops_data})
+        user_agent = get_user_agent(request)
+        if user_agent.is_mobile:
+            return render(request, 'mobile/m_map.html', {'form':form, 'load': stops_data})
+        elif user_agent.is_tablet:
+            return render(request, 'mobile/m_map.html', {'form':form, 'load': stops_data})
+        else:
+            return render(request, 'map.html', {'form':form, 'load': stops_data})
 
     # post method, which saves to the model
     def post(self, request):

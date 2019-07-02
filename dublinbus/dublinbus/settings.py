@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_mobile',
+    'django_user_agents',
+
 ]
 
 MIDDLEWARE = [
@@ -50,8 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'django_mobile.middleware.MobileDetectionMiddleware',
-    # 'django_mobile.middleware.SetFlavourMiddleware',
+
   ]
 
 
@@ -65,11 +65,18 @@ TEMPLATE_CONTEXT_PROCESSORS =  (
 )
 
 MIDDLEWARE_CLASSES = (
-    'django_mobile.middleware.MobileDetectionMiddleware',
-    'django_mobile.middleware.SetFlavourMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
+
 )
 
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#         'LOCATION': '127.0.0.1:11211',
+#     }
+# }
 
+# USER_AGENTS_CACHE = 'default'
 
 STATICFILES_DIRS = (
   os.path.join(BASE_DIR, 'static'),
