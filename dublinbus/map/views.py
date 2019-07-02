@@ -9,11 +9,13 @@ from django.views.decorators.csrf import csrf_exempt
 dirname = os.path.dirname(__file__)
 filename = os.path.join(dirname, "../static/files/stops_info.json")
 
-# Create your views here.
+from .models import *
 
+from django.views.generic import TemplateView
+from map.forms import MapForm
 import json
-# Create your views here.
 
+<<<<<<< HEAD
 def index(request):
     file = open(filename,"r")
     # return HttpResponse(render({}, request))
@@ -41,3 +43,32 @@ def getRoutes(request):
     response = response.json()
     return JsonResponse(response,safe=False)
 
+=======
+class map_view(TemplateView):
+    template_name = 'map.html'
+    
+    # get method
+    def get(self, request):
+        # initialise a form
+        form = MapForm()
+        json_data = open('static/files/stops_info.json')
+        stops_data = json.load(json_data)
+        return render(request, self.template_name, {'form':form, 'load': stops_data})
+
+    # post method, which saves to the model
+    def post(self, request):
+        form = MapForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            text = form.cleaned_data['post']
+            post.save()
+            # initialise another blank form
+            form = MapForm()
+            # return redirect('/home/')
+        # render the form and the text
+        args = {'form': form, 'text':text}
+        return render(request, self.template_name, args)
+
+
+
+>>>>>>> master
