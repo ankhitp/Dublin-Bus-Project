@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
+import django.conf.global_settings as DEFAULT_SETTINGS
 import os
 from django.conf import settings
 
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_mobile',
+    'django_user_agents',
+
 ]
 
 MIDDLEWARE = [
@@ -50,16 +51,32 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'django_mobile.middleware.MobileDetectionMiddleware',
-    # 'django_mobile.middleware.SetFlavourMiddleware',
+
   ]
 
 
-MIDDLEWARE_CLASSES =[
-    'django_mobile.middleware.SessionMiddleware',
-    'django_mobile.middleware.MobileDetectionMiddleware',
-    'django_mobile.middleware.SetFlavourMiddleware'
-]
+TEMPLATE_LOADERS = (
+    'django_mobile.loader.Loader',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS =  (
+    'django.core.context_processors.request',
+    'django_mobile.context_processors.is_mobile',
+)
+
+MIDDLEWARE_CLASSES = (
+    'django_user_agents.middleware.UserAgentMiddleware',
+
+)
+
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#         'LOCATION': '127.0.0.1:11211',
+#     }
+# }
+
+# USER_AGENTS_CACHE = 'default'
 
 STATICFILES_DIRS = (
   os.path.join(BASE_DIR, 'static'),
@@ -68,13 +85,13 @@ STATICFILES_DIRS = (
 
 DESKTOP_TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 MOBILE_TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates/mobile'),)
-
+TEMP_DIR = os.path.join(BASE_DIR, 'templates')
 ROOT_URLCONF = 'dublinbus.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates/'],
+        'DIRS': [TEMP_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,20 +99,16 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django_mobile.context_processors.flavour'
+                'django_mobile.context_processors.flavour',
             ],
+            # 'loaders': [
+            #     'django_mobile.loader.Loader',
+            # ],
         },
     },
 ]
 
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
-)
 
-
-TEMPLATE_LOADERS = [
-    'django_mobile.loader.Loader',
-]
 
 WSGI_APPLICATION = 'dublinbus.wsgi.application'
 
