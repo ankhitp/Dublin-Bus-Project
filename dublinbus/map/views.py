@@ -10,21 +10,8 @@ from django.views.generic import TemplateView
 from map.forms import MapForm
 import json
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-def index(request):
-    file = open(filename,"r")
-    # return HttpResponse(render({}, request))
-    loadjson = json.load(file)
-    file.close()
-=======
->>>>>>> 5e5f0a845151183cbb01b00a690cbed56aea01ee
 
 
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 5e5f0a845151183cbb01b00a690cbed56aea01ee
 class map_view(TemplateView):
     template_name = 'map.html'
     
@@ -57,9 +44,6 @@ class map_view(TemplateView):
 
 
 
-<<<<<<< HEAD
->>>>>>> master
-=======
 from datetime import datetime
 import os
 import requests
@@ -97,4 +81,3 @@ def getRoutes(request):
     response = response.json()
     return JsonResponse(response,safe=False)
 
->>>>>>> 5e5f0a845151183cbb01b00a690cbed56aea01ee
