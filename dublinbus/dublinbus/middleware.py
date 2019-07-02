@@ -7,7 +7,8 @@ class MobileTemplatesMiddleware(object):
             # sets are used here, you can use other logic if you have an older version of Python
             MOBILE_SUBDOMAINS = set(['m', 'mobile'])
             domain = set(request.META.get('HTTP_HOST', '').split('.'))
+            print(request.flavour)
             if request.flavour=='mobile':
-                settings.TEMPLATE_DIRS = settings.MOBILE_TEMPLATE_DIRS
+                TEMP_DIR = settings.MOBILE_TEMPLATE_DIRS
             else:
-                settings.TEMPLATE_DIRS = settings.DESKTOP_TEMPLATE_DIRS
+                TEMP_DIR = settings.DESKTOP_TEMPLATE_DIRS
