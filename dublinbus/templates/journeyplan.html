@@ -1,2 +1,340 @@
-<h1>journeyplan</h1>
+{% extends 'base.html' %}
+{% block content %}
 
+{% load static %}
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <style>
+        .controls {
+            margin-top: 10px;
+            border: 1px solid transparent;
+            border-radius: 2px 0 0 2px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            height: 32px;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        #origin-input,
+        #destination-input {
+            background-color: #fff;
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 300;
+            margin-left: 12px;
+            padding: 0 11px 0 13px;
+            text-overflow: ellipsis;
+            width: 200px;
+        }
+
+        #origin-input:focus,
+        #destination-input:focus {
+            border-color: #4d90fe;
+        }
+
+        #mode-selector {
+            color: #fff;
+            background-color: #4d90fe;
+            margin-left: 12px;
+            padding: 5px 11px 0px 11px;
+        }
+
+        #mode-selector label {
+            font-family: Roboto;
+            font-size: 13px;
+            font-weight: 300;
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            {% include 'navbar.html' %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <p>Map page of App
+            <p>
+        </div>
+        <div class="col-4">a</div>
+        <div class="col-4">b</div>
+    </div>
+
+    <div class="row dynamic-columns">
+        <div class="col-12 col">
+            <div id="map" style="width:100%;height:800px;"></div>
+        </div>
+        <div class="col-0 col">
+            <div id="panel" style='display:none'><h3>Possible Routes</h3><br></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12" id="footer">
+            {% include 'tabs.html' %}
+        </div>
+    </div>
+</div>
+<script>
+    var map;
+    var startLat;
+    var startLong;
+    var destLat;
+    var destLong;
+    markers = [];
+    var busPath;
+
+    // Initialize and add the map
+    function removeLine() {
+        busPath.setMap(null);
+    }
+
+    function initMap() {
+        directionsService = new google.maps.DirectionsService();
+        directionsDisplay = new google.maps.DirectionsRenderer();
+        // The location of Dublin
+        var dublin = {lat: 53.33306, lng: -6.24889};
+        // The map, centered at Uluru
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 14,
+            center: dublin,
+            mapTypeControl: false,
+        });
+        directionsDisplay.setMap(map);
+        var originInput = document.getElementById('origin-input');
+        var destinationInput = document.getElementById('destination-input');
+
+        var center = new google.maps.LatLng(53.33306,-6.24889);
+        var circle = new google.maps.Circle({
+            center: center,
+            radius: 10000
+        });
+        var originAutocomplete = new google.maps.places.Autocomplete(originInput);
+        var destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
+        originAutocomplete.setBounds(circle.getBounds());
+        destinationAutocomplete.setBounds(circle.getBounds());
+        this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
+        this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
+        var marker = new google.maps.Marker({position: dublin, map: map});
+        // The marker, positioned at Uluru
+        addMarker(map);
+
+    }
+
+    //get the stop data from JSON file
+    //this line in js cannot get the JSON, but when it in html, it can get
+    //  var data = {{ load|safe }};
+
+    // {#console.log(data[6]);#}
+
+
+    function addMarker(map) {
+        for (var i = 0, length = data.length; i < length; i++) {
+            var busdata = data[i];
+            // {#Console.log(busdata);#}
+            var myLatLng = {lat: parseFloat(busdata.stop_lat), lng: parseFloat(busdata.stop_lon)};
+
+            // Creating  markers and putting it on the map
+
+            // {#var image = 'https://image.flaticon.com/icons/svg/164/164955.svg';#}
+            // {#var image = "{% static '../../static/img/bus.png' %}";#}
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: busdata.actual_stop_id + "\n" + busdata.stop_name,
+                // {#icon: image,#}
+
+            });
+
+        }
+    }
+
+
+    function getLatLng() {
+        document.getElementById('panel').innerHTML = "<h3>Possible Routes</h3>";
+        var start = document.getElementById('origin-input').value;
+        var end = document.getElementById('destination-input').value;
+        var geocoder = new google.maps.Geocoder();
+        var geocoder2 = new google.maps.Geocoder();
+        geocoder.geocode({'address': start}, function (results, status) {
+                if (status == 'OK') {
+                    var loc = results[0].geometry.location;
+                    startLat = loc.lat();
+                    startLong = loc.lng();
+                }
+                geocoder2.geocode({'address': end}, function (results, status) {
+                    if (status == 'OK') {
+                        var loc = results[0].geometry.location;
+                        destLat = loc.lat();
+                        destLong = loc.lng();
+                        xhttp = new XMLHttpRequest();
+                        var date = new Date();
+                        date = date.toISOString();
+                        var url = "http://transit.api.here.com/v3/route.json?app_id=tL7r9QKJ3KlE5Kc9LGYo&app_code=1arMcSHt_o31xFSeBRswsA&modes=bus&routing=all&dep=" + startLat + "," + startLong + "&arr=" + destLat + "," + destLong + "&time=" + date;
+                        console.log(url);
+                        xhttp.open("GET", url, true);
+                        xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+                        //xhttp.setRequestHeader('X-CSRF-Token', 'abcdef');
+                        xhttp.send();
+                        xhttp.onreadystatechange = function () {
+                            if (this.readyState === 4 && this.status === 200) {
+                                var returnData = JSON.parse(this.responseText);
+                                var parseMe = returnData['Res']['Connections']["Connection"];
+                                for (var i = 0; i < parseMe.length; i++) {
+                                    var parsed = parseMe[i]["Sections"]["Sec"];
+                                    var connections = 0;
+                                    for (var x = 0; x < parsed.length; x++) {
+                                        if (parsed[x]['mode'] == 5) {
+                                            connections++;
+                                            if (connections == 1) {
+                                                console.log(x);
+                                                var hold = parsed[x]['Dep']['Transport']['name'] + ' toward ' + parsed[x]['Dep']['Transport']['dir'];
+                                                document.getElementById('panel').insertAdjacentHTML('beforeend', '<button id =' + i + ' class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick = "getRoute(' + i + ', \'' + url + '\')"></button>');
+                                                document.getElementById(i).innerHTML = hold;
+                                            }
+                                        }
+                                    }
+                                    if (connections == 1) {
+                                        document.getElementById('panel').insertAdjacentHTML('beforeend', " (No connections)</p>");
+                                    } else if (connections > 1) {
+                                        document.getElementById('panel').insertAdjacentHTML('beforeend', " (" + connections + " connections)</p>");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        )
+    }
+
+    function getRoute(i, url) {
+        var infowindow = new google.maps.InfoWindow();
+        var locations = [];
+        document.getElementById("panel").innerHTML = "<h3> Directions </h3>";
+        xhttp.open("GET", url, true);
+        xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        //xhttp.setRequestHeader('X-CSRF-Token', 'abcdef');
+        xhttp.send();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                var returnData = JSON.parse(this.responseText);
+                var parseMe = returnData['Res']['Connections']["Connection"];
+                var parsed = parseMe[i]["Sections"]["Sec"];
+                for (var x = 0; x < parsed.length; x++) {
+                    if (parsed[x]["mode"] == 20 && x != parsed.length - 1) {
+                        document.getElementById('panel').insertAdjacentHTML('beforeend',
+                            "<img src='../static/img/walk.png' style='width:32px;height:32px';> <p>Walk to " +
+                            parsed[x]["Arr"]["Stn"]["name"] + "</p> <p>" + parsed[x]["Journey"]['distance'] + " meters</p><hr>");
+                    }
+                    else if (parsed[x]['mode'] == 5) {
+                        document.getElementById('panel').insertAdjacentHTML('beforeend',
+                            "<img src='../static/img/bus.png' style='width:32px;height:32px';>" +
+                            "<p>Take bus number " + parsed[x]["Dep"]["Transport"]["name"] +
+                            " toward " + parsed[x]["Dep"]["Transport"]["dir"] + " from station " +
+                            parsed[x]["Dep"]["Stn"]["name"] + " to station " + parsed[x]["Arr"]["Stn"]["name"] +
+                            "</p><p>" + parsed[x]["Journey"]['Stop'].length + " stops</p><hr>");
+                        for (var z = 0; z < parsed[x]["Journey"]["Stop"].length; z++) {
+                            var latitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["y"];
+                            var longitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["x"];
+                            var name = parsed[x]["Journey"]["Stop"][z]["Stn"]['name'];
+                            latitude = parseFloat(latitude);
+                            longitude = parseFloat(longitude);
+                            locations.push({lat: latitude, lng: longitude, name: name});
+                        }
+                        for (var a = 0; a < locations.length; a++) {
+                            marker = new google.maps.Marker({
+                                position: new google.maps.LatLng(locations[a].lat, locations[a].lng),
+                                map: map
+                            });
+                            markers.push(marker);
+                            google.maps.event.addListener(marker, 'click', (function (marker, a) {
+                                return function () {
+                                    infowindow.setContent(locations[a].name);
+                                    infowindow.open(map, marker);
+                                }
+                            })(marker, a));
+                        }
+                        if (x == parsed.length - 1) {
+                            document.getElementById('panel').insertAdjacentHTML('beforeend',
+                                "<button class='btn btn-outline-success my-2 my-sm-0' " +
+                                "type='submit' onclick = 'removeLine(); deleteMarkers();getLatLng()'>Return to Results</button>");
+                        }
+                    }
+                    else if (parsed[x]["mode"] == 20 && x == parsed.length - 1) {
+                        var geocoder = new google.maps.Geocoder;
+                        var lat = parsed[x]["Arr"]["Addr"]["y"];
+                        var long = parsed[x]["Arr"]["Addr"]["x"];
+                        var latlngStr = lat.toString() + "," + long.toString();
+                        latlngStr = latlngStr.split(',', 2);
+                        var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
+                        geocoder.geocode({'location': latlng}, function (results, status) {
+                            if (status === 'OK') {
+                                document.getElementById('panel').insertAdjacentHTML('beforeend',
+                                    "<img src='../static/img/walk.png' style='width:32px;height:32px';>" +
+                                    "<p>Walk to destination: " + results[0].formatted_address + "</p>");
+                                document.getElementById('panel').insertAdjacentHTML('beforeend',
+                                    "<button class='btn btn-outline-success my-2 my-sm-0' " +
+                                    "type='submit' onclick = 'removeLine(); deleteMarkers();getLatLng()'>Return to Results</button>")
+
+                            }
+                        })
+                    }
+                }
+                busPath = new google.maps.Polyline({
+                    path: locations,
+                    geodesic: true,
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2
+                });
+                busPath.setMap(map);
+            }
+        }
+    }
+    function clearMarkers() {
+        setMapOnAll(null);
+    }
+
+    function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+        }
+    }
+
+    function deleteMarkers() {
+        clearMarkers();
+        markers = [];
+    }
+
+
+    function calcRoute() {
+        var columns_container = $(".dynamic-columns");
+        if (!columns_container.hasClass("expanded")) {
+            $(".dynamic-columns .col:first").removeClass("col-12");
+            $(".dynamic-columns .col:first").addClass("col-9");
+
+            $(".dynamic-columns .col:last-child").removeClass("col-0");
+            $(".dynamic-columns .col:last-child").addClass("col-3");
+            columns_container.toggleClass("expanded");
+        }
+        document.getElementById('panel').style = 'display:block';
+        getLatLng();
+    }
+
+
+</script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvFaUDR5Wnl172znC5agS97gPJmyXHwOs&libraries=places&callback=initMap">
+</script>
+</body>
+{% endblock %}
