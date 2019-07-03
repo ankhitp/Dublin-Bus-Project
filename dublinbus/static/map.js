@@ -13,11 +13,14 @@ function initMap() {
     var originInput = document.getElementById('origin-input');
     var destinationInput = document.getElementById('destination-input');
 
+    //define a center and circle for our autocomplete search, this makes it so that it's biased toward this area when
+    //searching for a place name
     var center = new google.maps.LatLng(53.33306,-6.24889);
     var circle = new google.maps.Circle({
         center: center,
         radius: 10000
     });
+    //setting up the autcomplete and adding the bound circle of 10KM for suggestions
     var originAutocomplete = new google.maps.places.Autocomplete(originInput);
     var destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
     originAutocomplete.setBounds(circle.getBounds());
@@ -51,6 +54,7 @@ function addMarker(map) {
     }
 }
 
+//removes line created for route
 function removeLine() {
     busPath.setMap(null);
 }
@@ -65,11 +69,13 @@ function setMapOnAll(map) {
     }
 }
 
+//CALL THIS TO REMOVE MARKERS FROM MAP, IT USES THE OTHER MARKER RELATED FUNCTIONS!
 function deleteMarkers() {
     clearMarkers();
     markers = [];
 }
 
+//sets the map back to original position, this will be changed when I move the directions over to the left panel
 function resetMap() {
     var columns_container = $(".dynamic-columns");
     document.getElementById('panel').style = 'display:none';
@@ -83,6 +89,7 @@ function resetMap() {
     columns_container.toggleClass("expanded");
 }
 
+//resizes map for directions on the right side, this will be changed when I move the directions over to the left panel
 
 function resizeMap() {
     console.log("here");
