@@ -1,0 +1,47 @@
+#csstest{
+    color: pink;
+}
+#myholder{
+    height: 30vh;
+    color: black;
+    background: white;
+}
+.div.col-3{
+    padding-left: 5px;
+    padding-right: 0px;
+}
+.html{
+    padding-right: 0px;
+}
+#choices{
+    height: 5vh;
+    color: black;
+    background: white;
+    padding: 20px;
+}
+div#choices{
+    background-color: navy;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn.btn-primary.btn-lg{
+background-color: pink;
+}
+#accordion{
+    overflow-y: scroll;
+    color: red;
+    border-style: solid;
+    border-color: white;
+    border-width: 5px;
+    margin-left: 15px;
+}
+button.btn.btn-link{
+    color: rgba(4, 36, 85, 0.5);
+}
+div.card-header{
+    color: black;
+}
+div.card-body{
+    padding: 30px;
+}

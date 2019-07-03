@@ -11,6 +11,7 @@ function getLatLng() {
     var end = document.getElementById('destination-input').value;
     var geocoder = new google.maps.Geocoder();
     var geocoder2 = new google.maps.Geocoder();
+    console.log("made it to here");
     geocoder.geocode({'address': start}, function (results, status) {
             if (status == 'OK') {
                 var loc = results[0].geometry.location;
@@ -28,6 +29,7 @@ function getLatLng() {
                     var url = "http://transit.api.here.com/v3/route.json?app_id=tL7r9QKJ3KlE5Kc9LGYo&app_code=1arMc" +
                         "SHt_o31xFSeBRswsA&modes=bus&routing=all&dep=" + startLat + "," + startLong + "&arr=" + destLat +
                         "," + destLong + "&time=" + date;
+                    console.log("test");
                     console.log(url);
                     xhttp.open("GET", url, true);
                     xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
