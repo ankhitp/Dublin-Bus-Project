@@ -28,5 +28,4 @@ urlpatterns = [
     path('journeyplan/', include('journeyplan.urls')),
     # path('map/', post_new, name='map'),
 
-
 ]
