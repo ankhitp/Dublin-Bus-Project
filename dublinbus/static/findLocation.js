@@ -16,10 +16,13 @@ function findLocation() {
                         var marker = new google.maps.Marker({
                             position: destPos,
                             map: map,
+                            content: '<div id="content">' + '<div id="Stop_id">' + '<p><b>Stop ID:</b>  ' + data[i].actual_stop_id + '</p>' +
+                        '<p><b>Stop name:</b><br>' + data[i].stop_name + '</p><br>' + '<p><b>Serving route:</b>' + '**</p>' + '</div>'
+                        + '<button id="realtime"><a href="../realtimeinfo/' + data[i].actual_stop_id + '"> View real time info</button></div>'
                         });
                         google.maps.event.addListener(marker, 'click', (function (marker, i) {
                             return function () {
-                                infowindow.setContent("HELLO");
+                                infowindow.setContent(marker.content);
                                 infowindow.open(map, marker);
                             }
                         })(marker, i));
