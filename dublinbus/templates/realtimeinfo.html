@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% load static %}
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </head>
+    <body>
+    <table id="info"></table>
+    </body>
+
+    <script>
+        var getJSON = function (url, callback) {
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.responseType = 'json';
+
+            xhr.onload = function () {
+
+                var status = xhr.status;
+
+                if (status == 200) {
+                    callback(null, xhr.response);
+                } else {
+                    callback(status);
+                }
+            };
+
+            xhr.send();
+        };
+
+        getJSON('https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid={{ id }}&format=json', function (err, datainfo) {
+                {#'+stopid+'#}
+                var texthead = `<h3 style = "padding-left : 100px";>Stop: ${datainfo.stopid}</h3>
+                            <h6 style = "padding-left : 100px";>Data Refreshed at: ${datainfo.timestamp}</h6>`
+                var text = `
+                            <tr style="border-bottom: 1px solid #ddd";>
+                            <th style = "padding-left : 100px";>Bus</th>
+                            <th style = "padding-left : 50px";>Destination</th>
+                            <th style = "padding-left : 100px";>Due</th>
+                            </tr>
+                            `
+
+                var content = "";
+                for (var i = 0, length = datainfo.results.length; i < length; i++) {
+                    if (datainfo.results[i].duetime == 1) {
+                        var minute = "min";
+                    } else {
+                        minute = "mins"
+                    }
+
+                    content += `<tr>
+                    <td style = "padding-left : 100px";>${datainfo.results[i].route}</td>
+                    <td style = "padding-left : 50px";>${datainfo.results[i].destination}</td>
+                    <td style = "padding-left : 100px";>${datainfo.results[i].duetime}${minute}</td>
+                    </tr>`
+                }
+                document.getElementById("info").innerHTML = texthead + text + content;
+            }
+        );
+    </script>
+
+
+{% endblock %}

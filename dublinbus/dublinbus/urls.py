@@ -26,7 +26,7 @@ urlpatterns = [
     path('more/', include('more.urls')),
     path('routes/', include('routes.urls')),
     path('journeyplan/', include('journeyplan.urls')),
+    path('realtimeinfo/', include('realtimeinfo.urls')),
     # path('map/', post_new, name='map'),
-
 
 ]
