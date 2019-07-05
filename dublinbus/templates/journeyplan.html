@@ -69,22 +69,32 @@
 </div>
 
     <div class="row dynamic-columns">
-        <div id = 'options' class="col-2 col">
+        <div id = 'options' class="col-2 col" style="height: 800px; overflow: scroll">
             <div>
-                <input autocomplete="off" id="origin-input" class="controls" type="text" placeholder="Enter an origin location">
 
-                <input autocomplete="off"   id="destination-input" class="controls" type="text" placeholder="Enter a destination location">
+                <h3 style="text-align: center">Start your journey here!</h3>
                 <br>
-                <br>
-                <button class='btn btn-primary' id = "directionsButton"  type="submit" onclick = "resizeMap()">Search</button>
+                <h4 style="text-align: center">Enter a start and end location!</h4>
 
+                <div style = "text-align: center">
+
+                    <input autocomplete="off" id="origin-input" class="controls" type="text" placeholder="Enter an origin location">
+
+                    <input autocomplete="off"   id="destination-input" class="controls" type="text" placeholder="Enter a destination location">
+
+                </div>
+                <br>
+                <div style = "text-align: center">
+                    <button  class='btn btn-primary' id = "directionsButton"  type="submit" onclick = "resizeMap()">Search</button>
+                </div>
+                <br>
+                <div style = "text-align: center">
+                    <button  class='btn btn-primary' id = "locationButton"  type="submit" onclick = "findLocation()">Find Stations Near Me!</button>
+                </div>
             </div>
         </div>
         <div class="col-10 col">
             <div id="map" style="width:100%;height:800px;"></div>
-        </div>
-        <div class="col-0 col">
-            <div id="panel" style='display:none;' ><h3>Possible Routes</h3><br></div>
         </div>
     </div>
 
@@ -104,12 +114,16 @@
     var busPath;
     var depTime;
     var arrTime;
+    var LocationWindow;
+Z
 
 
 </script>
 <script src="{% static 'map.js' %}"></script>
 <script src="{% static 'getRoute.js' %}"></script>
 <script src="{% static 'getLatLong.js' %}"></script>
+<script src="{% static 'findLocation.js' %}"></script>
+
 
 
 <script async defer
