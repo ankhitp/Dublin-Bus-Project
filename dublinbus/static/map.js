@@ -10,6 +10,23 @@ function initMap() {
         mapTypeControl: false,
     });
     directionsDisplay.setMap(map);
+    setAutocomplete();
+    // The marker, positioned at Uluru
+    addMarker(map);
+
+}
+function changeToJourney(){
+    document.getElementById('Logo').innerHTML ="<p>Plan Your Journey!";
+    document.getElementById('search').style = "display:none";
+    var columns_container = $(".dynamic-columns");
+    $(".dynamic-columns .col:last-child").removeClass("col-12");
+    $(".dynamic-columns .col:last-child").addClass("col-10");
+    document.getElementById('options').style = "display:block";
+    setAutocomplete();
+}
+
+//moved the setting up of the autocomplete boxes to another function
+function setAutocomplete() {
     var originInput = document.getElementById('origin-input');
     var destinationInput = document.getElementById('destination-input');
 
@@ -28,9 +45,6 @@ function initMap() {
     this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
     this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
     var marker = new google.maps.Marker({position: dublin, map: map});
-    // The marker, positioned at Uluru
-    addMarker(map);
-
 }
 
 function addMarker(map) {
@@ -75,35 +89,63 @@ function deleteMarkers() {
     markers = [];
 }
 
-//sets the map back to original position, this will be changed when I move the directions over to the left panel
+//sets the map back to original position
 function resetMap() {
     var columns_container = $(".dynamic-columns");
-    document.getElementById('panel').style = 'display:none';
-    document.getElementById('options').style = "display:block";
+    $(".dynamic-columns .col:first-child").removeClass("col-3");
+    $(".dynamic-columns .col:first-child").addClass("col-2");
 
-    $(".dynamic-columns .col:nth-child(2)").removeClass("col-9");
-    $(".dynamic-columns .col:nth-child(2)").addClass("col-10");
-
-    $(".dynamic-columns .col:last-child").removeClass("col-3");
-    $(".dynamic-columns .col:last-child").addClass("col-0");
+    $(".dynamic-columns .col:last-child").removeClass("col-9");
+    $(".dynamic-columns .col:last-child").addClass("col-10");
     columns_container.toggleClass("expanded");
+    document.getElementById('options').innerHTML =
+        "<div>"+
+            '<h3 style="text-align: center">Start your journey here!</h3>'+
+            '<br>'+
+            '<h4 style="text-align: center">Enter a start and end location!</h4>'+
+
+            '<div style = "text-align: center">'+
+
+        '<input autocomplete="off" id="origin-input" class="controls" type="text" placeholder="Enter an origin location">'+
+
+        '<input autocomplete="off"   id="destination-input" class="controls" type="text" placeholder="Enter a destination location">'+
+
+        '</div>'+
+        '<br>'+
+        '<div style = "text-align: center">'+
+        '<button  class="btn btn-primary" id = "directionsButton"  type="submit" onclick = "resizeMap()">Search</button>'+
+        '</div><br>'+
+        '<div style = "text-align: center">' +
+        '<button  class="btn btn-primary" id = "locationButton"  type="submit" onclick = "findLocation()">Find Stations Near Me!</button>' +
+        '</div> </div>';
+    setAutocomplete();
+
+
 }
 
-//resizes map for directions on the right side, this will be changed when I move the directions over to the left panel
+//resizes map for directions on the right side
 
 function resizeMap() {
-    console.log("here");
-    var columns_container = $(".dynamic-columns");
-    if (!columns_container.hasClass("expanded")) {
-        document.getElementById('options').style = "display:none";
+    var start = document.getElementById('origin-input').value;
+    var end = document.getElementById('destination-input').value;
 
-        $(".dynamic-columns .col:nth-child(2)").removeClass("col-10");
-        $(".dynamic-columns .col:nth-child(2)").addClass("col-9");
-
-        $(".dynamic-columns .col:last-child").removeClass("col-0");
-        $(".dynamic-columns .col:last-child").addClass("col-3");
-        columns_container.toggleClass("expanded");
+    if (start == "" || end == "") {
+        document.getElementById("options").innerHTML = "<h4 style = 'text-align: center'>Please enter a start and end location!</h4>" +
+            "<div style = 'text-align: center'>"+
+            "<br> <br> <button class='btn btn-primary' id = 'directionsButton'  type='submit' onclick = 'resetMap()'>Try Again</button> " +
+            "</div>";
     }
-    document.getElementById('panel').style = 'display:block; overflow:scroll; max-height: 800px';
-    getLatLng();
+    else {var columns_container = $(".dynamic-columns");
+        if (!columns_container.hasClass("expanded")) {
+
+            $(".dynamic-columns .col:first-child").removeClass("col-2");
+            $(".dynamic-columns .col:first-child").addClass("col-3");
+
+            $(".dynamic-columns .col:last-child").removeClass("col-10");
+            $(".dynamic-columns .col:last-child").addClass("col-9");
+
+            columns_container.toggleClass("expanded");
+        }
+        getLatLng(start, end);
+    }
 }

@@ -6,11 +6,13 @@
  * @param i targets the specific route that the user wants to get directions for.
  * @param url for the API hit we want to do.
  */
-function getRoute(i, url) {
+function getRoute(i, url,start,end) {
+    console.log(start);
+    console.log(end);
     var infowindow = new google.maps.InfoWindow();
     //array I'll use store locations
     var locations = [];
-    document.getElementById("panel").innerHTML = "<h3> Directions </h3>";
+    document.getElementById("options").innerHTML = "<h3> Directions </h3>";
     //hit the HERE api for route
     xhttp.open("GET", url, true);
     xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
@@ -24,14 +26,14 @@ function getRoute(i, url) {
             for (var x = 0; x < parsed.length; x++) {
                 //if the direction is to walk and it's not the last step of the route
                 if (parsed[x]["mode"] == 20 && x != parsed.length - 1) {
-                    document.getElementById('panel').insertAdjacentHTML('beforeend',
+                    document.getElementById('options').insertAdjacentHTML('beforeend',
                         "<img src='../static/img/walk.png' style='width:32px;height:32px';> <p>Walk to " +
                         parsed[x]["Arr"]["Stn"]["name"] + "</p> <p>" + parsed[x]["Journey"]['distance'] + " meters</p><hr>");
                 }
                 //if the direction is to take a bus
                 else if (parsed[x]['mode'] == 5) {
                     //build the HTML for "take bus number X toward Z from station X to station Y. X stops"
-                    document.getElementById('panel').insertAdjacentHTML('beforeend',
+                    document.getElementById('options').insertAdjacentHTML('beforeend',
                         "<img src='../static/img/bus.png' style='width:32px;height:32px';>" +
                         "<p>Take bus number " + parsed[x]["Dep"]["Transport"]["name"] +
                         " toward " + parsed[x]["Dep"]["Transport"]["dir"] + " from station " +
@@ -46,6 +48,8 @@ function getRoute(i, url) {
                         longitude = parseFloat(longitude);
                         locations.push({lat: latitude, lng: longitude, name: name});
                     }
+                    var newCenter = new google.maps.LatLng(locations[0].lat, locations[0].lng);
+                    map.panTo(newCenter);
                     //go through all the entries in our array and create markers from them, and then create
                     //onClick windows for each marker.
                     for (var a = 0; a < locations.length; a++) {
@@ -63,9 +67,9 @@ function getRoute(i, url) {
                     }
                     //if its the last direction in the route, add a return to results button.
                     if (x == parsed.length - 1) {
-                        document.getElementById('panel').insertAdjacentHTML('beforeend',
+                        document.getElementById('options').insertAdjacentHTML('beforeend',
                             "<button class='btn btn-primary' " +
-                            "type='submit' onclick = 'removeLine(); deleteMarkers();getLatLng()'>Return to Results</button>");
+                            'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\''+start+'\',\''+end+'\')">Return to Results</button>');
                     }
                 }
                 //if its the last step in the route and it's a walking instruction.
@@ -82,12 +86,12 @@ function getRoute(i, url) {
                     geocoder.geocode({'location': latlng}, function (results, status) {
                         if (status === 'OK') {
                             //Just building the html to say "walk to destination X" and add return to results button.
-                            document.getElementById('panel').insertAdjacentHTML('beforeend',
+                            document.getElementById('options').insertAdjacentHTML('beforeend',
                                 "<img src='../static/img/walk.png' style='width:32px;height:32px';>" +
                                 "<p>Walk to destination: " + results[0].formatted_address + "</p>");
-                            document.getElementById('panel').insertAdjacentHTML('beforeend',
+                            document.getElementById('options').insertAdjacentHTML('beforeend',
                                 "<button class='btn btn-primary' " +
-                                "type='submit' onclick = 'removeLine(); deleteMarkers();getLatLng()'>Return to Results</button>")
+                                'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\''+start+'\',\''+end+'\')">Return to Results</button>');
 
                         }
                     })

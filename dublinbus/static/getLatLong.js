@@ -5,12 +5,13 @@
  * two latitude and longitude points. The function then tells the user which bus lines are possible between two points
  * and also indicates how many connections each route has.
  */
-function getLatLng() {
+function getLatLng(start, end) {
     //set the HTML for the routes list
-    document.getElementById('panel').innerHTML = "<h3>Possible Routes</h3>";
     //start and end points
-    var start = document.getElementById('origin-input').value;
-    var end = document.getElementById('destination-input').value;
+
+    document.getElementById('options').innerHTML = "<h3>Possible Routes</h3>";
+    var dublin = {lat: 53.33306, lng: -6.24889};
+    map.panTo(dublin);
     //Two geocoders, one for the start and one for end
     var geocoder = new google.maps.Geocoder();
     var geocoder2 = new google.maps.Geocoder();
@@ -54,9 +55,9 @@ function getLatLng() {
                                             //give the list of routes
                                             var hold = parsed[x]['Dep']['Transport']['name'] + ' toward ' +
                                                 parsed[x]['Dep']['Transport']['dir'];
-                                            document.getElementById('panel').insertAdjacentHTML('beforeend',
+                                            document.getElementById('options').insertAdjacentHTML('beforeend',
                                                 '<button id =' + i + ' class="btn btn-primary" type="submit" ' +
-                                                'onclick = "getRoute(' + i + ', \'' + url + '\')"></button>');
+                                                'onclick = "getRoute(' + i + ', \'' + url + '\', \''+start+'\',\''+end+'\')"></button>');
                                             document.getElementById(i).innerHTML = hold;
                                             depTime = new Date(parsed[x]["Dep"]['time']);
                                             arrTime = new Date(parsed[x]["Arr"]['time']);
@@ -74,15 +75,15 @@ function getLatLng() {
                                 }
                                 //let the user know how many connections required per route.
                                 if (connections == 1) {
-                                    document.getElementById('panel').insertAdjacentHTML('beforeend', " (No connections) " +
+                                    document.getElementById('options').insertAdjacentHTML('beforeend', " (No connections) " +
                                         "- "+ string +" </p>");
                                 } else if (connections > 1) {
-                                    document.getElementById('panel').insertAdjacentHTML('beforeend', " (" + connections
+                                    document.getElementById('options').insertAdjacentHTML('beforeend', " (" + connections
                                         + " connections) - "+ string +"</p>");
                                 }
                             }
                             //option to reset the searches
-                            document.getElementById('panel').insertAdjacentHTML('beforeend', "<button class=" +
+                            document.getElementById('options').insertAdjacentHTML('beforeend', "<button class=" +
                                 "'btn btn-primary' type='submit' onclick = 'resetMap()'>Search Again</button>");
                         }
                     }
