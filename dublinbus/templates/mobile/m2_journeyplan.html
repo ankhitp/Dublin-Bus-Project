@@ -31,13 +31,25 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="block">
-              <label class="checkbox"> This is my checkbox
-                <input type="checkbox" data-toggle="collapse" data-target="#collapseExample" class="collapse show" aria-expanded="true">
-              </label>
-              <div class="collapse show" id="collapseExample">
+              <!-- <label class="checkbox"> This is my checkbox
+                <input type="checkbox" data-toggle="collapse" data-target="#collapseAbove" class="collapse show" aria-expanded="true">
+              </label> -->
+              <div class="collapse show" id="collapseAbove">
                 <div class="row">
-                  <div class="col-12">
+                        <div id = 'options' class="col-2 col">
+                                <div>
+                                    <input autocomplete="off" id="origin-input" class="controls" type="text" placeholder="Enter an origin location">
+                    
+                                    <input autocomplete="off"   id="destination-input" class="controls" type="text" placeholder="Enter a destination location">
+                                    <br>
+                                    <br>
+                                    <button class='btn btn-primary' data-toggle="collapse" data-target="#collapseAbove" class="collapse show" aria-expanded="true" id = "directionsButton"  type="submit" onclick = "resizeMap()">Search</button>
+                    
+                                </div>
+                            </div>
+                  <!-- <div class="col-12">
                     <div class="form-group">
+
                       <input type="number" class="form-control" placeholder="option one">
                     </div>
                     <div class="form-group">
@@ -46,7 +58,7 @@
                     <div class="form-group">
                       <input type="number" class="form-control" placeholder="option three">
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
         </div>
@@ -57,12 +69,7 @@
 
 
 
-
-
-
-
-
-
+<!-- 
     <div class="row dynamic-columns">
         <div id = 'options' class="col-2 col">
             <div>
@@ -72,29 +79,20 @@
                 <br>
                 <br>
                 <button class='btn btn-primary' id = "directionsButton"  type="submit" onclick = "resizeMap()">Search</button>
-
             </div>
         </div>
-     
-    
-    </div>
+    </div> -->
 
     <div class="col-10 col">
         <div id="map"></div>
     </div>
 
-    <div class="row">
-            <!-- <div class="col-12" id="map"></div> -->
-        </div>
+    <div class="collapsed collapse" data-toggle= "collapse" id="collapseAbove" data-target="#collapseAbove"  aria-expanded="false">
+       <div class="lowercollapse" id="lowercollapse">
         <div class="row" id="choices">
 
           <div class="col-12" id="panel"></div>
-                <!-- <div class="col-4"><button type="button" class="btn btn-primary btn-lg">Primary</button>
-                </div>
-                <div class="col-4"><button type="button" class="btn btn-primary btn-lg">Primary</button>
-                </div>
-                <div class="col-4"><button type="button" class="btn btn-primary btn-lg">Primary</button>
-                </div> -->
+             
             </div>
 
         <div class="row" id= "collapseblock">
@@ -106,12 +104,14 @@
                           </div>
             </div>
         </div>
+        </div>
+
+
         <div class="row">
             <div class="col-12" id="footer-tab">
                 {% include 'tabs.html' %}
             </div>
         </div>
-    </div>
   
    
     </body>
@@ -122,12 +122,6 @@
 
 
 
-
-
-
-
-
-</div>
 <script>
     var map;
     var startLat;
