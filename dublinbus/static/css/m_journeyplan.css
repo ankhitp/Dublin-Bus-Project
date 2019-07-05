@@ -108,3 +108,12 @@ div.card-body{
     font-size: 13px;
     font-weight: 300;
 }
+
+
+.block {
+    margin-top: 30px;
+  }
+  #collapseExample{
+    background-color: #eee;
+    padding: 30px 15px;
+  }
