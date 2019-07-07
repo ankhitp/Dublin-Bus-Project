@@ -8,13 +8,26 @@ import requests
 from django.views.decorators.csrf import csrf_exempt
 dirname = os.path.dirname(__file__)
 filename = os.path.join(dirname, "../static/files/stops_info.json")
-
-# Create your views here.
-
 import json
+from django_user_agents.utils import get_user_agent
+
+
+
+
 def routes(request):
     # return HttpResponse(render({}, request))
-    return render(request, "routes.html", {})
+    json_data = open('static/files/stops_info.json')
+    stops_data = json.load(json_data)
+    user_agent = get_user_agent(request)
+    if user_agent.is_mobile:
+        return render(request, 'mobile/m_routes.html', {'load': stops_data})
+    elif user_agent.is_tablet:
+        return render(request, 'mobile/m_routes.html', {'load': stops_data})
+    else:
+        return render(request, 'routes.html', {'load': stops_data})
+
+
+
 
 @csrf_exempt
 def getRoutes(request):

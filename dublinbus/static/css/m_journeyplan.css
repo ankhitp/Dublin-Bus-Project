@@ -2,14 +2,13 @@
     color: pink;
 }
 #myholder{
-    height: 40vh;
     color: black;
     background: white;
 }
 .div.col-3{
     padding-left: 5px;
     padding-right: 0px;
-    height: 5vh;
+    height: 2vh;
 }
 
 .container-fluid{
@@ -22,7 +21,7 @@
 }
 
 #map.col-12{
-height: 37vh;
+height: 35vh;
 background: black;
 width: 100%;
 }
@@ -31,7 +30,7 @@ width: 100%;
 }
 
 #map{
-    height: 37vh;
+    height: 35vh;
     width: 100%;
 }
 #choices{
@@ -115,23 +114,56 @@ div.card-body{
 }
 
 
-.block {
-    margin-top: 30px;
-  }
-  #collapseExample{
-    background-color: #eee;
-    padding: 30px 15px;
+.input-block {
+    padding: 20px;
+    height: 40vh;
+
   }
 
-  #lowCollapse{
-    background-color: #eee;
-    padding: 30px 15px;
-  }
+ .lowerblock{
+
+ }
+#collapseblock{
+    height: 35vh;
+}
 
   #collapseAbove{
       padding: 20px;
   }
 
   .checkbox{
-      padding: 20px;
+      padding: 10px;
   }
+
+  #footer-div{
+      padding: 0px;
+      margin-top: 0px;
+      height: 15vh;
+  }
+
+  #footer-tab.col-12{
+      height: 15vh;
+      background: purple;
+      margin-top: 0px;
+      margin: 0px;
+      padding: 0px;
+  }
+
+  #footer-nav{
+    background:  rgb(134, 131, 131);
+    /* padding-top: 15%; */
+    height: 15vh;
+    border-style: solid;
+    border-top: 4px;
+    border-bottom: 0px;
+    border-width: 1px;
+    border-color: white;
+    color:  rgb(212, 209, 209);
+    font-family: 'Roboto';
+  
+  }
+  
+  .nav-link{
+    color: white;
+    padding-top: 2px;
+  
