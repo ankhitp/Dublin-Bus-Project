@@ -122,3 +122,7 @@ div.card-body{
     background-color: #eee;
     padding: 30px 15px;
   }
+
+  #collapseAbove{
+      padding: 20px;
+  }
