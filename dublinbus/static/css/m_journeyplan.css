@@ -16,6 +16,11 @@
     /* height: 20vh; */
 }
 
+.col-10.col{
+    background: purple;
+    padding: 5px;
+}
+
 #map.col-12{
 height: 37vh;
 background: black;
@@ -124,5 +129,9 @@ div.card-body{
   }
 
   #collapseAbove{
+      padding: 20px;
+  }
+
+  .checkbox{
       padding: 20px;
   }

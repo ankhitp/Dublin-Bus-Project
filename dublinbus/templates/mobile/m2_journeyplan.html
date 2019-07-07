@@ -6,6 +6,7 @@
 </head>
 <body>
    <div class="container-fluid">
+
       <div class="row" id="header-row">
          <div class="col-3">
             <img src = "{% static 'smalllogo.png' %}" class="smalllogo">
@@ -17,11 +18,10 @@
          <div class="col-3">
          </div>
       </div>
-   </div>
    <!-- copied from here -->
    <div class="container">
       <div class="row">
-         <div class="col-sm-12">
+         <div class="col-12 col">
             <div class="block">
                <label class="checkbox"> This is my checkbox
                   <input type="checkbox" data-toggle="collapse" data-target="#collapseAbove" class="collapse show" aria-expanded="true">
@@ -45,29 +45,36 @@
       </div>
    </div>
    <!-- ended copy here -->
- 
-   <div class="col-10 col">
+   <div class="row">
+        <div class="col-12 col">
       <div id="map"></div>
    </div>
+</div>
+
+<div class="row" id="choices">
+        <div class="col-12" id="panel"></div>
    <div class="collapsed collapse" data-toggle= "collapse" id="collapseAbove" data-target="#collapseAbove"  aria-expanded="false">
-      <div class="lowercollapse" id="lowercollapse">
-         <div class="row" id="choices">
-            <div class="col-12" id="panel"></div>
-         </div>
+   
+</div>
+        </div>
+
          <div class="row" id= "collapseblock">
             <div class="col-12" id="myholder">
                <div id="accordion">
                </div>
             </div>
          </div>
-      </div>
-   </div>
+   
    <div class="row">
       <div class="col-12" id="footer-tab">
          {% include 'tabs.html' %}
       </div>
    </div>
+
+</div>
+
 </body>
+
 <script>
    var map;
    var startLat;

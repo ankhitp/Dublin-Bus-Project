@@ -88,17 +88,17 @@ function resetMap() {
 
 function resizeMap() {
     console.log("here");
-    var columns_container = $(".dynamic-columns");
-    if (!columns_container.hasClass("expanded")) {
-        document.getElementById('options').style = "display:none";
+    // var columns_container = $(".dynamic-columns");
+    // if (!columns_container.hasClass("expanded")) {
+    //     document.getElementById('options').style = "display:none";
 
-        $(".dynamic-columns .col:nth-child(2)").removeClass("col-10");
-        $(".dynamic-columns .col:nth-child(2)").addClass("col-9");
+    //     $(".dynamic-columns .col:nth-child(2)").removeClass("col-10");
+    //     $(".dynamic-columns .col:nth-child(2)").addClass("col-9");
 
-        $(".dynamic-columns .col:last-child").removeClass("col-0");
-        $(".dynamic-columns .col:last-child").addClass("col-3");
-        columns_container.toggleClass("expanded");
-    }
-    document.getElementById('panel').style = 'display:block; overflow:scroll; max-height: 800px';
+    //     $(".dynamic-columns .col:last-child").removeClass("col-0");
+    //     $(".dynamic-columns .col:last-child").addClass("col-3");
+    //     columns_container.toggleClass("expanded");
+    // }
+    // document.getElementById('panel').style = 'display:block; overflow:scroll; max-height: 800px';
     getLatLng();
 }
