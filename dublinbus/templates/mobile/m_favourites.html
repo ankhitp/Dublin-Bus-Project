@@ -2,10 +2,42 @@
 
 
 {% block content %}
-<h1> this is favourites</h1>
-<p>this is a template</p>
-{% endblock %}
+{% load static %}
 
-{% block morecontent %}
-<p>yes it's working</p>
+<div class="container-fluid">
+
+<div class="row" id="header-row">
+        <div class="col-3">
+                <img src = "{% static 'smalllogo.png' %}" class="smalllogo">
+        </div>
+        <div class="col-6">
+            <p>mobile favourites</p>
+        </div>
+        <div class="col-3">
+        </div>
+       
+    </div>
+
+    <div class="row">
+
+            <div class="col-12" id="middlesection">
+<p>middle section</p>
+
+            </div>
+
+        </div>
+
+    <div class="row">
+
+            <div class="col-12">
+
+                {% include 'tabs.html' %}
+
+            </div>
+
+        </div>
+
+</div>
+<link rel="stylesheet" href="{% static 'css/m_favourites.css' %}">
+
 {% endblock %}

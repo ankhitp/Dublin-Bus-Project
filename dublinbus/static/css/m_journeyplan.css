@@ -8,7 +8,7 @@
 .div.col-3{
     padding-left: 5px;
     padding-right: 0px;
-    height: 2vh;
+    height: 5vh;
 }
 
 .container-fluid{
@@ -21,7 +21,7 @@
 }
 
 #map.col-12{
-height: 35vh;
+height: 40vh;
 background: black;
 width: 100%;
 }
@@ -30,11 +30,10 @@ width: 100%;
 }
 
 #map{
-    height: 35vh;
+    height: 40vh;
     width: 100%;
 }
 #choices{
-    height: 5vh;
     color: black;
     background: white;
     padding: 20px;
@@ -92,7 +91,11 @@ div.card-body{
     margin-left: 12px;
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
-    width: 200px;
+    height: 3vh;
+    width: 50vh;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
 }
 
 #origin-input:focus,
@@ -133,6 +136,7 @@ div.card-body{
 
   .checkbox{
       padding: 10px;
+      display: none;
   }
 
   #footer-div{
@@ -142,8 +146,7 @@ div.card-body{
   }
 
   #footer-tab.col-12{
-      height: 15vh;
-      background: purple;
+      /* height: 15vh; */
       margin-top: 0px;
       margin: 0px;
       padding: 0px;
@@ -152,7 +155,7 @@ div.card-body{
   #footer-nav{
     background:  rgb(134, 131, 131);
     /* padding-top: 15%; */
-    height: 15vh;
+    /* height: 15vh; */
     border-style: solid;
     border-top: 4px;
     border-bottom: 0px;
@@ -166,4 +169,16 @@ div.card-body{
   .nav-link{
     color: white;
     padding-top: 2px;
-  
+  }
+
+
+  .nav nav-pills nav-justified{
+    padding: 0px;
+    background: green;
+    margin: 0px;
+    width: 100%;
+    }
+
+#datepicker{
+    width: 300px;
+}
