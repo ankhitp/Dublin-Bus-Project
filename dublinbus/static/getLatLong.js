@@ -36,11 +36,6 @@ function getLatLng(start, end) {
                     var url = "http://transit.api.here.com/v3/route.json?app_id=tL7r9QKJ3KlE5Kc9LGYo&app_code=1arMc" +
                         "SHt_o31xFSeBRswsA&modes=bus&routing=all&dep=" + startLat + "," + startLong + "&arr=" + destLat +
                         "," + destLong + "&time=" + date;
-<<<<<<< HEAD
-                    console.log("test");
-                    console.log(url);
-=======
->>>>>>> e7ab9850081a6df16c789a1d72478d9932537616
                     xhttp.open("GET", url, true);
                     xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
                     //xhttp.setRequestHeader('X-CSRF-Token', 'abcdef');

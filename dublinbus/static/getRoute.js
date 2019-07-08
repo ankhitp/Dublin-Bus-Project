@@ -7,7 +7,6 @@
  * @param url for the API hit we want to do.
  */
 function getRoute(i, url, start, end) {
-    console.log(url);
     var infowindow = new google.maps.InfoWindow();
     //array I'll use store locations
     var locations = [];
@@ -45,7 +44,6 @@ function getRoute(i, url, start, end) {
                         var longitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["x"];
                         var name = parsed[x]["Journey"]["Stop"][z]["Stn"]['name'];
                         var time = parsed[x]["Journey"]["Stop"][z]["dep"];
-                        console.log(time);
                         var depArr = "depart";
                         if (time === undefined) {
                             time = parsed[x]["Journey"]["Stop"][z]["arr"];
