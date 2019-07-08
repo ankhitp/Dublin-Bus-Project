@@ -4,6 +4,8 @@ function initMap() {
     // The location of Dublin
     var dublin = {lat: 53.33306, lng: -6.24889};
     // The map, centered at Uluru
+    console.log("initMap function was called");
+
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,
         center: dublin,
