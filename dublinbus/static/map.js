@@ -126,6 +126,7 @@ function resetMap() {
 //resizes map for directions on the right side
 
 function resizeMap() {
+    deleteMarkers();
     var start = document.getElementById('origin-input').value;
     var end = document.getElementById('destination-input').value;
 

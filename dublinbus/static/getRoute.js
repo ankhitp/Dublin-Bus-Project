@@ -6,12 +6,12 @@
  * @param i targets the specific route that the user wants to get directions for.
  * @param url for the API hit we want to do.
  */
-function getRoute(i, url,start,end) {
-    console.log(start);
-    console.log(end);
+function getRoute(i, url, start, end) {
+    console.log(url);
     var infowindow = new google.maps.InfoWindow();
     //array I'll use store locations
     var locations = [];
+    var times = [];
     document.getElementById("options").innerHTML = "<h3> Directions </h3>";
     //hit the HERE api for route
     xhttp.open("GET", url, true);
@@ -44,9 +44,20 @@ function getRoute(i, url,start,end) {
                         var latitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["y"];
                         var longitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["x"];
                         var name = parsed[x]["Journey"]["Stop"][z]["Stn"]['name'];
+                        var time = parsed[x]["Journey"]["Stop"][z]["dep"];
+                        console.log(time);
+                        var depArr = "depart";
+                        if (time === undefined) {
+                            time = parsed[x]["Journey"]["Stop"][z]["arr"];
+                            depArr = "arrive";
+                        }
+                        time = new Date(time);
+                        var minutes = time.getMinutes();
+                        var hours = time.getHours();
                         latitude = parseFloat(latitude);
                         longitude = parseFloat(longitude);
                         locations.push({lat: latitude, lng: longitude, name: name});
+                        times.push({minutes: minutes, hours: hours})
                     }
                     var newCenter = new google.maps.LatLng(locations[0].lat, locations[0].lng);
                     map.panTo(newCenter);
@@ -60,7 +71,7 @@ function getRoute(i, url,start,end) {
                         markers.push(marker);
                         google.maps.event.addListener(marker, 'click', (function (marker, a) {
                             return function () {
-                                infowindow.setContent(locations[a].name);
+                                infowindow.setContent(locations[a].name + " station." + "<br> The bus will " + depArr + " here at: " + times[a].hours + ":" + times[a].minutes);
                                 infowindow.open(map, marker);
                             }
                         })(marker, a));
@@ -69,7 +80,7 @@ function getRoute(i, url,start,end) {
                     if (x == parsed.length - 1) {
                         document.getElementById('options').insertAdjacentHTML('beforeend',
                             "<button class='btn btn-primary' " +
-                            'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\''+start+'\',\''+end+'\')">Return to Results</button>');
+                            'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\'' + start + '\',\'' + end + '\')">Return to Results</button>');
                     }
                 }
                 //if its the last step in the route and it's a walking instruction.
@@ -91,7 +102,7 @@ function getRoute(i, url,start,end) {
                                 "<p>Walk to destination: " + results[0].formatted_address + "</p>");
                             document.getElementById('options').insertAdjacentHTML('beforeend',
                                 "<button class='btn btn-primary' " +
-                                'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\''+start+'\',\''+end+'\')">Return to Results</button>');
+                                'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\'' + start + '\',\'' + end + '\')">Return to Results</button>');
 
                         }
                     })
