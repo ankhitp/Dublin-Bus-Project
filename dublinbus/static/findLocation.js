@@ -1,18 +1,28 @@
+/**
+ * The find location function gets the current location of the user, and then finds the closest stations (0.6 km or less away)
+ *
+ */
 function findLocation() {
     var pos;
     var infowindow = new google.maps.InfoWindow();
+    //uses the Google geolocation service
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             map.setCenter(pos);
-            var marker = new google.maps.Marker({
+            //marker where the user is
+           /* var marker = new google.maps.Marker({
                 position: pos,
                 map: map,
-            });
+            });*/
+            //load the stops info from the JSON file
             $.getJSON( "/static/files/stops_info.json", function( data ) {
                 for (var i = 0; i < data.length; i++) {
+                    //get the position of each stop in the file
                     var destPos = new google.maps.LatLng(data[i].stop_lat, data[i].stop_lon);
-                    if (distance(data[i].stop_lat, data[i].stop_lon, position.coords.latitude, position.coords.longitude) < 1) {
+                    //if the stop in the file is less than 0.6 km away from the user, show it on the map.
+                    //info window contains all the info in the content section of the marker.
+                    if (distance(data[i].stop_lat, data[i].stop_lon, position.coords.latitude, position.coords.longitude) < .6) {
                         var marker = new google.maps.Marker({
                             position: destPos,
                             map: map,
@@ -20,6 +30,8 @@ function findLocation() {
                         '<p><b>Stop name:</b><br>' + data[i].stop_name + '</p><br>' + '<p><b>Serving route:</b>' + '**</p>' + '</div>'
                         + '<button id="realtime"><a href="../realtimeinfo/' + data[i].actual_stop_id + '"> View real time info</button></div>'
                         });
+                        markers.push(marker);
+                        //add an on click for the markers
                         google.maps.event.addListener(marker, 'click', (function (marker, i) {
                             return function () {
                                 infowindow.setContent(marker.content);
@@ -46,6 +58,7 @@ function findLocation() {
     }
 }
 
+//distance calculator between two latitudes and longitudes.
 function distance(lat1, lon1, lat2, lon2) {
     if ((lat1 == lat2) && (lon1 == lon2)) {
         return 0;
