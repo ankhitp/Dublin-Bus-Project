@@ -6,7 +6,7 @@
  * and also indicates how many connections each route has.
  */
 function getLatLng() {
-    document.getElementById('panel').innerHTML = "<h3>Possible Routes</h3>";
+    document.getElementById("mypanel").innerHTML = "<h3>Possible Routes</h3>";
     var start = document.getElementById('origin-input').value;
     var end = document.getElementById('destination-input').value;
     var geocoder = new google.maps.Geocoder();
@@ -49,7 +49,7 @@ function getLatLng() {
                                             console.log(x);
                                             var hold = parsed[x]['Dep']['Transport']['name'] + ' toward ' +
                                                 parsed[x]['Dep']['Transport']['dir'];
-                                            document.getElementById('panel').insertAdjacentHTML('beforeend',
+                                            document.getElementById('mypanel').insertAdjacentHTML('beforeend',
                                                 '<button id =' + i + ' class="btn btn-primary" type="submit" ' +
                                                 'onclick = "getRoute(' + i + ', \'' + url + '\')"></button>');
                                             document.getElementById(i).innerHTML = hold;
@@ -68,14 +68,14 @@ function getLatLng() {
                                     string = Math.floor(diff / 1e3) + ' seconds';
                                 }
                                 if (connections == 1) {
-                                    document.getElementById('panel').insertAdjacentHTML('beforeend', " (No connections) " +
+                                    document.getElementById('mypanel').insertAdjacentHTML('beforeend', " (No connections) " +
                                         "- "+ string +" </p>");
                                 } else if (connections > 1) {
-                                    document.getElementById('panel').insertAdjacentHTML('beforeend', " (" + connections
+                                    document.getElementById('mypanel').insertAdjacentHTML('beforeend', " (" + connections
                                         + " connections) - "+ string +"</p>");
                                 }
                             }
-                            document.getElementById('panel').insertAdjacentHTML('beforeend', "<button class=" +
+                            document.getElementById('mypanel').insertAdjacentHTML('beforeend', "<button class=" +
                                 "'btn btn-primary' type='submit' onclick = 'resetMap()'>Search Again</button>");
                         }
                     }
