@@ -110,7 +110,7 @@ function getRoute(i, url, start, end) {
             busPath = new google.maps.Polyline({
                 path: locations,
                 geodesic: true,
-                strokeColor: '#1e2dff',
+                strokeColor: 'black',
                 strokeOpacity: 1.0,
                 strokeWeight: 2
             });
@@ -118,3 +118,4 @@ function getRoute(i, url, start, end) {
         }
     }
 }
+

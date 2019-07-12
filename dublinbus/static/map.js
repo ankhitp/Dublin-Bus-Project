@@ -1,30 +1,33 @@
 function initMap() {
+    var pos;
     directionsService = new google.maps.DirectionsService();
     directionsDisplay = new google.maps.DirectionsRenderer();
     // The location of Dublin
     var dublin = {lat: 53.33306, lng: -6.24889};
     // The map, centered at Uluru
-    console.log("initMap function was called");
-
+    var im = 'http://www.robotwoods.com/dev/misc/bluecircle.png';
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,
         center: dublin,
         mapTypeControl: false,
     });
     directionsDisplay.setMap(map);
+    //uses the Google geolocation service
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var marker = new google.maps.Marker({
+                position: pos,
+                map: map,
+                icon: im
+            });
+            map.setCenter(pos);
+        });
+    }
     setAutocomplete();
     // The marker, positioned at Uluru
     addMarker(map);
 
-}
-function changeToJourney(){
-    document.getElementById('Logo').innerHTML ="<p>Plan Your Journey!";
-    document.getElementById('search').style = "display:none";
-    var columns_container = $(".dynamic-columns");
-    $(".dynamic-columns .col:last-child").removeClass("col-12");
-    $(".dynamic-columns .col:last-child").addClass("col-10");
-    document.getElementById('options').style = "display:block";
-    setAutocomplete();
 }
 
 //moved the setting up of the autocomplete boxes to another function
@@ -68,6 +71,10 @@ function addMarker(map) {
         });
 
     }
+}
+
+function routeFromHere(data) {
+    document.getElementById('origin-input').value = data;
 }
 
 //removes line created for route

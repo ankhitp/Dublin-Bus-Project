@@ -28,7 +28,8 @@ function findLocation() {
                             map: map,
                             content: '<div id="content">' + '<div id="Stop_id">' + '<p><b>Stop ID:</b>  ' + data[i].actual_stop_id + '</p>' +
                         '<p><b>Stop name:</b><br>' + data[i].stop_name + '</p><br>' + '<p><b>Serving route:</b>' + '**</p>' + '</div>'
-                        + '<button id="realtime"><a href="../realtimeinfo/' + data[i].actual_stop_id + '"> View real time info</button></div>'
+                        + '<button id="realtime"><a href="../realtimeinfo/' + data[i].actual_stop_id + '"> View real time info</a></button> ' +
+                                '<button onclick = "routeFromHere(\''+data[i].stop_name+'\')" class = "btn-primary">Route from here</button></div>'
                         });
                         markers.push(marker);
                         //add an on click for the markers

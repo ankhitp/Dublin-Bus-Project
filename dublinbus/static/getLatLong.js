@@ -15,7 +15,6 @@ function getLatLng(start, end) {
     //Two geocoders, one for the start and one for end
     var geocoder = new google.maps.Geocoder();
     var geocoder2 = new google.maps.Geocoder();
-    console.log("made it to here");
     geocoder.geocode({'address': start}, function (results, status) {
             if (status == 'OK') {
                 var loc = results[0].geometry.location;
@@ -76,11 +75,10 @@ function getLatLng(start, end) {
                                 }
                                 //let the user know how many connections required per route.
                                 if (connections == 1) {
-                                    document.getElementById('options').insertAdjacentHTML('beforeend', " (No connections) " +
-                                        "- "+ string +" </p>");
+                                    document.getElementById('options').insertAdjacentHTML('beforeend', " (No connections) </p>");
                                 } else if (connections > 1) {
                                     document.getElementById('options').insertAdjacentHTML('beforeend', " (" + connections
-                                        + " connections) - "+ string +"</p>");
+                                        + " connections) </p>");
                                 }
                             }
                             //option to reset the searches
