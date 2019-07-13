@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+  <meta charset="utf-8">
+  <title>Jasmine Spec Runner v3.4.0</title>
+<p>The pages</p>
+  <link rel="shortcut icon" type="image/png" href="lib/jasmine-3.4.0/jasmine_favicon.png">
+  <!-- <link rel="stylesheet" href="lib/jasmine-3.4.0/jasmine.css"> -->
+  <link rel="stylesheet" href="{% static 'jasmine/lib/jasmine-3.4.0/jasmine.css' %}">
+
+  <script src="{% static 'jasmine/lib/jasmine-3.4.0/jasmine.js' %}"></script>
+  <script src="{% static 'jasmine/lib/jasmine-3.4.0/jasmine-html.js' %}"></script>
+  <script src="{% static 'jasmine/lib/jasmine-3.4.0/boot.js' %}"></script>
+
+
+  <!-- include source files here... -->
+  <script src="{% static 'jasmine/src/Player.js' %}"></script>
+  <script src="{% static 'jasmine/src/Song.js' %}"></script>
+  <script src="{% static 'jasmine/src/thurstest.js' %}"></script>
+
+
+
+  <!-- include spec files here... -->
+  <script src="{% static 'jasmine/spec/SpecHelper.js' %}"></script>
+  <script src="{% static 'jasmine/spec/PlayerSpec.js' %}"></script>
+  <script src="{% static 'jasmine/spec/thurstestSpec.js' %}"></script>
+
+
+</head>
+
+<body>
+</body>
+</html>

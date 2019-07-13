@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from map.views import map_view
-
+from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('map/', include('map.urls')),
@@ -27,5 +27,7 @@ urlpatterns = [
     path('routes/', include('routes.urls')),
     path('journeyplan/', include('journeyplan.urls')),
     path('realtimeinfo/', include('realtimeinfo.urls')),
+    path('jasminetest/', include('jasminetest.urls')),
+    
     # path('map/', post_new, name='map'),
 ]
