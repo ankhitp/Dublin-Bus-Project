@@ -15,7 +15,8 @@ body,html{
   padding: 0;
   background:rgba(2, 147, 222, 0.5) !important;
   /* opacity: 0.5; */
-  font-family: 'Roboto', sans-serif;
+  font-family: 'News Cycle', sans-serif;
+
   }
 
 .row { 
@@ -48,7 +49,7 @@ div.col-6{
   line-height: 6vh;
   font-size: 4vh;
   color: white;
-  font-family: 'Roboto';
+  font-family: 'News Cycle', sans-serif;
 }
 
 .smalllogo{
@@ -147,13 +148,12 @@ height: 100%;
   border-width: 1px;
   border-color: white;
   color:  rgb(212, 209, 209);
-  font-family: 'Roboto';
+  font-family: 'News Cycle', sans-serif;
 
 }
 
 .nav-link{
   color: white;
-  padding-top: 
 
 }
 

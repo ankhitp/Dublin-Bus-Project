@@ -3,9 +3,11 @@ from favourites.models import Post
 
 # class to create a form
 class favouritesForm(forms.ModelForm):
-    post = forms.CharField()
+    field1 = forms.CharField()
+    field2 = forms.CharField()
+
 
     # class to describe the model
     class Meta:
         model = Post
-        fields = ('post',)
+        fields = ('field1','field2',)

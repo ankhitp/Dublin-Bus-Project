@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from map.views import map_view
+from favourites.views import favourites_view
 from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('map/', include('map.urls')),
     path('map/', map_view.as_view(), name='map'),
-    path('favourites/', include('favourites.urls')),
+    path('favourites/', favourites_view.as_view(), name='favourites'),
+    # path('favourites/', include('favourites.urls')),
     path('more/', include('more.urls')),
     path('routes/', include('routes.urls')),
     path('journeyplan/', include('journeyplan.urls')),

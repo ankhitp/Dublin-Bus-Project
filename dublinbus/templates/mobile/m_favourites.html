@@ -2,56 +2,78 @@
 {% block content %}
 {% load static %}
 <script src="https://kit.fontawesome.com/a7c1f97ec0.js"></script>
-
+<link href="https://fonts.googleapis.com/css?family=News+Cycle&display=swap" rel="stylesheet">
 <div class="container-fluid">
    <div class="row" id="header-row">
       <div class="col-3">
          <img src = "{% static 'smalllogo.png' %}" class="smalllogo">
       </div>
       <div class="col-6">
-         <p>mobile favourites</p>
+         <p>Favourites</p>
       </div>
       <div class="col-3">
       </div>
    </div>
-
    <div class="row">
       <div class="col-12" id="middle-favourite">
          <!-- <p>middle section</p> -->
-      <div class="col-12" id="favourite-holder">
-         <div class="favourite-Add">
-             <div id="add-holder">
-                 Add new favourite route
-                 <button type="button" id="add-button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
-                        <i class="fas fa-plus-circle" id="plusicon"></i>
+         <div class="col-12" id="favourite-holder">
+            
+            <div id="favourite-Add">
+               <div id="add-holder">
+                  <p>Add new favourite route          <button type="button" id="add-button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                     <i class="fas fa-plus-circle" id="plusicon"></i>
+                     </button>
+                  </p>
+               </div>
+            </div>
 
-                      </button>
+         <div id="favourite-Input">
+            <div id="input-holder">
+               <!-- <form method="POST"> -->
+
+               <form></form>
+                  <!-- {% csrf_token %} -->
+                  <label for="origin-input">Origin location: </label>
+                  <input autocomplete="off" id="origin-input" class="controls" type="text">
+
+                  <label for="destination-input">Destination location: </label>
+                  <input id="destination-input" class="controls" type="text">
+
+                  <!-- {{ form.as_p }} -->
+                  <button type="button" class="btn btn-primary" id="addfavourite">Submit</button>
+
+               </form>
             </div>
          </div>
-         <div class="favourite-Input">
-                <div id="add-holder">
-            <form method="POST">
-                  {% csrf_token %}
-                  <!-- <label for="your_origin">Origin location: </label>
-                  <input id="your_origin" type="text" name="your_origin" value="{{ current_origin }}">
-                  <label for="your_destination">Destination location: </label>
-                  <input id="your_destination" type="text" name="your_destination" value="{{ current_destination }}"> -->
-                  {{ form.as_p }}
-                  <button type="submit">Submit</button>
-              </form>
+
+
+         <div id="one-holder"><p>test</p></div>
+
+         <!-- <div id="one-holder">
+         <div class="flex-container">
+               <div id="flex1div">1</div>
+               <div id="flex2div">
+                  <button type="button" class="btn btn-primary" id="planJourney">Plan Journey</button>
+               </div>
+            </div>
+            </div> -->
+
+
+
+      </div>
+
+      </div>
+   </div>
 </div>
-{{ text }}
-        </div>
-      </div>
-    </div>
+<div class="row">
+   <div class="col-12">
+      {% include 'tabs.html' %}
    </div>
-
-   <div class="row">
-      <div class="col-12">
-         {% include 'tabs.html' %}
-      </div>
-   </div>
-
+</div>
 </div>
 <link rel="stylesheet" href="{% static 'css/m_favourites.css' %}">
+<script src="{% static 'js/addfavourite.js' %}"></script>
+<script src="{% static 'js/createfavourite.js' %}"></script>
+
 {% endblock %}
