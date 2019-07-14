@@ -1,4 +1,50 @@
-#middlesection{
+#middle-favourite{
     background: white;
+    width: 100%;
     height: 80vh;
+    background-color: lawngreen;
+    /* padding: 5%; */
 }
+
+#favourite-holder{
+
+    /* margin: 20px; */
+    background-color: blue;
+    margin-left: 4%;
+    margin-top: 2%;
+    height: 78vh;
+
+    width: 94%;
+}
+.favourite-Add{
+    background-color: white;
+    width: 100%;
+    height: 8vh;
+    padding: 10px;
+    display: none;
+}
+
+/* .favourite-Input{
+} */
+
+#add-holder{
+    background-color: gainsboro;
+    border-radius: 15px;
+  padding: 7px; 
+  height: 100%;
+  line-height:5vh;
+  display: block;
+
+}
+
+
+#plusicon{
+    text-align: center;
+    font-size: 5vh;}
+
+#add-button{
+    border-radius: 50%;
+    text-align: centre;
+
+}
+

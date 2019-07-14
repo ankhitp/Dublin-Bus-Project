@@ -1,43 +1,48 @@
 {% extends 'base.html' %}
-
-
 {% block content %}
 {% load static %}
+<script src="https://kit.fontawesome.com/a7c1f97ec0.js"></script>
 
 <div class="container-fluid">
+   <div class="row" id="header-row">
+      <div class="col-3">
+         <img src = "{% static 'smalllogo.png' %}" class="smalllogo">
+      </div>
+      <div class="col-6">
+         <p>mobile favourites</p>
+      </div>
+      <div class="col-3">
+      </div>
+   </div>
 
-<div class="row" id="header-row">
-        <div class="col-3">
-                <img src = "{% static 'smalllogo.png' %}" class="smalllogo">
+   <div class="row">
+      <div class="col-12" id="middle-favourite">
+         <!-- <p>middle section</p> -->
+      <div class="col-12" id="favourite-holder">
+         <div class="favourite-Add">
+             <div id="add-holder">
+                 Add new favourite route
+                 <button type="button" id="add-button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                        <i class="fas fa-plus-circle" id="plusicon"></i>
+
+                      </button>
+            </div>
+         </div>
+         <div class="favourite-Input">
+                <div id="add-holder">
+                    Add new favourite route
+                    </div>
         </div>
-        <div class="col-6">
-            <p>mobile favourites</p>
-        </div>
-        <div class="col-3">
-        </div>
-       
+      </div>
     </div>
+   </div>
 
-    <div class="row">
-
-            <div class="col-12" id="middlesection">
-<p>middle section</p>
-
-            </div>
-
-        </div>
-
-    <div class="row">
-
-            <div class="col-12">
-
-                {% include 'tabs.html' %}
-
-            </div>
-
-        </div>
+   <div class="row">
+      <div class="col-12">
+         {% include 'tabs.html' %}
+      </div>
+   </div>
 
 </div>
 <link rel="stylesheet" href="{% static 'css/m_favourites.css' %}">
-
 {% endblock %}
