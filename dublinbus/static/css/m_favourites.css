@@ -24,8 +24,13 @@
     display: none;
 }
 
-/* .favourite-Input{
-} */
+.favourite-Input{
+    background-color: white;
+    width: 100%;
+    height: 8vh;
+    padding: 10px;
+    display:block;
+}
 
 #add-holder{
     background-color: gainsboro;
@@ -33,7 +38,6 @@
   padding: 7px; 
   height: 100%;
   line-height:5vh;
-  display: block;
 
 }
 

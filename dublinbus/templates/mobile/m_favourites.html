@@ -30,8 +30,13 @@
          </div>
          <div class="favourite-Input">
                 <div id="add-holder">
-                    Add new favourite route
-                    </div>
+            <form method="POST">
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                  <!-- {{ form.as_p }} -->
+                  <button type="submit">Submit</button>
+              </form>
+</div>
         </div>
       </div>
     </div>
