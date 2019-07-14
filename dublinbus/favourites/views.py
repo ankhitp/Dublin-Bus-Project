@@ -5,8 +5,8 @@ import json
 from django.urls import path
 from django.views.generic import TemplateView
 from django_user_agents.utils import get_user_agent
-# from forms.py import favouritesForm
-
+from favourites.forms import favouritesForm
+from django.views.generic.edit import FormView
 # Create your views here.
 
 def favourites(request):
@@ -28,16 +28,17 @@ class favourites_view(TemplateView):
     # get method
     def get(self, request):
         # initialise a form
-        form = favouritesForm()
+        form = favouritesForm
         json_data = open('static/files/stops_info.json')
         stops_data = json.load(json_data)
         user_agent = get_user_agent(request)
+        args = {'load': stops_data, 'form': form}
         if user_agent.is_mobile:
-            return render(request, 'mobile/m_favourites.html', {'load': stops_data})
+            return render(request, 'mobile/m_favourites.html', {args})
         elif user_agent.is_tablet:
-            return render(request, 'mobile/m_favourites.html', {'load': stops_data})
+            return render(request, 'mobile/m_favourites.html', {args})
         else:
-            return render(request, 'favourites.html', {'load': stops_data})
+            return render(request, 'favourites.html', {args})
             
     # post method, which saves to the model
     def post(self, request):

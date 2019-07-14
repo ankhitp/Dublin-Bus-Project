@@ -32,11 +32,15 @@
                 <div id="add-holder">
             <form method="POST">
                   {% csrf_token %}
+                  <!-- <label for="your_origin">Origin location: </label>
+                  <input id="your_origin" type="text" name="your_origin" value="{{ current_origin }}">
+                  <label for="your_destination">Destination location: </label>
+                  <input id="your_destination" type="text" name="your_destination" value="{{ current_destination }}"> -->
                   {{ form.as_p }}
-                  <!-- {{ form.as_p }} -->
                   <button type="submit">Submit</button>
               </form>
 </div>
+{{ text }}
         </div>
       </div>
     </div>

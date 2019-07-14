@@ -7,9 +7,9 @@ from django_user_agents.utils import get_user_agent
 
 from dublinbus.settings import TEMPLATES
 from django.views.generic import TemplateView
+
 from map.forms import MapForm
 import json
-
 
 
 class map_view(TemplateView):

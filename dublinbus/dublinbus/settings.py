@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['137.43.49.53', '0.0.0.0', '127.0.0.1', 'localhost']
 
 INSTALLED_APPS = [
     'map.apps.MapConfig',
+    'favourites.apps.FavouritesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
