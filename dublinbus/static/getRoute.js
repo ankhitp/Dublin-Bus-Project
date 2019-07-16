@@ -5,12 +5,15 @@
  *
  * @param i targets the specific route that the user wants to get directions for.
  * @param url for the API hit we want to do.
+ * @param start the start position for the user
+ * @param end the end position for the user
  */
 function getRoute(i, url, start, end) {
     var infowindow = new google.maps.InfoWindow();
     //array I'll use store locations
     var locations = [];
     var times = [];
+    var km = 0;
     document.getElementById("options").innerHTML = "<h3> Directions </h3>";
     //hit the HERE api for route
     xhttp.open("GET", url, true);
@@ -42,6 +45,11 @@ function getRoute(i, url, start, end) {
                     for (var z = 0; z < parsed[x]["Journey"]["Stop"].length; z++) {
                         var latitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["y"];
                         var longitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["x"];
+                        if (z < parsed[x]["Journey"]["Stop"].length - 1) {
+                            var nextLat = parsed[x]["Journey"]["Stop"][z+1]["Stn"]["y"];
+                            var nextLong = parsed[x]["Journey"]["Stop"][z+1]["Stn"]["x"];
+                            km += distance(latitude, longitude, nextLat, nextLong);
+                        }
                         var name = parsed[x]["Journey"]["Stop"][z]["Stn"]['name'];
                         var time = parsed[x]["Journey"]["Stop"][z]["dep"];
                         var depArr = "depart";
@@ -57,6 +65,8 @@ function getRoute(i, url, start, end) {
                         locations.push({lat: latitude, lng: longitude, name: name});
                         times.push({minutes: minutes, hours: hours})
                     }
+                    var co2 = Math.round(km * 70);
+                    var carCo2 = Math.round(km * 127);
                     var newCenter = new google.maps.LatLng(locations[0].lat, locations[0].lng);
                     map.panTo(newCenter);
                     //go through all the entries in our array and create markers from them, and then create
@@ -78,7 +88,10 @@ function getRoute(i, url, start, end) {
                     if (x == parsed.length - 1) {
                         document.getElementById('options').insertAdjacentHTML('beforeend',
                             "<button class='btn btn-primary' " +
-                            'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\'' + start + '\',\'' + end + '\')">Return to Results</button>');
+                            'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\'' + start + '\',\'' + end + '\')">Return to Results</button>' +
+                            '<br><h4>This bus route will result in '+co2+' grams of CO2 being released into the atmosphere. <br>' +
+                            'This is compared to ' + carCo2 + ' grams of CO2 if you had used a car!</h4>'
+                        );
                     }
                 }
                 //if its the last step in the route and it's a walking instruction.
@@ -100,8 +113,10 @@ function getRoute(i, url, start, end) {
                                 "<p>Walk to destination: " + results[0].formatted_address + "</p>");
                             document.getElementById('options').insertAdjacentHTML('beforeend',
                                 "<button class='btn btn-primary' " +
-                                'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\'' + start + '\',\'' + end + '\')">Return to Results</button>');
-
+                                'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\'' + start + '\',\'' + end + '\')">Return to Results</button>'+
+                                '<br><h4>This bus route will result in '+co2+' grams of CO2 being released into the atmosphere. <br>' +
+                                'This is compared to ' + carCo2 + ' grams of CO2 if you had used a car!</h4>'
+                            );
                         }
                     })
                 }

@@ -59,6 +59,8 @@ function findLocation() {
     }
 }
 
+
+
 //distance calculator between two latitudes and longitudes.
 function distance(lat1, lon1, lat2, lon2) {
     if ((lat1 == lat2) && (lon1 == lon2)) {
