@@ -7,6 +7,7 @@ from django.views.generic import TemplateView
 from django_user_agents.utils import get_user_agent
 from favourites.forms import favouritesForm
 from django.views.generic.edit import FormView
+
 # Create your views here.
 
 # def favourites(request):
@@ -24,7 +25,8 @@ from django.views.generic.edit import FormView
     
 class favourites_view(TemplateView):
     template_name = 'mobile/m_favourites.html.html'
-    
+
+
     # get method
     def get(self, request):
         # initialise a form
@@ -34,6 +36,7 @@ class favourites_view(TemplateView):
         user_agent = get_user_agent(request)
         args = {'load': stops_data, 'form': form}
         print("user agent is", user_agent)
+        print("request is", request)
         if user_agent.is_mobile:
             return render(request, 'mobile/m_favourites.html', args)
         elif user_agent.is_tablet:

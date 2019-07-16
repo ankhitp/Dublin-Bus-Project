@@ -42,8 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_user_agents',
     'django_jasmine',
-    # 'django_qunit',
-    'djangojs',
 
 
 ]
