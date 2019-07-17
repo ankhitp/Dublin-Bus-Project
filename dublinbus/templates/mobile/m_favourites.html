@@ -19,6 +19,9 @@
          <!-- <p>middle section</p> -->
          <div class="col-12" id="favourite-holder">
             
+
+
+
             <div id="favourite-Add">
                <div id="add-holder">
                   <p>Add new favourite route          <button type="button" id="add-button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
@@ -28,20 +31,30 @@
                </div>
             </div>
 
+
+
+            
          <div id="favourite-Input">
             <div id="input-holder">
                <!-- <form method="POST"> -->
 
-               <form></form>
+               <form>
                   <!-- {% csrf_token %} -->
-                  <label for="origin-input">Origin location: </label>
-                  <input autocomplete="off" id="origin-input" class="controls" type="text">
 
+                  <div class="field-wrap">
+                  <label for="origin-input">Origin location: </label>
+                  <input id="origin-input" class="controls" type="text">
+                  </div>
+
+
+                  <div id="field-wrap">
                   <label for="destination-input">Destination location: </label>
                   <input id="destination-input" class="controls" type="text">
-
+                  </div>
                   <!-- {{ form.as_p }} -->
+                  <!-- <div id="field-wrap"> -->
                   <button type="button" class="btn btn-primary" id="addfavourite">Submit</button>
+               <!-- </div> -->
 
                </form>
             </div>
@@ -75,5 +88,8 @@
 <link rel="stylesheet" href="{% static 'css/m_favourites.css' %}">
 <script src="{% static 'js/addfavourite.js' %}"></script>
 <script src="{% static 'js/createfavourite.js' %}"></script>
+<script src="{% static 'js/m_getRoute.js' %}"></script>
+<script src="{% static 'js/m_getLatLong.js' %}"></script>
+<script src="{% static 'js/m_map.js' %}"></script>
 
 {% endblock %}
