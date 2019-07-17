@@ -6,16 +6,15 @@
  * and also indicates how many connections each route has.
  */
 function getLatLng(start, end) {
+    start = start.replace("'", "\\'");
     //set the HTML for the routes list
     //start and end points
-
     document.getElementById('options').innerHTML = "<h3>Possible Routes</h3>";
     var dublin = {lat: 53.33306, lng: -6.24889};
     map.panTo(dublin);
     //Two geocoders, one for the start and one for end
     var geocoder = new google.maps.Geocoder();
     var geocoder2 = new google.maps.Geocoder();
-    console.log("made it to here");
     geocoder.geocode({'address': start}, function (results, status) {
             if (status == 'OK') {
                 var loc = results[0].geometry.location;
@@ -42,6 +41,7 @@ function getLatLng(start, end) {
                     xhttp.send();
                     xhttp.onreadystatechange = function () {
                         if (this.readyState === 4 && this.status === 200) {
+                            console.log(url);
                             //parsing this awful JSON. follow the url if you want to see how the JSON looks
                             var returnData = JSON.parse(this.responseText);
                             var parseMe = returnData['Res']['Connections']["Connection"];
@@ -53,6 +53,7 @@ function getLatLng(start, end) {
                                     if (parsed[x]['mode'] == 5) {
                                         connections++;
                                         if (connections == 1) {
+
                                             //give the list of routes
                                             var hold = parsed[x]['Dep']['Transport']['name'] + ' toward ' +
                                                 parsed[x]['Dep']['Transport']['dir'];
@@ -60,27 +61,16 @@ function getLatLng(start, end) {
                                                 '<button id =' + i + ' class="btn btn-primary" type="submit" ' +
                                                 'onclick = "getRoute(' + i + ', \'' + url + '\', \''+start+'\',\''+end+'\')"></button>');
                                             document.getElementById(i).innerHTML = hold;
-                                            depTime = new Date(parsed[x]["Dep"]['time']);
-                                            arrTime = new Date(parsed[x]["Arr"]['time']);
                                         }
                                     }
                                 }
                                 //calculate time
-                                var diff = arrTime - depTime;
-                                var string;
-                                if (diff > 60e3) {
-                                    string = Math.floor(diff / 60e3) + ' minutes';
-                                }
-                                else {
-                                    string = Math.floor(diff / 1e3) + ' seconds';
-                                }
                                 //let the user know how many connections required per route.
                                 if (connections == 1) {
-                                    document.getElementById('options').insertAdjacentHTML('beforeend', " (No connections) " +
-                                        "- "+ string +" </p>");
+                                    document.getElementById('options').insertAdjacentHTML('beforeend', " (No connections) </p>");
                                 } else if (connections > 1) {
                                     document.getElementById('options').insertAdjacentHTML('beforeend', " (" + connections
-                                        + " connections) - "+ string +"</p>");
+                                        + " connections) </p>");
                                 }
                             }
                             //option to reset the searches

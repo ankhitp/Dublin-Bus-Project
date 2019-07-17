@@ -1,31 +1,139 @@
+var getJSON = function (url, callback) {
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+
+    xhr.onload = function () {
+
+        var status = xhr.status;
+
+        if (status == 200) {
+
+            callback(null, xhr.response);
+
+
+        } else {
+
+            callback(status);
+        }
+    };
+
+    xhr.send();
+};
+
+
 function addMarker(map, data) {
     //get the stop data from JSON file
-    //this line in js cannot get the JSON, but when it in html, it can get
-    // var data = {{ load | safe}};
     var infowindow = new google.maps.InfoWindow({});
 
+
+    //*
+    //*
+
     for (var i = 0, length = data.length; i < length; i++) {
+        // var routedata = routedata[i]
         var busdata = data[i];
         // {#Console.log(busdata);#}
         var myLatLng = {lat: parseFloat(busdata.stop_lat), lng: parseFloat(busdata.stop_lon)};
 
-        // Creating  markers and putting it on the map
 
+        // console.log(route_data[busdata.actual_stop_id]);
+        let serviceRoute = add_service_route(route_data[busdata.actual_stop_id]);
+        var icon = {
+            url: '../static/img/bus.png', // url
+            scaledSize: new google.maps.Size(40, 40), // scaled size
+            origin: new google.maps.Point(0, 0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };
+
+        // Creating  markers and putting it on the map
         var marker = new google.maps.Marker({
             position: myLatLng,
             map: map,
+            icon: icon,
             title: busdata.actual_stop_id + "\n" + busdata.stop_name,
-            content: '<div id="content">' + '<div id="Stop_id">' + '<p><b>Stop ID:</b>  ' + busdata.actual_stop_id + '</p>' +
-                '<p><b>Stop name:</b><br>' + busdata.stop_name + '</p><br>' + '<p><b>Serving route:</b>' + '**</p>' + '</div>'
-                + '<button id="realtime"><a href="../realtimeinfo/' + busdata.actual_stop_id + '"> View real time info</button></div>'
+            content: '<div id="content' + busdata.actual_stop_id + '" >' +
+                '<div id=stop' + busdata.actual_stop_id + '>' +
+                '<div><img src="../static/img/bus-blue-icon.png" alt="bus-blue-icon" width="12%" height="12%">' +
+                '<h style="margin-left: 3%; font-family:Tangerine; font-size:15px;"><b>Stop ID:</b>  ' + busdata.actual_stop_id + '</h></div>' +
+                '<h style="margin-left: 15%; font-family:Tangerine; font-size:15px;"><b>Stop name:</b><br>' + '<p style="margin-left: 8%">' + busdata.stop_name + '</p></h>' +
+
+                '<h style="margin-left: 15%; font-family:Tangerine;  font-size:12px;"><b>Serving route:</b><br>' + '<ul id="myList">' + serviceRoute + '</ul>' + '</p></div>' +
+
+                '<button id="realtime" onclick="get_real_time_data(' + busdata.actual_stop_id + ')">' +
+                '<p id="realtime_p" style="font-family:Tangerine; font-size:12px;">Real Time Info</p>' +
+                '</button>' +
+                '</div>'
+
 
         });
-
-
         google.maps.event.addListener(marker, 'click', function () {
-            infowindow.setContent(this.content);
+            infowindow.setContent('<div class="infowin">' + this.content + '</div>');
             infowindow.open(map, this);
+
         });
-        marker.setMap(map)
+        marker.setMap(map);
     }
+
+
+}
+
+
+function get_real_time_data(id) {
+    if (document.getElementById('realtime' + id) == null) {
+        getJSON('https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=' + id + '&format=json', function (err, datainfo) {
+            // {#'+stopid+'#}
+            var texthead = `<h6 style = "padding-left : 1%;font-family:Tangerine; font-size:15px; padding-top: 2%">Stop: ${datainfo.stopid}</h6>
+                            <p style = "padding-left : 1%;font-family:Tangerine; font-size:15px;">Data Refreshed at: ${datainfo.timestamp}</p>`
+            var text = `<table  style=" width:100%;  margin: auto; text-align: center; border: 1px solid black;border-collapse: collapse">
+                            <tr> 
+                            <th style=" border: 1px solid #ddd; width: 20%;font-family:Tangerine; color: white;font-size:12px; background-color: #1C6EA4"; >Bus</th>
+                            <th style=" border: 1px solid #ddd; width: 50%;font-family:Tangerine; color: white;font-size:12px; background-color: #1C6EA4">Destination</th>
+                            <th style=" border: 1px solid #ddd; width: 30%;font-family:Tangerine; color: white;font-size:12px; background-color: #1C6EA4">Due</th>
+                            </tr></table>
+                            `
+
+            var content = "";
+            for (var i = 0, length = datainfo.results.length; i < length; i++) {
+                if (datainfo.results[i].duetime == 1) {
+                    var minute = "min";
+                } else {
+                    minute = "mins"
+                }
+
+                content += `<table style=" width: 100%; margin: auto; text-align: center; border: 1px solid black; border-collapse: collapse">
+                    <tr><td style=" border: 1px solid #ddd; width: 20%;font-family:Tangerine; font-size:12px;">${datainfo.results[i].route}</td>
+                    <td style=" border: 1px solid #ddd; width: 50%;font-family:Tangerine; font-size:12px;">${datainfo.results[i].destination}</td>
+                    <td style=" border: 1px solid #ddd; width: 30%;font-family:Tangerine; font-size:12px;">${datainfo.results[i].duetime}${minute}</td>
+                    </tr></table>`
+            }
+            document.getElementById("stop" + id).style.display = 'none';
+            $('#content' + id).append('<div id="realtime' + id + '">' + texthead + text + content + "</div>");
+            document.getElementById("realtime_p").innerHTML = "<img src='../static/img/back-icon.png' style='width: 10px; height: 10px'>";
+        });
+
+
+    } else if (document.getElementById("stop" + id).style.display === 'none') {
+        document.getElementById("stop" + id).style.display = 'block';
+        document.getElementById("realtime" + id).style.display = 'none';
+        document.getElementById("realtime_p").innerText = "Real Time Info";
+    } else {
+        document.getElementById("stop" + id).style.display = 'none';
+        document.getElementById("realtime" + id).style.display = 'block';
+        document.getElementById("realtime_p").innerHTML = "<img src='../static/img/back-icon.png' style='width: 10px; height: 10px'>";
+    }
+}
+
+
+function add_service_route(route_data) {
+    if (route_data == null || route_data.length == 0) {
+        return "";
+    }
+
+    let elem = "";
+    for (let i = 0; i < route_data.length; i++) {
+        elem += '<li>' + route_data[i][0] + '-' + route_data[i][1] + '</li>';
+    }
+    return elem;
 }
