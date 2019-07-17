@@ -60,12 +60,13 @@ function initMap() {
                 anchor: new google.maps.Point(17, 34),
                 scaledSize: new google.maps.Size(50, 50)
             };
+            var location = document.getElementById("pac-input").value;
             myMark = new google.maps.Marker({
                 map: map,
                 icon: icon,
                 title: place.name,
                 position: place.geometry.location,
-                content: '<button onclick = "routeToHere(\'' + place.geometry.location + '\')" class = "btn-primary">Route to here</button></div>'
+                content: '<button onclick = "routeToHere(\'' + location + '\')" class = "btn-primary">Route to here</button></div>'
             });
             // Create a marker for each place.
             newMarkers.push(myMark);
@@ -146,9 +147,21 @@ function routeToHere(location) {
         navigator.geolocation.getCurrentPosition(function (position) {
             pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             map.setCenter(pos);
-            console.log(location);
-            console.log(pos);
-            getLatLng(pos, location);
+            var geocoder = new google.maps.Geocoder;
+            var lat = position.coords.latitude;
+            var long = position.coords.longitude;
+            var latlngStr = lat.toString() + "," + long.toString();
+            latlngStr = latlngStr.split(',', 2);
+            var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
+            geocoder.geocode({'location': latlng}, function (results, status) {
+                if (status === 'OK') {
+                    var start = results[0].formatted_address;
+                    getLatLng(start, location);
+                }
+                else {
+                    alert("Something went wrong. Try again!")
+                }
+            });
         }, function () {
             handleLocationError(true, LocationWindow, map.getCenter());
         });

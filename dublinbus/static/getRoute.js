@@ -9,6 +9,7 @@
  * @param end the end position for the user
  */
 function getRoute(i, url, start, end) {
+    start = start.replace("'", "\\'");
     var infowindow = new google.maps.InfoWindow();
     //array I'll use store locations
     var locations = [];
