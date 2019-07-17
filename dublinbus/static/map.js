@@ -1,30 +1,98 @@
 function initMap() {
+    var infowindow = new google.maps.InfoWindow();
+    var pos;
     directionsService = new google.maps.DirectionsService();
     directionsDisplay = new google.maps.DirectionsRenderer();
-    // The location of Dublin
+
+        // The location of Dublin
     var dublin = {lat: 53.33306, lng: -6.24889};
     // The map, centered at Uluru
-    console.log("initMap function was called");
-
+    var im = 'http://www.robotwoods.com/dev/misc/bluecircle.png';
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,
         center: dublin,
         mapTypeControl: false,
     });
     directionsDisplay.setMap(map);
+    //uses the Google geolocation service
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var marker = new google.maps.Marker({
+                position: pos,
+                map: map,
+                icon: im
+            });
+            map.setCenter(pos);
+        });
+    }
+    var input = document.getElementById('pac-input');
+    var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+    map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());
+    });
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('places_changed', function() {
+        var places = searchBox.getPlaces();
+
+        if (places.length == 0) {
+            return;
+        }
+        // Clear out the old markers.
+        markers.forEach(function(marker) {
+            marker.setMap(null);
+        });
+        newMarkers = [];
+
+        // For each place, get the icon, name and location.
+        var bounds = new google.maps.LatLngBounds();
+        places.forEach(function(place) {
+            if (!place.geometry) {
+                console.log("Returned place contains no geometry");
+                return;
+            }
+            var icon = {
+                url: place.icon,
+                size: new google.maps.Size(142, 142),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(50, 50)
+            };
+            var location = document.getElementById("pac-input").value;
+            myMark = new google.maps.Marker({
+                map: map,
+                icon: icon,
+                title: place.name,
+                position: place.geometry.location,
+                content: '<button onclick = "routeToHere(\'' + location + '\')" class = "btn-primary">Route to here</button></div>'
+            });
+            // Create a marker for each place.
+            newMarkers.push(myMark);
+
+            if (place.geometry.viewport) {
+                // Only geocodes have viewport.
+                bounds.union(place.geometry.viewport);
+            } else {
+                bounds.extend(place.geometry.location);
+            }
+            google.maps.event.addListener(myMark, 'click', (function (myMark) {
+                return function () {
+                    infowindow.setContent(myMark.content);
+                    infowindow.open(map, myMark);
+                }
+            })(myMark));
+        });
+        map.fitBounds(bounds);
+
+    });
+
+
     setAutocomplete();
     // The marker, positioned at Uluru
     addMarker(map);
 
-}
-function changeToJourney(){
-    document.getElementById('Logo').innerHTML ="<p>Plan Your Journey!";
-    document.getElementById('search').style = "display:none";
-    var columns_container = $(".dynamic-columns");
-    $(".dynamic-columns .col:last-child").removeClass("col-12");
-    $(".dynamic-columns .col:last-child").addClass("col-10");
-    document.getElementById('options').style = "display:block";
-    setAutocomplete();
 }
 
 //moved the setting up of the autocomplete boxes to another function
@@ -52,7 +120,6 @@ function setAutocomplete() {
 function addMarker(map) {
     for (var i = 0, length = data.length; i < length; i++) {
         var busdata = data[i];
-        // {#Console.log(busdata);#}
         var myLatLng = {lat: parseFloat(busdata.stop_lat), lng: parseFloat(busdata.stop_lon)};
 
         // Creating  markers and putting it on the map
@@ -67,6 +134,47 @@ function addMarker(map) {
 
         });
 
+    }
+}
+
+function routeFromHere(data) {
+    document.getElementById('origin-input').value = data;
+}
+
+function routeToHere(location) {
+    var pos;
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            map.setCenter(pos);
+            var geocoder = new google.maps.Geocoder;
+            var lat = position.coords.latitude;
+            var long = position.coords.longitude;
+            var latlngStr = lat.toString() + "," + long.toString();
+            latlngStr = latlngStr.split(',', 2);
+            var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
+            geocoder.geocode({'location': latlng}, function (results, status) {
+                if (status === 'OK') {
+                    var start = results[0].formatted_address;
+                    getLatLng(start, location);
+                }
+                else {
+                    alert("Something went wrong. Try again!")
+                }
+            });
+        }, function () {
+            handleLocationError(true, LocationWindow, map.getCenter());
+        });
+    } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, LocationWindow, map.getCenter());
+    }
+    function handleLocationError(browserHasGeolocation, LocationWindow, pos) {
+        LocationWindow.setPosition(pos);
+        LocationWindow.setContent(browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.');
+        LocationWindow.open(map);
     }
 }
 
@@ -123,6 +231,17 @@ function resetMap() {
     setAutocomplete();
 
 
+}
+
+function hideSide(){
+    document.getElementById('header').innerHTML="<p>Search for somewhere to go!</p>";
+    var columns_container = $(".dynamic-columns");
+    document.getElementById('options').style.height = "0px";
+    $(".dynamic-columns .col:first-child").removeClass("col-2");
+    $(".dynamic-columns .col:first-child").addClass("col-0");
+
+    $(".dynamic-columns .col:last-child").removeClass("col-10");
+    $(".dynamic-columns .col:last-child").addClass("col-12");
 }
 
 //resizes map for directions on the right side
