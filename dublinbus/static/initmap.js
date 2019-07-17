@@ -6,5 +6,6 @@
             // The marker, positioned at Uluru
             var marker = new google.maps.Marker({position: dublin, map: map});
             addMarker(map,data);
+
             console.log("hi ankhit!");
         };

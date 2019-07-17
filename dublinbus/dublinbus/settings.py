@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django_user_agents',
     'django_jasmine',
     # 'django_qunit',
-    'djangojs',
+    # 'djangojs',
 
 
 ]

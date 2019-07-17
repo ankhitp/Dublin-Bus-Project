@@ -157,6 +157,8 @@ height: 100%;
 
 }
 
+/*table.tr:nth-child(even)*/
+/*{background-color: #f2f2f2;}*/
 /* #nav-link active{
 } */
 
@@ -181,3 +183,8 @@ height: 100%;
   font-size: 5vh;
   padding-top: 2vh;
 }
+
+/*.infowin{*/
+  /*background: rgba(76, 175, 80, 0.3);*/
+  /*opacity: 0.5*/
+/*}*/

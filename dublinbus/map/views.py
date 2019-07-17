@@ -21,12 +21,15 @@ class map_view(TemplateView):
         json_data = open('static/files/stops_info.json')
         stops_data = json.load(json_data)
         user_agent = get_user_agent(request)
+        json_routedata = open('static/files/serving_route.json')
+        route_data = json.load(json_routedata)
         if user_agent.is_mobile:
-            return render(request, 'mobile/m_map.html', {'form':form, 'load': stops_data})
+            return render(request, 'mobile/m_map.html', {'form':form, 'load': stops_data, 'routedata': route_data})
         elif user_agent.is_tablet:
-            return render(request, 'mobile/m_map.html', {'form':form, 'load': stops_data})
+            return render(request, 'mobile/m_map.html', {'form':form, 'load': stops_data, 'routedata': route_data})
         else:
-            return render(request, 'map.html', {'form':form, 'load': stops_data})
+            return render(request, 'map.html', {'form':form, 'load': stops_data, 'routedata': route_data})
+
 
     # post method, which saves to the model
     def post(self, request):
@@ -50,6 +53,7 @@ import requests
 from django.views.decorators.csrf import csrf_exempt
 dirname = os.path.dirname(__file__)
 filename = os.path.join(dirname, "../static/files/stops_info.json")
+# routefile = os.path.join(dirname, "../static/files/serving_route.json")
 
 
 # Create your views here.
