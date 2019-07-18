@@ -12,8 +12,8 @@ def journeyplan(request):
     stops_data = json.load(json_data)
     user_agent = get_user_agent(request)
     if user_agent.is_mobile:
-        return render(request, 'mobile/m2_journeyplan.html', {'load': stops_data})
+        return render(request, 'mobile/m1_journeyplan.html', {'load': stops_data})
     elif user_agent.is_tablet:
-        return render(request, 'mobile/m2_journeyplan.html', {'load': stops_data})
+        return render(request, 'mobile/m1_journeyplan.html', {'load': stops_data})
     else:
         return render(request, 'journeyplan.html', {'load': stops_data})

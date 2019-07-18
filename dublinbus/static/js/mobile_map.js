@@ -74,7 +74,7 @@ function deleteMarkers() {
 
 function resetMap() {
     var columns_container = $(".dynamic-columns");
-    document.getElementById('panel').style = 'display:none';
+    // document.getElementById('panel').style = 'display:none';
     document.getElementById('options').style = "display:block";
 
     $(".dynamic-columns .col:nth-child(2)").removeClass("col-9");

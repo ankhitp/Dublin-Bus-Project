@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['137.43.49.53', '0.0.0.0', '127.0.0.1', 'localhost']
 
 INSTALLED_APPS = [
     'map.apps.MapConfig',
+    'favourites.apps.FavouritesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_user_agents',
+    'django_jasmine',
+    # 'django_qunit',
+    # 'djangojs',
+
 
 ]
 
@@ -53,6 +58,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
   ]
+
 
 
 TEMPLATE_LOADERS = (
@@ -82,6 +88,15 @@ STATICFILES_DIRS = (
   os.path.join(BASE_DIR, 'static'),
 )
 
+
+JASMINE_TEST_DIRECTORY = (
+  os.path.join(BASE_DIR, 'spec'),
+)
+
+QUNIT_TEST_DIRECTORY=(
+    os.path.join(BASE_DIR, 'static/js'),
+
+)
 
 DESKTOP_TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 MOBILE_TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates/mobile'),)

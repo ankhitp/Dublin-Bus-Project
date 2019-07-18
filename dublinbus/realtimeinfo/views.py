@@ -5,6 +5,6 @@ from django.template import loader
 
 # Create your views here.
 
-def realtimeinfo(request, id):
+def realtimeinfo(request):
     # return HttpResponse(render({}, request))
-    return render(request, "realtimeinfo.html", {"id": id})
+    return render(request, "realtimeinfo.html")

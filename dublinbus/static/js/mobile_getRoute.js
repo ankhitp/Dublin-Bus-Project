@@ -6,7 +6,7 @@
 function getRoute(i, url) {
     var infowindow = new google.maps.InfoWindow();
     var locations = [];
-    document.getElementById("panel").innerHTML = "<h3> Directions </h3>";
+    document.getElementById("mypanel").innerHTML = "<h3> Directions: </h3>";
     xhttp.open("GET", url, true);
     xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
     //xhttp.setRequestHeader('X-CSRF-Token', 'abcdef');
@@ -26,7 +26,7 @@ function getRoute(i, url) {
                 if (parsed[x]["mode"] == 20 && x != parsed.length - 1) {
         
 
-                    document.getElementById('accordion').insertAdjacentHTML('beforeend',
+                    document.getElementById('mypanel').insertAdjacentHTML('beforeend',
 
 
                         "<div class=\"row\">"+
@@ -57,7 +57,7 @@ function getRoute(i, url) {
                     console.log(parsed[x]["Journey"]["Stop"].length)
 
                     
-                    document.getElementById('accordion').insertAdjacentHTML('beforeend',
+                    document.getElementById('mypanel').insertAdjacentHTML('beforeend',
 
 
                         
@@ -82,13 +82,8 @@ function getRoute(i, url) {
                                 "</div>"+
                              " </div>"+
                             "</div>"
-                            
-                 
-
 
         );
-
-
 
         for (var z = 0; z < parsed[x]["Journey"]["Stop"].length; z++) {
             var latitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["y"];
@@ -112,7 +107,7 @@ function getRoute(i, url) {
             })(marker, a));
         }
         if (x == parsed.length - 1) {
-            document.getElementById('panel').insertAdjacentHTML('beforeend',
+            document.getElementById('mypanel').insertAdjacentHTML('beforeend',
                 "<button class='btn btn-primary' " +
                 "type='submit' onclick = 'removeLine(); deleteMarkers();getLatLng()'>Return to Results</button>");
         }
@@ -126,10 +121,38 @@ function getRoute(i, url) {
         var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
         geocoder.geocode({'location': latlng}, function (results, status) {
             if (status === 'OK') {
-                document.getElementById('panel').insertAdjacentHTML('beforeend',
-                    "<img src='../static/img/walk.png' style='width:32px;height:32px';>" +
-                    "<p>Walk to destination: " + results[0].formatted_address + "</p>");
-                document.getElementById('panel').insertAdjacentHTML('beforeend',
+
+
+                document.getElementById('mypanel').insertAdjacentHTML('beforeend',
+                 
+                    
+                    
+                    
+                    "<div class=\"row\">"+
+                            "<div id=\"accordion\"><div class=\"card\"><div class=\"card-header\" id=\"heading"+CSScounter+"\"><h5 class=\"mb-0\">"+
+                                        "<button class=\"btn btn-link collapsed\" data-toggle=\"collapse\" data-target=\"#collapse"+CSScounter+"\"aria-expanded=\"false\" aria-controls=\"collapse"+CSScounter+"\">"+
+                                        "<img src='../static/img/walk.png' style='width:32px;height:32px';>"+ " Walk travel"                                                +
+                              "</button>"+
+                            "</h5>"+
+                          "</div>"+
+                      
+                          "<div id=\"collapse"+CSScounter+"\"class=\"collapse\" aria-labelledby=\"heading"+CSScounter+"\"data-parent=\"#accordion\">"+
+                            "<div class=\"card-body\">"+
+
+                            "<img src='../static/img/walk.png' style='width:32px;height:32px';>"+
+                            "<p>Walk to destination: " + results[0].formatted_address + "</p>"+
+
+                            "</div>"+
+                         " </div>"+
+                        "</div>"
+                    
+                    
+                    
+                    
+                    );
+
+
+                document.getElementById('mypanel').insertAdjacentHTML('beforeend',
                     "<button class='btn btn-primary' " +
                     "type='submit' onclick = 'removeLine(); deleteMarkers();getLatLng()'>Return to Results</button>")
 
