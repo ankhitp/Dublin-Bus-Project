@@ -56,7 +56,7 @@ function addMarker(map, data) {
             // content is the stop info
             content: '<div id="content' + busdata.actual_stop_id + '" >' +
                 '<div id=stop' + busdata.actual_stop_id + '>' +
-                '<div><img src="../static/img/bus-blue-icon.png" alt="bus-blue-icon" width="12%" height="12%">' +
+                '<div><img src="../img/bus-blue-icon.png" alt="bus-blue-icon" width="12%" height="12%">' +
                 '<h style="margin-left: 3%; font-family:Tangerine; font-size:15px;"><b>Stop ID:</b>  ' + busdata.actual_stop_id + '</h></div>' +
                 '<h style="margin-left: 15%; font-family:Tangerine; font-size:15px;"><b>Stop name:</b><br>' + '<p style="margin-left: 8%">' + busdata.stop_name + '</p></h>' +
 
@@ -114,7 +114,7 @@ function get_real_time_data(id) {
             }
             document.getElementById("stop" + id).style.display = 'none';
             $('#content' + id).append('<div id="realtime' + id + '">' + texthead + text + content + "</div>");
-            document.getElementById("realtime_p").innerHTML = "<img src='../static/img/back-icon.png' style='width: 10px; height: 10px'>";
+            document.getElementById("realtime_p").innerHTML = "<img src='../img/back-icon.png' style='width: 10px; height: 10px'>";
         });
 
 
@@ -125,7 +125,7 @@ function get_real_time_data(id) {
     } else {
         document.getElementById("stop" + id).style.display = 'none';
         document.getElementById("realtime" + id).style.display = 'block';
-        document.getElementById("realtime_p").innerHTML = "<img src='../static/img/back-icon.png' style='width: 10px; height: 10px'>";
+        document.getElementById("realtime_p").innerHTML = "<img src='../img/back-icon.png' style='width: 10px; height: 10px'>";
     }
 }
 
