@@ -6,6 +6,8 @@
  * and also indicates how many connections each route has.
  */
 function getLatLng(start, end) {
+    document.getElementById('options').style.height = "600px";
+
     start = start.replace("'", "\\'");
     //set the HTML for the routes list
     //start and end points
@@ -75,7 +77,7 @@ function getLatLng(start, end) {
                             }
                             //option to reset the searches
                             document.getElementById('options').insertAdjacentHTML('beforeend', "<button class=" +
-                                "'btn btn-primary' type='submit' onclick = 'resetMap()'>Search Again</button>");
+                                "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();resetMap();'>Search Again</button>");
                         }
                     }
                 }

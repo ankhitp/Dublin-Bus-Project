@@ -45,7 +45,29 @@
             font-size: 13px;
             font-weight: 300;
         }
-
+        #wrapper { position: relative; }
+        #options {
+            position: absolute;
+            top:100px;
+            left: 10px;
+            z-index: 99;
+            max-width:400px;
+            background: white;
+            height: 200px;
+            border-radius: 25px;
+            border: 2px solid #17a2b8;
+        }
+        #directions {
+            position: absolute;
+            top:100px;
+            left: 78%;
+            z-index: 99;
+            background: lightblue;
+            height: 200px;
+            border-radius: 25px;
+            max-width:400px;
+            border: 2px solid #17a2b8;
+        }
     </style>
 
 
@@ -55,60 +77,68 @@
 
 <div class="container-fluid">
     <div class="row" id="header-row">
-    <div class="col-3">
-        <img src = "{% static 'smalllogo.png' %}" class="smalllogo">
+        <div class="col-3">
+            <img class="smalllogo" src="{% static 'smalllogo.png' %}">
+        </div>
+        <div class="col-6" id='header'>
+            <p>Search for a place to go!</p>
+        </div>
+        <div class="col-3">
+        </div>
     </div>
-    <div id = 'header' class="col-6">
-        <p>Plan your journey!</p>
-    </div>
-    <div class="col-3">
-    </div>
-
 
 </div>
+<div id = wrapper class="row dynamic-columns">
+    <div class="col-2 col" id='options' style="overflow: scroll">
+        <div id = 'journeyPlan' style = 'display:none'>
+            <h3 style="text-align: center">Start your journey here!</h3>
+            <br>
+            <h4 style="text-align: center">Enter a start and end location!</h4>
 
-</div>
+            <div style="text-align: center">
 
-    <div class="row dynamic-columns">
-        <div id = 'options' class="col-2 col" style="height: 800px; overflow: scroll">
-            <div>
+                <input autocomplete="off" class="controls" id="origin-input" placeholder="Enter an origin location"
+                       type="text">
 
-                <h3 style="text-align: center">Start your journey here!</h3>
-                <br>
-                <h4 style="text-align: center">Enter a start and end location!</h4>
+                <input autocomplete="off" class="controls" id="destination-input" placeholder="Enter a destination location"
+                       type="text">
 
-                <div style = "text-align: center">
-
-                    <input autocomplete="off" id="origin-input" class="controls" type="text" placeholder="Enter an origin location">
-
-                    <input autocomplete="off"   id="destination-input" class="controls" type="text" placeholder="Enter a destination location">
-
-                </div>
-                <br>
-                <div style = "text-align: center">
-                    <button  class='btn btn-primary' id = "directionsButton"  type="submit" onclick = "resizeMap()">Search</button>
-                </div>
-                <br>
-                <div style = "text-align: center">
-                    <button  class='btn btn-primary' id = "locationButton"  type="submit" onclick = "findLocation()">Find Stations Near Me!</button>
-                </div>
-                <br>
-                <div style = "text-align: center">
-                    <button  class='btn btn-primary' id = "hideButton"  type="submit" onclick = "hideSide()">Hide Journey Planner</button>
-                </div>
+            </div>
+            <br>
+            <div style="text-align: center">
+                <button class='btn btn-primary' id="directionsButton" onclick="resizeMap()" type="submit">Search
+                </button>
+            </div>
+            <br>
+            <div style="text-align: center">
+                <button class='btn btn-primary' id="locationButton" onclick="findLocation()" type="submit">Find Stations
+                    Near Me!
+                </button>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div style="text-align: center">
+                <button class='btn btn-primary' onclick="hideOptions()" type="submit">Hide Options ^</button>
             </div>
         </div>
-        <div class="col-10 col">
-            <input id="pac-input" class="controls" type="text" placeholder="Search for a location or stop..." style = "width:300px; height:40px; font-size: large">
-            <div id="map" style="width:100%;height:800px;"></div>
+        <div id = 'searchOnly' style = 'display:block'>
+            <div style="text-align: center">
+            <h3>Search for a place in Dublin to visit!</h3>
+                <input autocomplete="off" class="controls" id="pac-input" placeholder="Search Dublin" type="text" autocomplete = 'off'>
+                <br>
+                <br>
+                <button class='btn btn-primary' onclick="showOptions()" type="submit">Show Journey Planner</button>
+            </div>
         </div>
+    </div>
+    <div class="col-12 col">
+        <div id="map" style="width:100%;height:950px;"></div>
+    </div>
+    <div id = 'directions' class = "col-3 col float-right" style="display:none; overflow:scroll">
     </div>
 
-    <div class="row">
-        <div class="col-12" id="footer">
-            {% include 'tabs.html' %}
-        </div>
-    </div>
+</div>
 </div>
 <script>
     var map;
@@ -126,15 +156,15 @@
 
 
 </script>
-<script src="{% static 'map.js' %}"></script>
-<script src="{% static 'getRoute.js' %}"></script>
-<script src="{% static 'getLatLong.js' %}"></script>
-<script src="{% static 'findLocation.js' %}"></script>
-
+<script src="{% static '/js/map.js' %}"></script>
+<script src="{% static '/js/getRoute.js' %}"></script>
+<script src="{% static '/js/getLatLong.js' %}"></script>
+<script src="{% static '/js/findLocation.js' %}"></script>
 
 
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvFaUDR5Wnl172znC5agS97gPJmyXHwOs&libraries=places&callback=initMap">
 </script>
+
 </body>
 {% endblock %}
