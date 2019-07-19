@@ -53,6 +53,7 @@ function addMarker(map, data) {
             map: map,
             icon: icon,
             title: busdata.actual_stop_id + "\n" + busdata.stop_name,
+            // content is the stop info
             content: '<div id="content' + busdata.actual_stop_id + '" >' +
                 '<div id=stop' + busdata.actual_stop_id + '>' +
                 '<div><img src="../img/bus-blue-icon.png" alt="bus-blue-icon" width="12%" height="12%">' +
@@ -78,12 +79,13 @@ function addMarker(map, data) {
 
 
 }
-
+// this function calls realtime api to get the real time info
 
 function get_real_time_data(id) {
     if (document.getElementById('realtime' + id) == null) {
         getJSON('https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=' + id + '&format=json', function (err, datainfo) {
             // {#'+stopid+'#}
+            // realtime table head
             var texthead = `<h6 style = "padding-left : 1%;font-family:Tangerine; font-size:15px; padding-top: 2%">Stop: ${datainfo.stopid}</h6>
                             <p style = "padding-left : 1%;font-family:Tangerine; font-size:15px;">Data Refreshed at: ${datainfo.timestamp}</p>`
             var text = `<table  style=" width:100%;  margin: auto; text-align: center; border: 1px solid black;border-collapse: collapse">
@@ -93,15 +95,17 @@ function get_real_time_data(id) {
                             <th style=" border: 1px solid #ddd; width: 30%;font-family:Tangerine; color: white;font-size:12px; background-color: #1C6EA4">Due</th>
                             </tr></table>
                             `
-
             var content = "";
             for (var i = 0, length = datainfo.results.length; i < length; i++) {
                 if (datainfo.results[i].duetime == 1) {
                     var minute = "min";
-                } else {
-                    minute = "mins"
+                } else if (datainfo.results[i].duetime == 'Due'){
+                    minute = "";
+                } else{
+                    minute = "mins";
                 }
 
+            // show realtime content
                 content += `<table style=" width: 100%; margin: auto; text-align: center; border: 1px solid black; border-collapse: collapse">
                     <tr><td style=" border: 1px solid #ddd; width: 20%;font-family:Tangerine; font-size:12px;">${datainfo.results[i].route}</td>
                     <td style=" border: 1px solid #ddd; width: 50%;font-family:Tangerine; font-size:12px;">${datainfo.results[i].destination}</td>
