@@ -9,13 +9,19 @@
  * @param end the end position for the user
  */
 function getRoute(i, url, start, end) {
+    if (busPath !== undefined) {
+        removeLine();
+    }
+    deleteMarkers();
+    document.getElementById('directions').style.height = "700px";
+    document.getElementById('directions').style.display = "block";
     start = start.replace("'", "\\'");
     var infowindow = new google.maps.InfoWindow();
     //array I'll use store locations
     var locations = [];
     var times = [];
     var km = 0;
-    document.getElementById("options").innerHTML = "<h3> Directions </h3>";
+    document.getElementById("directions").innerHTML = "<h3> Directions </h3>";
     //hit the HERE api for route
     xhttp.open("GET", url, true);
     xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
@@ -29,14 +35,14 @@ function getRoute(i, url, start, end) {
             for (var x = 0; x < parsed.length; x++) {
                 //if the direction is to walk and it's not the last step of the route
                 if (parsed[x]["mode"] == 20 && x != parsed.length - 1) {
-                    document.getElementById('options').insertAdjacentHTML('beforeend',
+                    document.getElementById('directions').insertAdjacentHTML('beforeend',
                         "<img src='../static/img/walk.png' style='width:32px;height:32px';> <p>Walk to " +
                         parsed[x]["Arr"]["Stn"]["name"] + "</p> <p>" + parsed[x]["Journey"]['distance'] + " meters</p><hr>");
                 }
                 //if the direction is to take a bus
                 else if (parsed[x]['mode'] == 5) {
                     //build the HTML for "take bus number X toward Z from station X to station Y. X stops"
-                    document.getElementById('options').insertAdjacentHTML('beforeend',
+                    document.getElementById('directions').insertAdjacentHTML('beforeend',
                         "<img src='../static/img/bus.png' style='width:32px;height:32px';>" +
                         "<p>Take bus number " + parsed[x]["Dep"]["Transport"]["name"] +
                         " toward " + parsed[x]["Dep"]["Transport"]["dir"] + " from station " +
@@ -87,7 +93,7 @@ function getRoute(i, url, start, end) {
                     }
                     //if its the last direction in the route, add a return to results button.
                     if (x == parsed.length - 1) {
-                        document.getElementById('options').insertAdjacentHTML('beforeend',
+                        document.getElementById('directions').insertAdjacentHTML('beforeend',
                             "<button class='btn btn-primary' " +
                             'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\'' + start + '\',\'' + end + '\')">Return to Results</button>' +
                             '<br><h4>This bus route will result in '+co2+' grams of CO2 being released into the atmosphere. <br>' +
@@ -109,12 +115,11 @@ function getRoute(i, url, start, end) {
                     geocoder.geocode({'location': latlng}, function (results, status) {
                         if (status === 'OK') {
                             //Just building the html to say "walk to destination X" and add return to results button.
-                            document.getElementById('options').insertAdjacentHTML('beforeend',
+                            document.getElementById('directions').insertAdjacentHTML('beforeend',
                                 "<img src='../static/img/walk.png' style='width:32px;height:32px';>" +
                                 "<p>Walk to destination: " + results[0].formatted_address + "</p>");
-                            document.getElementById('options').insertAdjacentHTML('beforeend',
-                                "<button class='btn btn-primary' " +
-                                'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\'' + start + '\',\'' + end + '\')">Return to Results</button>'+
+                            document.getElementById('directions').insertAdjacentHTML('beforeend',
+
                                 '<br><h4>This bus route will result in '+co2+' grams of CO2 being released into the atmosphere. <br>' +
                                 'This is compared to ' + carCo2 + ' grams of CO2 if you had used a car!</h4>'
                             );
