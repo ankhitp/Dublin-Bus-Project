@@ -6,7 +6,7 @@ function initMap() {
 
         // The location of Dublin
     var dublin = {lat: 53.33306, lng: -6.24889};
-    // The map, centered at Uluru
+    // The map, centered at Dublin
     var im = 'http://www.robotwoods.com/dev/misc/bluecircle.png';
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,
@@ -26,8 +26,18 @@ function initMap() {
             map.setCenter(pos);
         });
     }
+    // get the searchbox by id
     var input = document.getElementById('pac-input');
+    // variable equal to input of searchbox
     var searchBox = new google.maps.places.SearchBox(input);
+    console.log("Clare test", searchBox);
+
+    if(isNaN(searchBox)){
+        console.log("Number test: is not a number", searchBox);
+     }else{
+        console.log("Number test: is a number", searchBox);
+     }
+
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
     map.addListener('bounds_changed', function() {
         searchBox.setBounds(map.getBounds());
@@ -110,6 +120,8 @@ function setAutocomplete() {
     //setting up the autcomplete and adding the bound circle of 10KM for suggestions
     var originAutocomplete = new google.maps.places.Autocomplete(originInput);
     var destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
+
+
     originAutocomplete.setBounds(circle.getBounds());
     destinationAutocomplete.setBounds(circle.getBounds());
     this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
