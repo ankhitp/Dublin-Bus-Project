@@ -84,17 +84,20 @@
    </div>
    <div class="panel panel-default">
       <div class="row">
-         <div class="col-12">
+         <div class="col-12" id="map-holder">
             <div class="panel-heading">
                <div id="map" style="width:100%;"></div>
             </div>
          </div>
       </div>
    </div>
-   <div class="lowerholder">
+   <div class="lowerholder" id="lowerholder">
     <div id="options">
       <!-- <p> here is mypanel</p> -->
    </div>
+   <div id="carbonholder">
+
+</div>
 
    <div class="panel panel-default collapse" id="collapseTwo">
       <div class="panel-heading">
@@ -110,15 +113,14 @@
    </div>
    </div>
 
-   <!-- <div id="mypanel">
-      <p> here is mypanel</p>
-   </div> -->
+
 
    <div class="row">
       <div class="col-12" id="footer">
          {% include 'tabs.html' %}
       </div>
    </div>
+
    </div>
    </div>
    <script>
@@ -133,11 +135,11 @@
       var arrTime;
       var LocationWindow;
    </script>
-   <script src="{% static 'map.js' %}"></script>
-   <script src="{% static 'toword.js' %}"></script>
-   <script src="{% static 'getRoute.js' %}"></script>
-   <script src="{% static 'getLatLong.js' %}"></script>
-   <script src="{% static 'findLocation.js' %}"></script>
+   <script src="{% static 'js/map.js' %}"></script>
+   <script src="{% static 'js/toword.js' %}"></script>
+   <script src="{% static 'js/mobile_getRoute.js' %}"></script>
+   <script src="{% static 'js/getLatLong.js' %}"></script>
+   <script src="{% static 'js/findLocation.js' %}"></script>
    <link rel="stylesheet" href="{% static 'css/m_journeyplan1.css' %}">
    <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvFaUDR5Wnl172znC5agS97gPJmyXHwOs&libraries=places&callback=initMap"></script>

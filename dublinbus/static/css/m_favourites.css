@@ -1,3 +1,14 @@
+/* .controls {
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+} */
+
 #middle-favourite{
     background: white;
     width: 100%;
@@ -43,7 +54,7 @@
     padding: 3%;
 }
 #destination-input{
-    width: 35%;
+    width: 60%;
     font-size: 70%;
     padding: 3%;
 
@@ -88,8 +99,9 @@
     border-color: gainsboro;
 }
 
-.btn btn-primary{
+.btn.btn-primary{
     size: 50px;
+    /* margin-left: 50%; */
 }
 
 .flex-container{
@@ -99,9 +111,6 @@
     width: 100%;
     align-items: stretch;
     justify-content: center;
-
-}
-#one-holder{
     background-color: rgba(2, 147, 222, 0.5);
     border-radius: 15px;
     padding: 5px;
@@ -111,6 +120,18 @@
     text-align: centre;
   height: 10vh;
   line-height:5vh;
+
+}
+#one-holder{
+    /* background-color: rgba(2, 147, 222, 0.5);
+    border-radius: 15px;
+    padding: 5px;
+    font-size: 50%;
+    width: 100%;
+
+    text-align: centre;
+  height: 10vh;
+  line-height:5vh; */
   display:none;
 }
 
@@ -178,3 +199,7 @@ form {
 #box {
     display: flex;
   }
+
+#field-wrap{
+    padding: 10px;
+}
