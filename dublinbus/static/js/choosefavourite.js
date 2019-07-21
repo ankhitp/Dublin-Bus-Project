@@ -13,49 +13,50 @@
     console.log("in choose favourite");
     thisval = document.getElementById("planJourney").value;
     console.log("thisval", thisval);
-    var res = thisval.split(",");
+    var res = thisval.split("|");
     var start = res[0];
     var end = res[1];
     console.log("res", res);
     console.log("res 0", res[0]);
     console.log("res 1", res[1]);
 
+    location.href = "http://localhost:8000/journeyplan/"
+
     changeMap(start,end);
 
-    function changeMap(start, end) {
-        location.href = "http://localhost:8000/journeyplan/"
+    // function changeMap(start, end) {
 
-        deleteMarkers();
-        console.log("resizing map function")
-        // var start = document.getElementById('origin-input').value;
-        // var end = document.getElementById('destination-input').value;
+    //     deleteMarkers();
+    //     console.log("resizing map function")
+    //     // var start = document.getElementById('origin-input').value;
+    //     // var end = document.getElementById('destination-input').value;
         
-        document.getElementById('options').style.padding="3%";
-        // document.getElementById('options').style.height="26vh";
+    //     document.getElementById('options').style.padding="3%";
+    //     // document.getElementById('options').style.height="26vh";
     
-        document.getElementById('lowerholder').style.height="33vh";
+    //     document.getElementById('lowerholder').style.height="33vh";
     
     
-        if (start == "" || end == "") {
-            document.getElementById("options").innerHTML = "<h4 style = 'text-align: center'>Please enter a start and end location!</h4>" +
-                "<div style = 'text-align: center'>" +
-                "<br> <br> <button class='btn btn-primary' id = 'directionsButton'  type='submit' onclick = 'resetMap()'>Try Again</button> " +
-                "</div>";
-        } else {
-            var columns_container = $(".dynamic-columns");
-            if (!columns_container.hasClass("expanded")) {
+    //     if (start == "" || end == "") {
+    //         document.getElementById("options").innerHTML = "<h4 style = 'text-align: center'>Please enter a start and end location!</h4>" +
+    //             "<div style = 'text-align: center'>" +
+    //             "<br> <br> <button class='btn btn-primary' id = 'directionsButton'  type='submit' onclick = 'resetMap()'>Try Again</button> " +
+    //             "</div>";
+    //     } else {
+    //         var columns_container = $(".dynamic-columns");
+    //         if (!columns_container.hasClass("expanded")) {
     
-                $(".dynamic-columns .col:first-child").removeClass("col-2");
-                $(".dynamic-columns .col:first-child").addClass("col-3");
+    //             $(".dynamic-columns .col:first-child").removeClass("col-2");
+    //             $(".dynamic-columns .col:first-child").addClass("col-3");
     
-                $(".dynamic-columns .col:last-child").removeClass("col-10");
-                $(".dynamic-columns .col:last-child").addClass("col-9");
+    //             $(".dynamic-columns .col:last-child").removeClass("col-10");
+    //             $(".dynamic-columns .col:last-child").addClass("col-9");
     
-                columns_container.toggleClass("expanded");
-            }
-            getLatLng(start, end);
-        }
-    }
+    //             columns_container.toggleClass("expanded");
+    //         }
+    //         getLatLng(start, end);
+    //     }
+    // }
 
 
 
