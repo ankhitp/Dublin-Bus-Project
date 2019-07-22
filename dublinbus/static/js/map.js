@@ -49,6 +49,12 @@ function setAutocomplete() {
     });
     //setting up the autcomplete and adding the bound circle of 10KM for suggestions
     var originAutocomplete = new google.maps.places.Autocomplete(originInput);
+
+    // set route numbers here?
+    setTimeout(function(){
+        $(".pac-container").append('<div id="are" class="pac-item" onmousedown="alert(\'Yes workingt\')"><span class="pac-icon icon-airport"></span><span class="pac-item-query"><span class="pac-matched"></span>sample Address</span> <span>it\'s Working</span></div>');
+    }, 500);
+
     var destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
     originAutocomplete.setBounds(circle.getBounds());
     destinationAutocomplete.setBounds(circle.getBounds());
