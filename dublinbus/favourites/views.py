@@ -7,7 +7,9 @@ from django.views.generic import TemplateView
 from django_user_agents.utils import get_user_agent
 from favourites.forms import favouritesForm
 from django.views.generic.edit import FormView
-
+from favourites.forms import ContactForm
+from django.shortcuts import render_to_response
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 # def favourites(request):
@@ -22,14 +24,36 @@ from django.views.generic.edit import FormView
 #     else:
 #         return render(request, 'favourites.html', {'load': stops_data})
 
+
+# def favourites_view(request):
+#     if request.method == 'POST': # If the form has been submitted...
+#         form = favouritesForm(request.POST) # A form bound to the POST data
+#         print("form is favouritesform")
+#         if form.is_valid(): # All validation rules pass
+#             # Process the data in form.cleaned_data
+#             # ...
+
+#             print(form.cleaned_data['origin-input'])
+#             print("form is")
+#             return HttpResponseRedirect('./mobile/m1_journeyplan.html/') # Redirect after POST
+#     else:
+#         form = favouritesForm() # An unbound form
+
+#     return render_to_response('./mobile/m_favourites.html', {
+#         'form': form,
+#     })
+
+
+
+
     
 class favourites_view(TemplateView):
     template_name = 'mobile/m_favourites.html.html'
-
-
     # get method
     def get(self, request):
+        print("request.Post: ", request.POST)
         # initialise a form
+        print(request.POST.get("origin", ""))
         form = favouritesForm
         json_data = open('static/files/stops_info.json')
         stops_data = json.load(json_data)
@@ -46,6 +70,7 @@ class favourites_view(TemplateView):
             
     # post method, which saves to the model
     def post(self, request):
+        print("request.Post: ", request.POST)
         form = favouritesForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)

@@ -42,13 +42,13 @@
             <div id="input-holder">
                <!-- <form method="POST"> -->
 
-               <form>
-                  <!-- {% csrf_token %} -->
+               <form method="POST">
+                  {% csrf_token %}
 
 
                   <div class="field-wrap">
                   <label for="origin-input"> Start: </label>
-                  <input autocomplete="off" id="origin-input" class="controls" type="text">
+                  <input autocomplete="off" id="origin-input" name="title" class="controls" type="text">
 
 
                </div>
@@ -57,15 +57,12 @@
                   <div id="field-wrap">
                   <label for="destination-input">Destination: </label>
                   <input autocomplete="off"   id="destination-input" class="controls" type="text">
-                  <script>setAutocomplete()</script>
                   </div>
 
 
                   
                   <!-- {{ form.as_p }} -->
-                  <!-- <div id="field-wrap"> -->
                   <button type="button" class="btn btn-primary" id="addfavourite">Submit</button>
-               <!-- </div> -->
 
                </form>
             </div>
