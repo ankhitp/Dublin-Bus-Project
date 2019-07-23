@@ -45,14 +45,14 @@ function getRoute(i, url, start, end) {
 
                         "<div class=\"row\">"+
                         // "<div class=\"col-12\" id=\"myholder\">"+
-                                "<div id=\"accordion\"><div class=\"card\"><div class=\"card-header\" id=\"heading"+CSScounter+"\"><h5 class=\"mb-0\">"+
-                                            "<button class=\"btn btn-link collapsed\" data-toggle=\"collapse\" data-target=\"#collapse"+CSScounter+"\"aria-expanded=\"false\" aria-controls=\"collapse"+CSScounter+"\">"+
+                                "<div id=\"accordion\"><div class=\"card\"><div class=\"card-header\" id=\"heading"+CSScounter+"-"+CSScounter+"\"><h5 class=\"mb-0\">"+
+                                            "<button class=\"btn btn-link collapsed\" data-toggle=\"collapse\" data-target=\"#collapse"+CSScounter+"-"+CSScounter+"\"aria-expanded=\"false\" aria-controls=\"collapse"+CSScounter+"-"+CSScounter+"\">"+
                                             "<img src='../static/img/walk.png' style='width:32px;height:32px';>"+ " Walk travel"                                                +
                                   "</button>"+
                                 "</h5>"+
                               "</div>"+
                           
-                              "<div id=\"collapse"+CSScounter+"\"class=\"collapse\" aria-labelledby=\"heading"+CSScounter+"\"data-parent=\"#accordion\">"+
+                              "<div id=\"collapse"+CSScounter+"-"+CSScounter+"\"class=\"collapse\" aria-labelledby=\"heading"+CSScounter+"-"+CSScounter+"\"data-parent=\"#accordion\">"+
                                 "<div class=\"card-body\">"+
 
                                 "<img src='../static/img/walk.png' style='width:32px;height:32px';> <p>Walk to " +
@@ -78,14 +78,14 @@ function getRoute(i, url, start, end) {
                             
                         "<div class=\"row\">"+
                         // "<div class=\"col-12\" id=\"myholder\">"+
-                                "<div id=\"accordion\"><div class=\"card\"><div class=\"card-header\" id=\"heading"+CSScounter+"div><h5 class=\"mb-0\">"+
-                                            "<button class=\"btn btn-link collapsed\" data-toggle=\"collapse\" data-target=\"#collapse"+CSScounter+"\"aria-expanded=\"false\" aria-controls=\"collapse"+CSScounter+"\">"+
+                                "<div id=\"accordion\"><div class=\"card\"><div class=\"card-header\" id=\"heading"+CSScounter+"-"+CSScounter+"div><h5 class=\"mb-0\">"+
+                                            "<button class=\"btn btn-link collapsed\" data-toggle=\"collapse\" data-target=\"#collapse"+CSScounter+"-"+CSScounter+"\"aria-expanded=\"false\" aria-controls=\"collapse"+CSScounter+"-"+CSScounter+"\">"+
                                             "<img src='../static/img/bus.png' style='width:32px;height:32px'>"+ "  Take bus number "  + parsed[x]["Dep"]["Transport"]["name"]  +            
                                   "</button>"+
                                 "</h5>"+
                               "</div>"+
                           
-                              "<div id=\"collapse"+CSScounter+"\"class=\"collapse\" aria-labelledby=\"heading"+CSScounter+"\"data-parent=\"#accordion\">"+
+                              "<div id=\"collapse"+CSScounter+"-"+CSScounter+"\"class=\"collapse\" aria-labelledby=\"heading"+CSScounter+"-"+CSScounter+"\"data-parent=\"#accordion\">"+
                                 "<div class=\"card-body\">"+
 
                         "<p>Take bus number " + parsed[x]["Dep"]["Transport"]["name"] +
@@ -168,14 +168,14 @@ function getRoute(i, url, start, end) {
                     
                     
                     "<div class=\"row\">"+
-                            "<div id=\"accordion\"><div class=\"card\"><div class=\"card-header\" id=\"heading"+CSScounter+"\"><h5 class=\"mb-0\">"+
-                                        "<button class=\"btn btn-link collapsed\" data-toggle=\"collapse\" data-target=\"#collapse"+CSScounter+"\"aria-expanded=\"false\" aria-controls=\"collapse"+CSScounter+"\">"+
+                            "<div id=\"accordion\"><div class=\"card\"><div class=\"card-header\" id=\"heading"+CSScounter+"-"+CSScounter+"\"><h5 class=\"mb-0\">"+
+                                        "<button class=\"btn btn-link collapsed\" data-toggle=\"collapse\" data-target=\"#collapse"+CSScounter+"-"+CSScounter+"\"aria-expanded=\"false\" aria-controls=\"collapse"+CSScounter+"-"+CSScounter+"\">"+
                                         "<img src='../static/img/walk.png' style='width:32px;height:32px';>"+ " Walk travel"                                                +
                               "</button>"+
                             "</h5>"+
                           "</div>"+
                       
-                          "<div id=\"collapse"+CSScounter+"\"class=\"collapse\" aria-labelledby=\"heading"+CSScounter+"\"data-parent=\"#accordion\">"+
+                          "<div id=\"collapse"+CSScounter+"-"+CSScounter+"\"class=\"collapse\" aria-labelledby=\"heading"+CSScounter+"-"+CSScounter+"\"data-parent=\"#accordion\">"+
                             "<div class=\"card-body\">"+
 
                             "<img src='../static/img/walk.png' style='width:32px;height:32px';>"+
