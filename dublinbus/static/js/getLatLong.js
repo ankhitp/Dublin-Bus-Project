@@ -6,7 +6,7 @@
  * and also indicates how many connections each route has.
  */
 function getLatLng(start, end) {
-    document.getElementById('options').style.height = "600px";
+    document.getElementById('options').style.height = "26vh";
 
     start = start.replace("'", "\\'");
     //set the HTML for the routes list
@@ -83,6 +83,6 @@ function getLatLng(start, end) {
                     }
                 }
             });
-        }
-    )
-}
+    })
+
+    }
