@@ -145,7 +145,7 @@ function getRoute(i, url, start, end) {
        if (x == parsed.length - 1) {
         document.getElementById('carbonholder').insertAdjacentHTML('beforeend',
             "<button class='btn btn-primary' " +
-            'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\'' + start + '\',\'' + end + '\')">Return to Results</button>' +
+            'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng()">Return to Results</button>' +
             '<br><h4>This bus route will result in '+co2+' grams of CO2 being released into the atmosphere. <br>' +
             'This is compared to ' + carCo2 + ' grams of CO2 if you had used a car!</h4>'
         );
@@ -194,7 +194,7 @@ function getRoute(i, url, start, end) {
 
                 document.getElementById('carbonholder').insertAdjacentHTML('beforeend',
                     "<button class='btn btn-primary' " +
-                    "type='submit' onclick = 'removeLine(); deleteMarkers();getLatLng()'>Return to Results</button>"+
+                    "type='submit' onclick = 'removeLine(); deleteMarkers();getLatLng(\""+start+"\",\""+end+"\")'>Return to Results</button>"+
                     '<br><h4>This bus route will result in '+co2+' grams of CO2 being released into the atmosphere. <br>' +
                     'This is compared to ' + carCo2 + ' grams of CO2 if you had used a car!</h4>')
 

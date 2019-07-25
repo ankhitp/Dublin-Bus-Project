@@ -17,7 +17,7 @@ document.getElementById("addfavourite").addEventListener("click", function(){
        document.getElementById('one-holder').insertAdjacentHTML('beforeend',
        "<div class=\"flex-container\">"+
        "<div id=\"flex1div\"> <b>From: </b>" + origin + "<b> To: </b>" + destination +
-       "</div><div id=\"flex2div\"><button type=\"button\" class=\"btn btn-primary\" value="+ origin +"|" +destination +" id=\"planJourney\" onclick=\"chooseFavourite()\">Plan Journey</button>"+
+       "</div><div id=\"flex2div\"><button type=\"button\" class=\"btn btn-primary\" value="+ origin +"|" +destination +" id=\"planJourney\" onclick=\"getFavRoute('"+origin+"','"+destination+"')\">Plan Journey</button>"+
        "</div>"+
     "</div>");
 
