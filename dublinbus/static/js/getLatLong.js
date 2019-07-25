@@ -11,7 +11,7 @@ function getLatLng(start, end) {
     start = start.replace("'", "\\'");
     //set the HTML for the routes list
     //start and end points
-    document.getElementById('options').innerHTML = "<h3>Possible Routes</h3>";
+    document.getElementById('options').innerHTML = "<h4>Possible Routes</h4>";
     var dublin = {lat: 53.33306, lng: -6.24889};
     map.panTo(dublin);
     //Two geocoders, one for the start and one for end
@@ -62,7 +62,7 @@ function getLatLng(start, end) {
                                                 parsed[x]['Dep']['Transport']['dir'];
                                             document.getElementById('options').insertAdjacentHTML('beforeend',
                                                 '<button id =' + i + ' class="btn btn-primary" type="submit" ' +
-                                                'onclick = "getRoute(' + i + ', \'' + url + '\', \''+start+'\',\''+end+'\')"></button>');
+                                                'onclick = "getRoute(' + i + ', \'' + url + '\', \''+start+'\',\''+end+'\')"></button>' + '<p></p>');
                                             document.getElementById(i).innerHTML = hold;
                                         }
                                     }

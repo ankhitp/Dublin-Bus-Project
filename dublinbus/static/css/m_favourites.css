@@ -79,9 +79,14 @@
     padding-top: 3%;
     /* margin-top: 100px */
     font-size: 3vh;
-    text-align: centre;
+
+    text-align: center;
     padding-left: 5%;
     padding-right: 4%;
+
+    text-align: center;
+    padding-left: 10%;
+
   /* height: 100%; */
   line-height:5vh;
   height: 30vh;
@@ -94,7 +99,7 @@
 
 #add-button{
     border-radius: 50%;
-    text-align: centre;
+    text-align: center;
     background-color: gainsboro;
     border-color: gainsboro;
 }
@@ -129,7 +134,7 @@
     font-size: 50%;
     width: 100%;
 
-    text-align: centre;
+    text-align: center;
   height: 10vh;
   line-height:5vh; */
   display:none;

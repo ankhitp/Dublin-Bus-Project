@@ -1,11 +1,128 @@
 {% extends 'base.html' %}
-
-
 {% block content %}
-<h1> this is favourites</h1>
-<p>this is a template</p>
-{% endblock %}
+    {% load static %}
+    <head>
+        {#    <link rel="stylesheet" href="{% static 'css/m_favourites.css' %}">#}
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvFaUDR5Wnl172znC5agS97gPJmyXHwOs&libraries=places&callback=initMap">
+        </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+        <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+        <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css">
+        <style>
+            #favourite-holder {
+                text-align: center;
+            }
 
-{% block morecontent %}
-<p>yes it's working</p>
+        </style>
+    </head>
+
+
+    <div class="container-fluid">
+        <div id="head">
+            <img class="smalllogo" style="display: inline" src="{% static 'smalllogo.png' %}">
+            <h2 style="display: inline">Dublin Bus</h2>
+        </div>
+        <div>
+            {% include 'header.html' %}
+        </div>
+        <div class="row">
+            <div class="col-12" id="middle-favourite">
+                <!-- <p>middle section</p> -->
+                <div class="col-12" id="favourite-holder">
+
+
+                    <div id="favourite-Add">
+                        <div id="add-holder">
+                            <p>Add new favourite route
+                                <button type="button" id="add-button" class="btn btn-primary" data-toggle="button"
+                                        aria-pressed="false" autocomplete="off">
+                                    <i class="fas fa-plus-circle" id="plusicon"></i>
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div id="favourite-Input">
+                        <div id="input-holder">
+                            <!-- <form method="POST"> -->
+
+                            <form method="POST">
+                                {% csrf_token %}
+
+
+                                <div class="field-wrap">
+                                    <label for="origin-input"> Start: </label>
+                                    <input autocomplete="off" id="origin-input" name="title" class="controls"
+                                           type="text">
+
+
+                                </div>
+
+
+                                <div id="field-wrap">
+                                    <label for="destination-input">Destination: </label>
+                                    <input autocomplete="off" id="destination-input" class="controls" type="text">
+                                </div>
+
+
+                                <!-- {{ form.as_p }} -->
+                                <button type="button" class="btn btn-primary" id="addfavourite">Submit</button>
+
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <div id="one-holder"></div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function setAutocomplete() {
+            var originInput = document.getElementById('origin-input');
+            var destinationInput = document.getElementById('destination-input');
+            //define a center and circle for our autocomplete search, this makes it so that it's biased toward this area when
+            //searching for a place name
+            var center = new google.maps.LatLng(53.33306, -6.24889);
+            var circle = new google.maps.Circle({
+                center: center,
+                radius: 10000
+            });
+            //setting up the autcomplete and adding the bound circle of 10KM for suggestions
+            var originAutocomplete = new google.maps.places.Autocomplete(originInput);
+            // set route numbers here?
+            setTimeout(function () {
+                $(".pac-container").append('<div id="are" class="pac-item" onmousedown="alert(\'Yes workingt\')"><span class="pac-icon icon-airport"></span><span class="pac-item-query"><span class="pac-matched"></span>sample Address</span> <span>it\'s Working</span></div>');
+            }, 500);
+            var destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
+            originAutocomplete.setBounds(circle.getBounds());
+            destinationAutocomplete.setBounds(circle.getBounds());
+            this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
+            this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
+            var marker = new google.maps.Marker({position: dublin, map: map});
+        }
+    </script>
+    <script src="{% static '/js/addfavourite.js' %}"></script>
+    <script src="{% static '/js/createfavourite.js' %}"></script>
+
+    <script src="{% static '/js/map.js' %}"></script>
+    <script src="{% static '/js/choosefavourite.js' %}"></script>
+
+    <script src="{% static '/js/toword.js' %}"></script>
+    <script src="{% static '/js/mobile_getRoute.js' %}"></script>
+    <script src="{% static '/js/getLatLong.js' %}"></script>
+    <script src="{% static '/js/findLocation.js' %}"></script>
+
 {% endblock %}
