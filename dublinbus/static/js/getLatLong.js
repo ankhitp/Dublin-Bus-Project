@@ -6,7 +6,7 @@
  * and also indicates how many connections each route has.
  */
 function getLatLng(start, end) {
-    document.getElementById('options').style.height = "600px";
+    document.getElementById('options').style.height = "26vh";
 
     start = start.replace("'", "\\'");
     //set the HTML for the routes list
@@ -41,6 +41,7 @@ function getLatLng(start, end) {
                     xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
                     //xhttp.setRequestHeader('X-CSRF-Token', 'abcdef');
                     xhttp.send();
+                    
                     xhttp.onreadystatechange = function () {
                         if (this.readyState === 4 && this.status === 200) {
                             console.log(url);
@@ -82,6 +83,6 @@ function getLatLng(start, end) {
                     }
                 }
             });
-        }
-    )
-}
+    })
+
+    }
