@@ -27,7 +27,7 @@ div.container-fluid {
     width: 100%;
     text-align: center;
     overflow: hidden;
-    font-family: cursive;
+    font-family: Arial;
     min-width: 1000px;
     position: relative;
     vertical-align: middle;
@@ -52,7 +52,7 @@ div.container-fluid {
     padding-top: 0;
     text-decoration: none;
     font-size: 20px;
-    margin-left: 16%;
+    margin-left: 13%;
 }
 
 /*.navi a:link, .navi a:visited*/
@@ -81,7 +81,7 @@ body, html {
     padding: 0;
     background: rgba(2, 147, 222, 0.5) !important;
     /* opacity: 0.5; */
-    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    font-family: Arial;
 
 }
 
@@ -117,7 +117,7 @@ div.col-6 {
     font-size: 4vh;
     color: white;
     text-align: center;
-    font-family: 'News Cycle', sans-serif;
+    font-family: Arial;
 }
 
 .smalllogo {
@@ -188,7 +188,7 @@ div.col-6 {
 }
 
 .nav {
-    background: white;
+    background: red;
     height: 15vh;
     width: 100%;
     padding: 0px;
@@ -214,7 +214,7 @@ div.col-6 {
     border-width: 1px;
     border-color: white;
     color: rgb(212, 209, 209);
-    font-family: 'News Cycle', sans-serif;
+    font-family: Arial;
 
 }
 
@@ -222,22 +222,6 @@ div.col-6 {
     color: white;
 
 }
-
-/*table.tr:nth-child(even)*/
-/*{background-color: #f2f2f2;}*/
-/* #nav-link active{
-} */
-
-/* .ul>nav nav-pills nav-justified
-/*!*.nav-item**/
-/**/
-/*.tab*/
-/*.ul*/
-/*.nav>li>a*/
-
-/*.nav-link active*/
-
-/*.nav-link *!*/
 
 
 
@@ -250,8 +234,3 @@ div.col-6 {
     font-size: 5vh;
     padding-top: 2vh;
 }
-
-/*.infowin{*/
-/*background: rgba(76, 175, 80, 0.3);*/
-/*opacity: 0.5*/
-/*}*/

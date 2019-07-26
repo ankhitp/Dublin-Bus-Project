@@ -11,7 +11,7 @@ function getLatLng(start, end) {
     start = start.replace("'", "\\'");
     //set the HTML for the routes list
     //start and end points
-    document.getElementById('options').innerHTML = "<h4>Possible Routes</h4>";
+    document.getElementById('options').innerHTML = "<h5 style='text-align: center; padding-bottom: 5%;'>Possible Routes</h5>";
     var dublin = {lat: 53.33306, lng: -6.24889};
     map.panTo(dublin);
     //Two geocoders, one for the start and one for end

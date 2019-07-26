@@ -230,16 +230,16 @@ function resetMap() {
     document.getElementById('options').style.height = "200px";
     document.getElementById('options').innerHTML =
         "<div id = 'journeyPlan' style = 'display:none'>\n" +
-        "            <h3 style=\"text-align: center\">Start your journey here!</h3>\n" +
+        "            <h5 style=\"text-align: center\">Start your journey here!</h5>\n" +
         "            <br>\n" +
-        "            <h4 style=\"text-align: center\">Enter a start and end location!</h4>\n" +
+        "            <h6 style=\"text-align: center\">Enter a start and end location!</h6>\n" +
         "\n" +
         "            <div style=\"text-align: center\">\n" +
         "\n" +
-        "                <input autocomplete=\"off\" class=\"controls\" id=\"origin-input\" placeholder=\"Enter an origin location\"\n" +
+        "                <input autocomplete=\"off\" style= \"text-align: center\" class=\"controls\" id=\"origin-input\" placeholder=\"Enter an origin location\"\n" +
         "                       type=\"text\">\n" +
         "\n" +
-        "                <input autocomplete=\"off\" class=\"controls\" id=\"destination-input\" placeholder=\"Enter a destination location\"\n" +
+        "                <input autocomplete=\"off\" style= \"text-align: center\" class=\"controls\" id=\"destination-input\" placeholder=\"Enter a destination location\"\n" +
         "                       type=\"text\">\n" +
         "\n" +
         "            </div>\n" +
@@ -263,11 +263,11 @@ function resetMap() {
         "        </div>\n" +
         "        <div id = 'searchOnly' style = 'display:block'>\n" +
         "            <div style=\"text-align: center\">\n" +
-        "            <h3>Search for a place in Dublin to visit!</h3>\n" +
-        "                <input autocomplete=\"off\" class=\"controls\" id=\"pac-input\" placeholder=\"Search Dublin\" type=\"text\" autocomplete = 'off'>\n" +
+        "            <h5>Search for a place in Dublin to visit!</h5>\n" +
+        "                <input autocomplete=\"off\" style= \"text-align: center\" class=\"controls\" id=\"pac-input\" placeholder=\"Search Dublin\" type=\"text\" autocomplete = 'off'>\n" +
         "                <br>\n" +
         "                <br>\n" +
-        "                <button class='btn btn-primary' onclick=\"showOptions()\" type=\"submit\">Show Journey Planner</button>\n" +
+        "                <button class='btn btn-primary' style= \"text-align: center\" onclick=\"showOptions()\" type=\"submit\">Show Journey Planner</button>\n" +
         "            </div>\n" +
         "</div>";
     autocompSearchBar();
@@ -291,7 +291,7 @@ function resizeMap() {
 
 
     if (start == "" || end == "") {
-        document.getElementById("options").innerHTML = "<h4 style = 'text-align: center'>Please enter a start and end location!</h4>" +
+        document.getElementById("options").innerHTML = "<h6 style = 'text-align: center'>Please enter a start and end location!</h6>" +
             "<div style = 'text-align: center'>" +
             "<br> <br> <button class='btn btn-primary' id = 'directionsButton'  type='submit' onclick = 'resetMap()'>Try Again</button> " +
             "</div>";
@@ -312,14 +312,14 @@ function resizeMap() {
 }
 
 function showOptions() {
-    document.getElementById('header').innerHTML = '<p>Plan your journey!</p>';
+    // document.getElementById('header').innerHTML = '<p>Plan your journey!</p>';
     document.getElementById('searchOnly').style = 'display:none';
     document.getElementById('options').style.height = "500px";
     document.getElementById('journeyPlan').style = 'display:block';
 }
 
 function hideOptions() {
-    document.getElementById('header').innerHTML = '<p>Search for a place to go!</p>';
+    // document.getElementById('header').innerHTML = '<p>Search for a place to go!</p>';
     document.getElementById('journeyPlan').style = 'display:none';
     document.getElementById('options').style.height = "200px";
     document.getElementById('searchOnly').style = 'display:block';

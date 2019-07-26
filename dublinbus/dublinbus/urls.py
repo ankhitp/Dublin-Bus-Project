@@ -18,7 +18,9 @@ from django.urls import path
 from django.conf.urls import include
 from map.views import map_view
 from favourites.views import favourites_view
-from django.urls import include, path
+# from django.urls import include, path
+from django.conf.urls import url, include
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('map/', include('map.urls')),
@@ -30,6 +32,8 @@ urlpatterns = [
     path('journeyplan/', include('journeyplan.urls')),
     path('realtimeinfo/', include('realtimeinfo.urls')),
     path('jasminetest/', include('jasminetest.urls')),
+    path('accounts/', include('allauth.urls')),
+
     
     # path('map/', post_new, name='map'),
 ]

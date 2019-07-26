@@ -19,75 +19,23 @@
                 text-align: center;
             }
 
+            #head {
+                height: 15%;
+                width: auto;
+                text-align: center;
+            }
+
+            #add-button {
+                border-radius: 50%;
+                text-align: center;
+                background-color: gainsboro;
+                border-color: gainsboro;
+            }
+
         </style>
     </head>
 
 
-    <div class="container-fluid">
-        <div id="head">
-            <img class="smalllogo" style="display: inline" src="{% static 'smalllogo.png' %}">
-            <h2 style="display: inline">Dublin Bus</h2>
-        </div>
-        <div>
-            {% include 'header.html' %}
-        </div>
-        <div class="row">
-            <div class="col-12" id="middle-favourite">
-                <!-- <p>middle section</p> -->
-                <div class="col-12" id="favourite-holder">
-
-
-                    <div id="favourite-Add">
-                        <div id="add-holder">
-                            <p>Add new favourite route
-                                <button type="button" id="add-button" class="btn btn-primary" data-toggle="button"
-                                        aria-pressed="false" autocomplete="off">
-                                    <i class="fas fa-plus-circle" id="plusicon"></i>
-                                </button>
-                            </p>
-                        </div>
-                    </div>
-
-
-                    <div id="favourite-Input">
-                        <div id="input-holder">
-                            <!-- <form method="POST"> -->
-
-                            <form method="POST">
-                                {% csrf_token %}
-
-
-                                <div class="field-wrap">
-                                    <label for="origin-input"> Start: </label>
-                                    <input autocomplete="off" id="origin-input" name="title" class="controls"
-                                           type="text">
-
-
-                                </div>
-
-
-                                <div id="field-wrap">
-                                    <label for="destination-input">Destination: </label>
-                                    <input autocomplete="off" id="destination-input" class="controls" type="text">
-                                </div>
-
-
-                                <!-- {{ form.as_p }} -->
-                                <button type="button" class="btn btn-primary" id="addfavourite">Submit</button>
-
-                            </form>
-                        </div>
-                    </div>
-
-
-                    <div id="one-holder"></div>
-
-
-                </div>
-
-            </div>
-        </div>
-    </div>
 
     <script>
         function setAutocomplete() {
@@ -114,11 +62,89 @@
             var marker = new google.maps.Marker({position: dublin, map: map});
         }
     </script>
+    <div class="container-fluid">
+        <div class="row" id="header-row">
+            <div class="col-3">
+                <img class="smalllogo" src="{% static 'smalllogo.png' %}">
+            </div>
+            <div class="col-6">
+                <p>Favourites</p>
+            </div>
+            <div class="col-3">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" id="middle-favourite">
+                <!-- <p>middle section</p> -->
+                <div class="col-12" id="favourite-holder">
+
+
+                    <div id="favourite-Add">
+                        <div id="add-holder">
+                            <p>Add new favourite route
+                                <button aria-pressed="false" autocomplete="off" class="btn btn-primary"
+                                        data-toggle="button"
+                                        id="add-button" type="button">
+                                    <i class="fas fa-plus-circle" id="plusicon"></i>
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div id="favourite-Input">
+
+                        <form method="POST">
+                            {% csrf_token %}
+
+
+                            <div class="field-wrap">
+                                <label for="origin-input"> Start: </label>
+                                <input autocomplete="off" class="controls" id="origin-input" type="text">
+
+
+                            </div>
+
+
+                            <div id="field-wrap">
+                                <label for="destination-input">Destination: </label>
+                                <input autocomplete="off" class="controls" id="destination-input" type="text">
+                                <script>setAutocomplete()</script>
+                            </div>
+
+                            <!-- {{ form.as_p }} -->
+                            <button class="btn btn-primary" id="addfavourite" type="button">Submit</button>
+
+                        </form>
+
+
+                        <div id="one-holder"></div>
+
+                        <!-- <div id="one-holder">
+                        <div class="flex-container">
+                              <div id="flex1div">1</div>
+                              <div id="flex2div">
+                                 <button type="button" class="btn btn-primary" id="planJourney">Plan Journey</button>
+                              </div>
+                           </div>
+                           </div> -->
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
     <script src="{% static '/js/addfavourite.js' %}"></script>
     <script src="{% static '/js/createfavourite.js' %}"></script>
 
     <script src="{% static '/js/map.js' %}"></script>
     <script src="{% static '/js/choosefavourite.js' %}"></script>
+    <script src="{% static 'js/favRoute.js' %}"></script>
 
     <script src="{% static '/js/toword.js' %}"></script>
     <script src="{% static '/js/mobile_getRoute.js' %}"></script>
