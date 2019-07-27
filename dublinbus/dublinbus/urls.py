@@ -32,7 +32,6 @@ urlpatterns = [
     path('journeyplan/', include('journeyplan.urls')),
     path('realtimeinfo/', include('realtimeinfo.urls')),
     path('jasminetest/', include('jasminetest.urls')),
-    path('accounts/', include('allauth.urls')),
 
     
     # path('map/', post_new, name='map'),
