@@ -206,6 +206,41 @@
 
     </div>
     </div>
+<<<<<<< HEAD
+
+</div>
+</div>
+<script>
+    var map;
+    var startLat;
+    var startLong;
+    var destLat;
+    var destLong;
+    markers = [];
+    var busPath;
+    var depTime;
+    var arrTime;
+    var LocationWindow;
+    var polylines = [];
+    var snappedCoordinates = [];
+    var placeIdArray = [];
+
+
+
+
+</script>
+<script src="{% static '/js/map.js' %}"></script>
+<script src="{% static '/js/getRoute.js' %}"></script>
+<script src="{% static '/js/getLatLong.js' %}"></script>
+<script src="{% static '/js/findLocation.js' %}"></script>
+
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvFaUDR5Wnl172znC5agS97gPJmyXHwOs&libraries=places&callback=initMap">
+</script>
+
+</body>
+=======
     <script>
         var map;
         var startLat;
@@ -233,4 +268,5 @@
     </script>
 
     </body>
+>>>>>>> master
 {% endblock %}

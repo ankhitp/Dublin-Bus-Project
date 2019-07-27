@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
     {% load static %}
+    {% if user.is_authenticated %}
+    Hi {{ user.username }}!
+
+    <p><a href="{% url 'logout' %}">logout</a></p>
+
     <head>
         {#    <link rel="stylesheet" href="{% static 'css/m_favourites.css' %}">#}
         <script async defer
@@ -24,7 +29,7 @@
                 width: auto;
                 text-align: center;
             }
-
+            
             #add-button {
                 border-radius: 50%;
                 text-align: center;
@@ -137,7 +142,12 @@
         </div>
     </div>
 
-
+{% else %}
+<p>Apologies, but you must login to use the favourites function!</p>
+<a href="{% url 'login' %}">Login</a>
+<a href="{% url 'signup' %}">Sign Up</a>
+{% endif %}
+{% endblock %}
 
     <script src="{% static '/js/addfavourite.js' %}"></script>
     <script src="{% static '/js/createfavourite.js' %}"></script>
@@ -150,5 +160,3 @@
     <script src="{% static '/js/mobile_getRoute.js' %}"></script>
     <script src="{% static '/js/getLatLong.js' %}"></script>
     <script src="{% static '/js/findLocation.js' %}"></script>
-
-{% endblock %}

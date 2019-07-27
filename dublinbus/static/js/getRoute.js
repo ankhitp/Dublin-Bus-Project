@@ -141,7 +141,10 @@ function getRoute(i, url, start, end) {
                 strokeOpacity: 1.0,
                 strokeWeight: 2
             });
-            busPath.setMap(map);
+            var path = busPath.getPath();
+            polylines.push(busPath);
+            runSnapToRoad(path);
+
         }
     }
 }
