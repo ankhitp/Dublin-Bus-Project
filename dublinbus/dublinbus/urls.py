@@ -14,12 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf.urls import url
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from django.conf.urls import include
 from map.views import map_view
 from favourites.views import favourites_view
 from django.urls import include, path
 urlpatterns = [
+    path('accounts/', include('accounts.urls')), # new
+    path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     # path('map/', include('map.urls')),
     path('map/', map_view.as_view(), name='map'),
@@ -30,6 +34,7 @@ urlpatterns = [
     path('journeyplan/', include('journeyplan.urls')),
     path('realtimeinfo/', include('realtimeinfo.urls')),
     path('jasminetest/', include('jasminetest.urls')),
-    
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name="login"),
+    path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name="logout")
     # path('map/', post_new, name='map'),
 ]

@@ -3,7 +3,14 @@
 
 {% block content %}
 <h1> this is favourites</h1>
-<p>this is a template</p>
+{% if user.is_authenticated %}
+Hi {{ user.username }}!
+<p><a href="{% url 'logout' %}">logout</a></p>
+{% else %}
+<p>Apologies, but you must login to use the favourites function!</p>
+<a href="{% url 'login' %}">Login</a>
+<a href="{% url 'signup' %}">Sign Up</a>
+{% endif %}
 {% endblock %}
 
 {% block morecontent %}

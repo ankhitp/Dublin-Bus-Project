@@ -1,1 +1,19 @@
-<h1>routes</h1>
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+<h1 style = "text-align: center">Routes</h1>
+<div id = "bigList" style = "text-align: center">
+
+</div>
+<script>
+    var data = {{ load | safe }};
+    for (var i = 0; i < data.length; i++) {
+        document.getElementById('bigList').insertAdjacentHTML("beforeend",
+            '<button class="btn btn-primary" style = "width: 100px;"type="submit">'+data[i][1]+'</button><br>' +
+                '<hr>'
+        );
+    }
+</script>
+
+{% endblock %}

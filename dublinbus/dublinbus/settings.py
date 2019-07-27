@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_user_agents',
     'django_jasmine',
+    'accounts.apps.AccountsConfig', # new
+    'users.apps.UsersConfig'
     # 'django_qunit',
     # 'djangojs',
 
@@ -178,3 +180,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # STATIC_ROOT = '/static/'
+
+LOGIN_REDIRECT_URL = 'favourites'
+LOGOUT_REDIRECT_URL = 'favourites'
+AUTH_USER_MODEL = 'users.CustomUser' # new
