@@ -53,8 +53,8 @@ function getRoute(i, url, start, end) {
                         var latitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["y"];
                         var longitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["x"];
                         if (z < parsed[x]["Journey"]["Stop"].length - 1) {
-                            var nextLat = parsed[x]["Journey"]["Stop"][z+1]["Stn"]["y"];
-                            var nextLong = parsed[x]["Journey"]["Stop"][z+1]["Stn"]["x"];
+                            var nextLat = parsed[x]["Journey"]["Stop"][z + 1]["Stn"]["y"];
+                            var nextLong = parsed[x]["Journey"]["Stop"][z + 1]["Stn"]["x"];
                             km += distance(latitude, longitude, nextLat, nextLong);
                         }
                         var name = parsed[x]["Journey"]["Stop"][z]["Stn"]['name'];
@@ -75,13 +75,21 @@ function getRoute(i, url, start, end) {
                     var co2 = Math.round(km * 70);
                     var carCo2 = Math.round(km * 127);
                     var newCenter = new google.maps.LatLng(locations[0].lat, locations[0].lng);
+                    var icon = {
+                        url: '../static/img/iconsmarker1.png', // url
+                        scaledSize: new google.maps.Size(40, 40), // scaled size
+                        origin: new google.maps.Point(0, 0), // origin
+                        anchor: new google.maps.Point(0, 0) // anchor
+                    };
+
                     map.panTo(newCenter);
                     //go through all the entries in our array and create markers from them, and then create
                     //onClick windows for each marker.
                     for (var a = 0; a < locations.length; a++) {
                         marker = new google.maps.Marker({
                             position: new google.maps.LatLng(locations[a].lat, locations[a].lng),
-                            map: map
+                            map: map,
+                            icon: icon
                         });
                         markers.push(marker);
                         google.maps.event.addListener(marker, 'click', (function (marker, a) {
@@ -96,7 +104,7 @@ function getRoute(i, url, start, end) {
                         document.getElementById('directions').insertAdjacentHTML('beforeend',
                             "<button class='btn btn-primary' " +
                             'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\'' + start + '\',\'' + end + '\')">Return to Results</button>' +
-                            '<br><h4>This bus route will result in '+co2+' grams of CO2 being released into the atmosphere. <br>' +
+                            '<br><h4>This bus route will result in ' + co2 + ' grams of CO2 being released into the atmosphere. <br>' +
                             'This is compared to ' + carCo2 + ' grams of CO2 if you had used a car!</h4>'
                         );
                     }
@@ -118,11 +126,9 @@ function getRoute(i, url, start, end) {
                             document.getElementById('directions').insertAdjacentHTML('beforeend',
                                 "<img src='../static/img/walk.png' style='width:32px;height:32px';>" +
                                 "<p>Walk to destination: " + results[0].formatted_address + "</p>");
-                            document.getElementById('directions').insertAdjacentHTML('beforeend',
+                            document.getElementById('coTwo').innerHTML= '<br>This bus route will result in ' + '<b>' + co2 + '</b>' + ' grams of CO2 being released into the atmosphere. <br>' +
+                                'This is compared to ' + '<b>'+carCo2 +'</b>'+ ' grams of CO2 if you had used a car!';
 
-                                '<br><h4>This bus route will result in '+co2+' grams of CO2 being released into the atmosphere. <br>' +
-                                'This is compared to ' + carCo2 + ' grams of CO2 if you had used a car!</h4>'
-                            );
                         }
                     })
                 }

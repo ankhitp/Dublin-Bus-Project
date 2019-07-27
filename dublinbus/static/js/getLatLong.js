@@ -6,12 +6,12 @@
  * and also indicates how many connections each route has.
  */
 function getLatLng(start, end) {
-    document.getElementById('options').style.height = "600px";
+    document.getElementById('options').style.height = "26vh";
 
     start = start.replace("'", "\\'");
     //set the HTML for the routes list
     //start and end points
-    document.getElementById('options').innerHTML = "<h3>Possible Routes</h3>";
+    document.getElementById('options').innerHTML = "<h5 style='text-align: center; padding-bottom: 5%;'>Possible Routes</h5>";
     var dublin = {lat: 53.33306, lng: -6.24889};
     map.panTo(dublin);
     //Two geocoders, one for the start and one for end
@@ -41,6 +41,7 @@ function getLatLng(start, end) {
                     xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
                     //xhttp.setRequestHeader('X-CSRF-Token', 'abcdef');
                     xhttp.send();
+                    
                     xhttp.onreadystatechange = function () {
                         if (this.readyState === 4 && this.status === 200) {
                             console.log(url);
@@ -61,7 +62,7 @@ function getLatLng(start, end) {
                                                 parsed[x]['Dep']['Transport']['dir'];
                                             document.getElementById('options').insertAdjacentHTML('beforeend',
                                                 '<button id =' + i + ' class="btn btn-primary" type="submit" ' +
-                                                'onclick = "getRoute(' + i + ', \'' + url + '\', \''+start+'\',\''+end+'\')"></button>');
+                                                'onclick = "getRoute(' + i + ', \'' + url + '\', \''+start+'\',\''+end+'\')"></button>' + '<p></p>');
                                             document.getElementById(i).innerHTML = hold;
                                         }
                                     }
@@ -82,6 +83,6 @@ function getLatLng(start, end) {
                     }
                 }
             });
-        }
-    )
-}
+    })
+
+    }

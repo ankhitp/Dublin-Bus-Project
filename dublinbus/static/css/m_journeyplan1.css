@@ -76,9 +76,9 @@
     margin-left: 5px;
 }
 
-/* .lowerholder{
-    height: 35vh;
-} */
+.lowerholder{
+    height: 0vh;
+}
 
 #topbutton{
     display: none;
@@ -86,4 +86,24 @@
 
 #map{
     height: 47vh;
+}
+
+#options{
+    padding: 0%;
+    overflow-y: scroll;
+    /* height: 26vh; */
+
+}
+
+#map-holder{
+    margin: -6px;
+}
+
+#carbonholder{
+    height: 26vh;
+}
+
+.nav nav-pills nav-justified{
+    position:absolute;
+bottom:0;
 }
