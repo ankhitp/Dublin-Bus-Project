@@ -1,142 +1,212 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{% load static %}
-<head>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <style>
-        .controls {
-            margin-top: 10px;
-            border: 1px solid transparent;
-            border-radius: 2px 0 0 2px;
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            height: 32px;
-            outline: none;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        }
+    {% load static %}
+    <head>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <style>
 
-        #origin-input,
-        #destination-input {
-            background-color: #fff;
-            font-family: Roboto;
-            font-size: 15px;
-            font-weight: 300;
-            margin-left: 12px;
-            padding: 0 11px 0 13px;
-            text-overflow: ellipsis;
-            width: 200px;
-        }
+            #map {
+                height: 73vh;
+                width: 10px;
+            }
 
-        #origin-input:focus,
-        #destination-input:focus {
-            border-color: #4d90fe;
-        }
+            .controls {
+                margin-top: 10px;
+                border: 1px solid transparent;
+                border-radius: 2px 0 0 2px;
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                height: 32px;
+                outline: none;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            }
 
-        #mode-selector {
-            color: #fff;
-            background-color: #4d90fe;
-            margin-left: 12px;
-            padding: 5px 11px 0px 11px;
-        }
+            #origin-input,
+            #destination-input {
+                background-color: #fff;
+                font-family: Arial;
+                font-size: 15px;
+                font-weight: 300;
+                margin-left: 12px;
+                padding: 0 11px 0 13px;
+                text-overflow: ellipsis;
+                width: 200px;
+            }
 
-        #mode-selector label {
-            font-family: Roboto;
-            font-size: 13px;
-            font-weight: 300;
-        }
-        #wrapper { position: relative; }
-        #options {
-            position: absolute;
-            top:100px;
-            left: 10px;
-            z-index: 99;
-            max-width:400px;
-            background: white;
-            height: 200px;
-            border-radius: 25px;
-            border: 2px solid #17a2b8;
-        }
-        #directions {
-            position: absolute;
-            top:100px;
-            left: 78%;
-            z-index: 99;
-            background: lightblue;
-            height: 200px;
-            border-radius: 25px;
-            max-width:400px;
-            border: 2px solid #17a2b8;
-        }
-    </style>
+            #origin-input:focus,
+            #destination-input:focus {
+                border-color: #4d90fe;
+            }
 
 
-</head>
+            #head {
+                height: 15%;
+                width: auto;
+                text-align: center;
+            }
 
-<body>
+            #mode-selector {
+                color: #fff;
+                background-color: #4d90fe;
+                margin-left: 12px;
+                padding: 5px 11px 0px 11px;
+            }
 
-<div class="container-fluid">
-    <div class="row" id="header-row">
-        <div class="col-3">
-            <img class="smalllogo" src="{% static 'smalllogo.png' %}">
-        </div>
-        <div class="col-6" id='header'>
-            <p>Search for a place to go!</p>
-        </div>
-        <div class="col-3">
-        </div>
+            #mode-selector label {
+                font-family: Arial;
+                font-size: 13px;
+                font-weight: 300;
+            }
+
+            #wrapper {
+                position: relative;
+            }
+
+            #options {
+                position: absolute;
+                left: 1%;
+                z-index: 99;
+                max-width: 20%;
+                background: rgba(255, 255, 255, 0.7);
+                height: 60% !important;
+                border-radius: 25px;
+                border: 2px solid #17a2b8;
+                margin-top: 5%;
+
+
+            }
+
+            #directions {
+                position: absolute;
+                z-index: 99;
+                background: lightblue;
+                opacity: 0.7;
+                height: 60% !important;
+                border-radius: 25px;
+                max-width: 20%;
+                border: 2px solid #17a2b8;
+                margin-top: 5%;
+                left: 79%;
+                color: black;
+
+
+            }
+
+
+
+            #coTwo {
+                position: absolute;
+                z-index: 99;
+                text-align: center;
+                font-family: Arial;
+                left: 35%;
+                /* background: red; */
+                opacity: 0.7;
+                padding-top: 4%;
+                height: 19% !important;
+                border-radius: 25px;
+                max-width: 28%;
+                color: black;
+                background-image: url(../static/img/trees.gif) !important;
+
+            }
+
+
+            button {
+                color: cornflowerblue !important;
+                background-color: white !important;
+                opacity: 0.8 !important;
+
+            }
+
+        </style>
+
+
+    </head>
+
+    <body>
+
+    <div id="head" style="background: rgba(4, 36, 85, 0.5); padding-top: 1%">
+        <img class="smalllogo" style="display: inline" src="{% static 'smalllogo.png' %}">
+        <h2 style="display: inline">Dublin Bus</h2>
+    </div>
+    <div>
+        {% include 'header.html' %}
     </div>
 
-</div>
-<div id = wrapper class="row dynamic-columns">
-    <div class="col-2 col" id='options' style="overflow: scroll">
-        <div id = 'journeyPlan' style = 'display:none'>
-            <h3 style="text-align: center">Start your journey here!</h3>
-            <br>
-            <h4 style="text-align: center">Enter a start and end location!</h4>
 
-            <div style="text-align: center">
+    <div id=wrapper class="row dynamic-columns">
 
-                <input autocomplete="off" class="controls" id="origin-input" placeholder="Enter an origin location"
-                       type="text">
 
-                <input autocomplete="off" class="controls" id="destination-input" placeholder="Enter a destination location"
-                       type="text">
+        <div class="col-2 col" id='options' style="overflow: scroll">
+            <div class="col-6" id='header'>
 
             </div>
-            <br>
-            <div style="text-align: center">
-                <button class='btn btn-primary' id="directionsButton" onclick="resizeMap()" type="submit">Search
-                </button>
-            </div>
-            <br>
-            <div style="text-align: center">
-                <button class='btn btn-primary' id="locationButton" onclick="findLocation()" type="submit">Find Stations
-                    Near Me!
-                </button>
-            </div>
-            <br>
-            <br>
-            <br>
-            <div style="text-align: center">
-                <button class='btn btn-primary' onclick="hideOptions()" type="submit">Hide Options ^</button>
-            </div>
-        </div>
-        <div id = 'searchOnly' style = 'display:block'>
-            <div style="text-align: center">
-            <h3>Search for a place in Dublin to visit!</h3>
-                <input autocomplete="off" class="controls" id="pac-input" placeholder="Search Dublin" type="text" autocomplete = 'off'>
+
+
+            <div id='journeyPlan' style='display:none'>
+                <h5 style="text-align: center; padding-top: 15%">Start your journey here!</h5>
+                <br>
+                <h6 style="text-align: center">Enter a start and end location!</h6>
+
+                <div style="text-align: center">
+
+                    <input autocomplete="off" style="text-align: center" class="controls" id="origin-input"
+                           placeholder="Enter an origin location"
+                           type="text">
+
+                    <input autocomplete="off" style="text-align: center" class="controls" id="destination-input"
+                           placeholder="Enter a destination location"
+                           type="text">
+
+                </div>
+                <br>
+                <div style="text-align: center">
+                    <button class='btn btn-primary' id="directionsButton" onclick="resizeMap()" type="submit">Search
+                    </button>
+                </div>
+                <br>
+                <div style="text-align: center">
+                    <button class='btn btn-primary' id="locationButton" onclick="findLocation()" type="submit">Find
+                        Stations
+                        Near Me!
+                    </button>
+                </div>
                 <br>
                 <br>
-                <button class='btn btn-primary' onclick="showOptions()" type="submit">Show Journey Planner</button>
+                <br>
+                <div style="text-align: center">
+                    <button class='btn btn-primary' onclick="hideOptions()" type="submit">Hide Options ^</button>
+                </div>
+            </div>
+            <div id='searchOnly' style='display:block'>
+                <div style="text-align: center">
+                    <h5 style="padding-top: 15%;">Search for a place in Dublin to visit!</h5>
+                    <input autocomplete="off" class="controls" id="pac-input" placeholder="Search Dublin" type="text"
+                           autocomplete='off'>
+                    <br>
+                    <br>
+                    <button class='btn btn-primary' onclick="showOptions()" type="submit">Show Journey Planner</button>
+
+                </div>
+
             </div>
         </div>
+        <div id='coTwo'>
+        </div>
+        <div id='directions' class="col-3 col" style="display:none; overflow:scroll">
+        </div>
+        <div class="col-12 col;">
+            <div id="map" style="width:100%;height:950px;"></div>
+
+        </div>
+
     </div>
-    <div class="col-12 col">
-        <div id="map" style="width:100%;height:950px;"></div>
+
     </div>
-    <div id = 'directions' class = "col-3 col float-right" style="display:none; overflow:scroll">
     </div>
+<<<<<<< HEAD
 
 </div>
 </div>
@@ -170,4 +240,33 @@
 </script>
 
 </body>
+=======
+    <script>
+        var map;
+        var startLat;
+        var startLong;
+        var destLat;
+        var destLong;
+        markers = [];
+        var busPath;
+        var depTime;
+        var arrTime;
+        var LocationWindow;
+        var polylines = [];
+        var snappedCoordinates = [];
+
+
+    </script>
+    <script src="{% static '/js/desk_map.js' %}"></script>
+    <script src="{% static '/js/getRoute.js' %}"></script>
+    <script src="{% static '/js/getLatLong.js' %}"></script>
+    <script src="{% static '/js/findLocation.js' %}"></script>
+
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvFaUDR5Wnl172znC5agS97gPJmyXHwOs&libraries=places&callback=initMap">
+    </script>
+
+    </body>
+>>>>>>> master
 {% endblock %}

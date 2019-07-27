@@ -14,13 +14,15 @@
             /* Set the size of the div element that contains the map */
             #map {
                 height: 73vh;
-                width: 30px;
+                width: 10px;
             }
 
-            {##info, #realtime {#}
-            {#    padding: 2px;#}
-            {#    text-align: center;#}
-            {#    background-color: #9fcdff;#}
+            #head {
+                height: 15%;
+                width: auto;
+                text-align: center;
+            }
+
 
             #info, #realtime {
                 position: relative;
@@ -29,9 +31,7 @@
                 font-size: 15px;
                 color: #ffffff;
                 padding: 3px;
-                {#margin: 3px;#}
                 padding-top: 3px;
-                {#width: 200px;#}
                 text-align: center;
                 -webkit-transition-duration: 0.4s; /* Safari */
                 transition-duration: 0.4s;
@@ -40,13 +40,11 @@
                 cursor: pointer;
             }
 
-           #info, #realtime:after {
+            #info, #realtime:after {
                 content: "";
                 background: #f1f1f1;
                 display: block;
                 position: absolute;
-                {#padding-top: 300%;#}
-                {#padding-left: 350%;#}
                 margin-left: -20px !important;
                 margin-top: -120%;
                 opacity: 0.01;
@@ -59,17 +57,12 @@
                 opacity: 1;
                 transition: 0s
             }
-            #realtime_p{
+
+            #realtime_p {
                 margin-bottom: 1px;
                 margin-left: 2px;
                 margin-right: 2px;
             }
-
-
-            {##info {#}
-            {#    padding: 50px;#}
-            {#    display: none;#}
-
 
 
             @import url('https://fonts.googleapis.com/css?family=Fira+Sans&display=swap');
@@ -79,59 +72,25 @@
 
     <body>
 
-    <div class="container-fluid">
-
-        <div class="row" id="header-row">
-            <div class="col-3">
-                <img src="{% static 'smalllogo.png' %}" class="smalllogo">
-            </div>
-            <div class="col-6">
-                <p>Home</p>
-            </div>
-            <div class="col-3">
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-12">
-                {% include 'search.html' %}
-            </div>
-        </div>
+    <div id="head" style="background: rgba(4, 36, 85, 0.5); padding-top: 1%">
+        <img class="smalllogo" style="display: inline" src="{% static 'smalllogo.png' %}">
+        <h2 style="display: inline">Dublin Bus</h2>
+    </div>
+    <div>
+        {% include 'header.html' %}
+    </div>
 
 
-        <div class="row">
-            <div class="col-12">
-                <!-- <form method="POST">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <button type="submit">Submit</button>
-                        </form> -->
+    <div class="row">
+        <div class="col-12" id="map"></div>
+    </div>
 
-            </div>
-        </div>
-
-
-
-        <div class="row">
-            <div class="col-12" id="map"></div>
-        </div>
-
-        <div class="row">
-
-            <div class="col-12">
-
-                {% include 'tabs.html' %}
-
-            </div>
-
-        </div>
 
     </div>
 
     <script>
         var data = {{ load | safe }};
-        var route_data =
-        {{ routedata | safe }}
+        var route_data = {{ routedata | safe }};
     </script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-hR-mSsuP9TGDFilrtWVmxNR_t1i-qYo&callback=initMap">
@@ -139,7 +98,6 @@
 
 
     <script src="{% static '/js/initmap.js' %}"></script>
-    <script src="{% static '/js/addmarker.js' %}"></script>
 
 
     </body>

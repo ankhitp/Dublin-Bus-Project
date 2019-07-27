@@ -16,7 +16,6 @@ from django.conf import settings
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -27,7 +26,6 @@ SECRET_KEY = 'p6ts$b^0u56x^f=fhj3l2s0+yn1br394_1_ldl4gl@pi(ana9x'
 DEBUG = True
 
 ALLOWED_HOSTS = ['137.43.49.53', '0.0.0.0', '127.0.0.1', 'localhost']
-
 
 # Application definition
 
@@ -47,7 +45,6 @@ INSTALLED_APPS = [
     # 'django_qunit',
     # 'djangojs',
 
-
 ]
 
 MIDDLEWARE = [
@@ -59,17 +56,24 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-  ]
-
-
+]
 
 TEMPLATE_LOADERS = (
     'django_mobile.loader.Loader',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS =  (
+TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django_mobile.context_processors.is_mobile',
+    # 'django.contrib.auth.context_processors.auth',
+    # 'django.core.context_processors.debug',
+    # 'django.core.context_processors.i18n',
+    # 'django.core.context_processors.media',
+    # 'django.core.context_processors.static',
+    # 'django.core.context_processors.tz',
+    # 'django.contrib.messages.context_processors.messages',
+    # 'allauth.account.context_processors.account',
+    # 'allauth.socialaccount.context_processors.socialaccount',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -87,15 +91,14 @@ MIDDLEWARE_CLASSES = (
 # USER_AGENTS_CACHE = 'default'
 
 STATICFILES_DIRS = (
-  os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'static'),
 )
-
 
 JASMINE_TEST_DIRECTORY = (
-  os.path.join(BASE_DIR, 'spec'),
+    os.path.join(BASE_DIR, 'spec'),
 )
 
-QUNIT_TEST_DIRECTORY=(
+QUNIT_TEST_DIRECTORY = (
     os.path.join(BASE_DIR, 'static/js'),
 
 )
@@ -125,10 +128,7 @@ TEMPLATES = [
     },
 ]
 
-
-
 WSGI_APPLICATION = 'dublinbus.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -139,7 +139,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -159,7 +158,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -172,7 +170,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
