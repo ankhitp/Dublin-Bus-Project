@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+{% if user.is_authenticated %}
+Hi {{ user.username }}!
+<a href="{% url 'logout' %}">logout</a>
+
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvFaUDR5Wnl172znC5agS97gPJmyXHwOs&libraries=places&callback=initMap">
 </script>
@@ -118,6 +122,11 @@
         </div>
     </div>
 
+{% else %}
+<p>Apologies, but you must login to use the favourites function!</p>
+<a href="{% url 'login' %}">Login</a>
+<a href="{% url 'signup' %}">Sign Up</a>
+{% endif %}
     <link href="{% static 'css/m_favourites.css' %}" rel="stylesheet">
     <script src="{% static '/js/addfavourite.js' %}"></script>
     <script src="{% static '/js/createfavourite.js' %}"></script>

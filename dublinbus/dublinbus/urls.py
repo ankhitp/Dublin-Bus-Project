@@ -24,8 +24,8 @@ from favourites.views import favourites_view
 from django.conf.urls import url, include
 
 urlpatterns = [
-    path('accounts/', include('accounts.urls')), # new
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('users/', include('users.urls')), # new
+    path('users/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     # path('map/', include('map.urls')),
     path('map/', map_view.as_view(), name='map'),
