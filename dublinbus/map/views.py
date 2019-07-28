@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.template import loader
 from django_user_agents.utils import get_user_agent
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 from dublinbus.settings import TEMPLATES
 from django.views.generic import TemplateView

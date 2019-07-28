@@ -8,6 +8,8 @@ import requests
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django_user_agents.utils import get_user_agent
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 def routes(request):
