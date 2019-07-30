@@ -189,10 +189,11 @@ div.col-6 {
 
 .nav {
     background: red;
-    height: 15vh;
-    width: 100%;
-    padding: 0px;
-    margin: 0px;
+    position: fixed;
+    right: 0;
+    bottom: 5vh;
+    left: 0;
+    z-index: 1030;
 }
 
 

@@ -12,8 +12,7 @@
 #middle-favourite{
     background: white;
     width: 100%;
-    height: 80vh;
-    background-color: grey;
+    height: 75vh;
     /* padding: 5%; */
 }
 
@@ -28,8 +27,7 @@
     background-color: white;
     margin-left: 4%;
     margin-top: 2%;
-    height: 78vh;
-
+    height: auto;
     width: 94%;
 }
 #favourite-Add{
@@ -113,18 +111,15 @@
 
     display: flex;
     flex-direction: row;
-    width: 100%;
     align-items: stretch;
     justify-content: center;
     background-color: rgba(2, 147, 222, 0.5);
     border-radius: 15px;
     padding: 5px;
     font-size: 50%;
-    width: 100%;
-
     text-align: center;
-  height: 10vh;
-  line-height:5vh;
+    height: auto;
+    line-height:5vh;
 
 }
 #one-holder{
@@ -136,12 +131,13 @@
 
     text-align: center;
   height: 10vh;
-  line-height:5vh; */
+  line-height:5vh;
+*/
   display:none;
 }
 
 #flex1div{
-    width: 66%;
+    width: 50%;
     padding-top:1.5vh;
     font-size: 2.5vh;
     text-align: center;

@@ -15,10 +15,17 @@ document.getElementById("addfavourite").addEventListener("click", function(){
     //    "</div>";
 
        document.getElementById('one-holder').insertAdjacentHTML('beforeend',
-       "<div class=\"flex-container\">"+
-       "<div id=\"flex1div\"> <b>From: </b>" + origin + "<b> To: </b>" + destination +
-       "</div><div id=\"flex2div\"><button type=\"button\" class=\"btn btn-primary\" value="+ origin +"|" +destination +" id=\"planJourney\" onclick=\"getFavRoute('"+origin+"','"+destination+"')\">Plan Journey</button>"+
-       "</div>"+
+           "<div class=flex-container>"+
+           "   <div id=flex1div>"+
+           "       <b>From: </b>" + startLocShort + "<br>"+
+           "       <b> To: </b>" + endLocShort   +
+           "   </div>"+
+           "   <div id=flex2div>"+
+           "       <button style = 'width:auto; height:auto' type=button class='btn btn-primary btn-block'"+
+           "        id=planJourney"+
+           "       onclick=\"getFavRoute('"+startLoc+"','"+endLoc+"')\">Plan Journey</button> "+
+           "   </div>"+
+           "</div><br>";
     "</div>");
 
     document.getElementById('origin-input').value='';

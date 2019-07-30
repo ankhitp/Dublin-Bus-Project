@@ -8,9 +8,11 @@
     outline: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
-.container_fluid{
+
+.container_fluid {
     height: 100vh;
 }
+
 #origin-input,
 #destination-input {
     background-color: #fff;
@@ -20,7 +22,7 @@
     margin-left: 12px;
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
-    width: 400px;
+    width: auto;
     margin-top: 25px;
     margin-bottom: 25px;
 
@@ -44,66 +46,67 @@
     font-weight: 300;
 }
 
-#collapseTwo{
+#collapseTwo {
     padding: 20px;
 }
 
-.input-boxes{
+.input-boxes {
     padding: 20px;
     height: 30vh;
 }
 
-#accordion{
+#accordion {
     width: 100%;
 }
 
-.datewrapper{
-   width: 400px;
-   margin-left: 30%;
-   padding: 5px;
+.datewrapper {
+    max-width: 250px;
+    margin-left: 15%;
+    padding: 5px;
+    text-align: center;
 }
 
-#datepicker{
-    width: 18vh;
-    height: 1.5vh
+#datepicker {
+    width: auto;
+    height: auto;
 }
 
-.panel-group{
+.panel-group {
     margin-left: 15px;
 }
 
-.panel-heading{
+.panel-heading {
     margin-left: 5px;
 }
 
-.lowerholder{
+.lowerholder {
     height: 0vh;
 }
 
-#topbutton{
+#topbutton {
     display: none;
 }
 
-#map{
+#map {
     height: 47vh;
 }
 
-#options{
+#options {
     padding: 0%;
     overflow-y: scroll;
     /* height: 26vh; */
 
 }
 
-#map-holder{
+#map-holder {
     margin: -6px;
 }
 
-#carbonholder{
+#carbonholder {
     height: 26vh;
 }
 
-.nav nav-pills nav-justified{
-    position:absolute;
-bottom:0;
+.nav nav-pills nav-justified {
+    position: absolute;
+    bottom: 0;
 }

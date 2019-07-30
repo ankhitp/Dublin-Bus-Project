@@ -2,13 +2,13 @@
 {% block content %}
 {% load static %}
 {% if user.is_authenticated %}
-Hi {{ user.username }}!
+
 <script>
 var user = '{{ user.username }}';
 var favs = '{{ user.favourites }}';
 
 </script>
-<a href="{% url 'logout' %}">logout</a>
+
 
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvFaUDR5Wnl172znC5agS97gPJmyXHwOs&libraries=places&callback=initMap">
@@ -57,7 +57,11 @@ var favs = '{{ user.favourites }}';
         <div class="col-3">
         </div>
     </div>
-    <div class="row">
+    Hi {{ user.username }}!
+    <button class = 'btn btn-light btn-sm'>
+        <a href="{% url 'logout' %}">logout</a>
+    </button>
+    <div class="row" style="overflow: auto">
         <div class="col-12" id="middle-favourite">
             <!-- <p>middle section</p> -->
             <div class="col-12" id="favourite-holder">
@@ -74,6 +78,7 @@ var favs = '{{ user.favourites }}';
                         </p>
                     </div>
                 </div>
+                <br><br>
 
 
                 <div id="favourite-Input">
@@ -127,23 +132,35 @@ var favs = '{{ user.favourites }}';
     </div>
 <script>
     window.onload = function() {
+        var myHtml = "";
         if (favs.length > 0) {
             var favsArray = favs.split('*');
             for (var i = 0; i < favsArray.length; i++) {
                 var startStop = favsArray[i].split(':');
                 var startLoc = startStop[0];
                 var endLoc = startStop[1];
-                console.log(startLoc + " : " + endLoc);
-                document.getElementById('one-holder').insertAdjacentHTML('beforeend',
-                    "<div class=\"flex-container\">" +
-                    "<div id=\"flex1div\"> <b>From: </b>" + startLoc + "<b> To: </b>" + endLoc +
-                    "</div><div id=\"flex2div\"><button type=\"button\" class=\"btn btn-primary\" value=" + startLoc + "|" + endLoc + " id=\"planJourney\" onclick=\"getFavRoute('" + startLoc + "','" + endLoc + "')\">Plan Journey</button>" +
-                    "</div>" +
-                    "</div>");
+                var startLocShort = startLoc.split(",")[0];
+                var endLocShort = endLoc.split(",")[0];
+                startLoc = startLoc.replace("&#39;", "");
+                endLoc = endLoc.replace("&#39;", "");
+                myHtml +=
+                    "<div class=flex-container>"+
+                    "   <div id=flex1div>"+
+                    "       <b>From: </b>" + startLocShort + "<br>"+
+                    "       <b> To: </b>" + endLocShort   +
+                    "   </div>"+
+                    "   <div id=flex2div>"+
+                    "       <button style = 'width:auto; height:auto' type=button class='btn btn-primary btn-block'"+
+                    "        id=planJourney"+
+                    "       onclick=\"getFavRoute('"+startLoc+"','"+endLoc+"')\">Plan Journey</button> "+
+                    "   </div>"+
+                    "</div><br>";
             }
+            document.getElementById("one-holder").innerHTML = myHtml;
             document.getElementById("favourite-Add").style.display = "block";
             document.getElementById("favourite-Input").style.display = "none";
             document.getElementById("one-holder").style.display = "block";
+
         }
     }
 </script>
