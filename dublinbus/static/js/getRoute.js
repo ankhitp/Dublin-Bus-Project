@@ -79,7 +79,6 @@ function getRoute(i, url, start, end) {
                         url: '../static/img/iconsmarker1.png', // url
                         scaledSize: new google.maps.Size(40, 40), // scaled size
                         origin: new google.maps.Point(0, 0), // origin
-                        anchor: new google.maps.Point(0, 0) // anchor
                     };
 
                     map.panTo(newCenter);
