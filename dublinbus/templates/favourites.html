@@ -3,9 +3,11 @@
     {% load static %}
     {% if user.is_authenticated %}
     Hi {{ user.username }}!
-
+    <script>
+        var user = '{{ user.username }}';
+        var favs = '{{ user.favourites }}';
+    </script>
     <p><a href="{% url 'logout' %}">logout</a></p>
-
     <head>
         {#    <link rel="stylesheet" href="{% static 'css/m_favourites.css' %}">#}
         <script async defer
@@ -118,8 +120,7 @@
                                 </div>
 
                                 <!-- {{ form.as_p }} -->
-                                <button class="btn btn-primary" id="addfavourite" type="button">Submit</button>
-
+                                <button class="btn btn-primary" id="addfavourite" onclick="updateUserFav(user)" type="button">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -142,22 +143,42 @@
             </div>
         </div>
     </div>
-
+<script>
+    window.onload = function() {
+        if (favs.length > 0) {
+            var favsArray = favs.split('*');
+            for (var i = 0; i < favsArray.length; i++) {
+                var startStop = favsArray[i].split(':');
+                var startLoc = startStop[0];
+                var endLoc = startStop[1];
+                console.log(startLoc + " : " + endLoc);
+                document.getElementById('one-holder').insertAdjacentHTML('beforeend',
+                    "<div class=\"flex-container\">" +
+                    "<div id=\"flex1div\"> <b>From: </b>" + startLoc + "<b> To: </b>" + endLoc +
+                    "</div><div id=\"flex2div\"><button type=\"button\" class=\"btn btn-primary\" value=" + startLoc + "|" + endLoc + " id=\"planJourney\" onclick=\"getFavRoute('" + startLoc + "','" + endLoc + "')\">Plan Journey</button>" +
+                    "</div>" +
+                    "</div>");
+            }
+            document.getElementById("favourite-Add").style.display = "block";
+            document.getElementById("favourite-Input").style.display = "none";
+            document.getElementById("one-holder").style.display = "block";
+        }
+    }
+</script>
 {% else %}
 <p>Apologies, but you must login to use the favourites function!</p>
 <a href="{% url 'login' %}">Login</a>
 <a href="{% url 'signup' %}">Sign Up</a>
 {% endif %}
+<script src="{% static '/js/addfavourite.js' %}"></script>
+<script src="{% static '/js/createfavourite.js' %}"></script>
+
+<script src="{% static '/js/map.js' %}"></script>
+<script src="{% static '/js/choosefavourite.js' %}"></script>
+<script src="{% static 'js/favRoute.js' %}"></script>
+
+<script src="{% static '/js/toword.js' %}"></script>
+<script src="{% static '/js/mobile_getRoute.js' %}"></script>
+<script src="{% static '/js/getLatLong.js' %}"></script>
+<script src="{% static '/js/findLocation.js' %}"></script>
 {% endblock %}
-
-    <script src="{% static '/js/addfavourite.js' %}"></script>
-    <script src="{% static '/js/createfavourite.js' %}"></script>
-
-    <script src="{% static '/js/map.js' %}"></script>
-    <script src="{% static '/js/choosefavourite.js' %}"></script>
-    <script src="{% static 'js/favRoute.js' %}"></script>
-
-    <script src="{% static '/js/toword.js' %}"></script>
-    <script src="{% static '/js/mobile_getRoute.js' %}"></script>
-    <script src="{% static '/js/getLatLong.js' %}"></script>
-    <script src="{% static '/js/findLocation.js' %}"></script>

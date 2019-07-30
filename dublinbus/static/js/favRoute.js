@@ -16,7 +16,21 @@ function getCookie(name) {
 }
 var csrftoken = getCookie('csrftoken');
 
-function getFavRoute(start, end) {
+function updateUserFav(user) {
+    var origin = document.getElementById("origin-input").value;
+    var destination = document.getElementById("destination-input").value;
+    xhttp = new XMLHttpRequest();
+    xhttp.open("POST", '/users/addFav/');
+    xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+    xhttp.setRequestHeader('X-CSRF-Token', csrftoken);
+    xhttp.send("start=" + origin + "&end="+destination+"&user="+user);
+    var returnData = this.responseText;
+    if (returnData == 400) {
+        alert("There was an error on the server side of things. Try again!")
+    }
+}
+
+function getFavRoute(start, end ) {
     window.location.href = '/journeyplan?start='+start+'&end='+end;
 
    // xhttp = new XMLHttpRequest();
