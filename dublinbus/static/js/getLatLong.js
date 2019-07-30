@@ -8,7 +8,9 @@
 function getLatLng(start, end) {
     document.getElementById('options').style.height = "600px";
 
-    start = start.replace("'", "\\'");
+    start = start.replace("&#39;", "");
+    end = end.replace("&#39;", "");
+
     //set the HTML for the routes list
     //start and end points
     document.getElementById('options').innerHTML = "<h5 style='text-align: center; padding-bottom: 5%;'>Possible Routes</h5>";
