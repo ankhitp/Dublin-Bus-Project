@@ -100,7 +100,7 @@
     <div class="row">
         <div class="col-12" id="map-holder">
             <div class="panel-heading">
-                <div id="map" style="width:100%"></div>
+                <div id="map" style="width:100%; display: none"></div>
             </div>
         </div>
     </div>
@@ -148,6 +148,9 @@
     var depTime;
     var arrTime;
     var LocationWindow;
+    var polylines = [];
+    var snappedCoordinates = [];
+    var placeIdArray = [];
 </script>
 <script src="{% static 'js/toword.js' %}"></script>
 <script src="{% static 'js/favRoute.js' %}"></script>

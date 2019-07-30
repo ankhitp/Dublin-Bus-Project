@@ -1,21 +1,25 @@
-// * This function does a few things. First, we loop through all the sections of the route selected (walking, bus). If the
-// * section is a bus section, all the stops are looped through and counted so we can tell the user how many stops there
-// * are, and we also collect the latitudes and longitudes for each stop and add the markers for the map.
-// *
-// * @param i targets the specific route that the user wants to get directions for.
-// * @param url for the API hit we want to do.
-// * @param start the start position for the user
-// * @param end the end position for the user
-// */
+/** This function does a few things. First, we loop through all the sections of the route selected (walking, bus). If the
+/* section is a bus section, all the stops are looped through and counted so we can tell the user how many stops there
+/* are, and we also collect the latitudes and longitudes for each stop and add the markers for the map.
+/*
+/* @param i targets the specific route that the user wants to get directions for.
+/* @param url for the API hit we want to do.
+/* @param start the start position for the user
+/* @param end the end position for the user
+*/
 function getRoute(i, url, start, end) {
-   if (busPath !== undefined) {
+    document.getElementById('map').style.display = "block";
+    document.getElementById("options").style.height="auto";
+    if (busPath !== undefined) {
        removeLine();
    }
    deleteMarkers();
 //    document.getElementById('directions').style.height = "700px";
 //    document.getElementById('directions').style.display = "block";
-   start = start.replace("'", "\\'");
-   var infowindow = new google.maps.InfoWindow();
+    start = start.replace("&#39;", "");
+    end = end.replace("&#39;", "");
+
+    var infowindow = new google.maps.InfoWindow();
    //array I'll use store locations
    var locations = [];
    var times = [];
@@ -194,22 +198,26 @@ function getRoute(i, url, start, end) {
 
                 document.getElementById('carbonholder').insertAdjacentHTML('beforeend',
                     "<button class='btn btn-primary' " +
-                    "type='submit' onclick = 'removeLine(); deleteMarkers();getLatLng(\""+start+"\",\""+end+"\")'>Return to Results</button>"+
-                    '<br><h4>This bus route will result in '+co2+' grams of CO2 being released into the atmosphere. <br>' +
-                    'This is compared to ' + carCo2 + ' grams of CO2 if you had used a car!</h4>')
+                    "type='submit' onclick = 'removeLine(); deleteMarkers();mobileMapReturnHide();getLatLng(\""+start+"\",\""+end+"\")'>Return to Results</button>");
+                    //'<br><h4>This bus route will result in '+co2+' grams of CO2 being released into the atmosphere. <br>' +
+                    //'This is compared to ' + carCo2 + ' grams of CO2 if you had used a car!</h4>')
 
             }
         })
     }
 }
-busPath = new google.maps.Polyline({
-    path: locations,
-    geodesic: true,
-    strokeColor: '#1e2dff',
-    strokeOpacity: 1.0,
-    strokeWeight: 2
-});
-busPath.setMap(map);
-}
-}
+           //building the line based on the locations of stops
+           busPath = new google.maps.Polyline({
+               path: locations,
+               geodesic: true,
+               strokeColor: 'black',
+               strokeOpacity: 1.0,
+               strokeWeight: 2
+           });
+           var path = busPath.getPath();
+           polylines.push(busPath);
+           runSnapToRoad(path);
+
+       }
+   }
 }
