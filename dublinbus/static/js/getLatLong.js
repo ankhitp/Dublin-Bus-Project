@@ -49,8 +49,25 @@ function getLatLng(start, end) {
                             console.log(url);
                             //parsing this awful JSON. follow the url if you want to see how the JSON looks
                             var returnData = JSON.parse(this.responseText);
+                            document.getElementById('options').insertAdjacentHTML('beforeend',
+                            '<div id = "header" class="row">'+
+                                '<div id = "route" class="col-2">'+
+                                '<b>Route</b>'+
+                                '</div>'+
+                                '<div id = "direction" class="col-3">'+
+                                '<b>Towards</b>'+
+                                '</div>' +
+                                '<div id = "time" class="col-3">'+
+                                '<b>Est. Journey Time</b>'+
+                                '</div>'+
+                                '<div id = "connections" class="col-4">'+
+                                '<b>Connections</b>'+
+                                '</div></div>'
+                            );
+                            document.getElementById('options').insertAdjacentHTML('beforeend','<div id = "possRoutes">');
                             var parseMe = returnData['Res']['Connections']["Connection"];
                             for (var i = 0; i < parseMe.length; i++) {
+                                var myHTML = "";
                                 var parsed = parseMe[i]["Sections"]["Sec"];
                                 var connections = 0;
                                 for (var x = 0; x < parsed.length; x++) {
@@ -58,28 +75,34 @@ function getLatLng(start, end) {
                                     if (parsed[x]['mode'] == 5) {
                                         connections++;
                                         if (connections == 1) {
-
+                                            var name = parsed[x]['Dep']['Transport']['name'];
+                                            var direction = parsed[x]['Dep']['Transport']['dir'];
+                                            myHTML += "<hr>";
+                                            myHTML += '<div  style="cursor: pointer;background: rgba(240, 240, 240, 0.8);" class = "row" id ="'+ i + '" onclick = "getRoute(' + i + ', \'' + url + '\', \''+start+'\',\''+end+'\')">'+
+                                                '<div class = "col-2">'+name+'</div>' +
+                                                '<div class = "col-3">'+direction+'</div>' +
+                                                '<div class = "col-3"> 10 minutes </div>';
                                             //give the list of routes
-                                            var hold = parsed[x]['Dep']['Transport']['name'] + ' toward ' +
-                                                parsed[x]['Dep']['Transport']['dir'];
-                                            document.getElementById('options').insertAdjacentHTML('beforeend',
-                                                '<button id =' + i + ' class="btn btn-primary" type="submit" ' +
-                                                'onclick = "getRoute(' + i + ', \'' + url + '\', \''+start+'\',\''+end+'\')"></button>' + '<p></p>');
-                                            document.getElementById(i).innerHTML = hold;
+                                            //var hold = parsed[x]['Dep']['Transport']['name'] + ' toward ' +
+                                            //    parsed[x]['Dep']['Transport']['dir'];
+                                            //document.getElementById('options').insertAdjacentHTML('beforeend',
+                                             //   '<button id =' + i + ' class="btn btn-primary" type="submit" ' +
+                                             //   'onclick = "getRoute(' + i + ', \'' + url + '\', \''+start+'\',\''+end+'\')"></button>' + '<p></p>');
+                                            //document.getElementById(i).innerHTML = hold;
+                                            document.getElementById('possRoutes').insertAdjacentHTML('beforeend', myHTML);
                                         }
                                     }
                                 }
                                 //calculate time
                                 //let the user know how many connections required per route.
                                 if (connections == 1) {
-                                    document.getElementById('options').insertAdjacentHTML('beforeend', " (No connections) </p>");
+                                    document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div class = "col-4"> No connections </div>');
                                 } else if (connections > 1) {
-                                    document.getElementById('options').insertAdjacentHTML('beforeend', " (" + connections
-                                        + " connections) </p>");
+                                    document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div class = "col-4">'+ connections + ' Connections</div>');
                                 }
                             }
                             //option to reset the searches
-                            document.getElementById('options').insertAdjacentHTML('beforeend', "<button class=" +
+                            document.getElementById('options').insertAdjacentHTML('beforeend', "<hr><button class=" +
                                 "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();resetMap();'>Search Again</button>");
                         }
                     }
