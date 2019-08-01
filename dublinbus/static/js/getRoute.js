@@ -9,6 +9,12 @@
  * @param end the end position for the user
  */
 function getRoute(i, url, start, end) {
+    var checkFirst = true;
+    var elem = document.getElementById("para"+i);
+    if (elem) {
+        elem.parentElement.removeChild(elem);
+        checkFirst = false;
+    }
     if (busPath !== undefined) {
         removeLine();
     }
@@ -41,6 +47,7 @@ function getRoute(i, url, start, end) {
                 }
                 //if the direction is to take a bus
                 else if (parsed[x]['mode'] == 5) {
+
                     //build the HTML for "take bus number X toward Z from station X to station Y. X stops"
                     document.getElementById('directions').insertAdjacentHTML('beforeend',
                         "<img src='../static/img/bus.png' style='width:32px;height:32px';>" +
@@ -50,6 +57,25 @@ function getRoute(i, url, start, end) {
                         "</p><p>" + parsed[x]["Journey"]['Stop'].length + " stops</p><hr>");
                     //go through all the stops and add the latitudes and longitudes to an array dictionary
                     for (var z = 0; z < parsed[x]["Journey"]["Stop"].length; z++) {
+                        if (checkFirst) {
+                            if (!elem) {
+                                var stationTime = parsed[x]["Journey"]["Stop"][z]["dep"];
+                                stationTime = new Date(stationTime);
+                                var stationMin = stationTime.getMinutes();
+                                var stationHours = stationTime.getHours();
+                                document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div class = "col-12" style = "text-align: center;" id = para'+i+'>The next bus is expected at ' + stationHours + ':' + stationMin + '</div>');
+                                checkFirst = false;
+                            }
+                            else {
+                                continue;
+                            }
+                        }
+                        //var hold = parsed[x]["Journey"]["Stop"][z]["Stn"];
+                       // hold.longitude = hold.x;
+                       // hold.latitude = hold.y;
+                       // delete hold.x;
+                       // delete hold.y;
+                       // closest = closestLocation(hold, stopData);
                         var latitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["y"];
                         var longitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["x"];
                         if (z < parsed[x]["Journey"]["Stop"].length - 1) {
@@ -146,5 +172,25 @@ function getRoute(i, url, start, end) {
 
         }
     }
+}
+
+
+function closestLocation(targetLocation, locationData) {
+    function vectorDistance(dx, dy) {
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    function locationDistance(location1, location2) {
+        var dx = location1.latitude - location2.latitude,
+            dy = location1.longitude - location2.longitude;
+
+        return vectorDistance(dx, dy);
+    }
+
+    return locationData.reduce(function(prev, curr) {
+        var prevDistance = locationDistance(targetLocation , prev),
+            currDistance = locationDistance(targetLocation , curr);
+        return (prevDistance < currDistance) ? prev : curr;
+    });
 }
 
