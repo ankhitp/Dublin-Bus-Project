@@ -57,6 +57,7 @@
         var marker = new google.maps.Marker({position: dublin, map: map});
         addMarker(map)
     };
+
     // {console.log(data[6]);
     function addMarker(map) {
         //get the stop data from JSON file
@@ -82,24 +83,10 @@
             });
             google.maps.event.addListener(marker, 'click', function () {
                 this.info.open(map, this);
-    //             {#
-    //             {#                var infowindow = new google.maps.InfoWindow();
-    //             {#                    infowindow = new google.maps.InfoWindow({
-    //                 {#                        content: '<div id="content">' + '<div id="Stop_nid">' + '<p><b>Stop ID:</b>  ' + busdata.actual_stop_id + '</p>' +
-    //                 {#                            '<p><b>Stop name:</b><br>' + busdata.stop_name + '</p>' +
-    //                 {#                            '<div>' +
-    //                 {#                            '<p><b>Serving route:</b>' + '**</p>' + '</div>'
-    //                 {#                            + '<button>View real time info</button>' +
-    //                 {#                            '</div>'
-    //                 {#                    });
-    //             {#
-    //             {#                    infowindow.open(map, this);
-    //             {#
-    //             {#                });#
-    //         }
-    // });
-    // }
-    // }
+            })
+        }
+    }
+
 </script>
 
 <script async defer
