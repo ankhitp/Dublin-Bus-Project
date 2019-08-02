@@ -8,8 +8,11 @@
 /* @param end the end position for the user
 */
 function getRoute(i, url, start, end) {
+    document.getElementById('header').innerHTML="";
+    document.getElementById('routes').innerHTML="";
     document.getElementById('map').style.display = "block";
     document.getElementById("options").style.height="auto";
+    map.setZoom(12);
     if (busPath !== undefined) {
        removeLine();
    }
@@ -198,7 +201,7 @@ function getRoute(i, url, start, end) {
 
                 document.getElementById('carbonholder').insertAdjacentHTML('beforeend',
                     "<button class='btn btn-primary' " +
-                    "type='submit' onclick = 'removeLine(); deleteMarkers();mobileMapReturnHide();getLatLng(\""+start+"\",\""+end+"\")'>Return to Results</button>");
+                    "type='submit' onclick = 'removeLine(); deleteMarkers();mobileMapReturnHide();mobileGetLatLng(\""+start+"\",\""+end+"\")'>Return to Results</button>");
                     //'<br><h4>This bus route will result in '+co2+' grams of CO2 being released into the atmosphere. <br>' +
                     //'This is compared to ' + carCo2 + ' grams of CO2 if you had used a car!</h4>')
 
