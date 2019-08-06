@@ -150,7 +150,7 @@ function getRoute(i, url, start, end) {
                             document.getElementById('directions').insertAdjacentHTML('beforeend',
                                 "<img src='../static/img/walk.png' style='width:32px;height:32px';>" +
                                 "<p>Walk to destination: " + results[0].formatted_address + "</p>");
-                            document.getElementById('coTwo').innerHTML = '<br>This bus route will result in ' + '<b>' + co2 + '</b>' + ' grams of CO2 being released into the atmosphere. <br>' +
+                            document.getElementById('coTwo').innerHTML = 'This bus route will result in ' + '<b>' + co2 + '</b>' + ' grams of CO2 being released into the atmosphere. <br>' +
                                 'This is compared to ' + '<b>' + carCo2 + '</b>' + ' grams of CO2 if you had used a car!';
 
                         }
