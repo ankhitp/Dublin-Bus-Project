@@ -2,7 +2,17 @@
 function initMap() {
     var dublin = {lat: 53.33306, lng: -6.24889};
     var map = new google.maps.Map(document.getElementById('map'), {zoom: 16, center: dublin});
-
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var marker = new google.maps.Marker({
+                position: pos,
+                map: map,
+                icon: im
+            });
+            map.setCenter(pos);
+        });
+    }
     // The marker, positioned at Uluru
     var marker = new google.maps.Marker({position: dublin, map: map});
     addMarker(map, data);
