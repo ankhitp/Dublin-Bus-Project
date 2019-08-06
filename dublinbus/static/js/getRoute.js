@@ -10,7 +10,7 @@
  */
 function getRoute(i, url, start, end) {
     var checkFirst = true;
-    var elem = document.getElementById("para"+i);
+    var elem = document.getElementById("para" + i);
     if (elem) {
         elem.parentElement.removeChild(elem);
         checkFirst = false;
@@ -63,19 +63,18 @@ function getRoute(i, url, start, end) {
                                 stationTime = new Date(stationTime);
                                 var stationMin = stationTime.getMinutes();
                                 var stationHours = stationTime.getHours();
-                                document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div class = "col-12" style = "text-align: center;" id = para'+i+'>The next bus is expected at ' + stationHours + ':' + stationMin + '</div>');
+                                document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div class = "col-12" style = "text-align: center;" id = para' + i + '>The next bus is expected at ' + stationHours + ':' + stationMin + '</div>');
                                 checkFirst = false;
-                            }
-                            else {
+                            } else {
                                 continue;
                             }
                         }
                         //var hold = parsed[x]["Journey"]["Stop"][z]["Stn"];
-                       // hold.longitude = hold.x;
-                       // hold.latitude = hold.y;
-                       // delete hold.x;
-                       // delete hold.y;
-                       // closest = closestLocation(hold, stopData);
+                        // hold.longitude = hold.x;
+                        // hold.latitude = hold.y;
+                        // delete hold.x;
+                        // delete hold.y;
+                        // closest = closestLocation(hold, stopData);
                         var latitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["y"];
                         var longitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["x"];
                         if (z < parsed[x]["Journey"]["Stop"].length - 1) {
@@ -151,8 +150,8 @@ function getRoute(i, url, start, end) {
                             document.getElementById('directions').insertAdjacentHTML('beforeend',
                                 "<img src='../static/img/walk.png' style='width:32px;height:32px';>" +
                                 "<p>Walk to destination: " + results[0].formatted_address + "</p>");
-                            document.getElementById('coTwo').innerHTML= '<br>This bus route will result in ' + '<b>' + co2 + '</b>' + ' grams of CO2 being released into the atmosphere. <br>' +
-                                'This is compared to ' + '<b>'+carCo2 +'</b>'+ ' grams of CO2 if you had used a car!';
+                            document.getElementById('coTwo').innerHTML = 'This bus route will result in ' + '<b>' + co2 + '</b>' + ' grams of CO2 being released into the atmosphere. <br>' +
+                                'This is compared to ' + '<b>' + carCo2 + '</b>' + ' grams of CO2 if you had used a car!';
 
                         }
                     })
@@ -187,10 +186,9 @@ function closestLocation(targetLocation, locationData) {
         return vectorDistance(dx, dy);
     }
 
-    return locationData.reduce(function(prev, curr) {
-        var prevDistance = locationDistance(targetLocation , prev),
-            currDistance = locationDistance(targetLocation , curr);
+    return locationData.reduce(function (prev, curr) {
+        var prevDistance = locationDistance(targetLocation, prev),
+            currDistance = locationDistance(targetLocation, curr);
         return (prevDistance < currDistance) ? prev : curr;
     });
 }
-

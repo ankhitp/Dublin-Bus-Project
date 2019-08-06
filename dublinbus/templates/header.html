@@ -1,26 +1,43 @@
+<style>
+    a:hover,
+    a.selected {
+        color: darkblue;
+        background: #efefef;
+
+    }
+
+    a {
+        color: darkblue;
+    }
+
+    #navi {
+        color: darkblue;
+    }
 
 
+</style>
 <div id="navi">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="/map" role="tab"
+
+            <a class="nav-link" id="home-tab"  href="/map" role="tab"
                aria-controls="home" aria-selected="true">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="/journeyplan" role="tab"
-               aria-controls="profile" aria-selected="false">Journey Planner</a>
+            <a class="nav-link" id="profile-tab" href="/journeyplan" role="tab">Journey Planner</a>
+
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" id="contact-tab" data-toggle="tab" href="routes.html" role="tab"
+            <a class="nav-link" id="contact-tab" href="/routes" role="tab"
                aria-controls="contact" aria-selected="false">Routes</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="contact-tab" data-toggle="tab" href="favourites.html" role="tab"
+            <a class="nav-link" id="contact-tab" href="/favourites" role="tab"
                aria-controls="contact" aria-selected="false">Favourites</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="contact-tab" data-toggle="tab" href="more.html" role="tab"
+            <a class="nav-link" id="contact-tab" href="/more" role="tab"
                aria-controls="contact" aria-selected="false">More</a>
         </li>
     </ul>

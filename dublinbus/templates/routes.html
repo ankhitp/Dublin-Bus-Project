@@ -1,19 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{% load static %}
-<h1 style = "text-align: center">Routes</h1>
-<div id = "bigList" style = "text-align: center">
+    {% load static %}
+    <style>
+        #head {
+            height: 15%;
+            width: auto;
+            text-align: center;
+        }
+    </style>
+    <div id="head" style="background: rgba(4, 36, 85, 0.5); padding-top: 1%">
+        <img class="smalllogo" style="display: inline" src="{% static 'smalllogo.png' %}">
+        <h2 style="display: inline">Dublin Bus</h2>
+    </div>
+    <div>
+        {% include 'header.html' %}
+    </div>
+    {#<h1 style = "text-align: center">Routes</h1>#}
+    <div id="bigList" style="text-align: center">
 
-</div>
-<script>
-    var data = {{ load | safe }};
-    for (var i = 0; i < data.length; i++) {
-        document.getElementById('bigList').insertAdjacentHTML("beforeend",
-            '<button class="btn btn-primary" style = "width: 100px;"type="submit">'+data[i][1]+'</button><br>' +
+    </div>
+    <script>
+        var data = {{ load | safe }};
+        for (var i = 0; i < data.length; i++) {
+            document.getElementById('bigList').insertAdjacentHTML("beforeend",
+                '<button class="btn btn-primary" style = "width: 100px;"type="submit">' + data[i][1] + '</button><br>' +
                 '<hr>'
-        );
-    }
-</script>
+            );
+        }
+    </script>
 
 {% endblock %}
