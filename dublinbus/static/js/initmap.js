@@ -1,14 +1,12 @@
 // Initialize and add the map
 function initMap() {
     var dublin = {lat: 53.33306, lng: -6.24889};
-    var map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 14, center: dublin});
+    var map = new google.maps.Map(document.getElementById('map'), {zoom: 16, center: dublin});
 
     // The marker, positioned at Uluru
     var marker = new google.maps.Marker({position: dublin, map: map});
     addMarker(map, data);
 
-    console.log("hi ankhit!");
 };
 
 
@@ -40,16 +38,13 @@ var getJSON = function (url, callback) {
 function addMarker(map, data) {
     //get the stop data from JSON file
     var infowindow = new google.maps.InfoWindow({});
-
-
     //*
     //*
-
     for (var i = 0, length = data.length; i < length; i++) {
         // var routedata = routedata[i]
         var busdata = data[i];
         // {#Console.log(busdata);#}
-        var myLatLng = {lat: parseFloat(busdata.stop_lat), lng: parseFloat(busdata.stop_lon)};
+        var myLatLng = {lat: parseFloat(busdata.latitude), lng: parseFloat(busdata.longitude)};
 
 
         // console.log(route_data[busdata.actual_stop_id]);

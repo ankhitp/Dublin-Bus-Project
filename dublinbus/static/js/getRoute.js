@@ -69,20 +69,17 @@ function getRoute(i, url, start, end) {
                                 continue;
                             }
                         }
-                        //var hold = parsed[x]["Journey"]["Stop"][z]["Stn"];
-                        // hold.longitude = hold.x;
-                        // hold.latitude = hold.y;
-                        // delete hold.x;
-                        // delete hold.y;
-                        // closest = closestLocation(hold, stopData);
-                        var latitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["y"];
-                        var longitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["x"];
+                        var hold = parsed[x]["Journey"]["Stop"][z]["Stn"];
+                        hold.longitude = parseFloat(hold.x);
+                        hold.latitude = parseFloat(hold.y);
+                        delete hold.x;
+                        delete hold.y;
+                        closest = closestLocation(hold, stopData)
                         if (z < parsed[x]["Journey"]["Stop"].length - 1) {
                             var nextLat = parsed[x]["Journey"]["Stop"][z + 1]["Stn"]["y"];
                             var nextLong = parsed[x]["Journey"]["Stop"][z + 1]["Stn"]["x"];
-                            km += distance(latitude, longitude, nextLat, nextLong);
+                            km += distance(closest.latitude, closest.longitude, nextLat, nextLong);
                         }
-                        var name = parsed[x]["Journey"]["Stop"][z]["Stn"]['name'];
                         var time = parsed[x]["Journey"]["Stop"][z]["dep"];
                         var depArr = "depart";
                         if (time === undefined) {
@@ -92,9 +89,10 @@ function getRoute(i, url, start, end) {
                         time = new Date(time);
                         var minutes = time.getMinutes();
                         var hours = time.getHours();
-                        latitude = parseFloat(latitude);
-                        longitude = parseFloat(longitude);
-                        locations.push({lat: latitude, lng: longitude, name: name});
+                        var name = closest.stop_name;
+                        var latitude = parseFloat(closest.latitude);
+                        var longitude = parseFloat(closest.longitude);
+                        locations.push({lat: latitude, lng: longitude, name: name, actual_stop_id: closest.actual_stop_id});
                         times.push({minutes: minutes, hours: hours})
                     }
                     var co2 = Math.round(km * 70);
@@ -112,13 +110,16 @@ function getRoute(i, url, start, end) {
                     for (var a = 0; a < locations.length; a++) {
                         marker = new google.maps.Marker({
                             position: new google.maps.LatLng(locations[a].lat, locations[a].lng),
+                            content: '<div id="content' + locations[a].actual_stop_id + '" >' + '<div id=stop' + locations[a].actual_stop_id + '>' + '<p><b>Stop ID:</b>  ' + locations[a].actual_stop_id + '</p>' +
+                                '<p><b>Stop name:</b><br>' + locations[a].name + '</p><br>' + '<p><b>Serving route:</b>' + '**</p>' + '</div>'
+                                + '<button id="realtime" onclick="get_real_time_data(' + locations[a].actual_stop_id + ')">View real time info</a></button>',
                             map: map,
                             icon: icon
                         });
                         markers.push(marker);
                         google.maps.event.addListener(marker, 'click', (function (marker, a) {
                             return function () {
-                                infowindow.setContent(locations[a].name + " station." + "<br> The bus will " + depArr + " here at: " + times[a].hours + ":" + times[a].minutes);
+                                infowindow.setContent('<div class="infowin">' + this.content + '</div>');
                                 infowindow.open(map, marker);
                             }
                         })(marker, a));
