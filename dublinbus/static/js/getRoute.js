@@ -108,11 +108,21 @@ function getRoute(i, url, start, end) {
                     //go through all the entries in our array and create markers from them, and then create
                     //onClick windows for each marker.
                     for (var a = 0; a < locations.length; a++) {
+                        let serviceRoute = add_service_route(closest);
                         marker = new google.maps.Marker({
                             position: new google.maps.LatLng(locations[a].lat, locations[a].lng),
-                            content: '<div id="content' + locations[a].actual_stop_id + '" >' + '<div id=stop' + locations[a].actual_stop_id + '>' + '<p><b>Stop ID:</b>  ' + locations[a].actual_stop_id + '</p>' +
-                                '<p><b>Stop name:</b><br>' + locations[a].name + '</p><br>' + '<p><b>Serving route:</b>' + '**</p>' + '</div>'
-                                + '<button id="realtime" onclick="get_real_time_data(' + locations[a].actual_stop_id + ')">View real time info</a></button>',
+                            content: '<div id="content' + locations[a].actual_stop_id + '" >' +
+                                '<div id=stop' + locations[a].actual_stop_id + '>' +
+                                "<div><img src='../static/img/bus-blue-icon.png' alt='bus-blue-icon' width='12%' height='12%'>" +
+                                '<h6 style="margin-left: 3%; font-family:Tangerine; font-size:15px;">Stop ID: ' + locations[a].actual_stop_id + '</h6></div>' +
+                                '<h style="margin-left: 15%; font-family:Tangerine; font-size:15px;"><b>Stop name:</b><br>' + '<p style="margin-left: 8%">' + locations[a].name + '</p></h>' +
+
+                                '<h style="margin-left: 15%; font-family:Tangerine;  font-size:12px;"><b>Serving route:</b><br>' + '<ul id="myList">' + serviceRoute + '</ul>' + '</p></div>' +
+
+                                '<button id="realtime" onclick="get_real_time_data(' + locations[a].actual_stop_id + ')">' +
+                                '<p id="realtime_p" style="font-family:Tangerine; font-size:12px;">Real Time Info</p>' +
+                                '</button>' +
+                                '</div>',
                             map: map,
                             icon: icon
                         });
@@ -174,6 +184,17 @@ function getRoute(i, url, start, end) {
     }
 }
 
+function add_service_route(route_data) {
+    if (route_data == null || route_data.length == 0) {
+        return "";
+    }
+
+    let elem = "";
+    for (let i = 0; i < route_data.length; i++) {
+        elem += '<li>' + route_data[i][0] + '-' + route_data[i][1] + '</li>';
+    }
+    return elem;
+}
 
 function closestLocation(targetLocation, locationData) {
     function vectorDistance(dx, dy) {

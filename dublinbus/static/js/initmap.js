@@ -1,20 +1,31 @@
 // Initialize and add the map
 function initMap() {
+    var infowindow = new google.maps.InfoWindow({});
     var dublin = {lat: 53.33306, lng: -6.24889};
+    var im = {
+        url: '../static/img/userLoc.png', // url
+        scaledSize: new google.maps.Size(40, 40), // scaled size
+        origin: new google.maps.Point(0, 0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+    };
     var map = new google.maps.Map(document.getElementById('map'), {zoom: 16, center: dublin});
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            var marker = new google.maps.Marker({
+            var userMarker = new google.maps.Marker({
                 position: pos,
                 map: map,
                 icon: im
             });
             map.setCenter(pos);
+            google.maps.event.addListener(userMarker, 'click', function () {
+                infowindow.setContent('This is where you are!');
+                infowindow.open(map, userMarker);
+            });
         });
     }
     // The marker, positioned at Uluru
-    var marker = new google.maps.Marker({position: dublin, map: map});
+    //var marker = new google.maps.Marker({position: dublin, map: map});
     addMarker(map, data);
 
 };
