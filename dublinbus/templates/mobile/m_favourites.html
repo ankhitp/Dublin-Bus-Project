@@ -165,9 +165,10 @@
             }
         </script>
     {% else %}
-        <p>Apologies, but you must login to use the favourites function!</p>
-        <a href="{% url 'login' %}">Login</a>
-        <a href="{% url 'signup' %}">Sign Up</a>
+
+
+        {% include 'mobile/m_favLogin.html' %}
+
     {% endif %}
     <link href="{% static 'css/m_favourites.css' %}" rel="stylesheet">
     <script src="{% static '/js/addfavourite.js' %}"></script>

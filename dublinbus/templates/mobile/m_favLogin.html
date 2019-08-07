@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+    <div class="container-fluid">
+
+        <div class="row" id="header-row">
+            <div class="col-3">
+                <img src="{% static 'smalllogo.png' %}" class="smalllogo">
+            </div>
+            <div class="col-6">
+                <p>Favourites</p>
+            </div>
+            <div class="col-3">
+            </div>
+    </div>
+
+        <div class="row" id="holder-row">
+        <div class="col-12">
+        <p>Apologies, but you must login to use the favourites function</p>
+        <a href="{% url 'login' %}">Login</a>
+        <br>
+        <a href="{% url 'signup' %}">Sign Up</a>
+        </div>
+        </div>
+                {% include 'tabs.html' %}
+</div>
+    <link href="{% static 'css/m_favLogin.css' %}" rel="stylesheet">
+
+{% endblock %}
