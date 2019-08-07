@@ -9,6 +9,38 @@
             width: auto;
             text-align: center;
         }
+        #bodyblue{
+            padding-left: 20%;
+            padding-right: 20%;
+        }
+
+        .accordion {
+            {#background-color: #b3d7ff;#}
+            background-color: rgba(2, 147, 222, 0.5);
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            transition: 0.4s;
+        }
+
+        .active, .accordion:hover {
+            background-color: #ccc;
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: rgba(2, 147, 222, 0.5);
+            height: 200px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+        }
+
     </style>
     <div id="head" style="background: rgba(4, 36, 85, 0.5); padding-top: 1%">
         <img class="smalllogo" style="display: inline" src="{% static 'smalllogo.png' %}">
@@ -17,4 +49,87 @@
     <div>
         {% include 'header.html' %}
     </div>
+    <div id="bodyblue">
+
+        <button class="accordion">Game</button>
+        <div class="panel"></div>
+        <button class="accordion">Co2</button>
+        <div class="panel"></div>
+
+        <button class="accordion">Weather Forecast</button>
+        <div class="panel">
+            <!--this div is to show the weather forcast, input a date and choose a time to call the fuction show weather forecast in 5 days-->
+            <div id="search_date" style="font-family: unset; float: left">
+                <h6 style="margin-top: 2%">Choose a date(in 5 days) and time to see the weather:</h6>
+                <input type="date" name="date" id="date_weather_forcast">
+                <select id="time_weather_forcast" style="display: block" name="time">
+                    <option value='06:00:00'>06:00:00</option>
+                    <option value='09:00:00'>09:00:00</option>
+                    <option value='12:00:00'>12:00:00</option>
+                    <option value='15:00:00'>15:00:00</option>
+                    <option value='18:00:00'>18:00:00</option>
+                    <option value='21:00:00'>21:00:00</option>
+                    <option value='00:00:00'>00:00:00</option>
+                    <option value='03:00:00'>03:00:00</option>
+                </select>
+                <button onclick="display()" type="button">Show forecast</button>
+                <div id="show_forecast" style="color: black; margin-bottom: 80%">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--using ajax, weather forecast function, if the date and time equals to input, get the weather forecast from openweather api---->
+    <script type="text/javascript">
+
+        function display() {
+            var date = $("#date_weather_forcast").val();
+            var time = $("#time_weather_forcast").val();
+
+            if (date != '' && time != '') {
+                $.ajax({
+                    url: 'http://api.openweathermap.org/data/2.5/forecast?appid=a8e1877ec087d7a2904f50a41ed61bfa&q=Dublin&units=metric',
+                    type: "GET",
+                    dataType: "jsonp",
+                    jsonpCallback: "jsonp",
+                    success: function (data) {
+                        var a = 0;
+                        for (var i = 0; i < data.list.length; i++) {
+                            if (data.list[i].dt_txt == date + ' ' + time) {
+
+                                let fore = "<div >" + "<img src = 'http://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png' > " + data.list[i].weather[0].description +
+
+                                    "<h6 style='padding-top:0;'>" + data.list[i].main.temp + "&deg;C</h6>" ;
+                                document.getElementById("show_forecast").innerHTML = fore;
+                                var a = 1;
+                            }
+
+
+                        }
+                        if (a == 0) {
+                            alert("Error");
+                        }
+
+
+                    }
+
+                });
+            }
+        }
+    </script>
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
 {% endblock %}

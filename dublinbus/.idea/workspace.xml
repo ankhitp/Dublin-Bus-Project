@@ -2,34 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="15a88855-e3e3-4741-9797-27493f40d171" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/static/img/favorite.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/img/login-icon-yellow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/img/logout-yellow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/img/plus.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/img/sign-up.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dublinbus/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dublinbus/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dublinbus/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dublinbus/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/bootstrap-grid.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/bootstrap-grid.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/bootstrap-grid.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/bootstrap-grid.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/bootstrap.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/bootstrap.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/bootstrap.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/m_favourites.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/m_favourites.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/desk_map.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/desk_map.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/getLatLong.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/getLatLong.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/getRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/getRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/favourites.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/favourites.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/journeyplan.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/journeyplan.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/mobile/m1_journeyplan.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mobile/m1_journeyplan.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/mobile/m_favourites.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mobile/m_favourites.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/favourites/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/favourites/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/map.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/more.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/more.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/routes.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/routes.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/signup.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -61,53 +38,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/desk_map.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="82" column="24" selection-start-line="82" selection-start-column="24" selection-end-line="82" selection-end-column="24" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#h5#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#h6#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#h6#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/journeyplan.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1446">
-              <caret line="245" column="32" selection-start-line="245" selection-start-column="32" selection-end-line="245" selection-end-column="32" />
-              <folding>
-                <element signature="e#5049#5073#0#HTML" expanded="true" />
-                <element signature="e#5113#5133#0#HTML" expanded="true" />
-                <element signature="e#5159#5203#0#HTML" expanded="true" />
-                <element signature="e#5283#5309#0#HTML" expanded="true" />
-                <element signature="e#5373#5399#0#HTML" expanded="true" />
-                <element signature="e#5588#5614#0#HTML" expanded="true" />
-                <element signature="e#5855#5881#0#HTML" expanded="true" />
-                <element signature="e#6004#6030#0#HTML" expanded="true" />
-                <element signature="e#6264#6290#0#HTML" expanded="true" />
-                <element signature="e#6619#6645#0#HTML" expanded="true" />
-                <element signature="e#6852#6873#0#HTML" expanded="true" />
-                <element signature="e#6900#6926#0#HTML" expanded="true" />
-                <element signature="e#6956#6981#0#HTML" expanded="true" />
-                <element signature="e#7568#7605#0#HTML" expanded="true" />
-                <element signature="e#7681#7713#0#HTML" expanded="true" />
-              </folding>
+            <state relative-caret-position="258">
+              <caret line="220" column="23" selection-start-line="220" selection-start-column="23" selection-end-line="220" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -115,36 +49,33 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/favourites.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3">
+            <state relative-caret-position="107">
               <caret line="357" selection-start-line="357" selection-end-line="357" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/getRoute.js">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/more.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="185" column="38" selection-start-line="185" selection-start-column="38" selection-end-line="185" selection-end-column="38" />
+            <state relative-caret-position="210">
+              <caret line="54" column="33" lean-forward="true" selection-start-line="54" selection-start-column="33" selection-end-line="54" selection-end-column="33" />
               <folding>
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
+                <element signature="e#333#356#0#HTML" expanded="true" />
+                <element signature="e#405#428#0#HTML" expanded="true" />
+                <element signature="e#1765#1804#0#HTML" expanded="true" />
+                <element signature="e#1826#1848#0#HTML" expanded="true" />
+                <element signature="e#2694#2747#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/static/js/getLatLong.js">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/css/index.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="102" column="25" selection-start-line="102" selection-start-column="25" selection-end-line="102" selection-end-column="25" />
-              <folding>
-                <element signature="n#style#0;n#h5#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="103">
+              <caret line="88" column="4" lean-forward="true" selection-start-line="88" selection-start-column="4" selection-end-line="88" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -162,11 +93,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>login</find>
-      <find>logou</find>
-      <find>nav</find>
-      <find>panel</find>
-      <find>logout</find>
       <find>initMap</find>
       <find>init</find>
       <find>submit</find>
@@ -192,6 +118,11 @@
       <find>row</find>
       <find>flex</find>
       <find>@mixin make-row()</find>
+      <find>h3</find>
+      <find>weather</find>
+      <find>panel</find>
+      <find>show</find>
+      <find>show_</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -208,7 +139,6 @@
         <option value="$PROJECT_DIR$/static/files/serving_route.json" />
         <option value="$PROJECT_DIR$/journeyplan/tests.py" />
         <option value="$PROJECT_DIR$/jasminetest/tests.py" />
-        <option value="$PROJECT_DIR$/favourites/tests.py" />
         <option value="$PROJECT_DIR$/map/tests.py" />
         <option value="$PROJECT_DIR$/map/views.py" />
         <option value="$PROJECT_DIR$/routes/tests.py" />
@@ -225,12 +155,10 @@
         <option value="/anaconda3/lib/python3.6/site-packages/allauth/account/utils.py" />
         <option value="/anaconda3/lib/python3.6/site-packages/allauth/account/adapter.py" />
         <option value="/anaconda3/lib/python3.6/site-packages/allauth/utils.py" />
-        <option value="$PROJECT_DIR$/templates/map.html" />
         <option value="$PROJECT_DIR$/dublinbus/settings.py" />
         <option value="$PROJECT_DIR$/dublinbus/urls.py" />
         <option value="$PROJECT_DIR$/static/js/initmap.js" />
         <option value="$PROJECT_DIR$/templates/routes.html" />
-        <option value="$PROJECT_DIR$/templates/more.html" />
         <option value="$PROJECT_DIR$/templates/signup.html" />
         <option value="$USER_HOME$/Library/Python/3.7/lib/python/site-packages/django/contrib/admin/templates/admin/base_site.html" />
         <option value="$PROJECT_DIR$/templates/index.html" />
@@ -251,13 +179,15 @@
         <option value="$PROJECT_DIR$/templates/journeyplan.html" />
         <option value="$PROJECT_DIR$/static/js/getRoute.js" />
         <option value="$PROJECT_DIR$/static/js/getLatLong.js" />
+        <option value="$PROJECT_DIR$/favourites/tests.py" />
+        <option value="$PROJECT_DIR$/templates/map.html" />
+        <option value="$PROJECT_DIR$/templates/more.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-28" />
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="1308" />
+    <option name="width" value="1280" />
     <option name="height" value="751" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -266,16 +196,12 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="dublinbus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dublinbus" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dublinbus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dublinbus" type="462c0819:PsiDirectoryNode" />
               <item name="dublinbus" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -310,7 +236,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -440,7 +365,8 @@
       <workItem from="1564049346567" duration="27099000" />
       <workItem from="1564157672009" duration="35045000" />
       <workItem from="1564491887550" duration="127000" />
-      <workItem from="1564573309036" duration="15855000" />
+      <workItem from="1564573309036" duration="15858000" />
+      <workItem from="1565003609907" duration="8808000" />
     </task>
     <servers />
   </component>
@@ -453,18 +379,18 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="223610000" />
+    <option name="totallyTimeSpent" value="232421000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1280" height="750" extended-state="6" />
+    <frame x="0" y="23" width="1280" height="751" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19224556" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13731825" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32806325" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.75831306" visible="true" weight="0.27355623" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.75831306" visible="true" weight="0.27314112" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -509,57 +435,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/img/iconsmarker1.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/initmap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="59" column="35" selection-start-line="59" selection-start-column="35" selection-end-line="59" selection-end-column="35" />
-          <folding>
-            <element signature="e#417#743#0" />
-            <element signature="n#style#0;n#h6#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#h#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#button#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h6#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#2;n#tr#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#2;n#tr#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="31" column="12" lean-forward="true" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Library/Python/3.7/lib/python/site-packages/django/template/defaulttags.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1825">
-          <caret line="630" column="4" selection-start-line="630" selection-start-column="4" selection-end-line="630" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/idlelib/help.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1582">
-          <caret line="147" column="53" selection-start-line="147" selection-start-column="52" selection-end-line="147" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/platform-impl.jar!/resources/html5-schema/html5/web-forms.rnc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-525">
@@ -653,16 +528,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dublinbus/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="184" selection-start-line="184" selection-end-line="184" />
-          <folding>
-            <element signature="e#309#363#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Library/Python/3.7/lib/python/site-packages/django/contrib/admin/templates/admin/base_site.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -723,24 +588,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/map.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="44" column="32" selection-start-line="44" selection-start-column="32" selection-end-line="44" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/routes.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="59" selection-start-line="12" selection-start-column="59" selection-end-line="12" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/more.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -852,13 +703,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/index.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1395">
-          <caret line="93" lean-forward="true" selection-start-line="93" selection-end-line="93" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/header.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
@@ -898,55 +742,53 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/desk_map.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
+        <state relative-caret-position="1230">
           <caret line="82" column="24" selection-start-line="82" selection-start-column="24" selection-end-line="82" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/map/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
           <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h5#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h6#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h6#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/favourites.html">
+    <entry file="file://$PROJECT_DIR$/map/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3">
-          <caret line="357" selection-start-line="357" selection-end-line="357" />
+        <state relative-caret-position="-98">
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/journeyplan.html">
+    <entry file="file://$PROJECT_DIR$/favourites/tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1446">
-          <caret line="245" column="32" selection-start-line="245" selection-start-column="32" selection-end-line="245" selection-end-column="32" />
+        <state relative-caret-position="99">
+          <caret line="26" column="27" lean-forward="true" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dublinbus/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="184" selection-start-line="184" selection-end-line="184" />
           <folding>
-            <element signature="e#5049#5073#0#HTML" expanded="true" />
-            <element signature="e#5113#5133#0#HTML" expanded="true" />
-            <element signature="e#5159#5203#0#HTML" expanded="true" />
-            <element signature="e#5283#5309#0#HTML" expanded="true" />
-            <element signature="e#5373#5399#0#HTML" expanded="true" />
-            <element signature="e#5588#5614#0#HTML" expanded="true" />
-            <element signature="e#5855#5881#0#HTML" expanded="true" />
-            <element signature="e#6004#6030#0#HTML" expanded="true" />
-            <element signature="e#6264#6290#0#HTML" expanded="true" />
-            <element signature="e#6619#6645#0#HTML" expanded="true" />
-            <element signature="e#6852#6873#0#HTML" expanded="true" />
-            <element signature="e#6900#6926#0#HTML" expanded="true" />
-            <element signature="e#6956#6981#0#HTML" expanded="true" />
-            <element signature="e#7568#7605#0#HTML" expanded="true" />
-            <element signature="e#7681#7713#0#HTML" expanded="true" />
+            <element signature="e#309#363#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/getLatLong.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="102" column="25" selection-start-line="102" selection-start-column="25" selection-end-line="102" selection-end-column="25" />
+          <folding>
+            <element signature="n#style#0;n#h5#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -964,13 +806,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/getLatLong.js">
+    <entry file="file://$USER_HOME$/Library/Python/3.7/lib/python/site-packages/django/templatetags/static.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="102" column="25" selection-start-line="102" selection-start-column="25" selection-end-line="102" selection-end-column="25" />
+        <state>
           <folding>
-            <element signature="n#style#0;n#h5#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/favourites.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="357" selection-start-line="357" selection-end-line="357" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/map/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/journeyplan.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="220" column="23" selection-start-line="220" selection-start-column="23" selection-end-line="220" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/map.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="77" column="37" selection-start-line="77" selection-start-column="37" selection-end-line="77" selection-end-column="37" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#h2#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="88" column="4" lean-forward="true" selection-start-line="88" selection-start-column="4" selection-end-line="88" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/more.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="54" column="33" lean-forward="true" selection-start-line="54" selection-start-column="33" selection-end-line="54" selection-end-column="33" />
+          <folding>
+            <element signature="e#333#356#0#HTML" expanded="true" />
+            <element signature="e#405#428#0#HTML" expanded="true" />
+            <element signature="e#1765#1804#0#HTML" expanded="true" />
+            <element signature="e#1826#1848#0#HTML" expanded="true" />
+            <element signature="e#2694#2747#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
