@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
     <script src="{% static 'js/map.js' %}"></script>
     <script src="{% static 'js/mobile_getRoute.js' %}"></script>
@@ -28,16 +28,19 @@
     <h4 style="text-align: center">Enter a start and end location</h4>
     <div style = 'text-align: center'>
         <input autocomplete="off" class="controls" id="origin-input"
-               placeholder="Enter an origin location" type="text" onchange ="placeMarker(1, document.getElementById('origin-input').value)">
+               type="text" onchange ="placeMarker(1, document.getElementById('origin-input').value)">
     </div>
     <div style = 'text-align: center'>
         <input autocomplete="off" class="controls" id="destination-input"
-               placeholder="Enter a destination location" type="text" onchange ="placeMarker(2, document.getElementById('destination-input').value); ">
+               type="text" onchange ="placeMarker(2, document.getElementById('destination-input').value); ">
     </div>
-    <div style = 'text-align: center;'>
-        <input id="datetimepicker" type="text" >
+    <br>
+    <div id="datepicker-container">
+        <div id="datepicker-center">
+            <div id="datetimepicker"></div>
+        </div>
     </div>
-
+    <br>
     <div style="text-align: center">
         <button class='btn btn-primary' id="directionsButton" onclick="mobileResizeMap()" type="submit">Search
         </button>
@@ -55,9 +58,6 @@
 <div class="lowerholder" id="lowerholder">
     <div id="options">
         <!-- <p> here is mypanel</p> -->
-    </div>
-    <div id="carbonholder">
-
     </div>
 
     <div class="panel panel-default collapse" id="collapseTwo">

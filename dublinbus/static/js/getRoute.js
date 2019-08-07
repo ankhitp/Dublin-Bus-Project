@@ -36,30 +36,30 @@ function getRoute(i, url, start, end) {
         if (this.readyState === 4 && this.status === 200) {
             //loop through each section of the route
             var returnData = JSON.parse(this.responseText);
-            var parseMe = returnData['Res']['Connections']["Connection"];
-            var parsed = parseMe[i]["Sections"]["Sec"];
-            for (var x = 0; x < parsed.length; x++) {
+            var firstLayerJSON = returnData['Res']['Connections']["Connection"];
+            var indivBusRouteJSON = firstLayerJSON[i]["Sections"]["Sec"];
+            for (var x = 0; x < indivBusRouteJSON.length; x++) {
                 //if the direction is to walk and it's not the last step of the route
-                if (parsed[x]["mode"] == 20 && x != parsed.length - 1) {
+                if (indivBusRouteJSON[x]["mode"] === 20 && x !== indivBusRouteJSON.length - 1) {
                     document.getElementById('directions').insertAdjacentHTML('beforeend',
                         "<img src='../static/img/walk.png' style='width:32px;height:32px';> <p>Walk to " +
-                        parsed[x]["Arr"]["Stn"]["name"] + "</p> <p>" + parsed[x]["Journey"]['distance'] + " meters</p><hr>");
+                        indivBusRouteJSON[x]["Arr"]["Stn"]["name"] + "</p> <p>" + indivBusRouteJSON[x]["Journey"]['distance'] + " meters</p><hr>");
                 }
                 //if the direction is to take a bus
-                else if (parsed[x]['mode'] == 5) {
+                else if (indivBusRouteJSON[x]['mode'] === 5) {
 
                     //build the HTML for "take bus number X toward Z from station X to station Y. X stops"
                     document.getElementById('directions').insertAdjacentHTML('beforeend',
                         "<img src='../static/img/bus.png' style='width:32px;height:32px';>" +
-                        "<p>Take bus number " + parsed[x]["Dep"]["Transport"]["name"] +
-                        " toward " + parsed[x]["Dep"]["Transport"]["dir"] + " from station " +
-                        parsed[x]["Dep"]["Stn"]["name"] + " to station " + parsed[x]["Arr"]["Stn"]["name"] +
-                        "</p><p>" + parsed[x]["Journey"]['Stop'].length + " stops</p><hr>");
+                        "<p>Take bus number " + indivBusRouteJSON[x]["Dep"]["Transport"]["name"] +
+                        " toward " + indivBusRouteJSON[x]["Dep"]["Transport"]["dir"] + " from station " +
+                        indivBusRouteJSON[x]["Dep"]["Stn"]["name"] + " to station " + indivBusRouteJSON[x]["Arr"]["Stn"]["name"] +
+                        "</p><p>" + indivBusRouteJSON[x]["Journey"]['Stop'].length + " stops</p><hr>");
                     //go through all the stops and add the latitudes and longitudes to an array dictionary
-                    for (var z = 0; z < parsed[x]["Journey"]["Stop"].length; z++) {
+                    for (var z = 0; z < indivBusRouteJSON[x]["Journey"]["Stop"].length; z++) {
                         if (checkFirst) {
                             if (!elem) {
-                                var stationTime = parsed[x]["Journey"]["Stop"][z]["dep"];
+                                var stationTime = indivBusRouteJSON[x]["Journey"]["Stop"][z]["dep"];
                                 stationTime = new Date(stationTime);
                                 var stationMin = stationTime.getMinutes();
                                 var stationHours = stationTime.getHours();
@@ -69,32 +69,30 @@ function getRoute(i, url, start, end) {
                                 continue;
                             }
                         }
-                        //var hold = parsed[x]["Journey"]["Stop"][z]["Stn"];
-                        // hold.longitude = hold.x;
-                        // hold.latitude = hold.y;
-                        // delete hold.x;
-                        // delete hold.y;
-                        // closest = closestLocation(hold, stopData);
-                        var latitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["y"];
-                        var longitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["x"];
-                        if (z < parsed[x]["Journey"]["Stop"].length - 1) {
-                            var nextLat = parsed[x]["Journey"]["Stop"][z + 1]["Stn"]["y"];
-                            var nextLong = parsed[x]["Journey"]["Stop"][z + 1]["Stn"]["x"];
-                            km += distance(latitude, longitude, nextLat, nextLong);
+                        var hold = indivBusRouteJSON[x]["Journey"]["Stop"][z]["Stn"];
+                        hold.longitude = parseFloat(hold.x);
+                        hold.latitude = parseFloat(hold.y);
+                        delete hold.x;
+                        delete hold.y;
+                        closest = closestLocation(hold, stopData)
+                        if (z < indivBusRouteJSON[x]["Journey"]["Stop"].length - 1) {
+                            var nextLat = indivBusRouteJSON[x]["Journey"]["Stop"][z + 1]["Stn"]["y"];
+                            var nextLong = indivBusRouteJSON[x]["Journey"]["Stop"][z + 1]["Stn"]["x"];
+                            km += distance(closest.latitude, closest.longitude, nextLat, nextLong);
                         }
-                        var name = parsed[x]["Journey"]["Stop"][z]["Stn"]['name'];
-                        var time = parsed[x]["Journey"]["Stop"][z]["dep"];
+                        var time = indivBusRouteJSON[x]["Journey"]["Stop"][z]["dep"];
                         var depArr = "depart";
                         if (time === undefined) {
-                            time = parsed[x]["Journey"]["Stop"][z]["arr"];
+                            time = indivBusRouteJSON[x]["Journey"]["Stop"][z]["arr"];
                             depArr = "arrive";
                         }
                         time = new Date(time);
                         var minutes = time.getMinutes();
                         var hours = time.getHours();
-                        latitude = parseFloat(latitude);
-                        longitude = parseFloat(longitude);
-                        locations.push({lat: latitude, lng: longitude, name: name});
+                        var name = closest.stop_name;
+                        var latitude = parseFloat(closest.latitude);
+                        var longitude = parseFloat(closest.longitude);
+                        locations.push({lat: latitude, lng: longitude, name: name, actual_stop_id: closest.actual_stop_id});
                         times.push({minutes: minutes, hours: hours})
                     }
                     var co2 = Math.round(km * 70);
@@ -110,21 +108,34 @@ function getRoute(i, url, start, end) {
                     //go through all the entries in our array and create markers from them, and then create
                     //onClick windows for each marker.
                     for (var a = 0; a < locations.length; a++) {
+                        let serviceRoute = add_service_route(closest);
                         marker = new google.maps.Marker({
                             position: new google.maps.LatLng(locations[a].lat, locations[a].lng),
+                            content: '<div id="content' + locations[a].actual_stop_id + '" >' +
+                                '<div id=stop' + locations[a].actual_stop_id + '>' +
+                                "<div><img src='../static/img/bus-blue-icon.png' alt='bus-blue-icon' width='12%' height='12%'>" +
+                                '<h6 style="margin-left: 3%; font-family:Tangerine; font-size:15px;">Stop ID: ' + locations[a].actual_stop_id + '</h6></div>' +
+                                '<h style="margin-left: 15%; font-family:Tangerine; font-size:15px;"><b>Stop name:</b><br>' + '<p style="margin-left: 8%">' + locations[a].name + '</p></h>' +
+
+                                '<h style="margin-left: 15%; font-family:Tangerine;  font-size:12px;"><b>Serving route:</b><br>' + '<ul id="myList">' + serviceRoute + '</ul>' + '</p></div>' +
+
+                                '<button id="realtime" onclick="get_real_time_data(' + locations[a].actual_stop_id + ')">' +
+                                '<p id="realtime_p" style="font-family:Tangerine; font-size:12px;">Real Time Info</p>' +
+                                '</button>' +
+                                '</div>',
                             map: map,
                             icon: icon
                         });
                         markers.push(marker);
                         google.maps.event.addListener(marker, 'click', (function (marker, a) {
                             return function () {
-                                infowindow.setContent(locations[a].name + " station." + "<br> The bus will " + depArr + " here at: " + times[a].hours + ":" + times[a].minutes);
+                                infowindow.setContent('<div class="infowin">' + this.content + '</div>');
                                 infowindow.open(map, marker);
                             }
                         })(marker, a));
                     }
                     //if its the last direction in the route, add a return to results button.
-                    if (x == parsed.length - 1) {
+                    if (x == indivBusRouteJSON.length - 1) {
                         document.getElementById('directions').insertAdjacentHTML('beforeend',
                             "<button class='btn btn-primary' " +
                             'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\'' + start + '\',\'' + end + '\')">Return to Results</button>' +
@@ -134,13 +145,13 @@ function getRoute(i, url, start, end) {
                     }
                 }
                 //if its the last step in the route and it's a walking instruction.
-                else if (parsed[x]["mode"] == 20 && x == parsed.length - 1) {
+                else if (indivBusRouteJSON[x]["mode"] == 20 && x == indivBusRouteJSON.length - 1) {
                     //use the geocoder to get an address from a latitude and longitude (HERE api only gives us lat and long
                     //so we need to transform that back to an address to present to the user. All this logic here is just
                     //getting it in the right format for the Google Geocoder service.
                     var geocoder = new google.maps.Geocoder;
-                    var lat = parsed[x]["Arr"]["Addr"]["y"];
-                    var long = parsed[x]["Arr"]["Addr"]["x"];
+                    var lat = indivBusRouteJSON[x]["Arr"]["Addr"]["y"];
+                    var long = indivBusRouteJSON[x]["Arr"]["Addr"]["x"];
                     var latlngStr = lat.toString() + "," + long.toString();
                     latlngStr = latlngStr.split(',', 2);
                     var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
@@ -173,6 +184,17 @@ function getRoute(i, url, start, end) {
     }
 }
 
+function add_service_route(route_data) {
+    if (route_data == null || route_data.length == 0) {
+        return "";
+    }
+
+    let elem = "";
+    for (let i = 0; i < route_data.length; i++) {
+        elem += '<li>' + route_data[i][0] + '-' + route_data[i][1] + '</li>';
+    }
+    return elem;
+}
 
 function closestLocation(targetLocation, locationData) {
     function vectorDistance(dx, dy) {

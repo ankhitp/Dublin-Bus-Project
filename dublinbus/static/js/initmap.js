@@ -1,14 +1,34 @@
 // Initialize and add the map
 function initMap() {
     var dublin = {lat: 53.33306, lng: -6.24889};
-    var map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 14, center: dublin});
-
+    var map = new google.maps.Map(document.getElementById('map'), {zoom: 16, center: dublin});
     // The marker, positioned at Uluru
-    var marker = new google.maps.Marker({position: dublin, map: map});
+    //var marker = new google.maps.Marker({position: dublin, map: map});
+    var infowindow = new google.maps.InfoWindow({});
+    var im = {
+        url: '../static/img/userLoc.png', // url
+        scaledSize: new google.maps.Size(40, 40), // scaled size
+        origin: new google.maps.Point(0, 0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+    };
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var userMarker = new google.maps.Marker({
+                position: pos,
+                map: map,
+                icon: im
+            });
+            map.setCenter(pos);
+            google.maps.event.addListener(userMarker, 'click', function () {
+                infowindow.setContent('This is where you are!');
+                infowindow.open(map, userMarker);
+            });
+        });
+    }
+    addTourismMarkers(map, tourism);
     addMarker(map, data);
 
-    console.log("hi ankhit!");
 };
 
 
@@ -37,19 +57,56 @@ var getJSON = function (url, callback) {
 };
 
 
-function addMarker(map, data) {
+function addTourismMarkers(map, data) {
     //get the stop data from JSON file
     var infowindow = new google.maps.InfoWindow({});
-
-
     //*
     //*
-
     for (var i = 0, length = data.length; i < length; i++) {
         // var routedata = routedata[i]
         var busdata = data[i];
         // {#Console.log(busdata);#}
-        var myLatLng = {lat: parseFloat(busdata.stop_lat), lng: parseFloat(busdata.stop_lon)};
+        var myLatLng = {lat: parseFloat(busdata.lat), lng: parseFloat(busdata.lon)};
+
+
+        // console.log(route_data[busdata.actual_stop_id]);
+        var icon = {
+            url: '../static/img/tourismMarker.png', // url
+            scaledSize: new google.maps.Size(60, 60), // scaled size
+            origin: new google.maps.Point(0, 0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };
+
+        // Creating  markers and putting it on the map
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            icon: icon,
+            title: busdata.actual_stop_id + "\n" + busdata.name,
+            // content is the stop info
+            content: 'Visit here to earn some tourism points! This is ' + busdata.name + ', a well known tourist spot' +
+                ' here in Dublin. To learn more about it, visit <a href="https://www.wikipedia.com/wiki/'+busdata.name+'">this link!</a>'
+
+        });
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.setContent('<div class="infowin">' + this.content + '</div>');
+            infowindow.open(map, this);
+
+        });
+        marker.setMap(map);
+    }
+}
+
+function addMarker(map, data) {
+    //get the stop data from JSON file
+    var infowindow = new google.maps.InfoWindow({});
+    //*
+    //*
+    for (var i = 0, length = data.length; i < length; i++) {
+        // var routedata = routedata[i]
+        var busdata = data[i];
+        // {#Console.log(busdata);#}
+        var myLatLng = {lat: parseFloat(busdata.latitude), lng: parseFloat(busdata.longitude)};
 
 
         // console.log(route_data[busdata.actual_stop_id]);
@@ -143,6 +200,20 @@ function get_real_time_data(id) {
     }
 }
 
+function checkTourism() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            for (var i = 0, length = data.length; i < length; i++) {
+                if (distance(position.coords.latitude,position.coords.longitude, data[i].lat,data[i].lon ) < 0.1) {
+                    alert("You've got AIDS!");
+                }
+            }
+        })
+
+    }
+
+}
 
 function add_service_route(route_data) {
     if (route_data == null || route_data.length == 0) {

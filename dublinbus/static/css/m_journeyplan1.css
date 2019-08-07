@@ -1,16 +1,25 @@
 .controls {
     margin-top: 10px;
     border: 1px solid transparent;
-    border-radius: 2px 0 0 2px;
+    border-radius: 12px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     height: 32px;
     outline: none;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .container_fluid {
     height: 100vh;
+}
+#datepicker-container{
+    text-align:center;
+}
+#datepicker-center{
+    display:inline-block;
+    margin:0 auto;
+}
+#datetimepicker{
+    width:250px;
 }
 
 #origin-input,
@@ -22,9 +31,10 @@
     margin-left: 12px;
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
-    width: auto;
-    margin-top: 25px;
-    margin-bottom: 25px;
+    width: 300px;
+    height:40px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 
 }
 

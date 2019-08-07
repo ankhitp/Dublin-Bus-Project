@@ -220,13 +220,7 @@ function deleteMarkers() {
 //sets the map back to original position, resets the side bar to the 'search dublin' option
 function resetMap() {
     document.getElementById('directions').style.display = "none";
-    var columns_container = $(".dynamic-columns");
-    $(".dynamic-columns .col:first-child").removeClass("col-3");
-    $(".dynamic-columns .col:first-child").addClass("col-2");
-
-    $(".dynamic-columns .col:last-child").removeClass("col-9");
-    $(".dynamic-columns .col:last-child").addClass("col-10");
-    columns_container.toggleClass("expanded");
+    document.getElementById('options').style.width='300px';
     document.getElementById('options').style.height = "200px";
     document.getElementById('options').innerHTML =
         "<div id = 'journeyPlan' style = 'display:none'>\n" +
