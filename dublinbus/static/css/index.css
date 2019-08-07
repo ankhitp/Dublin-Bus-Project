@@ -217,7 +217,7 @@ div.col-6 {
 
 #footer-nav {
     background: rgb(134, 131, 131);
-    height: 15vh;
+    height: 12vh;
     border-style: solid;
     border-top: 4px;
     border-bottom: 0px;
@@ -239,10 +239,10 @@ div.col-6 {
 
 .icon-container {
     text-align: center;
-    font-size: 2vh;
+    font-size: 1.5vh;
 }
 
 #myicon {
-    font-size: 5vh;
+    font-size: 4vh;
     padding-top: 2vh;
 }
