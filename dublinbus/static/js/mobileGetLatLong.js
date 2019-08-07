@@ -38,7 +38,7 @@ function mobileGetLatLng(start, end) {
                 xhttp = new XMLHttpRequest();
                 var date = new Date();
                 date = date.toISOString();
-                var url = "http://transit.api.here.com/v3/route.json?app_id=tL7r9QKJ3KlE5Kc9LGYo&app_code=1arMc" +
+                var url = "https://transit.api.here.com/v3/route.json?app_id=tL7r9QKJ3KlE5Kc9LGYo&app_code=1arMc" +
                     "SHt_o31xFSeBRswsA&modes=bus&routing=all&dep=" + startLat + "," + startLong + "&arr=" + destLat +
                     "," + destLong + "&time=" + date;
                 xhttp.open("GET", url, true);

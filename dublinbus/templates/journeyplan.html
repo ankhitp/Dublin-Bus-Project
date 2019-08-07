@@ -24,12 +24,13 @@
         .controls {
             margin-top: 10px;
             border: 1px solid transparent;
-            border-radius: 2px 0 0 2px;
+            border-radius: 12px;
             box-sizing: border-box;
             -moz-box-sizing: border-box;
-            height: 32px;
+            height: 40px;
+            width: 250px;
             outline: none;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         #origin-input,
@@ -109,14 +110,12 @@
             text-align: center;
             font-family: Arial;
             left: 35%;
-            /* background: red; */
+            background: whitesmoke;
             opacity: 0.7;
-            padding-top: 4%;
-            height: 19% !important;
+            height: auto !important;
             border-radius: 25px;
             max-width: 28%;
             color: black;
-            background-image: url(../static/img/trees.gif) !important;
 
         }
 
@@ -185,6 +184,8 @@
             <div style="text-align: center">
                 <h5 style="padding-top: 15%;">Search for a place in Dublin to visit!</h5>
                 <input autocomplete="off" class="controls" id="pac-input" placeholder="Search Dublin" type="text">
+                <br>
+                <br>
                 <br>
                 <br>
                 <button class='btn btn-primary' onclick="showOptions()" type="submit">Show Journey Planner</button>
