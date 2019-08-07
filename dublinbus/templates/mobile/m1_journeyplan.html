@@ -19,9 +19,11 @@
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<link rel="stylesheet" type="text/css" href="/jquery.datetimepicker.css"/ >
+<link rel="stylesheet" type="text/css" href="jquery.datetimepicker.css">
 <script src="/jquery.js"></script>
 <script src="/build/jquery.datetimepicker.full.min.js"></script>
+<link rel="stylesheet" href="bootstrap-datetimepicker.min.css">
+<script src="bootstrap-datetimepicker.min.js"></script>
 <div id = "header" class = "col-12">
     <h3 style="text-align: center">Start your journey here</h3>
     <br>
@@ -34,10 +36,11 @@
         <input autocomplete="off" class="controls" id="destination-input"
                type="text" onchange ="placeMarker(2, document.getElementById('destination-input').value); ">
     </div>
-    <br>
     <div id="datepicker-container">
         <div id="datepicker-center">
-            <div id="datetimepicker"></div>
+            <div id = 'datepicker'>
+                <input type="text" class="form-control" id="example">
+            </div>
         </div>
     </div>
     <br>
@@ -47,6 +50,11 @@
     </div>
     <script>setAutocomplete()</script>
 </div>
+<script>
+    $(function () {
+        $('#example').datetimepicker();
+    });
+</script>
 <div class="col-12 col;">
     <div id="map" style="width:100%;display: block"></div>
 
@@ -77,9 +85,6 @@
         {% include 'tabs.html' %}
     </div>
 </div>
-<script type="text/javascript">
-    jQuery('#datetimepicker').datetimepicker();
-</script>
 <script>
     var map;
     var startLat;
