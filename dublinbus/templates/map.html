@@ -20,7 +20,7 @@
             #head {
                 height: 15%;
                 width: auto;
-                text-align: center;
+
             }
 
 
@@ -72,9 +72,13 @@
 
     <body>
 
+
     <div id="head" style="background: rgba(4, 36, 85, 0.5); padding-top: 1%">
-        <img class="smalllogo" style="display: inline" src="{% static 'smalllogo.png' %}">
-        <h2 style="display: inline">Dublin Bus</h2>
+        <div id="weather_box" style="float: left; padding-left: 4%; color: white;"></div>
+        <div style="margin-left: 41.4%">
+            <img class="smalllogo" style="display: inline" src="{% static 'smalllogo.png' %}">
+            <h2 style="display: inline">Dublin Bus</h2>
+        </div>
     </div>
     <div>
         {% include 'header.html' %}
@@ -101,6 +105,26 @@
     </script>
 
 
+
+    <script>
+
+        {#const app = document.getElementById('root');#}
+
+        $.ajax({
+            url: 'http://api.openweathermap.org/data/2.5/weather?appid=a8e1877ec087d7a2904f50a41ed61bfa&q=Dublin&units=metric',
+            type: "GET",
+            dataType: "jsonp",
+            jsonpCallback: "jsonp",
+            success: function (data) {
+
+                let widget = "<img src = 'http://openweathermap.org/img/w/" + data.weather[0].icon + ".png' > " + "<br/>" + "<b>" + data.weather[0].description + "</b>"
+                document.getElementById("weather_box").innerHTML = widget;
+
+            }
+        })
+
+
+    </script>
 
 
     </body>

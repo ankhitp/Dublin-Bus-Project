@@ -16,3 +16,4 @@ dublinbus/venv/
 # dublinbus/.idea/dublinbus.iml
 # dublinbus/.idea/workspace.xml
 # dublinbus/dublinbus/__pycache__/
+dublinbus/db.sqlite3
