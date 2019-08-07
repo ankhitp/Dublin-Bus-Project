@@ -51,16 +51,16 @@ function getLatLng(start, end) {
                         var returnData = JSON.parse(this.responseText);
                         document.getElementById('options').insertAdjacentHTML('beforeend',
                             '<div id = "header" class="row">' +
-                            '<div id = "route" class="col-2">' +
+                            '<div style = "text-align: center"  id = "route" class="col-2">' +
                             '<b>Route</b>' +
                             '</div>' +
-                            '<div id = "direction" class="col-3">' +
+                            '<div style = "text-align: center"  id = "direction" class="col-3">' +
                             '<b>Towards</b>' +
                             '</div>' +
-                            '<div id = "time" class="col-3">' +
+                            '<div style = "text-align: center"  id = "time" class="col-3">' +
                             '<b>Est. Journey Time</b>' +
                             '</div>' +
-                            '<div id = "connections" class="col-4">' +
+                            '<div style = "text-align: center"  id = "connections" class="col-4">' +
                             '<b>Connections</b>' +
                             '</div></div>'
                         );
@@ -79,9 +79,9 @@ function getLatLng(start, end) {
                                         var direction = parsed[x]['Dep']['Transport']['dir'];
                                         myHTML += "<hr>";
                                         myHTML += '<div  style="cursor: pointer;background: rgba(240, 240, 240, 0.8);" class = "row" id ="' + i + '" onclick = "getRoute(' + i + ', \'' + url + '\', \'' + start + '\',\'' + end + '\')">' +
-                                            '<div class = "col-2">' + name + '</div>' +
-                                            '<div class = "col-3">' + direction + '</div>' +
-                                            '<div class = "col-3"> 10 minutes </div>';
+                                            '<div style = "text-align: center" class = "col-2">' + name + '</div>' +
+                                            '<div style = "text-align: center"  class = "col-3">' + direction + '</div>' +
+                                            '<div style = "text-align: center"  class = "col-3"> 10 minutes </div>';
                                         //give the list of routes
                                         //var hold = parsed[x]['Dep']['Transport']['name'] + ' toward ' +
                                         //    parsed[x]['Dep']['Transport']['dir'];
@@ -96,14 +96,14 @@ function getLatLng(start, end) {
                             //calculate time
                             //let the user know how many connections required per route.
                             if (connections == 1) {
-                                document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div class = "col-4"> No connections </div>');
+                                document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div style = "text-align: center"  class = "col-4"> No connections </div>');
                             } else if (connections > 1) {
-                                document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div class = "col-4">' + connections + ' Connections</div>');
+                                document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div style = "text-align: center"  class = "col-4">' + connections + ' Connections</div>');
                             }
                         }
                         //option to reset the searches
-                        document.getElementById('options').insertAdjacentHTML('beforeend', "<hr><button class=" +
-                            "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();resetMap();'>Search Again</button>");
+                        document.getElementById('options').insertAdjacentHTML('beforeend', "<hr><br><div style='text-align: center'><button class=" +
+                            "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();resetMap();'>Search Again</button></div>");
                     }
                 }
             }
