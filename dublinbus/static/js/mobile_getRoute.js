@@ -186,9 +186,9 @@ function getRoute(i, url, start, end) {
                             );
 
 
-                            document.getElementById('carbonholder').insertAdjacentHTML('beforeend',
-                                "<button class='btn btn-primary' " +
-                                "type='submit' onclick = 'removeLine(); deleteMarkers();mobileMapReturnHide();mobileGetLatLng(\"" + start + "\",\"" + end + "\")'>Return to Results</button>");
+                            document.getElementById('lowerholder').insertAdjacentHTML('beforeend',
+                                "<div id = 'return' style='text-align: center'><button class='btn btn-primary' " +
+                                "type='submit' onclick = 'removeLine(); deleteMarkers();mobileMapReturnHide();mobileGetLatLng(\"" + start + "\",\"" + end + "\")'>Return to Results</button></div>");
                             //'<br><h4>This bus route will result in '+co2+' grams of CO2 being released into the atmosphere. <br>' +
                             //'This is compared to ' + carCo2 + ' grams of CO2 if you had used a car!</h4>')
 

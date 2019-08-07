@@ -25,12 +25,14 @@ class map_view(TemplateView):
         user_agent = get_user_agent(request)
         json_routedata = open('static/files/serving_route.json')
         route_data = json.load(json_routedata)
+        json_tourismData = open('static/files/tourism.json')
+        tourism_data = json.load(json_tourismData)
         if user_agent.is_mobile:
-            return render(request, 'mobile/m_map.html', {'form':form, 'load': stops_data, 'routedata': route_data})
+            return render(request, 'mobile/m_map.html', {'form':form, 'load': stops_data, 'routedata': route_data, 'tourismData': tourism_data})
         elif user_agent.is_tablet:
-            return render(request, 'mobile/m_map.html', {'form':form, 'load': stops_data, 'routedata': route_data})
+            return render(request, 'mobile/m_map.html', {'form':form, 'load': stops_data, 'routedata': route_data, 'tourismData': tourism_data})
         else:
-            return render(request, 'map.html', {'form':form, 'load': stops_data, 'routedata': route_data})
+            return render(request, 'map.html', {'form':form, 'load': stops_data, 'routedata': route_data, 'tourismData': tourism_data})
 
 
     # post method, which saves to the model

@@ -11,6 +11,16 @@
 .container_fluid {
     height: 100vh;
 }
+#datepicker-container{
+    text-align:center;
+}
+#datepicker-center{
+    display:inline-block;
+    margin:0 auto;
+}
+#datetimepicker{
+    width:250px;
+}
 
 #origin-input,
 #destination-input {

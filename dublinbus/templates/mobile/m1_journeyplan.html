@@ -34,8 +34,11 @@
         <input autocomplete="off" class="controls" id="destination-input"
                type="text" onchange ="placeMarker(2, document.getElementById('destination-input').value); ">
     </div>
-    <div style = 'text-align: center;'>
-        <input id="datetimepicker" type="text" >
+    <br>
+    <div id="datepicker-container">
+        <div id="datepicker-center">
+            <div id="datetimepicker"></div>
+        </div>
     </div>
     <br>
     <div style="text-align: center">
@@ -44,7 +47,6 @@
     </div>
     <script>setAutocomplete()</script>
 </div>
-<br>
 <div class="col-12 col;">
     <div id="map" style="width:100%;display: block"></div>
 
