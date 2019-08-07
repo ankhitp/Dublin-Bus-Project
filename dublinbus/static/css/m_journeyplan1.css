@@ -18,7 +18,7 @@
     display:inline-block;
     margin:0 auto;
 }
-#datetimepicker{
+#datepicker{
     width:250px;
 }
 
@@ -76,7 +76,7 @@
     text-align: center;
 }
 
-#datepicker {
+#2datepicker {
     width: auto;
     height: auto;
 }
