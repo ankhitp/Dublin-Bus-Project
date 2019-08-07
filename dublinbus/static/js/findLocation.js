@@ -22,16 +22,25 @@ function findLocation() {
                     var destPos = new google.maps.LatLng(data[i].stop_lat, data[i].stop_lon);
                     //if the stop in the file is less than 0.6 km away from the user, show it on the map.
                     //info window contains all the info in the content section of the marker.
+                    let serviceRoute = add_service_route(data[i]);
                     if (distance(data[i].stop_lat, data[i].stop_lon, position.coords.latitude, position.coords.longitude) < .6) {
                         var marker = new google.maps.Marker({
                             position: destPos,
                             map: map,
                             title: data[i].actual_stop_id + "\n" + data[i].stop_name,
                             // content is the stop info
-                            content: '<div id="content' + data[i].actual_stop_id + '" >' + '<div id=stop' + data[i].actual_stop_id + '>' + '<p><b>Stop ID:</b>  ' + data[i].actual_stop_id + '</p>' +
-                        '<p><b>Stop name:</b><br>' + data[i].stop_name + '</p><br>' + '<p><b>Serving route:</b>' + '**</p>' + '</div>'
-                        + '<button id="realtime" onclick="get_real_time_data(' + data[i].actual_stop_id + ')">View real time info</a></button> ' +
-                                '<button onclick = "routeFromHere(\''+data[i].stop_name+'\')" class = "btn-primary">Route from here</button></div>'
+                            content: '<div id="content' + data[i].actual_stop_id + '" >' +
+                                '<div id=stop' + data[i].actual_stop_id + '>' +
+                                "<div><img src='../static/img/bus-blue-icon.png' alt='bus-blue-icon' width='12%' height='12%'>" +
+                                '<h6 style="margin-left: 3%; font-family:Tangerine; font-size:15px;">Stop ID: ' + data[i].actual_stop_id + '</h6></div>' +
+                                '<h style="margin-left: 15%; font-family:Tangerine; font-size:15px;"><b>Stop name:</b><br>' + '<p style="margin-left: 8%">' + data[i].stop_name + '</p></h>' +
+
+                                '<h style="margin-left: 15%; font-family:Tangerine;  font-size:12px;"><b>Serving route:</b><br>' + '<ul id="myList">' + serviceRoute + '</ul>' + '</p></div>' +
+
+                                '<button id="realtime" onclick="get_real_time_data(' + data[i].actual_stop_id + ')">' +
+                                '<p id="realtime_p" style="font-family:Tangerine; font-size:12px;">Real Time Info</p>' +
+                                '</button>' +
+                                '</div>'
                         });
                         markers.push(marker);
                         //add an on click for the markers
@@ -62,6 +71,17 @@ function findLocation() {
 }
 
 
+function add_service_route(route_data) {
+    if (route_data == null || route_data.length == 0) {
+        return "";
+    }
+
+    let elem = "";
+    for (let i = 0; i < route_data.length; i++) {
+        elem += '<li>' + route_data[i][0] + '-' + route_data[i][1] + '</li>';
+    }
+    return elem;
+}
 
 //distance calculator between two latitudes and longitudes.
 function distance(lat1, lon1, lat2, lon2) {

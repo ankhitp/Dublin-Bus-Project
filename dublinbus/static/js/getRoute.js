@@ -69,20 +69,17 @@ function getRoute(i, url, start, end) {
                                 continue;
                             }
                         }
-                        //var hold = parsed[x]["Journey"]["Stop"][z]["Stn"];
-                        // hold.longitude = hold.x;
-                        // hold.latitude = hold.y;
-                        // delete hold.x;
-                        // delete hold.y;
-                        // closest = closestLocation(hold, stopData);
-                        var latitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["y"];
-                        var longitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["x"];
+                        var hold = parsed[x]["Journey"]["Stop"][z]["Stn"];
+                        hold.longitude = parseFloat(hold.x);
+                        hold.latitude = parseFloat(hold.y);
+                        delete hold.x;
+                        delete hold.y;
+                        closest = closestLocation(hold, stopData)
                         if (z < parsed[x]["Journey"]["Stop"].length - 1) {
                             var nextLat = parsed[x]["Journey"]["Stop"][z + 1]["Stn"]["y"];
                             var nextLong = parsed[x]["Journey"]["Stop"][z + 1]["Stn"]["x"];
-                            km += distance(latitude, longitude, nextLat, nextLong);
+                            km += distance(closest.latitude, closest.longitude, nextLat, nextLong);
                         }
-                        var name = parsed[x]["Journey"]["Stop"][z]["Stn"]['name'];
                         var time = parsed[x]["Journey"]["Stop"][z]["dep"];
                         var depArr = "depart";
                         if (time === undefined) {
@@ -92,9 +89,10 @@ function getRoute(i, url, start, end) {
                         time = new Date(time);
                         var minutes = time.getMinutes();
                         var hours = time.getHours();
-                        latitude = parseFloat(latitude);
-                        longitude = parseFloat(longitude);
-                        locations.push({lat: latitude, lng: longitude, name: name});
+                        var name = closest.stop_name;
+                        var latitude = parseFloat(closest.latitude);
+                        var longitude = parseFloat(closest.longitude);
+                        locations.push({lat: latitude, lng: longitude, name: name, actual_stop_id: closest.actual_stop_id});
                         times.push({minutes: minutes, hours: hours})
                     }
                     var co2 = Math.round(km * 70);
@@ -110,15 +108,28 @@ function getRoute(i, url, start, end) {
                     //go through all the entries in our array and create markers from them, and then create
                     //onClick windows for each marker.
                     for (var a = 0; a < locations.length; a++) {
+                        let serviceRoute = add_service_route(closest);
                         marker = new google.maps.Marker({
                             position: new google.maps.LatLng(locations[a].lat, locations[a].lng),
+                            content: '<div id="content' + locations[a].actual_stop_id + '" >' +
+                                '<div id=stop' + locations[a].actual_stop_id + '>' +
+                                "<div><img src='../static/img/bus-blue-icon.png' alt='bus-blue-icon' width='12%' height='12%'>" +
+                                '<h6 style="margin-left: 3%; font-family:Tangerine; font-size:15px;">Stop ID: ' + locations[a].actual_stop_id + '</h6></div>' +
+                                '<h style="margin-left: 15%; font-family:Tangerine; font-size:15px;"><b>Stop name:</b><br>' + '<p style="margin-left: 8%">' + locations[a].name + '</p></h>' +
+
+                                '<h style="margin-left: 15%; font-family:Tangerine;  font-size:12px;"><b>Serving route:</b><br>' + '<ul id="myList">' + serviceRoute + '</ul>' + '</p></div>' +
+
+                                '<button id="realtime" onclick="get_real_time_data(' + locations[a].actual_stop_id + ')">' +
+                                '<p id="realtime_p" style="font-family:Tangerine; font-size:12px;">Real Time Info</p>' +
+                                '</button>' +
+                                '</div>',
                             map: map,
                             icon: icon
                         });
                         markers.push(marker);
                         google.maps.event.addListener(marker, 'click', (function (marker, a) {
                             return function () {
-                                infowindow.setContent(locations[a].name + " station." + "<br> The bus will " + depArr + " here at: " + times[a].hours + ":" + times[a].minutes);
+                                infowindow.setContent('<div class="infowin">' + this.content + '</div>');
                                 infowindow.open(map, marker);
                             }
                         })(marker, a));
@@ -150,7 +161,7 @@ function getRoute(i, url, start, end) {
                             document.getElementById('directions').insertAdjacentHTML('beforeend',
                                 "<img src='../static/img/walk.png' style='width:32px;height:32px';>" +
                                 "<p>Walk to destination: " + results[0].formatted_address + "</p>");
-                            document.getElementById('coTwo').innerHTML = '<br>This bus route will result in ' + '<b>' + co2 + '</b>' + ' grams of CO2 being released into the atmosphere. <br>' +
+                            document.getElementById('coTwo').innerHTML = 'This bus route will result in ' + '<b>' + co2 + '</b>' + ' grams of CO2 being released into the atmosphere. <br>' +
                                 'This is compared to ' + '<b>' + carCo2 + '</b>' + ' grams of CO2 if you had used a car!';
 
                         }
@@ -173,6 +184,17 @@ function getRoute(i, url, start, end) {
     }
 }
 
+function add_service_route(route_data) {
+    if (route_data == null || route_data.length == 0) {
+        return "";
+    }
+
+    let elem = "";
+    for (let i = 0; i < route_data.length; i++) {
+        elem += '<li>' + route_data[i][0] + '-' + route_data[i][1] + '</li>';
+    }
+    return elem;
+}
 
 function closestLocation(targetLocation, locationData) {
     function vectorDistance(dx, dy) {
