@@ -29,13 +29,18 @@ def journeyplan(request):
 
 
 def bus_prediction(request):
+
+    url = 'http://api.openweathermap.org/data/2.5/weather?appid=a8e1877ec087d7a2904f50a41ed61bfa&q=Dublin&units=metric'
+    weather_detalis = requests.get(url)
+
+    startingPoint = request.POST.get("startingPoint")
     direction = request.POST.get("direction")
     dayOfWeek = request.POST.get("dayOfWeek")
     rushHour = request.POST.get("rushHour")
-    monToThurRushHour = request.POST.get("direction")
-    friday = request.POST.get("direction")
-    windSpeed = request.POST.get("windSpeed")
-    temp = request.POST.get("temp")
+    monThurRush = request.POST.get("monThurRush")
+    friday = request.POST.get("friday")
+    temp =  weather_detalis[0]['main']['temp'],
+    windSpeed = weather_detalis[0]['wind']['speed'],
     randomForest_Results = {}
 
     with open("static/pickle/15A_1_pickle", "rb") as handle:
@@ -43,7 +48,8 @@ def bus_prediction(request):
         totaljourney = 0
         for key, value in model.items():
             thismodel = model[key]
-            thisprediction = thismodel.predict(numpy.array([[direction, dayOfWeek, rushHour, monToThurRushHour, friday, windSpeed, temp]]))
+            thisprediction = thismodel.predict(
+                numpy.array([[direction, dayOfWeek, rushHour, monThurRush, friday, windSpeed, temp]]))
             randomForest_Results[key] = thisprediction
             totaljourney += thisprediction
     print("total journey time: ", totaljourney / 60, "minutes")

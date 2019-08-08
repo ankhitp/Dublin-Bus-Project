@@ -9,22 +9,23 @@ class getmapTest(TestCase):
         print('Response status code : ' + str(response.status_code))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'map.html')
-
-
-# class postmapTest(TestCase):
-#     def test_map_page(self):
-#         print('******************test_map_page()**********************')
-#         # send GET request.
-#         response = self.client.post('/map/',{'form': 'form', 'text':'text'})
-#         print('Response status code : ' + str(response.status_code))
-#         self.assertEqual(response.status_code, 200)
-#         self.assertTemplateUsed(response, 'map.html', 'args')
-
-class getrouteTest(TestCase):
-    def test_home_page(self):
+#
+#
+class postmapTest(TestCase):
+    def postfavTest(self):
         print('******************test_map_page()**********************')
         # send GET request.
         response = self.client.post('/map/')
-        print('Response status code : ' + str(response.url))
-        self.assertEqual(response.url, 200)
+        print('Response status code : ' + str(response.status_code))
+        self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'map.html')
+
+#
+# class getrouteTest(TestCase):
+#     def test_home_page(self):
+#         print('******************test_map_page()**********************')
+#         # send GET request.
+#         response = self.client.post('/map/')
+#         print('Response status code : ' + str(response.url))
+#         self.assertEqual(response.url, 200)
+#         self.assertTemplateUsed(response, 'map.html')
