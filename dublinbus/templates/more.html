@@ -3,6 +3,13 @@
 
     {% load static %}
     {% load static %}
+<script type="text/javascript" src="http://www.google.com/jsapi?key=AIzaSyC-hR-mSsuP9TGDFilrtWVmxNR_t1i-qYo">
+</script>
+
+<script type="text/javascript">
+google.load("feeds", "1") //Load Google Ajax Feed API (version 1)
+</script>
+    
     <style>
         #head {
             height: 15%;
@@ -76,9 +83,23 @@
                 <div id="show_forecast" style="color: black; margin-bottom: 80%">
                 </div>
             </div>
+
         </div>
+        <button class="accordion">Traffic Update</button>
+        <div class="panel">
+         <div id="search_date" style="font-family: unset; float: left">
+            <div id="feeddiv"></div>
+
+            </div>
+        
+        </div>
+
     </div>
+
     <!--using ajax, weather forecast function, if the date and time equals to input, get the weather forecast from openweather api---->
+   
+
+
     <script type="text/javascript">
 
         function display() {
@@ -132,4 +153,41 @@
             });
         }
     </script>
+
+
+    <script type="text/javascript" src="https://rss2json.com/gfapi.js"></script>
+
+    <script type="text/javascript">
+
+    google.load("feeds", "1");
+
+    function initialize() {
+      var feed = new google.feeds.Feed("http://www.dublinbus.ie/RSS/Rss-news/");
+      feed.load(function(result) {
+        if (!result.error) {
+          var container = document.getElementById("feeddiv");
+          for (var i = 0; i < result.feed.entries.length; i++) {
+            var entry = result.feed.entries[i];
+            var content = entry.content
+            var div = document.createElement("div");
+            div.appendChild(document.createTextNode(entry.title, "<br>"));
+            div.appendChild(document.createTextNode(entry.content));
+            console.log("entry", entry)
+            container.appendChild(div);
+          }
+        }
+        else {
+            alert("Error fetching feeds!")
+            }
+      });
+    }
+    google.setOnLoadCallback(initialize);
+
+    </script>
+
+
+
+
+
+
 {% endblock %}
