@@ -6,17 +6,6 @@
 <head>
     <style>
 
-        .gj-textbox-md {
-            margin-top: 10px;
-            border: 1px solid transparent;
-            border-radius: 12px;
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            height: 40px;
-            width: 250px;
-            outline: none;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        }
         hr{
             margin-top: 0rem;
             margin-bottom: 0rem;
@@ -34,7 +23,7 @@
         .controls {
             margin-top: 10px;
             border: 1px solid transparent;
-            border-radius: 12px;
+            border-radius: 8px;
             box-sizing: border-box;
             -moz-box-sizing: border-box;
             height: 40px;
@@ -49,7 +38,6 @@
             font-family: Arial;
             font-size: 15px;
             font-weight: 300;
-            margin-left: 12px;
             padding: 0 11px 0 13px;
             text-overflow: ellipsis;
             width: 200px;
@@ -175,30 +163,30 @@
             </div>
             <br>
             <div style="text-align: center">
-                <button class='btn btn-primary' id="directionsButton" onclick="buildDateTime()" type="submit">Next
+                <button  style = 'width: 200px;' class='btn btn-primary' id="directionsButton" onclick="buildDateTime()" type="submit">Next
                 </button>
             </div>
             <br>
             <div style="text-align: center">
-                <button class='btn btn-primary' id="locationButton" onclick="findLocation()" type="submit">Find Stations Near Me!
+                <button  style = 'width: 200px;'class='btn btn-primary' id="locationButton" onclick="findLocation()" type="submit">Find Stations Near Me!
                 </button>
             </div>
             <br>
             <br>
             <br>
             <div style="text-align: center">
-                <button class='btn btn-primary' onclick="hideOptions()" type="submit">Hide Options ^</button>
+                <button  style = 'width: 200px;' class='btn btn-primary' onclick="hideOptions()" type="submit">Hide Options ^</button>
             </div>
         </div>
         <div id='searchOnly' style='display:block'>
             <div style="text-align: center">
                 <h5 style="padding-top: 15%;">Search for a place in Dublin to visit!</h5>
-                <input autocomplete="off" class="controls" id="pac-input" placeholder="Search Dublin" type="text">
+                <input style = 'width: 200px;' autocomplete="off" class="controls" id="pac-input" placeholder="Search Dublin" type="text">
                 <br>
                 <br>
                 <br>
                 <br>
-                <button class='btn btn-primary' onclick="showOptions()" type="submit">Show Journey Planner</button>
+                <button style = 'width: 200px;' class='btn btn-primary' onclick="showOptions()" type="submit">Show Journey Planner</button>
 
             </div>
 
@@ -256,8 +244,7 @@
         src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
-<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+
 <!--**************************************Scripts for date/time******************************************************-->
 
 <!-- Stylesheet for the time picker in the prediction box -->
