@@ -20,7 +20,7 @@
     </div>
     <div style = 'text-align: center'>
             <input style = 'width:150px' class="controls" id='dateField' name='daterange' type='text''/>
-            <input style = 'width:150px' class="controls" autocomplete="off" id="timepicker1" placeholder="Please select a time" type="text">
+            <input style = 'width:150px' class="controls" autocomplete="off" id="mytimepick" placeholder="Please select a time" type="text">
     </div>
     <br>
     <div style="text-align: center">
@@ -67,7 +67,7 @@
     $(document).ready(function () {
         calendarBuilder();
         $(function () {
-            $('#timepicker1').timepicker({
+            $('#mytimepick').timepicker({
                 dynamic: false,
                 dropdown: true,
                 scrollbar: true,
@@ -145,7 +145,9 @@
 <link href="{% static 'css/m_journeyplan1.css' %}" rel="stylesheet">
 <!--**************************************Google Maps*********************************************************-->
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvFaUDR5Wnl172znC5agS97gPJmyXHwOs&libraries=places&callback=initMap"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvFaUDR5Wnl172znC5agS97gPJmyXHwOs&libraries=places&callback=initMap">
+
+</script>
 </body>
 
 {% endblock %}
