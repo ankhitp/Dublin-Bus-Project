@@ -198,82 +198,81 @@
         </div>
 
     </div>
-<<<<<<< HEAD
 
-</div>
-<script>
-    var map;
-    var startLat;
-    var startLong;
-    var destLat;
-    var destLong;
-    markers = [];
-    var busPath;
-    var myPath;
-    var depTime;
-    var arrTime;
-    var LocationWindow;
-    var polylines = [];
-    var snappedCoordinates = [];
-    var placeIdArray = [];
-    var stopData = {{ load | safe }};
-    var closest;
-</script>
+    </div>
+    <script>
+        var map;
+        var startLat;
+        var startLong;
+        var destLat;
+        var destLong;
+        markers = [];
+        var busPath;
+        var myPath;
+        var depTime;
+        var arrTime;
+        var LocationWindow;
+        var polylines = [];
+        var snappedCoordinates = [];
+        var placeIdArray = [];
+        var stopData = {{ load | safe }};
+        var closest;
+    </script>
 
-<script>
-    window.onload = function() {
-        var url = new URL(window.location.href);
-        var arr = window.location.href.split('?');
-        if (arr.length > 1 && arr[1] !== '') {
-            var passedStart = url.searchParams.get("start");
-            var passedEnd = url.searchParams.get("end");
-            document.getElementById("origin-input").value = passedStart;
-            document.getElementById("destination-input").value = passedEnd;
-            document.getElementById("directionsButton").click();
-        }
-    };
-</script>
+    <script>
+        window.onload = function () {
+            var url = new URL(window.location.href);
+            var arr = window.location.href.split('?');
+            if (arr.length > 1 && arr[1] !== '') {
+                var passedStart = url.searchParams.get("start");
+                var passedEnd = url.searchParams.get("end");
+                document.getElementById("origin-input").value = passedStart;
+                document.getElementById("destination-input").value = passedEnd;
+                document.getElementById("directionsButton").click();
+            }
+        };
+    </script>
 
-<!--**************************************Jquery*********************************************************-->
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<!--**************************************BootStrap*********************************************************-->
-<script crossorigin="anonymous"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+    <!--**************************************Jquery*********************************************************-->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <!--**************************************BootStrap*********************************************************-->
+    <script crossorigin="anonymous"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
 
-<!--**************************************Scripts for date/time******************************************************-->
+    <!--**************************************Scripts for date/time******************************************************-->
 
-<!-- Stylesheet for the time picker in the prediction box -->
-<link href="https://cdn.jsdelivr.net/npm/timepicker@1.11.15/jquery.timepicker.css" rel="stylesheet">
+    <!-- Stylesheet for the time picker in the prediction box -->
+    <link href="https://cdn.jsdelivr.net/npm/timepicker@1.11.15/jquery.timepicker.css" rel="stylesheet">
 
-<!-- library for the time picker in the prediction box -->
-<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+    <!-- library for the time picker in the prediction box -->
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
 
-<!-- Updated JavaScript url -->
-<script src="https://cdn.jsdelivr.net/npm/timepicker@1.11.15/jquery.timepicker.js"></script>
+    <!-- Updated JavaScript url -->
+    <script src="https://cdn.jsdelivr.net/npm/timepicker@1.11.15/jquery.timepicker.js"></script>
 
-<!--datePicker for javascript-->
-<script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
-<link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css"/>
-<!-- jQuery UI library used for time picker in the prediction box -->
-<link href="https://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet">
+    <!--datePicker for javascript-->
+    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css"/>
+    <!-- jQuery UI library used for time picker in the prediction box -->
+    <link href="https://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet">
 
-<!--**************************************Links to local JS*********************************************************-->
-<script src="{% static 'js/favRoute.js' %}"></script>
-<script src="{% static 'js/map.js' %}"></script>
-<script src="{% static 'js/getRoute.js' %}"></script>
-<script src="{% static 'js/getLatLong.js' %}"></script>
-<script src="{% static 'js/findLocation.js' %}"></script>
-<!--**************************************Google Maps*********************************************************-->
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvFaUDR5Wnl172znC5agS97gPJmyXHwOs&libraries=places&callback=initMap">
+    <!--**************************************Links to local JS*********************************************************-->
+    <script src="{% static 'js/favRoute.js' %}"></script>
+    <script src="{% static 'js/map.js' %}"></script>
+    <script src="{% static 'js/getRoute.js' %}"></script>
+    <script src="{% static 'js/getLatLong.js' %}"></script>
+    <script src="{% static 'js/findLocation.js' %}"></script>
+    <!--**************************************Google Maps*********************************************************-->
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvFaUDR5Wnl172znC5agS97gPJmyXHwOs&libraries=places&callback=initMap">
 
-</script>
+    </script>
 
-</body>
+    </body>
 
 {% endblock %}
