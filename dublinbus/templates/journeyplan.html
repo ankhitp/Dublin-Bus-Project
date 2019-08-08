@@ -165,7 +165,7 @@
             </div>
             <br>
             <div style="text-align: center">
-                <button class='btn btn-primary' id="directionsButton" onclick="resizeMap()" type="submit">Search
+                <button class='btn btn-primary' id="directionsButton" onclick="buildDateTime()" type="submit">Next
                 </button>
             </div>
             <br>
@@ -239,16 +239,36 @@
             document.getElementById("destination-input").value = passedEnd;
             document.getElementById("directionsButton").click();
         }
-    }
+    };
 </script>
+<!--**************************************Build Time and Date picker*********************************************************-->
+
 <script>
-    (function(){
-        setTimeout(checkTourism(), 60000);
-    })();
+
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvFaUDR5Wnl172znC5agS97gPJmyXHwOs&libraries=places&callback=initMap">
 </script>
+
+<!--**************************************Scripts for date/time******************************************************-->
+
+<!-- Stylesheet for the time picker in the prediction box -->
+<link href="//jonthornton.github.io/jquery-timepicker/jquery.timepicker.css" rel="stylesheet">
+
+<!-- library for the time picker in the prediction box -->
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+
+<!-- Updated JavaScript url -->
+<script src="//jonthornton.github.io/jquery-timepicker/jquery.timepicker.js"></script>
+
+<!--datePicker for javascript-->
+<script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css"/>
+<!-- jQuery UI library used for time picker in the prediction box -->
+<link href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" rel="stylesheet">
+
+<!--**************************************Links to local JS*********************************************************-->
 
 </body>
 
