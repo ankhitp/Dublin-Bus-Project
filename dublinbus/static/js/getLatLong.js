@@ -103,7 +103,8 @@ function getLatLng(start, end) {
                         }
                         //option to reset the searches
                         document.getElementById('options').insertAdjacentHTML('beforeend', "<hr><br><div style='text-align: center'><button class=" +
-                            "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();resetMap();'>Search Again</button></div>");
+                            "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();resetMap();'>Search Again</button></div><div id='coTwo'>\n" +
+                            "        </div>");
                     }
                 }
             }
