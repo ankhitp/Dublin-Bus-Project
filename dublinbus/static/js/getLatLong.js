@@ -5,7 +5,7 @@
  * two latitude and longitude points. The function then tells the user which bus lines are possible between two points
  * and also indicates how many connections each route has.
  */
-function getLatLng(start, end) {
+function getLatLng(start, end, time, predictDate) {
     document.getElementById('options').style.height = "600px";
 
     start = start.replace("&#39;", "");
@@ -43,7 +43,6 @@ function getLatLng(start, end) {
                 xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
                 //xhttp.setRequestHeader('X-CSRF-Token', 'abcdef');
                 xhttp.send();
-
                 xhttp.onreadystatechange = function () {
                     if (this.readyState === 4 && this.status === 200) {
                         console.log(url);
@@ -78,17 +77,11 @@ function getLatLng(start, end) {
                                         var name = parsed[x]['Dep']['Transport']['name'];
                                         var direction = parsed[x]['Dep']['Transport']['dir'];
                                         myHTML += "<hr>";
-                                        myHTML += '<div  style="cursor: pointer;background: rgba(240, 240, 240, 0.8);" class = "row" id ="' + i + '" onclick = "getRoute(' + i + ', \'' + url + '\', \'' + start + '\',\'' + end + '\')">' +
+
+                                        myHTML += '<div  style="cursor: pointer;background: rgba(240, 240, 240, 0.8);" class = "row" id ="' + i + '" onclick = "getPrediction(' + i + ', \'' + url + '\', \'' + start + '\', \'' + end +  '\',\'' + time + '\', \'' + predictDate + '\')">' +
                                             '<div style = "text-align: center" class = "col-2">' + name + '</div>' +
                                             '<div style = "text-align: center"  class = "col-3">' + direction + '</div>' +
                                             '<div style = "text-align: center"  class = "col-3"> 10 minutes </div>';
-                                        //give the list of routes
-                                        //var hold = parsed[x]['Dep']['Transport']['name'] + ' toward ' +
-                                        //    parsed[x]['Dep']['Transport']['dir'];
-                                        //document.getElementById('options').insertAdjacentHTML('beforeend',
-                                        //   '<button id =' + i + ' class="btn btn-primary" type="submit" ' +
-                                        //   'onclick = "getRoute(' + i + ', \'' + url + '\', \''+start+'\',\''+end+'\')"></button>' + '<p></p>');
-                                        //document.getElementById(i).innerHTML = hold;
                                         document.getElementById('possRoutes').insertAdjacentHTML('beforeend', myHTML);
                                     }
                                 }
@@ -98,7 +91,7 @@ function getLatLng(start, end) {
                             if (connections == 1) {
                                 document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div style = "text-align: center"  class = "col-4"> No connections </div>');
                             } else if (connections > 1) {
-                                document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div style = "text-align: center"  class = "col-4">' + connections + ' Connections</div>');
+                                document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div style = "text-align: center"  class = "col-4">' + (connections - 1) + ' Connections</div>');
                             }
                         }
                         //option to reset the searches

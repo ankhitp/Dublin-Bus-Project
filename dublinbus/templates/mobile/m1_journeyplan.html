@@ -15,7 +15,7 @@
                onchange="placeMarker(1, document.getElementById('origin-input').value)" type="text">
     </div>
     <div style='text-align: center'>
-        <input autocomplete="off" class="controls" id="destination-input" placeholder="Destination Location"
+        <input autocomplete="off" class="controls" id="destination-input" placeholder="Destination"
                onchange="placeMarker(2, document.getElementById('destination-input').value); " type="text">
     </div>
     <div style = 'text-align: center'>
@@ -101,6 +101,7 @@
     markers = [];
     var busPath;
     var depTime;
+    var stopData = {{ load | safe }};
     var arrTime;
     var LocationWindow;
     var polylines = [];
@@ -142,6 +143,8 @@
 <script src="{% static 'js/mobile_getRoute.js' %}"></script>
 <script src="{% static 'js/mobileGetLatLong.js' %}"></script>
 <script src="{% static 'js/findLocation.js' %}"></script>
+<script src="{% static 'js/mobilePredict.js' %}"></script>
+
 <link href="{% static 'css/m_journeyplan1.css' %}" rel="stylesheet">
 <!--**************************************Google Maps*********************************************************-->
 <script async defer
