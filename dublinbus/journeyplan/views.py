@@ -5,6 +5,7 @@ import json
 from django_user_agents.utils import get_user_agent
 from django.contrib.auth import get_user_model
 User = get_user_model()
+import pandas as pd
 
 import json
 import pickle
@@ -13,13 +14,15 @@ import sqlalchemy
 import requests
 import time
 import numpy
-
+import csv
+from csv import DictReader
 
 def journeyplan(request):
     # return HttpResponse(render({}, request))
     json_data = open('static/files/stops_info.json')
     stops_data = json.load(json_data)
     user_agent = get_user_agent(request)
+
     if user_agent.is_mobile:
         return render(request, 'mobile/m1_journeyplan.html', {'load': stops_data})
     elif user_agent.is_tablet:
@@ -47,11 +50,13 @@ def bus_prediction(request):
     routecsv1 = route+"_direction1route.csv"
     routecsv2 = route+"_direction2route.csv"
 
+
     # Get direction by checking routes in csvs
     with open("static/busroutes/"+routecsv1) as f:
         busroute1 = [row["actual_stop_id"] for row in DictReader(f)]
     with open("static/busroutes/"+routecsv2) as f:
         busroute2 = [row["actual_stop_id"] for row in DictReader(f)]
+
     if startstop in busroute1:
         direction = 1
         print("it's 1")
@@ -63,6 +68,7 @@ def bus_prediction(request):
         startstop = busroute1[0]
         # endstop = busrouute1[len(busroute1)-1]
         print("not in the route")
+
    
     # make a list of only stops you want
     first = busroute1.index(startstop)
@@ -99,4 +105,4 @@ def bus_prediction(request):
     print("returnvalue", returnvalue)
     
     
-    return JsonResponse(randomForest_Results)
+    return JsonResponse(returnvalue)
