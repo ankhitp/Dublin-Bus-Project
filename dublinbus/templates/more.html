@@ -9,14 +9,14 @@
             width: auto;
             text-align: center;
         }
-        #bodyblue{
+
+        #bodyblue {
             padding-left: 20%;
             padding-right: 20%;
         }
 
         .accordion {
-            {#background-color: #b3d7ff;#}
-            background-color: rgba(2, 147, 222, 0.5);
+        {#background-color: #b3d7ff;#} background-color: rgba(2, 147, 222, 0.5);
             color: #444;
             cursor: pointer;
             padding: 18px;
@@ -41,7 +41,30 @@
             transition: max-height 0.2s ease-out;
         }
 
+        {#https://smallenvelop.com/display-loading-icon-page-loads-completely/#}
+        .no-js #loader {
+            display: none;
+        }
+
+        .js #loader {
+            display: block;
+            position: absolute;
+            left: 100px;
+            top: 0;
+        }
+
+        .se-pre-con {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url(../static/img/animated-bus.gif) center no-repeat #2775BA;
+        }
+
     </style>
+    <div class="se-pre-con"></div>
     <div id="head" style="background: rgba(4, 36, 85, 0.5); padding-top: 1%">
         <img class="smalllogo" style="display: inline" src="{% static 'smalllogo.png' %}">
         <h2 style="display: inline">Dublin Bus</h2>
@@ -98,7 +121,7 @@
 
                                 let fore = "<div >" + "<img src = 'http://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png' > " + data.list[i].weather[0].description +
 
-                                    "<h6 style='padding-top:0;'>" + data.list[i].main.temp + "&deg;C</h6>" ;
+                                    "<h6 style='padding-top:0;'>" + data.list[i].main.temp + "&deg;C</h6>";
                                 document.getElementById("show_forecast").innerHTML = fore;
                                 var a = 1;
                             }
@@ -132,4 +155,16 @@
             });
         }
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+    <script>
+        //paste this code under the head tag or in a separate js file.
+        // Wait for window load
+        $(window).load(function () {
+            // Animate loader off screen
+            $(".se-pre-con").fadeOut("slow");
+            ;
+        });
+    </script>
+
 {% endblock %}

@@ -252,6 +252,27 @@
 
                 }
 
+                {#https://smallenvelop.com/display-loading-icon-page-loads-completely/#}
+                .no-js #loader {
+                    display: none;
+                }
+
+                .js #loader {
+                    display: block;
+                    position: absolute;
+                    left: 100px;
+                    top: 0;
+                }
+
+                .se-pre-con {
+                    position: fixed;
+                    left: 0px;
+                    top: 0px;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 9999;
+                    background: url(../static/img/animated-bus.gif) center no-repeat #2775BA;
+                }
 
 
             </style>
@@ -284,8 +305,8 @@
                 var marker = new google.maps.Marker({position: dublin, map: map});
             }
         </script>
-
-        <div id="head" style="http://localhost:8000/map/background: rgba(4, 36, 85, 0.5); padding-top: 1%">
+        <div class="se-pre-con"></div>
+        <div id="head" style="background: rgba(4, 36, 85, 0.5); padding-top: 1%">
             <img class="smalllogo" src="{% static 'smalllogo.png' %}" style="display: inline">
             <h2 style="display: inline">Dublin Bus</h2>
         </div>
@@ -425,4 +446,16 @@
     <script src="{% static '/js/mobile_getRoute.js' %}"></script>
     <script src="{% static '/js/getLatLong.js' %}"></script>
     <script src="{% static '/js/findLocation.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+    <script>
+        //paste this code under the head tag or in a separate js file.
+        // Wait for window load
+        $(window).load(function () {
+            // Animate loader off screen
+            $(".se-pre-con").fadeOut("slow");
+            ;
+        });
+    </script>
+
 {% endblock %}

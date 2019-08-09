@@ -85,7 +85,7 @@ function addTourismMarkers(map, data) {
             title: busdata.actual_stop_id + "\n" + busdata.name,
             // content is the stop info
             content: 'Visit here to earn some tourism points! This is ' + busdata.name + ', a well known tourist spot' +
-                ' here in Dublin. To learn more about it, visit <a href="https://www.wikipedia.com/wiki/'+busdata.name+'">this link!</a>'
+                ' here in Dublin. To learn more about it, visit <a href="https://www.wikipedia.com/wiki/'+busdata.name+'" style="color: palevioletred">this link!</a>'
 
         });
         google.maps.event.addListener(marker, 'click', function () {
@@ -128,7 +128,7 @@ function addMarker(map, data) {
             content: '<div id="content' + busdata.actual_stop_id + '" >' +
                 '<div id=stop' + busdata.actual_stop_id + '>' +
                 "<div><img src='../static/img/bus-blue-icon.png' alt='bus-blue-icon' width='12%' height='12%'>" +
-                '<h6 style="margin-left: 3%; font-family:Tangerine; font-size:15px;">Stop ID: ' + busdata.actual_stop_id + '</h6></div>' +
+                '<h6 style="margin-left: 15%; font-family:Tangerine; font-size:15px;">Stop ID: ' + busdata.actual_stop_id + '</h6></div>' +
                 '<h style="margin-left: 15%; font-family:Tangerine; font-size:15px;"><b>Stop name:</b><br>' + '<p style="margin-left: 8%">' + busdata.stop_name + '</p></h>' +
 
                 '<h style="margin-left: 15%; font-family:Tangerine;  font-size:12px;"><b>Serving route:</b><br>' + '<ul id="myList">' + serviceRoute + '</ul>' + '</p></div>' +
