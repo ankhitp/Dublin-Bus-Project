@@ -1,4 +1,5 @@
 function getPrediction(routeChosen, url, start, end, date, time) {
+    console.log("inside get prediction")
     var startStations = [];
     var endStations = [];
     var route = [];

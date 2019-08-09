@@ -31,19 +31,23 @@ def journeyplan(request):
         return render(request, 'journeyplan.html', {'load': stops_data})
 
 def bus_prediction(request):
-
-    url = 'http://api.openweathermap.org/data/2.5/weather?appid=a8e1877ec087d7a2904f50a41ed61bfa&q=Dublin&units=metric'
-    weather_detalis = requests.get(url)
-
+    # url = 'http://api.openweathermap.org/data/2.5/weather?appid=a8e1877ec087d7a2904f50a41ed61bfa&q=Dublin&units=metric'
+    # weather_detalis = requests.get(url)
+    print("i[m in bus prediction", request)
     startingPoint = request.POST.get("startingPoint")
+    print(startingPoint)
     endPoint = request.POST.get("endPoint")
-    route = request.POST.get("route")
+    getroute = request.POST.get("route")
+    route = str(getroute)
+    print("route is", route)
     dayOfWeek = request.POST.get("dayOfWeek")
     rushHour = request.POST.get("rushHour")
     monThurRush = request.POST.get("monThurRush")
     friday = request.POST.get("friday")
-    temp =  weather_detalis[0]['main']['temp']
-    windSpeed = weather_detalis[0]['wind']['speed']
+    # temp =  weather_detalis[0]['main']['temp'],
+    # windSpeed = weather_detalis[0]['wind']['speed'],
+    temp = 1
+    windSpeed=1
     
     randomForest_Results = {}
 
