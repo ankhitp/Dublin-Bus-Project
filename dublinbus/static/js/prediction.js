@@ -17,7 +17,7 @@ function getPrediction(routeChosen, url, start, end, date, time) {
         var dateObj = new Date(date).getDay();
     dateObj = dateObj - 1;
     if (dateObj == -1) {
-        dateObj = 0;
+        dateObj = 6
     }
     if (rushHr == 1 && dateObj < 4) {
         monToThursRushHr = 1;
