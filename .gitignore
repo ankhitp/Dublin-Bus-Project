@@ -17,3 +17,4 @@ dublinbus/venv/
 # dublinbus/.idea/workspace.xml
 # dublinbus/dublinbus/__pycache__/
 dublinbus/db.sqlite3
+dublinbus/journeyplan/__pycache__/views.cpython-37.pyc
