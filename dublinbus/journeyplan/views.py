@@ -97,23 +97,6 @@ def bus_prediction(request):
         totaljourney+=thisprediction
     print("total journey time: ",totaljourney/60, "minutes")
     print("returnvalue", returnvalue)
-
-    return(returnvalue)
-
-   
-    # with open("static/pickle/15A_1_pickle", "rb") as handle:
-    #     model = pickle.load(handle)
-    #     totaljourney = 0
-    #     for key, value in model.items():
-    #         thismodel = model[key]
-    #         thisprediction = thismodel.predict(
-    #             numpy.array([[direction, dayOfWeek, rushHour, monThurRush, friday, windSpeed, temp]]))
-    #         randomForest_Results[key] = thisprediction
-    #         totaljourney += thisprediction
-    # print("total journey time: ", totaljourney / 60, "minutes")
-    # print(randomForest_Results)
     
-    print('i made it to here')
     
-    # return JsonResponse(randomForest_Results)
-    return
+    return JsonResponse(randomForest_Results)
