@@ -27,7 +27,6 @@ def journeyplan(request):
     else:
         return render(request, 'journeyplan.html', {'load': stops_data})
 
-
 def bus_prediction(request):
     input = {'direction': 1, 'dayOfWeek': '2', 'rushHour': 1, 'monToThurRushHour': 1, 'friday': 0, 'windSpeed': 3, 'temp': 5}
     randomForest_Results = {}

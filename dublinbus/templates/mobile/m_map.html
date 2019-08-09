@@ -69,15 +69,14 @@
     </div>
     <script>
         var data = {{ load | safe }};
-        var route_data =
-        {{ routedata | safe }}
+        var route_data = {{ routedata | safe }}
+        var tourism = {{tourismData | safe }};
     </script>
+    <script src="{% static 'js/initmap.js' %}"></script>
 
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-hR-mSsuP9TGDFilrtWVmxNR_t1i-qYo&callback=initMap">
     </script>
-    <script src="{% static 'js/initmap.js' %}"></script>
-    <script src="{% static 'js/addmarker.js' %}"></script>
 
 
     </body>

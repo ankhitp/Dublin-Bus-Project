@@ -7,7 +7,7 @@
  /* @param start the start position for the user
  /* @param end the end position for the user
  */
-function getRoute(i, url, start, end) {
+function getRoute(i, url, start, end, predictDate, predictTime) {
     document.getElementById('header').innerHTML = "";
     document.getElementById('routes').innerHTML = "";
     document.getElementById('map').style.display = "block";
@@ -36,14 +36,14 @@ function getRoute(i, url, start, end) {
         if (this.readyState === 4 && this.status === 200) {
             //loop through each section of the route
             var returnData = JSON.parse(this.responseText);
-            var parseMe = returnData['Res']['Connections']["Connection"];
-            var parsed = parseMe[i]["Sections"]["Sec"];
-            for (var x = 0; x < parsed.length; x++) {
+            var firstLayerJSON = returnData['Res']['Connections']["Connection"];
+            var indivBusRouteJSON = firstLayerJSON[i]["Sections"]["Sec"];
+            for (var x = 0; x < indivBusRouteJSON.length; x++) {
                 var mycounter = convertNumberToWords(x + 1);
                 var CSScounter = mycounter.trim();
 
 
-                if (parsed[x]["mode"] == 20 && x != parsed.length - 1) {
+                if (indivBusRouteJSON[x]["mode"] == 20 && x != indivBusRouteJSON.length - 1) {
 
 
                     document.getElementById('options').insertAdjacentHTML('beforeend',
@@ -62,13 +62,13 @@ function getRoute(i, url, start, end) {
                         "<div class=\"card-body\">" +
 
                         "<img src='../static/img/walk.png' style='width:32px;height:32px';> <p>Walk to " +
-                        parsed[x]["Arr"]["Stn"]["name"] + "</p> <p>" + parsed[x]["Journey"]['distance'] + " meters</p><hr>" +
+                        indivBusRouteJSON[x]["Arr"]["Stn"]["name"] + "</p> <p>" + indivBusRouteJSON[x]["Journey"]['distance'] + " meters</p><hr>" +
                         "</div>" +
                         " </div>" +
                         "</div>"
                     );
-                } else if (parsed[x]['mode'] == 5) {
-                    console.log(parsed[x]["Journey"]["Stop"].length)
+                } else if (indivBusRouteJSON[x]['mode'] == 5) {
+                    console.log(indivBusRouteJSON[x]["Journey"]["Stop"].length)
 
 
                     document.getElementById('options').insertAdjacentHTML('beforeend',
@@ -78,7 +78,7 @@ function getRoute(i, url, start, end) {
                         // "<div class=\"col-12\" id=\"myholder\">"+
                         "<div id=\"accordion\"><div class=\"card\"><div class=\"card-header\" id=\"heading" + CSScounter + "-" + CSScounter + "div><h5 class=\"mb-0\">" +
                         "<button class=\"btn btn-link collapsed\" data-toggle=\"collapse\" data-target=\"#collapse" + CSScounter + "-" + CSScounter + "\"aria-expanded=\"false\" aria-controls=\"collapse" + CSScounter + "-" + CSScounter + "\">" +
-                        "<img src='../static/img/bus.png' style='width:32px;height:32px'>" + "  Take bus number " + parsed[x]["Dep"]["Transport"]["name"] +
+                        "<img src='../static/img/bus.png' style='width:32px;height:32px'>" + "  Take bus number " + indivBusRouteJSON[x]["Dep"]["Transport"]["name"] +
                         "</button>" +
                         "</h5>" +
                         "</div>" +
@@ -86,39 +86,48 @@ function getRoute(i, url, start, end) {
                         "<div id=\"collapse" + CSScounter + "-" + CSScounter + "\"class=\"collapse\" aria-labelledby=\"heading" + CSScounter + "-" + CSScounter + "\"data-parent=\"#accordion\">" +
                         "<div class=\"card-body\">" +
 
-                        "<p>Take bus number " + parsed[x]["Dep"]["Transport"]["name"] +
-                        " toward " + parsed[x]["Dep"]["Transport"]["dir"] + " from station " +
-                        parsed[x]["Dep"]["Stn"]["name"] + " to station " + parsed[x]["Arr"]["Stn"]["name"] +
-                        "</p><p>" + parsed[x]["Journey"]['Stop'].length + " stops</p>" +
+                        "<p>Take bus number " + indivBusRouteJSON[x]["Dep"]["Transport"]["name"] +
+                        " toward " + indivBusRouteJSON[x]["Dep"]["Transport"]["dir"] + " from station " +
+                        indivBusRouteJSON[x]["Dep"]["Stn"]["name"] + " to station " + indivBusRouteJSON[x]["Arr"]["Stn"]["name"] +
+                        "</p><p>" + indivBusRouteJSON[x]["Journey"]['Stop'].length + " stops</p>" +
 
                         "</div>" +
                         " </div>" +
                         "</div>"
                     );
 
-                    for (var z = 0; z < parsed[x]["Journey"]["Stop"].length; z++) {
-                        var latitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["y"];
-                        var longitude = parsed[x]["Journey"]["Stop"][z]["Stn"]["x"];
-                        if (z < parsed[x]["Journey"]["Stop"].length - 1) {
-                            var nextLat = parsed[x]["Journey"]["Stop"][z + 1]["Stn"]["y"];
-                            var nextLong = parsed[x]["Journey"]["Stop"][z + 1]["Stn"]["x"];
-                            km += distance(latitude, longitude, nextLat, nextLong);
+                    for (var z = 0; z < indivBusRouteJSON[x]["Journey"]["Stop"].length; z++) {
+                        var hold = indivBusRouteJSON[x]["Journey"]["Stop"][z]["Stn"];
+                        hold.longitude = parseFloat(hold.x);
+                        hold.latitude = parseFloat(hold.y);
+                        delete hold.x;
+                        delete hold.y;
+                        closest = closestLocation(hold, stopData);
+                        if (z < indivBusRouteJSON[x]["Journey"]["Stop"].length - 1) {
+                            var nextLat = indivBusRouteJSON[x]["Journey"]["Stop"][z + 1]["Stn"]["y"];
+                            var nextLong = indivBusRouteJSON[x]["Journey"]["Stop"][z + 1]["Stn"]["x"];
+                            km += distance(closest.latitude, closest.longitude, nextLat, nextLong);
                         }
-                        var name = parsed[x]["Journey"]["Stop"][z]["Stn"]['name'];
-                        var time = parsed[x]["Journey"]["Stop"][z]["dep"];
+                        var time = indivBusRouteJSON[x]["Journey"]["Stop"][z]["dep"];
                         var depArr = "depart";
                         if (time === undefined) {
-                            time = parsed[x]["Journey"]["Stop"][z]["arr"];
+                            time = indivBusRouteJSON[x]["Journey"]["Stop"][z]["arr"];
                             depArr = "arrive";
                         }
                         time = new Date(time);
                         var minutes = time.getMinutes();
                         var hours = time.getHours();
-                        latitude = parseFloat(latitude);
-                        longitude = parseFloat(longitude);
-                        locations.push({lat: latitude, lng: longitude, name: name});
+                        var name = closest.stop_name;
+                        var latitude = parseFloat(closest.latitude);
+                        var longitude = parseFloat(closest.longitude);
+                        locations.push({lat: latitude, lng: longitude, name: name, actual_stop_id: closest.actual_stop_id});
                         times.push({minutes: minutes, hours: hours})
                     }
+                    var icon = {
+                        url: '../static/img/iconsmarker1.png', // url
+                        scaledSize: new google.maps.Size(40, 40), // scaled size
+                        origin: new google.maps.Point(0, 0), // origin
+                    };
                     var co2 = Math.round(km * 70);
                     var carCo2 = Math.round(km * 127);
                     var newCenter = new google.maps.LatLng(locations[0].lat, locations[0].lng);
@@ -128,29 +137,37 @@ function getRoute(i, url, start, end) {
                     for (var a = 0; a < locations.length; a++) {
                         marker = new google.maps.Marker({
                             position: new google.maps.LatLng(locations[a].lat, locations[a].lng),
-                            map: map
+                            content: '<div id="content' + locations[a].actual_stop_id + '" >' +
+                                '<div id=stop' + locations[a].actual_stop_id + '>' +
+                                "<div><img src='../static/img/bus-blue-icon.png' alt='bus-blue-icon' width='12%' height='12%'>" +
+                                '<h6 style="margin-left: 3%; font-family:Tangerine; font-size:15px;">Stop ID: ' + locations[a].actual_stop_id + '</h6></div>' +
+                                '<h style="margin-left: 15%; font-family:Tangerine; font-size:15px;"><b>Stop name:</b><br>' + '<p style="margin-left: 8%">' + locations[a].name + '</p></h>' +
+                                '<button id="realtime" onclick="get_real_time_data(' + locations[a].actual_stop_id + ')">' +
+                                '<p id="realtime_p" style="font-family:Tangerine; font-size:12px;">Real Time Info</p>' +
+                                '</button>' +
+                                '</div>',
+                            map: map,
+                            icon: icon
                         });
                         markers.push(marker);
                         google.maps.event.addListener(marker, 'click', (function (marker, a) {
                             return function () {
-                                infowindow.setContent(locations[a].name);
+                                infowindow.setContent('<div class="infowin">' + this.content + '</div>');
                                 infowindow.open(map, marker);
                             }
                         })(marker, a));
                     }
                     //if its the last direction in the route, add a return to results button.
-                    if (x == parsed.length - 1) {
+                    if (x == indivBusRouteJSON.length - 1) {
                         document.getElementById('carbonholder').insertAdjacentHTML('beforeend',
                             "<button class='btn btn-primary' " +
-                            'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng()">Return to Results</button>' +
-                            '<br><h4>This bus route will result in ' + co2 + ' grams of CO2 being released into the atmosphere. <br>' +
-                            'This is compared to ' + carCo2 + ' grams of CO2 if you had used a car!</h4>'
+                            'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\''+start+'\',\''+end+'\',\''+predictTime+'\',\''+predictDate+'\')">Return to Results</button>'
                         );
                     }
-                } else if (parsed[x]["mode"] == 20 && x == parsed.length - 1) {
+                } else if (indivBusRouteJSON[x]["mode"] == 20 && x == indivBusRouteJSON.length - 1) {
                     var geocoder = new google.maps.Geocoder;
-                    var lat = parsed[x]["Arr"]["Addr"]["y"];
-                    var long = parsed[x]["Arr"]["Addr"]["x"];
+                    var lat = indivBusRouteJSON[x]["Arr"]["Addr"]["y"];
+                    var long = indivBusRouteJSON[x]["Arr"]["Addr"]["x"];
                     var latlngStr = lat.toString() + "," + long.toString();
                     latlngStr = latlngStr.split(',', 2);
                     var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
@@ -188,7 +205,7 @@ function getRoute(i, url, start, end) {
 
                             document.getElementById('lowerholder').insertAdjacentHTML('beforeend',
                                 "<div id = 'return' style='text-align: center'><button class='btn btn-primary' " +
-                                "type='submit' onclick = 'removeLine(); deleteMarkers();mobileMapReturnHide();mobileGetLatLng(\"" + start + "\",\"" + end + "\")'>Return to Results</button></div>");
+                                "type='submit' onclick = 'removeLine(); deleteMarkers();mobileMapReturnHide();mobileGetLatLng(\"" + start + "\",\"" + end + "\",\"" + predictTime + "\",\"" + predictDate + "\")'>Return to Results</button></div>");
                             //'<br><h4>This bus route will result in '+co2+' grams of CO2 being released into the atmosphere. <br>' +
                             //'This is compared to ' + carCo2 + ' grams of CO2 if you had used a car!</h4>')
 

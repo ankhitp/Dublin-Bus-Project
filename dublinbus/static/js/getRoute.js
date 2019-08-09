@@ -74,7 +74,7 @@ function getRoute(i, url, start, end) {
                         hold.latitude = parseFloat(hold.y);
                         delete hold.x;
                         delete hold.y;
-                        closest = closestLocation(hold, stopData)
+                        closest = closestLocation(hold, stopData);
                         if (z < indivBusRouteJSON[x]["Journey"]["Stop"].length - 1) {
                             var nextLat = indivBusRouteJSON[x]["Journey"]["Stop"][z + 1]["Stn"]["y"];
                             var nextLong = indivBusRouteJSON[x]["Journey"]["Stop"][z + 1]["Stn"]["x"];
@@ -134,15 +134,6 @@ function getRoute(i, url, start, end) {
                             }
                         })(marker, a));
                     }
-                    //if its the last direction in the route, add a return to results button.
-                    if (x == indivBusRouteJSON.length - 1) {
-                        document.getElementById('directions').insertAdjacentHTML('beforeend',
-                            "<button class='btn btn-primary' " +
-                            'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\'' + start + '\',\'' + end + '\')">Return to Results</button>' +
-                            '<br><h4>This bus route will result in ' + co2 + ' grams of CO2 being released into the atmosphere. <br>' +
-                            'This is compared to ' + carCo2 + ' grams of CO2 if you had used a car!</h4>'
-                        );
-                    }
                 }
                 //if its the last step in the route and it's a walking instruction.
                 else if (indivBusRouteJSON[x]["mode"] == 20 && x == indivBusRouteJSON.length - 1) {
@@ -196,21 +187,3 @@ function add_service_route(route_data) {
     return elem;
 }
 
-function closestLocation(targetLocation, locationData) {
-    function vectorDistance(dx, dy) {
-        return Math.sqrt(dx * dx + dy * dy);
-    }
-
-    function locationDistance(location1, location2) {
-        var dx = location1.latitude - location2.latitude,
-            dy = location1.longitude - location2.longitude;
-
-        return vectorDistance(dx, dy);
-    }
-
-    return locationData.reduce(function (prev, curr) {
-        var prevDistance = locationDistance(targetLocation, prev),
-            currDistance = locationDistance(targetLocation, curr);
-        return (prevDistance < currDistance) ? prev : curr;
-    });
-}

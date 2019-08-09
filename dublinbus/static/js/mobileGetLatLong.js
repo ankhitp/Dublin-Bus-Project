@@ -5,7 +5,7 @@
  * two latitude and longitude points. The function then tells the user which bus lines are possible between two points
  * and also indicates how many connections each route has.
  */
-function mobileGetLatLng(start, end) {
+function mobileGetLatLng(start, end, time, predictDate) {
     deleteMarkers();
     myPath.setMap(null);
     document.getElementById('map').style.display = 'none';
@@ -80,7 +80,7 @@ function mobileGetLatLng(start, end) {
                                         var name = parsed[x]['Dep']['Transport']['name'];
                                         var direction = parsed[x]['Dep']['Transport']['dir'];
                                         myHTML += "<hr>";
-                                        myHTML += '<div  style="cursor: pointer;" class = "row" id ="'+ i + '" onclick = "getRoute(' + i + ', \'' + url + '\', \''+start+'\',\''+end+'\')">'+
+                                        myHTML += '<div  style="cursor: pointer;" class = "row" id ="'+ i + '" onclick = "getPredictionMobile(' + i + ', \'' + url + '\', \'' + start + '\', \'' + end +  '\',\'' + time + '\', \'' + predictDate + '\')">'+
                                             '<div style = "text-align: center" class = "col-2">'+name+'</div>' +
                                             '<div style = "text-align: center"  class = "col-3">'+direction+'</div>' +
                                             '<div style = "text-align: center"  class = "col-3"> 10 minutes </div>';
