@@ -5,6 +5,7 @@ import json
 from django_user_agents.utils import get_user_agent
 from django.contrib.auth import get_user_model
 User = get_user_model()
+from django.views.decorators.csrf import csrf_exempt
 import pandas as pd
 
 import json
@@ -30,24 +31,30 @@ def journeyplan(request):
     else:
         return render(request, 'journeyplan.html', {'load': stops_data})
 
+@csrf_exempt
 def bus_prediction(request):
-    print("made it to here")
+ 
     url = 'http://api.openweathermap.org/data/2.5/weather?appid=a8e1877ec087d7a2904f50a41ed61bfa&q=Dublin&units=metric'
     weather_detalis = requests.get(url)
-    print("i[m in bus prediction", request)
-    startingPoint = request.POST.get("startingPoint")
-    print(startingPoint)
+    print("request", request)
     endPoint = request.POST.get("endPoint")
+    print("end point", endPoint)
+    startingPoint = request.POST.get("startingPoint")
+    print("starting point", startingPoint)
+  
+
     getroute = request.POST.get("route")
     route = str(getroute)
-    print("route is", route)
+    print("route is", getroute)
     dayOfWeek = request.POST.get("dayOfWeek")
+    print("day of week is", dayOfWeek)
+
     rushHour = request.POST.get("rushHour")
     monThurRush = request.POST.get("monThurRush")
     friday = request.POST.get("friday")
-    temp =  weather_detalis[0]['main']['temp'],
-    windSpeed = weather_detalis[0]['wind']['speed'],
-    
+    print("weather", type(weather_detalis))
+    temp =  weather_detalis[0]['wind']['speed']
+    windSpeed = weather_detalis[0]['wind']['speed']
     randomForest_Results = {}
 
     routecsv1 = route+"_direction1route.csv"
