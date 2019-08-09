@@ -17,7 +17,7 @@ function getPredictionMobile(routeChosen, url, start, end, date, time) {
         var dateObj = new Date(date).getDay();
     dateObj = dateObj - 1;
     if (dateObj == -1) {
-        dateObj = 0;
+        dateObj = 6;
     }
     if (rushHr == 1 && dateObj < 4) {
         monToThursRushHr = 1;
@@ -25,15 +25,16 @@ function getPredictionMobile(routeChosen, url, start, end, date, time) {
     if (dateObj == 4) {
         friday = 1;
     }
+    xhttp = new XMLHttpRequest();
     xhttp.open("GET", url, true);
     xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
     //xhttp.setRequestHeader('X-CSRF-Token', 'abcdef');
     xhttp.send();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
+            var returnData = JSON.parse(this.responseText);
+            var parseMe = returnData['Res']['Connections']["Connection"];
             for (var i = 0; i < parseMe.length; i++) {
-                var returnData = JSON.parse(this.responseText);
-                var parseMe = returnData['Res']['Connections']["Connection"];
                 var parsed = parseMe[i]["Sections"]["Sec"];
                 var connections = parseMe[i]['transfer'];
                 for (var x = 0; x < parsed.length; x++) {
@@ -60,17 +61,19 @@ function getPredictionMobile(routeChosen, url, start, end, date, time) {
                     var endPoint = endStations[0].actual_stop_id;
                     var startingStation = startStations[0].actual_stop_id;
                     var busRoute = route[0].name;
-                    xhttp.open("POST", 'bus_prediction', true);
-                    xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-                    xhttp.send("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
+                    xhttp2 = new XMLHttpRequest();
+                    xhttp2.open("POST", 'bus_prediction', true);
+                    xhttp2.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+                    xhttp2.send("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
                 } else if (connections > 0) {
                     for (var j = 0; j < startStations.length; j++) {
                         endPoint = endStations[j].actual_stop_id;
                         busRoute = route[j].name;
                         startingStation = startStations[j].actual_stop_id;
-                        xhttp.open("POST", 'bus_prediction', true);
-                        xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-                        xhttp.send("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
+                        xhttp2 = new XMLHttpRequest();
+                        xhttp2.open("POST", 'bus_prediction', true);
+                        xhttp2.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+                        xhttp2.send("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
                     }
                 }
             }
