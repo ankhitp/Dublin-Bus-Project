@@ -20,9 +20,6 @@ client=Client()
 
 
 from django.test import TestCase
-class ViewTest(TestCase):
-    def test_home_page(self):
-        print('******************test_home_page()**********************')
 
 class getfavTest(TestCase):
     def test_favourite_page(self):
@@ -34,7 +31,7 @@ class getfavTest(TestCase):
         self.assertTemplateUsed(response, 'favourites.html')
 
 class postfavTest(TestCase):
-    def test_favourite_page(self):
+    def post_favourite_Test(self):
         print('******************test_favourite_page()**********************')
         # send GET request.
         response = self.client.post('/favourites/')

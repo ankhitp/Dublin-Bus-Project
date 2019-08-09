@@ -1,8 +1,8 @@
 from django.test import TestCase
 
 # Create your tests here.
-# class jasmineTest(TestCase):
-#     def test_home_page(self):
+# class realtimeinfo(TestCase):
+#     def test_SpecRunner_page(self):
 #         print('******************test_SpecRunner_page()**********************')
 #         # send GET request.
 #         response = self.client.get('/SpecRunner/')
