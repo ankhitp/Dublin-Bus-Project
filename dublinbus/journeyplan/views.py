@@ -5,6 +5,7 @@ import json
 from django_user_agents.utils import get_user_agent
 from django.contrib.auth import get_user_model
 User = get_user_model()
+from django.views.decorators.csrf import csrf_exempt
 
 import json
 import pickle
@@ -27,6 +28,7 @@ def journeyplan(request):
     else:
         return render(request, 'journeyplan.html', {'load': stops_data})
 
+@csrf_exempt
 def bus_prediction(request):
 
     url = 'http://api.openweathermap.org/data/2.5/weather?appid=a8e1877ec087d7a2904f50a41ed61bfa&q=Dublin&units=metric'
