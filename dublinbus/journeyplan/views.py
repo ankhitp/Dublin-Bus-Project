@@ -19,3 +19,6 @@ def journeyplan(request):
         return render(request, 'mobile/m1_journeyplan.html', {'load': stops_data})
     else:
         return render(request, 'journeyplan.html', {'load': stops_data})
+
+def testMe(request):
+    print("You've got AIDS")
