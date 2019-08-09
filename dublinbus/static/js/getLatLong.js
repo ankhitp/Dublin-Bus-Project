@@ -77,7 +77,8 @@ function getLatLng(start, end, time, predictDate) {
                                         var name = parsed[x]['Dep']['Transport']['name'];
                                         var direction = parsed[x]['Dep']['Transport']['dir'];
                                         myHTML += "<hr>";
-
+                                        start = start.replace("'", "");
+                                        end = end.replace("'", "");
                                         myHTML += '<div  style="cursor: pointer;background: rgba(240, 240, 240, 0.8);" class = "row" id ="' + i + '" onclick = "getPrediction(' + i + ', \'' + url + '\', \'' + start + '\', \'' + end +  '\',\'' + time + '\', \'' + predictDate + '\')">' +
                                             '<div style = "text-align: center" class = "col-2">' + name + '</div>' +
                                             '<div style = "text-align: center"  class = "col-3">' + direction + '</div>' +
@@ -96,7 +97,8 @@ function getLatLng(start, end, time, predictDate) {
                         }
                         //option to reset the searches
                         document.getElementById('options').insertAdjacentHTML('beforeend', "<hr><br><div style='text-align: center'><button class=" +
-                            "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();resetMap();'>Search Again</button></div>");
+                            "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();resetMap();'>Search Again</button></div><div id='coTwo'>\n" +
+                            "        </div>");
                     }
                 }
             }

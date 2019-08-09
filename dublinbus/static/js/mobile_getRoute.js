@@ -29,6 +29,7 @@ function getRoute(i, url, start, end, predictDate, predictTime) {
     var km = 0;
     document.getElementById("options").innerHTML = "<h3> Directions </h3>";
     //hit the HERE api for route
+    xhttp = new XMLHttpRequest();
     xhttp.open("GET", url, true);
     xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
     xhttp.send();
