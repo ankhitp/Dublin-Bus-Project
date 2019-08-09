@@ -50,10 +50,15 @@ def bus_prediction(request):
     print("day of week is", dayOfWeek)
 
     rushHour = request.POST.get("rushHour")
+    print("rushHour", rushHour)
+
     monThurRush = request.POST.get("monThurRush")
     friday = request.POST.get("friday")
+    print("friday", friday)
+
     print("weather", type(weather_detalis))
     temp =  weather_detalis[0]['wind']['speed']
+    print("temp", temp)
     windSpeed = weather_detalis[0]['wind']['speed']
     randomForest_Results = {}
 

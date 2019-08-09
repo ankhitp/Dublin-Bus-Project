@@ -62,6 +62,7 @@ function getPrediction(routeChosen, url, start, end, date, time) {
                 var busRoute = route[0].name;
                 xhttp2 = new XMLHttpRequest();
                 xhttp2.open("POST", 'bus_prediction', true);
+                console.log("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
                 xhttp2.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
                 xhttp2.send("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
             } else if (connections > 0) {
