@@ -50,6 +50,7 @@ def bus_prediction(request):
     print("day of week is", dayOfWeek)
 
     rushHour = request.POST.get("rushHour")
+    print("rushhr", rushHour)
     monThurRush = request.POST.get("monThurRush")
     friday = request.POST.get("friday")
     print("weather", type(weather_detalis))

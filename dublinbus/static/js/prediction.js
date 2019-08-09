@@ -8,13 +8,15 @@ function getPrediction(routeChosen, url, start, end, date, time) {
     var timesArray = ['7:00am', '7:30am', '8:00am', '8:30am', '4:00pm', '4:30pm', '5:00pm', '5:30pm', '6:00pm'];
     for (var i = 0; i < timesArray.length; i++) {
         if (time === timesArray[i]) {
+            console.log(timesArray[i]);
+            console.log(time);
             rushHr = 1;
+            break;
         } else {
             rushHr = 0;
         }
     }
-    if (rushHr == 1)
-        var dateObj = new Date(date).getDay();
+    var dateObj = new Date(date).getDay();
     dateObj = dateObj - 1;
     if (dateObj == -1) {
         dateObj = 6;
@@ -46,33 +48,33 @@ function getPrediction(routeChosen, url, start, end, date, time) {
                     delete hold.y;
                     var startStation = closestLocation(hold, stopData);
                     startStations.push({actual_stop_id: startStation.actual_stop_id});
-                    var endStop = parsed[x]["Dep"]["Stn"];
-                    endStop.longitude = parseFloat(endStop.x);
-                    endStop.latitude = parseFloat(endStop.y);
-                    delete endStop.x;
-                    delete endStop.y;
-                    endStop = closestLocation(endStop, stopData);
-                    endStations.push({actual_stop_id: end.actual_stop_id});
+                    var hold2 = parsed[x]["Arr"]["Stn"];
+                    hold2.longitude = parseFloat(hold2.x);
+                    hold2.latitude = parseFloat(hold2.y);
+                    delete hold2.x;
+                    delete hold2.y;
+                    var endStop = closestLocation(hold2, stopData);
+                    endStations.push({actual_stop_id: endStop.actual_stop_id});
                     route.push({number: parsed[x]["Dep"]["Transport"]['name']});
                 }
         }
             if (connections == 0) {
                 var endPoint = endStations[0].actual_stop_id;
                 var startingStation = startStations[0].actual_stop_id;
-                var busRoute = route[0].name;
+                var busRoute = route[0].number;
                 xhttp2 = new XMLHttpRequest();
                 xhttp2.open("POST", 'bus_prediction', true);
                 xhttp2.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-                xhttp2.send("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
+                xhttp2.send("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour=" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
             } else if (connections > 0) {
                 for (var j = 0; j < startStations.length; j++) {
                     endPoint = endStations[j].actual_stop_id;
-                    busRoute = route[j].name;
+                    busRoute = route[j].number;
                     startingStation = startStations[j].actual_stop_id;
                     xhttp2 = new XMLHttpRequest();
                     xhttp2.open("POST", 'bus_prediction', true);
                     xhttp2.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-                    xhttp2.send("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
+                    xhttp2.send("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour=" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
                 }
             }
         }
