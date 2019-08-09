@@ -57,18 +57,20 @@ function getPredictionMobile(routeChosen, url, start, end, date, time) {
                     }
                 }
                 if (connections == 0) {
+                    var endPoint = endStations[0].actual_stop_id;
                     var startingStation = startStations[0].actual_stop_id;
                     var busRoute = route[0].name;
                     xhttp.open("POST", 'bus_prediction', true);
                     xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-                    xhttp.send("route=" + busRoute + "&startingPoint=" + startingStation + "&dayOfWeek=" + dateObj + "&rushHour" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
+                    xhttp.send("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
                 } else if (connections > 0) {
                     for (var j = 0; j < startStations.length; j++) {
+                        endPoint = endStations[j].actual_stop_id;
                         busRoute = route[j].name;
                         startingStation = startStations[j].actual_stop_id;
                         xhttp.open("POST", 'bus_prediction', true);
                         xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-                        xhttp.send("route=" + busRoute + "&startingPoint=" + startingStation + "&dayOfWeek=" + dateObj + "&rushHour" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
+                        xhttp.send("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
                     }
                 }
             }
