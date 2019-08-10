@@ -1,8 +1,9 @@
-describe("testing thursday function", function() {
-  
-    it("test if it's greater than 10", function() {
-      var a = tester(5)
-  
-      expect(a).toBeGreaterThan(10)
-    });
+describe("testing get lat long", function() {
+  var a;
+
+  it("and so is a spec", function() {
+    a = true;
+
+    expect(a).toBe(true);
   });
+});
