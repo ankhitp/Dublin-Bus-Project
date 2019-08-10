@@ -42,7 +42,6 @@ def bus_prediction(request):
     endPoint = request.POST.get("endPoint")
     print("end point", endPoint)
     
- 
     startingPoint = request.POST.get("startingPoint")
     print("starting point", startingPoint)
   
@@ -56,8 +55,8 @@ def bus_prediction(request):
     rushHour = request.POST.get("rushHour")
     print("rushHour", rushHour)
 
-    monThurRush = request.POST.get("monThurRush")
-    print("monThurRush", monThurRush)
+    monThursRush = request.POST.get("monThursRush")
+    print("monThurRush", monThursRush)
 
     friday = request.POST.get("friday")
     print("friday", friday)
@@ -73,7 +72,6 @@ def bus_prediction(request):
 
     routecsv1 = route+"_direction1route.csv"
     routecsv2 = route+"_direction2route.csv"
-
 
     # Get direction by checking routes in csvs
     with open("static/busroutes/"+routecsv1) as f:
@@ -96,7 +94,6 @@ def bus_prediction(request):
         endstop = busrouute1[len(busroute1)-1]
         print("not in the route")
 
-   
     # make a list of only stops you want
     first = routeholder.index(startingPoint)
     second = routeholder.index(endPoint)
@@ -115,7 +112,7 @@ def bus_prediction(request):
     print("start here", returndict)
 
     # # put together input dictionary
-    testinput = {'direction': direction, 'dayOfWeek': dayOfWeek, 'rushHour': rushHour, 'monToThurRushHour': monThurRush, 'friday': friday, 'windSpeed': windSpeed, 'temp': temp}
+    testinput = {'direction': direction, 'dayOfWeek': dayOfWeek, 'rushHour': rushHour, 'monToThurRushHour': monThursRush, 'friday': friday, 'windSpeed': windSpeed, 'temp': temp}
     print("testinput", testinput)
     datainput = pd.DataFrame([testinput])
 
@@ -134,4 +131,5 @@ def bus_prediction(request):
     print("total journey time: ",totaljourney/60, "minutes")
     print("returnvalue", returnvalue)
     
-    return returnvalue
+    # need to convert returnvalue to json array before we can return it
+    return JsonResponse(totaljourney/60)
