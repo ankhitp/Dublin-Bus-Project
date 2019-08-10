@@ -15,8 +15,13 @@ import sqlalchemy
 import requests
 import time
 import numpy
+<<<<<<< HEAD
 import csv
 from csv import DictReader
+=======
+import pandas as pd
+
+>>>>>>> 9548bcb0b0ed42dc1deeba6486ea9a6e347fdede
 
 def journeyplan(request):
     # return HttpResponse(render({}, request))
@@ -31,15 +36,22 @@ def journeyplan(request):
     else:
         return render(request, 'journeyplan.html', {'load': stops_data})
 
+<<<<<<< HEAD
 @csrf_exempt
 def bus_prediction(request):
  
+=======
+
+
+def bus_prediction(request):
+>>>>>>> 9548bcb0b0ed42dc1deeba6486ea9a6e347fdede
     url = 'http://api.openweathermap.org/data/2.5/weather?appid=a8e1877ec087d7a2904f50a41ed61bfa&q=Dublin&units=metric'
     weather_detalis = requests.get(url)
     weatherdata = json.loads(weather_detalis.text)
     print("request", request)
     
     endPoint = request.POST.get("endPoint")
+<<<<<<< HEAD
     print("end point", endPoint)
     
     startingPoint = request.POST.get("startingPoint")
@@ -49,6 +61,9 @@ def bus_prediction(request):
     route = str(getroute)
     print("route is", getroute)
     
+=======
+    route = request.POST.get("route")
+>>>>>>> 9548bcb0b0ed42dc1deeba6486ea9a6e347fdede
     dayOfWeek = request.POST.get("dayOfWeek")
     print("day of week is", dayOfWeek)
     
@@ -59,6 +74,7 @@ def bus_prediction(request):
     print("monThurRush", monThursRush)
 
     friday = request.POST.get("friday")
+<<<<<<< HEAD
     print("friday", friday)
     
     print(weatherdata)
@@ -104,6 +120,43 @@ def bus_prediction(request):
         full_modelreturn = pickle.load(handle)
 
     returndict={}
+=======
+    temp = weather_detalis[0]['main']['temp']
+    windSpeed = weather_detalis[0]['wind']['speed']
+
+    randomForest_Results = {}
+
+    routecsv1 = route + "_direction1route.csv"
+    routecsv2 = route + "_direction2route.csv"
+
+    # Get direction by checking routes in csvs
+    with open("static/busroutes/" + routecsv1) as f:
+        busroute1 = [row["actual_stop_id"] for row in DictReader(f)]
+    with open("static/busroutes/" + routecsv2) as f:
+        busroute2 = [row["actual_stop_id"] for row in DictReader(f)]
+    if startstop in busroute1:
+        direction = 1
+        print("it's 1")
+    elif startstop in busroute2:
+        direction = 2
+        print("it's 2")
+    else:
+        direction = 1
+        startstop = busroute1[0]
+        # endstop = busrouute1[len(busroute1)-1]
+        print("not in the route")
+
+    # make a list of only stops you want
+    first = busroute1.index(startstop)
+    second = busroute1.index(endstop)
+    sectionlist = [busroute1[x] + ":" + busroute1[x + 1] for x in range(first, second)]
+
+    # open model dictionary, filter to only stops that you want
+    with open("static/pickle/" + route + str(direction) + "_pickle", "rb") as handle:
+        full_modelreturn = pickle.load(handle)
+
+    returndict = {}
+>>>>>>> 9548bcb0b0ed42dc1deeba6486ea9a6e347fdede
     for key in sectionlist:
         if key in full_modelreturn:
             returndict[key] = full_modelreturn[key]
@@ -112,6 +165,7 @@ def bus_prediction(request):
     print("start here", returndict)
 
     # # put together input dictionary
+<<<<<<< HEAD
     testinput = {'direction': direction, 'dayOfWeek': dayOfWeek, 'rushHour': rushHour, 'monToThurRushHour': monThursRush, 'friday': friday, 'windSpeed': windSpeed, 'temp': temp}
     print("testinput", testinput)
     datainput = pd.DataFrame([testinput])
@@ -133,3 +187,23 @@ def bus_prediction(request):
     
     # need to convert returnvalue to json array before we can return it
     return JsonResponse(totaljourney/60)
+=======
+    testinput = {'direction': direction, 'dayOfWeek': dayOfWeek, 'rushHour': rushHour, 'monToThurRushHour': monThurRush,
+                 'friday': friday, 'windSpeed': windSpeed, 'temp': temp}
+    datainput = pd.DataFrame([testinput])
+
+    returnvalue = {}
+    # to count total journey time
+    totaljourney = 0
+    # get all predictions from dictionary of models
+    for key, value in returndict.items():
+        thismodel = returndict[key]
+        thisprediction = thismodel.predict(datainput)
+        returnvalue[key] = thisprediction
+        print(thisprediction)
+        totaljourney += thisprediction
+    print("total journey time: ", totaljourney / 60, "minutes")
+    print("returnvalue", returnvalue)
+
+    return JsonResponse(randomForest_Results)
+>>>>>>> 9548bcb0b0ed42dc1deeba6486ea9a6e347fdede
