@@ -36,12 +36,19 @@ def bus_prediction(request):
  
     url = 'http://api.openweathermap.org/data/2.5/weather?appid=a8e1877ec087d7a2904f50a41ed61bfa&q=Dublin&units=metric'
     weather_detalis = requests.get(url)
+<<<<<<< HEAD
     weatherdata = json.loads(weather_detalis.text)
     print("request", request)
     
     endPoint = request.POST.get("endPoint")
     print("end point", endPoint)
     
+=======
+    weather_detalis = weather_detalis.json()
+    print("request", request)
+    endStop = request.POST.get("endPoint")
+    print("end point", endStop)
+>>>>>>> 69725e44e6c794bcaabb9b298ad99b7fc2d3b48a
     startingPoint = request.POST.get("startingPoint")
     print("starting point", startingPoint)
   
@@ -51,8 +58,8 @@ def bus_prediction(request):
     
     dayOfWeek = request.POST.get("dayOfWeek")
     print("day of week is", dayOfWeek)
-
     rushHour = request.POST.get("rushHour")
+<<<<<<< HEAD
     print("rushHour", rushHour)
 
     monThurRush = request.POST.get("monThurRush")
@@ -69,6 +76,12 @@ def bus_prediction(request):
     print("temp", temp)
 
 
+=======
+    monThurRush = request.POST.get("monThursRush")
+    friday = request.POST.get("friday")
+    temp =  weather_detalis['main']['temp']
+    windSpeed = weather_detalis['wind']['speed']
+>>>>>>> 69725e44e6c794bcaabb9b298ad99b7fc2d3b48a
     randomForest_Results = {}
 
     routecsv1 = route+"_direction1route.csv"
@@ -81,6 +94,10 @@ def bus_prediction(request):
     with open("static/busroutes/"+routecsv2) as f:
         busroute2 = [row["actual_stop_id"] for row in DictReader(f)]
 
+<<<<<<< HEAD
+=======
+    print(busroute1)
+>>>>>>> 69725e44e6c794bcaabb9b298ad99b7fc2d3b48a
     if startingPoint in busroute1:
         direction = 1
         routeholder = busroute1
@@ -92,15 +109,30 @@ def bus_prediction(request):
     else:
         direction = 1
         startingPoint = busroute1[0]
+<<<<<<< HEAD
         routeholder = busroute1
         endstop = busrouute1[len(busroute1)-1]
+=======
+        # endStop = busrouute1[len(busroute1)-1]
+>>>>>>> 69725e44e6c794bcaabb9b298ad99b7fc2d3b48a
         print("not in the route")
 
    
     # make a list of only stops you want
+<<<<<<< HEAD
     first = routeholder.index(startingPoint)
     second = routeholder.index(endPoint)
     sectionlist = [routeholder[x]+":"+ routeholder[x+1] for x in range(first, second)]
+=======
+    if direction == 1:
+        first = busroute1.index(startingPoint)
+        second = busroute1.index(endStop)
+        sectionlist = [busroute1[x]+":"+ busroute1[x+1] for x in range(first, second)]
+    else:
+        first = busroute2.index(startingPoint)
+        second = busroute2.index(endStop)
+        sectionlist = [busroute2[x]+":"+ busroute2[x+1] for x in range(first, second)]
+>>>>>>> 69725e44e6c794bcaabb9b298ad99b7fc2d3b48a
 
     # open model dictionary, filter to only stops that you want
     with open("static/pickle/"+route+"_"+str(direction)+"_pickle", "rb") as handle:
@@ -118,6 +150,8 @@ def bus_prediction(request):
     testinput = {'direction': direction, 'dayOfWeek': dayOfWeek, 'rushHour': rushHour, 'monToThurRushHour': 0, 'friday': friday, 'windSpeed': windSpeed, 'temp': temp}
     print("testinput", testinput)
     datainput = pd.DataFrame([testinput])
+
+    print(datainput)
 
     returnvalue={}
     # to count total journey time
