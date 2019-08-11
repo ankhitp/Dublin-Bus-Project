@@ -50,12 +50,13 @@ function getLatLng(start, end) {
                 url = "http://transit.api.here.com/v3/route.json?app_id=tL7r9QKJ3KlE5Kc9LGYo&app_code=1arMc" +
                     "SHt_o31xFSeBRswsA&modes=bus&routing=all&dep=" + startLat + "," + startLong + "&arr=" + destLat +
                     "," + destLong + "&time=" + date;
+                console.log("hello",url, start, end)
                 sendRequest(url, start, end);
 
             }
         })
 
     })
-    return geocoder2.geocode.address;
+    return(geocoder, geocoder2);
 }
 

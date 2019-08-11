@@ -1,8 +1,4 @@
-
-
-
 function sendRequest(url, start, end) {
-    console.log("clare it worked")
     var url = url;
     var start = start;
     var end = end;
