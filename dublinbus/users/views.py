@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView
 from django.views.decorators.csrf import csrf_exempt
 from .forms import CustomUserCreationForm
 from users.models import CustomUser
+from django.http import HttpResponse
 
 class SignUp(CreateView):
     form_class = CustomUserCreationForm
@@ -24,3 +25,21 @@ def addFav(request):
         return HttpResponse(status=200)
     except Exception:
         return HttpResponse(status=400)
+
+@csrf_exempt
+def addLocation(request):
+    location = request.POST.get('location')
+    points = request.POST.get("points")
+    myUser = request.POST.get('user')
+    t = CustomUser.objects.get(username=myUser)
+    if len(t.places_visited) == 0:
+        t.places_visited = location
+    else:
+        t.places_visited = t.places_visited + "*" + location
+    t.points = t.points + 10
+    try:
+        t.save()
+        return HttpResponse(status=200)
+    except Exception:
+        return HttpResponse(status=400)
+

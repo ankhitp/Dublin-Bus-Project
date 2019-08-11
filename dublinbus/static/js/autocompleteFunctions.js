@@ -46,8 +46,6 @@ function autocompSearchBar() {
         markers.forEach(function (marker) {
             marker.setMap(null);
         });
-        newMarkers = [];
-
         // For each place, get the icon, name and location.
         var bounds = new google.maps.LatLngBounds();
         places.forEach(function (place) {
@@ -68,10 +66,12 @@ function autocompSearchBar() {
                 icon: icon,
                 title: place.name,
                 position: place.geometry.location,
-                content: '<button onclick = "routeToHere(\'' + location + '\')" class = "btn-primary">Route to here</button></div>'
+                content:  '<div><button class = "btn btn-primary" onclick = "routeToHere(\'' + location + '\')">' +
+                    '<p style="font-family:Tangerine; font-size:12px;">Route Me to This Location</p>' +
+                    '</button></div>'
             });
             // Create a marker for each place.
-            newMarkers.push(myMark);
+            markers.push(myMark);
 
             if (place.geometry.viewport) {
                 // Only geocodes have viewport.

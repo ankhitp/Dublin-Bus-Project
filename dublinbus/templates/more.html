@@ -42,17 +42,48 @@
         }
 
     </style>
+
+
     <div id="head" style="background: rgba(4, 36, 85, 0.5); padding-top: 1%">
         <img class="smalllogo" style="display: inline" src="{% static 'smalllogo.png' %}">
         <h2 style="display: inline">Dublin Bus</h2>
     </div>
+    {% if user.is_authenticated %}
+    <div style="z-index: 99; height: 50px; width: 100px; position: absolute; margin-left: 88%;">
+        <h5>Hi {{ user.username }}!</h5>
+
+        <a href="{% url 'logout' %}" style="color: darkblue" ; class="button;"><img
+                src="../static/img/logout-yellow.png"
+                style="height: 40px; width: 45px;"></a>
+    </div>
+    {% else %}
+    <div style="z-index: 99; height: 50px; width: 100px; position: absolute; margin-left: 88%;">
+
+        <a href="{% url 'login' %}"><img src="../static/img/login-icon-yellow.png"
+                                         style="height: 40px; width: 45px;"></a>
+        <a href="{% url 'signup' %}"><img src="../static/img/sign-up.png"
+                                          style="height: 37px; width: 42px;"></a>
+    </div>
+    {% endif %}
     <div>
         {% include 'header.html' %}
     </div>
     <div id="bodyblue">
 
         <button class="accordion">Game</button>
-        <div class="panel"></div>
+        <div class="panel"><h6>How many points have you earned?</h6>
+            {% if user.is_authenticated %}
+            <p id = 'pointsPara'></p>
+            <script>
+                var user = '{{ user.username }}';
+                var points = '{{ user.points }}';
+                document.getElementById('pointsPara').innerHTML = "You have earned " + points + " points. Nice job " + user + "!"
+            </script>
+            {% else %}
+            <p>Please log in to see your points! Haven't signed up yet? What are you waiting for? If you don't
+                sign up, you can't add favorites or earn points for exploring. You're missing out!</p>
+            {% endif %}
+        </div>
         <button class="accordion">Co2</button>
         <div class="panel"></div>
 

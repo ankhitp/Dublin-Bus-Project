@@ -55,11 +55,10 @@ div.container-fluid {
     height: 10%;
     display: block;
     text-align: center;
-    padding-left: 15%;
     padding-top: 0;
     text-decoration: none;
     font-size: 20px;
-    margin-left: 13%;
+    margin-left: 35%;
 }
 
 /*.navi a:link, .navi a:visited*/

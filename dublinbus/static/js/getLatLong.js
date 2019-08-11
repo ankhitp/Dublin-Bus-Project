@@ -6,7 +6,7 @@
  * and also indicates how many connections each route has.
  */
 function getLatLng(start, end, time, predictDate) {
-    document.getElementById('options').style.height = "600px";
+    document.getElementById('options').style.height = "auto";
 
     start = start.replace("&#39;", "");
     end = end.replace("&#39;", "");
@@ -97,8 +97,7 @@ function getLatLng(start, end, time, predictDate) {
                         }
                         //option to reset the searches
                         document.getElementById('options').insertAdjacentHTML('beforeend', "<hr><br><div style='text-align: center'><button class=" +
-                            "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();resetMap();'>Search Again</button></div><div id='coTwo'>\n" +
-                            "        </div>");
+                            "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();resetMap();'>Search Again</button></div>");
                     }
                 }
             }

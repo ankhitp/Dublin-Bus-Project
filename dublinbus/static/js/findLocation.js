@@ -3,6 +3,11 @@
  *
  */
 function findLocation() {
+    var icon = {
+        url: '../static/img/iconsmarker1.png', // url
+        scaledSize: new google.maps.Size(40, 40), // scaled size
+        origin: new google.maps.Point(0, 0), // origin
+    };
     var pos;
     var infowindow = new google.maps.InfoWindow();
     //uses the Google geolocation service
@@ -16,17 +21,17 @@ function findLocation() {
                 map: map,
             });*/
             //load the stops info from the JSON file
-            $.getJSON( "/static/files/stops_info.json", function( data ) {
+            $.getJSON( "../static/files/stops_info.json", function( data ) {
                 for (var i = 0; i < data.length; i++) {
                     //get the position of each stop in the file
-                    var destPos = new google.maps.LatLng(data[i].stop_lat, data[i].stop_lon);
+                    var destPos = new google.maps.LatLng(data[i].latitude, data[i].longitude);
                     //if the stop in the file is less than 0.6 km away from the user, show it on the map.
                     //info window contains all the info in the content section of the marker.
-                    let serviceRoute = add_service_route(data[i]);
-                    if (distance(data[i].stop_lat, data[i].stop_lon, position.coords.latitude, position.coords.longitude) < .6) {
+                    if (distance(data[i].latitude, data[i].longitude, position.coords.latitude, position.coords.longitude) < .6) {
                         var marker = new google.maps.Marker({
                             position: destPos,
                             map: map,
+                            icon: icon,
                             title: data[i].actual_stop_id + "\n" + data[i].stop_name,
                             // content is the stop info
                             content: '<div id="content' + data[i].actual_stop_id + '" >' +
@@ -34,11 +39,11 @@ function findLocation() {
                                 "<div><img src='../static/img/bus-blue-icon.png' alt='bus-blue-icon' width='12%' height='12%'>" +
                                 '<h6 style="margin-left: 3%; font-family:Tangerine; font-size:15px;">Stop ID: ' + data[i].actual_stop_id + '</h6></div>' +
                                 '<h style="margin-left: 15%; font-family:Tangerine; font-size:15px;"><b>Stop name:</b><br>' + '<p style="margin-left: 8%">' + data[i].stop_name + '</p></h>' +
-
-                                '<h style="margin-left: 15%; font-family:Tangerine;  font-size:12px;"><b>Serving route:</b><br>' + '<ul id="myList">' + serviceRoute + '</ul>' + '</p></div>' +
-
-                                '<button id="realtime" onclick="get_real_time_data(' + data[i].actual_stop_id + ')">' +
+                                '<button class = "btn btn-primary "id="realtime" onclick="get_real_time_data2(' + data[i].actual_stop_id + ')">' +
                                 '<p id="realtime_p" style="font-family:Tangerine; font-size:12px;">Real Time Info</p>' +
+                                '</button>' +
+                                '<button class = "btn btn-primary" id="fromHere" onclick="routeFromHere(\'' + data[i].stop_name + '\')">' +
+                                '<p style="font-family:Tangerine; font-size:12px;">Route From Here</p>' +
                                 '</button>' +
                                 '</div>'
                         });

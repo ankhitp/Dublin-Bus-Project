@@ -27,8 +27,7 @@ function routeToHere(location) {
             geocoder.geocode({'location': latlng}, function (results, status) {
                 if (status === 'OK') {
                     var start = results[0].formatted_address;
-                    document.getElementById('options').style.width = "500px";
-                    getLatLng(start, location);
+                    buildDateTime(0, start, location);
                 } else {
                     alert("Something went wrong. Try again!")
                 }

@@ -1,7 +1,7 @@
 
 // this function calls realtime api to get the real time info
 
-function get_real_time_data(id) {
+function get_real_time_data2(id) {
     if (document.getElementById('realtime' + id) == null) {
         getJSON('https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=' + id + '&format=json', function (err, datainfo) {
 

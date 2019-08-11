@@ -25,7 +25,7 @@ document.getElementById("addfavourite").addEventListener("click", function(){
            "        id=planJourney"+
            "       onclick=\"getFavRoute('"+startLoc+"','"+endLoc+"')\">Plan Journey</button> "+
            "   </div>"+
-           "</div><br>";
+           "</div><br>"+
     "</div>");
 
     document.getElementById('origin-input').value='';
