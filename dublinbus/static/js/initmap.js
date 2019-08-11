@@ -84,8 +84,8 @@ function addTourismMarkers(map, data) {
             icon: icon,
             title: busdata.actual_stop_id + "\n" + busdata.name,
             // content is the stop info
-            content: 'Visit here to earn some tourism points! This is ' + busdata.name + ', a well known tourist spot' +
-                ' here in Dublin. To learn more about it, visit <a href="https://www.wikipedia.com/wiki/'+busdata.name+'" style="color: palevioletred">this link!</a>'
+            content: 'Visit here to earn some tourism points! This is ' + '<b>' + busdata.name + '</b>'+ ', a well known tourist spot' +
+                ' here in Dublin. To learn more about it, visit <a href="https://www.wikipedia.com/wiki/'+busdata.name+'" style="color: palevioletred; font-weight: bolder;">this link!</a>'
 
         });
         google.maps.event.addListener(marker, 'click', function () {

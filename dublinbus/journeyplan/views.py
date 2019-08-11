@@ -15,6 +15,9 @@ import sqlalchemy
 import requests
 import time
 import numpy
+<<<<<<< HEAD
+=======
+
 import csv
 from csv import DictReader
 import pandas as pd
@@ -33,8 +36,10 @@ def journeyplan(request):
     else:
         return render(request, 'journeyplan.html', {'load': stops_data})
 
+
 @csrf_exempt
 def bus_prediction(request):
+
     url = 'http://api.openweathermap.org/data/2.5/weather?appid=a8e1877ec087d7a2904f50a41ed61bfa&q=Dublin&units=metric'
     weather_detalis = requests.get(url)
     weatherdata = json.loads(weather_detalis.text)
@@ -49,8 +54,8 @@ def bus_prediction(request):
     getroute = request.POST.get("route")
     route = str(getroute)
     print("route is", getroute)
-    
     route = request.POST.get("route")
+
     dayOfWeek = request.POST.get("dayOfWeek")
     print("day of week is", dayOfWeek)
     
@@ -63,8 +68,6 @@ def bus_prediction(request):
     friday = request.POST.get("friday")
     print("friday", friday)
     
-    print(weatherdata)
-
     windSpeed =  weatherdata['wind']['speed']
     temp = weatherdata['main']['temp']
     print("windSpeed", windSpeed)
@@ -136,21 +139,5 @@ def bus_prediction(request):
     
     # need to convert returnvalue to json array before we can return it
     return JsonResponse(totaljourney/60)
-    testinput = {'direction': direction, 'dayOfWeek': dayOfWeek, 'rushHour': rushHour, 'monToThurRushHour': monThurRush,
-                 'friday': friday, 'windSpeed': windSpeed, 'temp': temp}
-    datainput = pd.DataFrame([testinput])
 
-    returnvalue = {}
-    # to count total journey time
-    totaljourney = 0
-    # get all predictions from dictionary of models
-    for key, value in returndict.items():
-        thismodel = returndict[key]
-        thisprediction = thismodel.predict(datainput)
-        returnvalue[key] = thisprediction
-        print(thisprediction)
-        totaljourney += thisprediction
-    print("total journey time: ", totaljourney / 60, "minutes")
-    print("returnvalue", returnvalue)
-
-    return JsonResponse(randomForest_Results)
+    
