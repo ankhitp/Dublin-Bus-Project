@@ -15,13 +15,11 @@ import sqlalchemy
 import requests
 import time
 import numpy
-<<<<<<< HEAD
+
 import csv
 from csv import DictReader
-=======
 import pandas as pd
 
->>>>>>> 9548bcb0b0ed42dc1deeba6486ea9a6e347fdede
 
 def journeyplan(request):
     # return HttpResponse(render({}, request))
@@ -36,22 +34,16 @@ def journeyplan(request):
     else:
         return render(request, 'journeyplan.html', {'load': stops_data})
 
-<<<<<<< HEAD
+
 @csrf_exempt
 def bus_prediction(request):
- 
-=======
 
-
-def bus_prediction(request):
->>>>>>> 9548bcb0b0ed42dc1deeba6486ea9a6e347fdede
     url = 'http://api.openweathermap.org/data/2.5/weather?appid=a8e1877ec087d7a2904f50a41ed61bfa&q=Dublin&units=metric'
     weather_detalis = requests.get(url)
     weatherdata = json.loads(weather_detalis.text)
     print("request", request)
     
     endPoint = request.POST.get("endPoint")
-<<<<<<< HEAD
     print("end point", endPoint)
     
     startingPoint = request.POST.get("startingPoint")
@@ -60,10 +52,8 @@ def bus_prediction(request):
     getroute = request.POST.get("route")
     route = str(getroute)
     print("route is", getroute)
-    
-=======
+
     route = request.POST.get("route")
->>>>>>> 9548bcb0b0ed42dc1deeba6486ea9a6e347fdede
     dayOfWeek = request.POST.get("dayOfWeek")
     print("day of week is", dayOfWeek)
     
@@ -74,7 +64,7 @@ def bus_prediction(request):
     print("monThurRush", monThursRush)
 
     friday = request.POST.get("friday")
-<<<<<<< HEAD
+
     print("friday", friday)
     
     print(weatherdata)
@@ -120,7 +110,6 @@ def bus_prediction(request):
         full_modelreturn = pickle.load(handle)
 
     returndict={}
-=======
     temp = weather_detalis[0]['main']['temp']
     windSpeed = weather_detalis[0]['wind']['speed']
 
@@ -156,7 +145,6 @@ def bus_prediction(request):
         full_modelreturn = pickle.load(handle)
 
     returndict = {}
->>>>>>> 9548bcb0b0ed42dc1deeba6486ea9a6e347fdede
     for key in sectionlist:
         if key in full_modelreturn:
             returndict[key] = full_modelreturn[key]
@@ -165,7 +153,6 @@ def bus_prediction(request):
     print("start here", returndict)
 
     # # put together input dictionary
-<<<<<<< HEAD
     testinput = {'direction': direction, 'dayOfWeek': dayOfWeek, 'rushHour': rushHour, 'monToThurRushHour': monThursRush, 'friday': friday, 'windSpeed': windSpeed, 'temp': temp}
     print("testinput", testinput)
     datainput = pd.DataFrame([testinput])
@@ -187,7 +174,6 @@ def bus_prediction(request):
     
     # need to convert returnvalue to json array before we can return it
     return JsonResponse(totaljourney/60)
-=======
     testinput = {'direction': direction, 'dayOfWeek': dayOfWeek, 'rushHour': rushHour, 'monToThurRushHour': monThurRush,
                  'friday': friday, 'windSpeed': windSpeed, 'temp': temp}
     datainput = pd.DataFrame([testinput])
@@ -206,4 +192,4 @@ def bus_prediction(request):
     print("returnvalue", returnvalue)
 
     return JsonResponse(randomForest_Results)
->>>>>>> 9548bcb0b0ed42dc1deeba6486ea9a6e347fdede
+
