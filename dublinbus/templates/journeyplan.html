@@ -154,7 +154,6 @@
     </head>
 
     <body>
-    <div class="se-pre-con"></div>
     <div id="head" style="background: rgba(4, 36, 85, 0.5); padding-top: 1%">
         <img class="smalllogo" src="{% static 'smalllogo.png' %}" style="display: inline">
         <h2 style="display: inline">Dublin Bus</h2>
@@ -163,11 +162,14 @@
         {% include 'header.html' %}
     </div>
     <div class="row dynamic-columns" id=wrapper>
+
+
         <div id='options' style="overflow: scroll; width:300px">
             <div id='journeyPlan' style='display:none'>
                 <h5 style="text-align: center; padding-top: 15%">Start your journey here!</h5>
                 <br>
                 <div style="text-align: center">
+
                     <input autocomplete="off" class="controls" id="origin-input" placeholder="Enter a starting point"
                            style="text-align: center"
                            type="text">
@@ -180,8 +182,7 @@
                 </div>
                 <br>
                 <div style="text-align: center">
-                    <button class='btn btn-primary' id="directionsButton" onclick="buildDateTime()"
-                            style='width: 200px;'
+                    <button class='btn btn-primary' id="directionsButton" onclick="buildDateTime()" style='width: 200px;'
                             type="submit">Next
                     </button>
                 </div>
@@ -196,46 +197,45 @@
                 <br>
                 <br>
                 <div style="text-align: center">
-                    <button class='btn btn-primary' onclick="hideOptions()" style='width: 200px;' type="submit">Hide
-                        Options
+                    <button class='btn btn-primary' onclick="hideOptions()" style='width: 200px;' type="submit">Hide Options
                         ^
                     </button>
                 </div>
             </div>
-        <div id='timeDate' style='display:none'>
-            <h5 style="text-align: center; padding-top: 15%">Enter a time and date!</h5>
-            <div style='text-align: center'>
-                <input class='controls' id='dateField' name='daterange' style='width:250px' type='text'>
-                <input autocomplete='off' class='controls' id='timepicker1' placeholder='Please select a time'
-                       style='width:250px' type='text'>
+            <div id='timeDate' style='display:none'>
+                <h5 style="text-align: center; padding-top: 15%">Enter a time and date!</h5>
+                <div style='text-align: center'>
+                    <input class='controls' id='dateField' name='daterange' style='width:250px' type='text'>
+                    <input autocomplete='off' class='controls' id='timepicker1' placeholder='Please select a time'
+                           style='width:250px' type='text'>
+                    <br>
+                    <br>
+                    <button class='btn btn-primary' id="directionsButton2" onclick="resizeMap()" type="submit">Search
+                    </button>
+                </div>
+            </div>
+            <div id='searchOnly' style='display:block'>
+                <div style="text-align: center">
+                    <h5 style="padding-top: 15%;">Search for a place in Dublin to visit!</h5>
+                    <input autocomplete="off" class="controls" id="pac-input" placeholder="Search Dublin"
+                           style='width: 200px;' type="text">
+                </div>
                 <br>
-                <br>
-                <button class='btn btn-primary' id="directionsButton2" onclick="resizeMap()" type="submit">Search
-                </button>
+                <div style="text-align: center">
+                    <button class='btn btn-primary' id="optionsButton" onclick="showOptions()"
+                            style='width: 200px;' type="submit">Show Journey Planner
+                    </button>
+                </div>
             </div>
         </div>
-        <div id='searchOnly' style='display:block'>
-            <div style="text-align: center">
-                <h5 style="padding-top: 15%;">Search for a place in Dublin to visit!</h5>
-                <input autocomplete="off" class="controls" id="pac-input" placeholder="Search Dublin"
-                       style='width: 200px;' type="text">
-            </div>
-            <br>
-            <div style="text-align: center">
-                <button class='btn btn-primary' id="optionsButton" onclick="showOptions()"
-                        style='width: 200px;' type="submit">Show Journey Planner
-                </button>
-            </div>
+        <div class="col-3 col" id='directions' style="display:none; overflow:scroll">
+        </div>
+        <div id='coTwo'>
+        </div>
+        <div class="col-12 col;">
+            <div id="map" style="width:100%;height:800px;"></div>
         </div>
     </div>
-    <div class="col-3 col" id='directions' style="display:none; overflow:scroll">
-    </div>
-    <div id='coTwo'>
-    </div>
-    <div class="col-12 col;">
-        <div id="map" style="width:100%;height:800px;"></div>
-    </div>
-</div>
 
     <script>
         var map;
@@ -276,14 +276,12 @@
                     step: 30,
                 })
             });
-
         };
         var currentDate = new Date();
         var endDate = new Date();
         var numberOfDaysToAdd = 4;
         currentDate.setDate(currentDate.getDate() + 1);
         endDate.setDate(currentDate.getDate() + numberOfDaysToAdd);
-
         function calendarBuilder() {
             $('input[name="daterange"]').daterangepicker({
                 singleDatePicker: true,
@@ -338,18 +336,6 @@
     <!--**************************************Google Maps*********************************************************-->
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvFaUDR5Wnl172znC5agS97gPJmyXHwOs&libraries=places&callback=initMap">
-    </script>
-</body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-    <script>
-        //paste this code under the head tag or in a separate js file.
-        // Wait for window load
-        $(window).load(function () {
-            // Animate loader off screen
-            $(".se-pre-con").fadeOut("slow");
-            ;
-        });
     </script>
 
     </body>
