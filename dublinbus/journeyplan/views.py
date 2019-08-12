@@ -15,9 +15,6 @@ import sqlalchemy
 import requests
 import time
 import numpy
-<<<<<<< HEAD
-=======
-
 import csv
 from csv import DictReader
 import pandas as pd

@@ -43,6 +43,7 @@ function removeFav(startLoc,endLoc) {
         }
         })
 }
+
 function getFavRoute(start, end ) {
     window.location.href = '/journeyplan?start='+start+'&end='+end;
 
