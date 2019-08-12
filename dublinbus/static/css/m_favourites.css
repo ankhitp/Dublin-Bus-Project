@@ -49,13 +49,10 @@
 #origin-input{
     /* width: 50%; */
     font-size: 70%;
-    padding: 3%;
 }
 #destination-input{
     width: 60%;
     font-size: 70%;
-    padding: 3%;
-
 
 }
 #add-holder{
@@ -163,7 +160,7 @@
 #addfavourite{
     border-radius: 20px;
     height: 6vh;
-    width: 9vh;
+    width: auto;
     font-size: 30px;
     margin-top: 2%;
  
