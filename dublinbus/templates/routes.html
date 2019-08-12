@@ -3,6 +3,11 @@
 
     {% load static %}
     <style>
+
+        .holder:hover {
+            background-color: #7abaff;
+        }
+
         #head {
             height: 15%;
             width: auto;
@@ -16,18 +21,34 @@
     <div>
         {% include 'header.html' %}
     </div>
-    {#<h1 style = "text-align: center">Routes</h1>#}
-    <div id="bigList" style="text-align: center">
-
+    <h1 style = "text-align: center">A list of all bus routes!</h1>
+    <div id="bigList" class = "col-md-6 offset-md-3" style = "max-height:750px; overflow: scroll;text-align: center">
+        <div id = "header" class="row">
+            <div style = "text-align: center"  id = "route" class="col-6">
+                <h4>Route</h4>
+            </div>
+            <div style = "text-align: center"  id = "direction" class="col-6">
+                <h4>Areas Served</h4>
+            </div>
+        </div>
     </div>
     <script>
-        var data = {{ load | safe }};
-        for (var i = 0; i < data.length; i++) {
-            document.getElementById('bigList').insertAdjacentHTML("beforeend",
-                '<button class="btn btn-primary" style = "width: 100px;"type="submit">' + data[i][1] + '</button><br>' +
-                '<hr>'
-            );
+        var routesList = {{ routesList | safe }};
+        var routeHTML = "";
+        var stopHTML = "";
+        for (var i = 0; i < routesList.length; i++) {
+            routeHTML +=
+                '<div style = "text-align: center" class = "holder col-6">'+
+                    routesList[i].Route +
+                '</div>' +
+                '<div style = "text-align: center" class = "holder col-6">'+
+                routesList[i].Stops +
+                '</div>' +
+                '<br>' +
+                '<hr>';
+
         }
+        document.getElementById('header').insertAdjacentHTML('beforeend', routeHTML);
     </script>
 
 {% endblock %}

@@ -6,5 +6,6 @@ from . import views
 
 urlpatterns = [
     path('signup/', views.SignUp.as_view(), name='signup'),
-    path('addFav/', views.addFav, name='addFav')
+    path('addFav/', views.addFav, name='addFav'),
+    path('addLocation/', views.addLocation, name ='addLocation'),
 ]
