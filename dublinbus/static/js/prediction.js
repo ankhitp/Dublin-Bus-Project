@@ -9,13 +9,14 @@ function getPrediction(routeChosen, url, start, end, date, time) {
     var timesArray = ['7:00am', '7:30am', '8:00am', '8:30am', '4:00pm', '4:30pm', '5:00pm', '5:30pm', '6:00pm'];
     for (var i = 0; i < timesArray.length; i++) {
         if (time === timesArray[i]) {
+            console.log(timesArray[i]);
+            console.log(time);
             rushHr = 1;
             break;
         } else {
             rushHr = 0;
         }
     }
-    console.log(date);
     var dateObj = new Date(date).getDay();
     dateObj = dateObj - 1;
     if (dateObj == -1) {

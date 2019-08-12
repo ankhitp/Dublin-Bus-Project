@@ -25,7 +25,7 @@ SECRET_KEY = 'p6ts$b^0u56x^f=fhj3l2s0+yn1br394_1_ldl4gl@pi(ana9x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['137.43.49.53', '0.0.0.0', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['busdublin.co', 'www.busdublin.co', '137.43.49.53', '0.0.0.0', '127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -67,15 +67,6 @@ TEMPLATE_LOADERS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django_mobile.context_processors.is_mobile',
-    # 'django.contrib.auth.context_processors.auth',
-    # 'django.core.context_processors.debug',
-    # 'django.core.context_processors.i18n',
-    # 'django.core.context_processors.media',
-    # 'django.core.context_processors.static',
-    # 'django.core.context_processors.tz',
-    # 'django.contrib.messages.context_processors.messages',
-    # 'allauth.account.context_processors.account',
-    # 'allauth.socialaccount.context_processors.socialaccount',
 )
 
 MIDDLEWARE_CLASSES = (

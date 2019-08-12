@@ -1,4 +1,5 @@
 // using jQuery
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -30,6 +31,18 @@ function updateUserFav(user) {
     }
 }
 
+function removeFav(startLoc,endLoc) {
+    console.log('jdfsakjldja',startLoc,endLoc);
+    $.post("delete_fav/",{startLoc: startLoc,endLoc: endLoc}, function(data,status,){
+        console.log(status);
+        if (status == 'success'){
+            document.getElementById(startLoc+endLoc).style.display="none";
+        }
+        else{
+            alert("Something wrong :(")
+        }
+        })
+}
 function getFavRoute(start, end ) {
     window.location.href = '/journeyplan?start='+start+'&end='+end;
 
