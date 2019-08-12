@@ -29,6 +29,7 @@ function updateUserFav(user) {
     if (returnData == 400) {
         alert("There was an error on the server side of things. Try again!")
     }
+    location.reload();
 }
 
 function removeFav(startLoc,endLoc) {
