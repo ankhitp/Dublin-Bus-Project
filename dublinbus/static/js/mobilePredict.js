@@ -3,6 +3,7 @@ function getPrediction(routeChosen, url, start, end, date, time) {
     var endStations = [];
     var route = [];
     var rushHr;
+    var times = [];
     var monToThursRushHr = 0;
     var friday = 0;
     var timesArray = ['7:00am', '7:30am', '8:00am', '8:30am', '4:00pm', '4:30pm', '5:00pm', '5:30pm', '6:00pm'];
@@ -64,20 +65,29 @@ function getPrediction(routeChosen, url, start, end, date, time) {
                 xhttp2.open("POST", 'bus_prediction', true);
                 xhttp2.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
                 xhttp2.send("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
-            } else if (connections > 0) {
-                for (var j = 0; j < startStations.length; j++) {
-                    endPoint = endStations[j].actual_stop_id;
-                    busRoute = route[j].name;
-                    startingStation = startStations[j].actual_stop_id;
-                    xhttp2 = new XMLHttpRequest();
-                    xhttp2.open("POST", 'bus_prediction', true);
-                    xhttp2.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-                    xhttp2.send("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
+                if (this.readyState === 4 && this.status === 200) {
+                    var predictedTime = this.responseText;
+                    return predictedTime;
+                }
+                else if (connections > 0) {
+                    for (var j = 0; j < startStations.length; j++) {
+                        endPoint = endStations[j].actual_stop_id;
+                        busRoute = route[j].name;
+                        startingStation = startStations[j].actual_stop_id;
+                        xhttp2 = new XMLHttpRequest();
+                        xhttp2.open("POST", 'bus_prediction', true);
+                        xhttp2.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+                        xhttp2.send("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
+                        if (this.readyState === 4 && this.status === 200) {
+                            times.push(this.responseText);
+                        }
+                    }
+                    for (var t = 0; t < times.length; t++) {
+                        predictedTime += times[t];
+                    }
+                    return predictedTime;
                 }
             }
         }
-        //calculate time
-        //let the user know how many connections required per route.
-        getRoute(routeChosen, url, start, end);
     }
 }

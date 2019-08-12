@@ -8,8 +8,8 @@ function resizeMap(passedStart, passedEnd) {
         start = passedStart;
         end = passedEnd;
     }
-    var time = document.getElementById('dateField').value;
-    var date = document.getElementById('timepicker1').value;
+    var date = document.getElementById('dateField').value;
+    var time = document.getElementById('timepicker1').value;
     deleteMarkers();
     if (time == "" || date == "") {
         var flag = 0;

@@ -29,8 +29,6 @@ document.getElementById("addfavourite").addEventListener("click", function(){
     "</div>");
 
     document.getElementById('origin-input').value='';
-
-
     document.getElementById('destination-input').value='';
 
 
