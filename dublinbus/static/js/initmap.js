@@ -7,7 +7,7 @@ function initMap() {
     var infowindow = new google.maps.InfoWindow({});
     var im = {
         url: '../static/img/userLoc.png', // url
-        scaledSize: new google.maps.Size(40, 40), // scaled size
+        scaledSize: new google.maps.Size(64, 64), // scaled size
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(0, 0) // anchor
     };

@@ -36,14 +36,20 @@ function getLatLng(start, end, time, predictDate) {
                 xhttp = new XMLHttpRequest();
                 var date = new Date();
                 date = date.toISOString();
+                var datearr = predictDate.split('/');
+                var newDate = datearr[2]+"-"+datearr[0]+"-"+datearr[1];
+                var newTime = newDate + "T"+ time + ":00+01:00";
+                console.log(newTime);
+                var finalNewTime = new Date(newTime);
+                finalNewTime = finalNewTime.toISOString();
                 var url = "https://transit.api.here.com/v3/route.json?app_id=tL7r9QKJ3KlE5Kc9LGYo&app_code=1arMc" +
                     "SHt_o31xFSeBRswsA&modes=bus&routing=all&dep=" + startLat + "," + startLong + "&arr=" + destLat +
-                    "," + destLong + "&time=" + date;
+                    "," + destLong + "&time=" + finalNewTime;
                 xhttp.open("GET", url, true);
                 xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
                 //xhttp.setRequestHeader('X-CSRF-Token', 'abcdef');
                 xhttp.send();
-                xhttp.onreadystatechange = function () {
+                xhttp.onreadystatechange =  async function () {
                     if (this.readyState === 4 && this.status === 200) {
                         console.log(url);
                         //parsing this awful JSON. follow the url if you want to see how the JSON looks
@@ -66,6 +72,7 @@ function getLatLng(start, end, time, predictDate) {
                         document.getElementById('options').insertAdjacentHTML('beforeend', '<div id = "possRoutes">');
                         var parseMe = returnData['Res']['Connections']["Connection"];
                         for (var i = 0; i < parseMe.length; i++) {
+                            getPrediction(i,url,start,end,predictDate,time);
                             var myHTML = "";
                             var parsed = parseMe[i]["Sections"]["Sec"];
                             var connections = 0;
@@ -79,11 +86,13 @@ function getLatLng(start, end, time, predictDate) {
                                         myHTML += "<hr>";
                                         start = start.replace("'", "");
                                         end = end.replace("'", "");
-                                        myHTML += '<div  style="cursor: pointer;background: rgba(240, 240, 240, 0.8);" class = "row" id ="' + i + '" onclick = "getPrediction(' + i + ', \'' + url + '\', \'' + start + '\', \'' + end +  '\',\'' + time + '\', \'' + predictDate + '\')">' +
+                                        myHTML += '<div  style="cursor: pointer;background: rgba(240, 240, 240, 0.8);" class = "row" id ="' + i + '" onclick = "getRoute(' + i + ', \'' + url + '\', \'' + start + '\', \'' + end + '\')">' +
                                             '<div style = "text-align: center" class = "col-2">' + name + '</div>' +
-                                            '<div style = "text-align: center"  class = "col-3">' + direction + '</div>' +
-                                            '<div style = "text-align: center"  class = "col-3"> 10 minutes </div>';
+                                            '<div style= "text-align: center"  class = "col-3">' + direction + '</div>' +
+                                            '<div id = "time'+i+'" style = "text-align: center"  class = "col-3">Processing...</div>';
                                         document.getElementById('possRoutes').insertAdjacentHTML('beforeend', myHTML);
+                                        await sleep(500);
+
                                     }
                                 }
                             }
@@ -94,15 +103,18 @@ function getLatLng(start, end, time, predictDate) {
                             } else if (connections > 1) {
                                 document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div style = "text-align: center"  class = "col-4">' + (connections - 1) + ' Connections</div>');
                             }
+                            await sleep(200);
                         }
                         //option to reset the searches
-                        document.getElementById('options').insertAdjacentHTML('beforeend', "<hr><br><div style='text-align: center'><button class=" +
-                            "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();resetMap();'>Search Again</button></div><div id='coTwo'>\n" +
-                            "        </div>");
+                        document.getElementById('options').insertAdjacentHTML('beforeend', "<hr><div style='text-align: center'><button class=" +
+                            "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();resetMap();'>Search Again</button></div>");
                     }
                 }
             }
         });
     })
 
+}
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

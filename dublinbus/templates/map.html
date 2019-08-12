@@ -101,6 +101,24 @@
         <h2 style="display: inline">Dublin Bus</h2>
     </div>
     </div>
+    {% if user.is_authenticated %}
+    <div style="z-index: 99; height: 50px; width: 100px; position: absolute; margin-left: 88%;">
+         <h5>Hi {{ user.username }}!</h5>
+
+            <a href="{% url 'logout' %}" style="color: darkblue" ; class="button;"><img
+                    src="../static/img/logout-yellow.png"
+                    style="height: 40px; width: 45px;"></a>
+    </div>
+    {% else %}
+    <div style="z-index: 99; height: 50px; width: 100px; position: absolute; margin-left: 88%;">
+
+        <a href="{% url 'login' %}"><img src="../static/img/login-icon-yellow.png"
+                                         style="height: 40px; width: 45px;"></a>
+        <a href="{% url 'signup' %}"><img src="../static/img/sign-up.png"
+                                          style="height: 37px; width: 42px;"></a>
+    </div>
+    {% endif %}
+
     <div>
         {% include 'header.html' %}
     </div>
@@ -112,12 +130,43 @@
 
 
     </div>
-
     <script>
         var data = {{ load | safe }};
         var route_data = {{ routedata | safe }};
         var tourism = {{tourismData | safe }};
     </script>
+    {% if user.is_authenticated %}
+    <script>
+        var user = '{{ user.username }}';
+        window.setInterval(function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var locations = '{{ user.places_visited }}';
+                    if (locations.length > 0) {
+                        var favsArray = locations.split('*');
+                    }
+                    else {
+                        favsArray = [];
+                    }
+                    pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    for (var i = 0; i < tourism.length; i++) {
+                        if (distance(position.coords.latitude, position.coords.longitude, tourism[i].lat, tourism[i].lon) < 0.1 && favsArray.includes(tourism[i].name) == true ) {
+                            alert("You have just visited " + tourism[i].name + ", earning 10 points. Nice one! Keep exploring!");
+                            tourismXHTTP = new XMLHttpRequest();
+                            tourismXHTTP.open("POST", '/users/addLocation/');
+                            tourismXHTTP.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+                            tourismXHTTP.send("location=" + tourism[i].name + "&points=10+&user="+user);
+                            var returnData = this.responseText;
+                            if (returnData == 400) {
+                                alert("There was an error on the server side of things. Try again!")
+                            }
+                        }
+                    }
+                })
+            }
+        }, 60000);
+    </script>
+    {% endif %}
     <script src="{% static '/js/initmap.js' %}"></script>
     <script src="{% static '/js/findLocation.js' %}"></script>
 

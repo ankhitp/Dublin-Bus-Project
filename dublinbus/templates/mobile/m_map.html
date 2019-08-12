@@ -67,6 +67,39 @@
 
         </div>
     </div>
+    {% if user.is_authenticated %}
+    <script>
+        var user = '{{ user.username }}';
+        window.setInterval(function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var locations = '{{ user.places_visited }}';
+                    if (locations.length > 0) {
+                        var favsArray = locations.split('*');
+                    }
+                    else {
+                        favsArray = [];
+                    }
+                    pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    for (var i = 0; i < tourism.length; i++) {
+                        var checkLat = tourism[i].latitude;
+                        var checkLong = tourism[i].longitude;
+                        if (distance(position.coords.latitude, position.coords.longitude, checkLat, checkLong) < 0.1 && favsArray.includes(date[i].name) == false ) {
+                            alert("Nice job! You visited " + tourism[i].name + " and earned 10 points! Keep exploring!");
+                            tourismXHTTP = new XMLHttpRequest();
+                            tourismXHTTP.open("POST", '/users/addLocation/');
+                            tourismXHTTP.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+                            tourismXHTTP.send("location=" + tourism[i].name + "&points=10+&user="+user);
+                            var returnData = this.responseText;
+                            if (returnData == 400) {
+                                alert("There was an error on the server side of things. Try again!")
+                            }
+                        }
+                    }
+                })
+            }
+        }, 60000);
+    </script>
     <script>
         var data = {{ load | safe }};
         var route_data = {{ routedata | safe }}

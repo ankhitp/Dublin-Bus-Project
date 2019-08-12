@@ -80,6 +80,8 @@ function mobileGetLatLng(start, end, time, predictDate) {
                                         var name = parsed[x]['Dep']['Transport']['name'];
                                         var direction = parsed[x]['Dep']['Transport']['dir'];
                                         myHTML += "<hr>";
+                                        start = start.replace("'", "");
+                                        end = end.replace("'", "");
                                         myHTML += '<div  style="cursor: pointer;" class = "row" id ="'+ i + '" onclick = "getPredictionMobile(' + i + ', \'' + url + '\', \'' + start + '\', \'' + end +  '\',\'' + time + '\', \'' + predictDate + '\')">'+
                                             '<div style = "text-align: center" class = "col-2">'+name+'</div>' +
                                             '<div style = "text-align: center"  class = "col-3">'+direction+'</div>' +

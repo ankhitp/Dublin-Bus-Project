@@ -3,6 +3,17 @@
 
     {% load static %}
     <style>
+
+        .autocomplete {
+            /*the container must be positioned relative:*/
+            position: relative;
+        }
+        
+
+        .holder:hover {
+            background-color: #7abaff;
+        }
+
         #head {
             height: 15%;
             width: auto;
@@ -39,18 +50,37 @@
     <div>
         {% include 'header.html' %}
     </div>
-    {#<h1 style = "text-align: center">Routes</h1>#}
-    <div id="bigList" style="text-align: center">
-
+    <datalist id="routes">
+    </datalist>
+    <div style = 'text-align: center'>
+        <div class="autocomplete">
+            <input list = "routes" id="busSearch" style = "width: 250px; height: 40px" type="text" name="routeSearch" placeholder="Search for route..">
+        </div>
+        <br>
+        <button class = "btn btn-primary" style = "width: 250px" type="submit" onclick = 'showRoute(document.getElementById("busSearch").value)'>Search</button>
+    </div>
+    <h1 style = "text-align: center">A list of all bus routes!</h1>
+    <br>
+    <div id="bigList" class = "col-md-6 offset-md-3" style = "max-height:750px; overflow: scroll;text-align: center">
+        <div id = "header" class="row">
+            <div style = "text-align: center"  id = "route" class="col-12">
+            </div>
+        </div>
     </div>
     <script>
-        var data = {{ load | safe }};
-        for (var i = 0; i < data.length; i++) {
-            document.getElementById('bigList').insertAdjacentHTML("beforeend",
-                '<button class="btn btn-primary" style = "width: 100px;"type="submit">' + data[i][1] + '</button><br>' +
-                '<hr>'
-            );
+        var routesList = {{ routesList | safe }};
+        var routeHTML = "";
+        var stopHTML = "";
+        for (var i = 0; i < routesList.length; i++) {
+            stopHTML += '<option value="'+routesList[i].Route+'">';
+            routeHTML +=
+                '<div id = "'+routesList[i].Route+'" style = "cursor: pointer; text-align: center" class = "holder col-12">'+
+                    routesList[i].Route + ' going from ' + routesList[i].Stops +
+                '</div>' +
+                '<hr>';
         }
+        document.getElementById('route').innerHTML=routeHTML;
+        document.getElementById('routes').innerHTML=stopHTML;
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
@@ -63,6 +93,16 @@
             ;
         });
     </script>
+<script>
+    function showRoute(route) {
+        var html = document.getElementById(route).innerHTML;
+        var finalHtml = "<div style = 'cursor: pointer' class = 'holder' onclick = 'mapRoute(\""+route+"\")'>" + html + "</div>";
+        document.getElementById('route').innerHTML = finalHtml;
+    }
+    function mapRoute() {
+
+    }
+</script>
 
 
 {% endblock %}

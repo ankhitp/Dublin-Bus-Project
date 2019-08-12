@@ -61,6 +61,18 @@
                 padding: 5px 11px 0px 11px;
             }
 
+        #coTwo {
+            position: absolute;
+            left: 79%;
+            z-index: 99;
+            text-align: center;
+            font-family: Arial;
+            background: whitesmoke;
+            height: auto !important;
+            border-radius: 25px;
+            color: darkgreen;
+            font-weight: bold;
+        }
             #mode-selector label {
                 font-family: Arial;
                 font-size: 13px;
@@ -101,9 +113,8 @@
                 z-index: 99;
                 text-align: center;
                 font-family: Arial;
-                margin: 10%;
                 background: whitesmoke;
-                opacity: 0.7;
+                opacity: 0.8;
                 height: auto !important;
                 border-radius: 25px;
                 color: darkgreen;
@@ -139,11 +150,9 @@
             }
         </style>
 
-
     </head>
 
     <body>
-    <div class="se-pre-con"></div>
     <div id="head" style="background: rgba(4, 36, 85, 0.5); padding-top: 1%">
         <img class="smalllogo" src="{% static 'smalllogo.png' %}" style="display: inline">
         <h2 style="display: inline">Dublin Bus</h2>
@@ -151,8 +160,6 @@
     <div>
         {% include 'header.html' %}
     </div>
-
-
     <div class="row dynamic-columns" id=wrapper>
 
 
@@ -160,24 +167,21 @@
             <div id='journeyPlan' style='display:none'>
                 <h5 style="text-align: center; padding-top: 15%">Start your journey here!</h5>
                 <br>
-                <h6 style="text-align: center">Enter a start and end location!</h6>
-
                 <div style="text-align: center">
 
-                    <input autocomplete="off" class="controls" id="origin-input" placeholder="Enter an origin location"
+                    <input autocomplete="off" class="controls" id="origin-input" placeholder="Enter a starting point"
                            style="text-align: center"
                            type="text">
 
                     <input autocomplete="off" class="controls" id="destination-input"
-                           placeholder="Enter a destination location"
+                           placeholder="Enter a destination"
                            style="text-align: center"
                            type="text">
 
                 </div>
                 <br>
                 <div style="text-align: center">
-                    <button class='btn btn-primary' id="directionsButton" onclick="buildDateTime()"
-                            style='width: 200px;'
+                    <button class='btn btn-primary' id="directionsButton" onclick="buildDateTime()" style='width: 200px;'
                             type="submit">Next
                     </button>
                 </div>
@@ -192,17 +196,19 @@
                 <br>
                 <br>
                 <div style="text-align: center">
-                    <button class='btn btn-primary' onclick="hideOptions()" style='width: 200px;' type="submit">Hide
-                        Options
+                    <button class='btn btn-primary' onclick="hideOptions()" style='width: 200px;' type="submit">Hide Options
                         ^
                     </button>
                 </div>
             </div>
             <div id='timeDate' style='display:none'>
+                <h5 style="text-align: center; padding-top: 15%">Enter a time and date!</h5>
                 <div style='text-align: center'>
                     <input class='controls' id='dateField' name='daterange' style='width:250px' type='text'>
                     <input autocomplete='off' class='controls' id='timepicker1' placeholder='Please select a time'
                            style='width:250px' type='text'>
+                    <br>
+                    <br>
                     <button class='btn btn-primary' id="directionsButton2" onclick="resizeMap()" type="submit">Search
                     </button>
                 </div>
@@ -216,20 +222,20 @@
                 <br>
                 <div style="text-align: center">
                     <button class='btn btn-primary' id="optionsButton" onclick="showOptions()"
-                            style='width: 200px;' type="submit">Show Options
+                            style='width: 200px;' type="submit">Show Journey Planner
                     </button>
                 </div>
             </div>
         </div>
-        <div id='coTwo'>
-        </div>
         <div class="col-3 col" id='directions' style="display:none; overflow:scroll">
+        </div>
+        <div id='coTwo'>
         </div>
         <div class="col-12 col;">
             <div id="map" style="width:100%;height:800px;"></div>
-
         </div>
     </div>
+
     <script>
         var map;
         var startLat;
@@ -263,20 +269,19 @@
             calendarBuilder();
             $(function () {
                 $('#timepicker1').timepicker({
+                    timeFormat: 'H:i',
                     dynamic: false,
                     dropdown: true,
                     scrollbar: true,
                     step: 30,
                 })
             });
-
         };
         var currentDate = new Date();
         var endDate = new Date();
         var numberOfDaysToAdd = 4;
         currentDate.setDate(currentDate.getDate() + 1);
         endDate.setDate(currentDate.getDate() + numberOfDaysToAdd);
-
         function calendarBuilder() {
             $('input[name="daterange"]').daterangepicker({
                 singleDatePicker: true,
@@ -318,6 +323,11 @@
 
     <!--**************************************Links to local JS*********************************************************-->
     <script src="{% static 'js/favRoute.js' %}"></script>
+    <script src="{% static 'js/autocompleteFunctions.js' %}"></script>
+    <script src="{% static 'js/changeHTML.js' %}"></script>
+    <script src="{% static 'js/mapResizeResetFunctions.js' %}"></script>
+    <script src="{% static 'js/realTimeDate.js' %}"></script>
+    <script src="{% static 'js/routingFunctions.js' %}"></script>
     <script src="{% static 'js/map.js' %}"></script>
     <script src="{% static 'js/getRoute.js' %}"></script>
     <script src="{% static 'js/getLatLong.js' %}"></script>
@@ -326,17 +336,6 @@
     <!--**************************************Google Maps*********************************************************-->
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvFaUDR5Wnl172znC5agS97gPJmyXHwOs&libraries=places&callback=initMap">
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-    <script>
-        //paste this code under the head tag or in a separate js file.
-        // Wait for window load
-        $(window).load(function () {
-            // Animate loader off screen
-            $(".se-pre-con").fadeOut("slow");
-            ;
-        });
     </script>
 
     </body>

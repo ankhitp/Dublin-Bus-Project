@@ -63,7 +63,10 @@ function getRoute(i, url, start, end) {
                                 stationTime = new Date(stationTime);
                                 var stationMin = stationTime.getMinutes();
                                 var stationHours = stationTime.getHours();
-                                document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div class = "col-12" style = "text-align: center;" id = para' + i + '>The next bus is expected at ' + stationHours + ':' + stationMin + '</div>');
+                                if (stationMin < 10) {
+                                    stationMin = "0" + stationMin;
+                                }
+                                document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div class = "col-12" style = "text-align: center;" id = para' + i + '>The bus departing closest to your chosen time is at: ' + stationHours + ':' + stationMin + '</div>');
                                 checkFirst = false;
                             } else {
                                 continue;
@@ -108,7 +111,6 @@ function getRoute(i, url, start, end) {
                     //go through all the entries in our array and create markers from them, and then create
                     //onClick windows for each marker.
                     for (var a = 0; a < locations.length; a++) {
-                        let serviceRoute = add_service_route(closest);
                         marker = new google.maps.Marker({
                             position: new google.maps.LatLng(locations[a].lat, locations[a].lng),
                             content: '<div id="content' + locations[a].actual_stop_id + '" >' +
@@ -116,10 +118,7 @@ function getRoute(i, url, start, end) {
                                 "<div><img src='../static/img/bus-blue-icon.png' alt='bus-blue-icon' width='12%' height='12%'>" +
                                 '<h6 style="margin-left: 3%; font-family:Tangerine; font-size:15px;">Stop ID: ' + locations[a].actual_stop_id + '</h6></div>' +
                                 '<h style="margin-left: 15%; font-family:Tangerine; font-size:15px;"><b>Stop name:</b><br>' + '<p style="margin-left: 8%">' + locations[a].name + '</p></h>' +
-
-                                '<h style="margin-left: 15%; font-family:Tangerine;  font-size:12px;"><b>Serving route:</b><br>' + '<ul id="myList">' + serviceRoute + '</ul>' + '</p></div>' +
-
-                                '<button id="realtime" onclick="get_real_time_data(' + locations[a].actual_stop_id + ')">' +
+                                '<button class = "btn btn-primary id="realtime" onclick="get_real_time_data2(' + locations[a].actual_stop_id + ')">' +
                                 '<p id="realtime_p" style="font-family:Tangerine; font-size:12px;">Real Time Info</p>' +
                                 '</button>' +
                                 '</div>',
@@ -133,6 +132,10 @@ function getRoute(i, url, start, end) {
                                 infowindow.open(map, marker);
                             }
                         })(marker, a));
+                    }
+                    if (x == indivBusRouteJSON.length - 1) {
+                        document.getElementById('coTwo').innerHTML = 'This bus route will result in ' + '<b>' + co2 + '</b>' + ' grams of CO2 being released into the atmosphere. <br>' +
+                            'This is compared to ' + '<b>' + carCo2 + '</b>' + ' grams of CO2 if you had used a car!';
                     }
                 }
                 //if its the last step in the route and it's a walking instruction.

@@ -17,7 +17,6 @@ import time
 import numpy
 import csv
 from csv import DictReader
-import pandas as pd
 
 
 def journeyplan(request):
@@ -41,21 +40,21 @@ def bus_prediction(request):
     weather_detalis = requests.get(url)
     weatherdata = json.loads(weather_detalis.text)
     print("request", request)
-    
+
     endPoint = request.POST.get("endPoint")
     print("end point", endPoint)
-    
+
+
     startingPoint = request.POST.get("startingPoint")
     print("starting point", startingPoint)
   
     getroute = request.POST.get("route")
     route = str(getroute)
     print("route is", getroute)
-    route = request.POST.get("route")
 
     dayOfWeek = request.POST.get("dayOfWeek")
     print("day of week is", dayOfWeek)
-    
+
     rushHour = request.POST.get("rushHour")
     print("rushHour", rushHour)
 
@@ -69,18 +68,18 @@ def bus_prediction(request):
     temp = weatherdata['main']['temp']
     print("windSpeed", windSpeed)
     print("temp", temp)
-    
-    randomForest_Results = {}
+
 
     routecsv1 = route+"_direction1route.csv"
     routecsv2 = route+"_direction2route.csv"
+
 
     # Get direction by checking routes in csvs
     with open("static/busroutes/"+routecsv1) as f:
         busroute1 = [row["actual_stop_id"] for row in DictReader(f)]
     with open("static/busroutes/"+routecsv2) as f:
         busroute2 = [row["actual_stop_id"] for row in DictReader(f)]
-    
+
     if startingPoint in busroute1:
         direction = 1
         routeholder = busroute1
@@ -95,6 +94,7 @@ def bus_prediction(request):
         routeholder = busroute1
         endstop = busrouute1[len(busroute1)-1]
         print("not in the route")
+
 
     # make a list of only stops you want
     first = routeholder.index(startingPoint)
@@ -112,14 +112,12 @@ def bus_prediction(request):
             returndict[key] = full_modelreturn[key]
         else:
             continue
-    print("start here", returndict)
 
     # # put together input dictionary
-    testinput = {'direction': direction, 'dayOfWeek': dayOfWeek, 'rushHour': rushHour, 'monToThurRushHour': monThursRush, 'friday': friday, 'windSpeed': windSpeed, 'temp': temp}
+    testinput = {'direction': direction, 'dayOfWeek': dayOfWeek, 'rushHour': rushHour, 'monToThurRushHour': monThurRush, 'friday': friday, 'windSpeed': windSpeed, 'temp': temp}
     print("testinput", testinput)
     datainput = pd.DataFrame([testinput])
 
-    print(datainput)
 
     returnvalue={}
     # to count total journey time
@@ -133,8 +131,7 @@ def bus_prediction(request):
         totaljourney+=thisprediction
     print("total journey time: ",totaljourney/60, "minutes")
     print("returnvalue", returnvalue)
-    
-    # need to convert returnvalue to json array before we can return it
-    return JsonResponse(totaljourney/60)
 
-    
+    myValToReturn = totaljourney/60
+
+    return HttpResponse(myValToReturn)

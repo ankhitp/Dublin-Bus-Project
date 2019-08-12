@@ -15,7 +15,9 @@ User = get_user_model()
 def routes(request):
     json_data = open('static/files/routeList.json')
     routeData = json.load(json_data)
-    return render(request, 'routes.html', {'load': routeData})
+    json_data = open('static/files/routesList.json')
+    routesList = json.load(json_data)
+    return render(request, 'routes.html', {'load': routeData, 'routesList': routesList})
 
 
 
