@@ -11,6 +11,11 @@ from favourites.forms import ContactForm
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.contrib.auth import get_user_model
+# from favourites.models import UsersCustomuser
+from django.views.decorators.csrf import csrf_exempt
+
+from users.models import CustomUser
+
 User = get_user_model()
 # Create your views here.
 
@@ -93,3 +98,25 @@ class favourites_view(TemplateView):
             return render(request, 'mobile/m_favourites.html', args)
         else:
             return render(request, 'favourites.html', args)
+
+    @csrf_exempt
+    def delete_fav(request):
+        user_info = request.user
+        startLoc = request.POST.get('startLoc')
+        endLoc = request.POST.get('endLoc')
+        print(user_info,startLoc,endLoc)
+        user = CustomUser.objects.get(username=user_info)
+        print(user.favourites)
+        favourites_items = user.favourites.split("*")
+        print(favourites_items)
+        new_item = ""
+        for item in favourites_items:
+            if startLoc+":"+endLoc != item:
+                new_item += "*" + item
+        print(new_item)
+        user.favourites = new_item[1:]
+        try:
+            user.save()
+            return HttpResponse(status=200)
+        except Exception:
+            return HttpResponse(status=400)
