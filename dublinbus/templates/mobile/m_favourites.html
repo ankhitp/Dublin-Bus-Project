@@ -64,8 +64,6 @@
                 <div class="col-12" id="middle-favourite">
                     <!-- <p>middle section</p> -->
                     <div class="col-12" id="favourite-holder">
-
-
                         <div id="favourite-Add">
                             <div id="add-holder">
                                 <p>Add new favourite route
@@ -85,16 +83,14 @@
                                 <form method="POST">
                                     {% csrf_token %}
 
-
                                     <div class="field-wrap">
                                         <label for="origin-input"> Start: </label>
                                         <input autocomplete="off" class="controls" id="origin-input" type="text">
 
-
                                     </div>
+                                    <br>
 
-
-                                    <div id="field-wrap">
+                                    <div class="field-wrap">
                                         <label for="destination-input">Destination: </label>
                                         <input autocomplete="off" class="controls" id="destination-input" type="text">
                                         <script>setAutocomplete()</script>

@@ -164,7 +164,7 @@ function resetMap() {
         "                        style='width: 200px;' type=\"submit\">Show Journey Planner\n" +
         "                </button>\n" +
         "            </div>\n" +
-        "        </div>"
+        "        </div>";
     calendarBuilder();
     $(function () {
         $('#timepicker1').timepicker({

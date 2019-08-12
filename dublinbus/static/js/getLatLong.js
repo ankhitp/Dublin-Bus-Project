@@ -6,7 +6,7 @@
  * and also indicates how many connections each route has.
  */
 function getLatLng(start, end, time, predictDate) {
-    document.getElementById('options').style.height = "auto";
+    document.getElementById('options').style.height = "600px";
 
     start = start.replace("&#39;", "");
     end = end.replace("&#39;", "");
@@ -36,9 +36,15 @@ function getLatLng(start, end, time, predictDate) {
                 xhttp = new XMLHttpRequest();
                 var date = new Date();
                 date = date.toISOString();
+                var datearr = predictDate.split('/');
+                var newDate = datearr[2]+"-"+datearr[0]+"-"+datearr[1];
+                var newTime = newDate + "T"+ time + ":00+01:00";
+                console.log(newTime);
+                var finalNewTime = new Date(newTime);
+                finalNewTime = finalNewTime.toISOString();
                 var url = "https://transit.api.here.com/v3/route.json?app_id=tL7r9QKJ3KlE5Kc9LGYo&app_code=1arMc" +
                     "SHt_o31xFSeBRswsA&modes=bus&routing=all&dep=" + startLat + "," + startLong + "&arr=" + destLat +
-                    "," + destLong + "&time=" + date;
+                    "," + destLong + "&time=" + finalNewTime;
                 xhttp.open("GET", url, true);
                 xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
                 //xhttp.setRequestHeader('X-CSRF-Token', 'abcdef');
@@ -100,7 +106,7 @@ function getLatLng(start, end, time, predictDate) {
                             await sleep(200);
                         }
                         //option to reset the searches
-                        document.getElementById('options').insertAdjacentHTML('beforeend', "<hr><br><div style='text-align: center'><button class=" +
+                        document.getElementById('options').insertAdjacentHTML('beforeend', "<hr><div style='text-align: center'><button class=" +
                             "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();resetMap();'>Search Again</button></div>");
                     }
                 }

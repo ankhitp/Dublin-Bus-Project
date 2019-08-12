@@ -66,7 +66,7 @@ function getRoute(i, url, start, end) {
                                 if (stationMin < 10) {
                                     stationMin = "0" + stationMin;
                                 }
-                                document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div class = "col-12" style = "text-align: center;" id = para' + i + '>The next bus is expected at ' + stationHours + ':' + stationMin + '</div>');
+                                document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div class = "col-12" style = "text-align: center;" id = para' + i + '>The bus departing closest to your chosen time is at: ' + stationHours + ':' + stationMin + '</div>');
                                 checkFirst = false;
                             } else {
                                 continue;
