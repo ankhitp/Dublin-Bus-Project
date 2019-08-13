@@ -63,11 +63,12 @@ function mobileResizeMap() {
     $(document).ready(function () {
         calendarBuilder();
         $(function () {
-            $('#mytimepick').timepicker({
+            $('#timepicker1').timepicker({
+                timeFormat: 'H:i',
                 dynamic: false,
                 dropdown: true,
                 scrollbar: true,
-                step: 15,
+                step: 30,
             })
         })
     });
@@ -168,6 +169,7 @@ function resetMap() {
     calendarBuilder();
     $(function () {
         $('#timepicker1').timepicker({
+            timeFormat: 'H:i',
             dynamic: false,
             dropdown: true,
             scrollbar: true,

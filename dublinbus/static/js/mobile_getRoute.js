@@ -11,6 +11,9 @@ function getRoute(i, url, start, end, predictDate, predictTime) {
     document.getElementById('header').innerHTML = "";
     document.getElementById('routes').innerHTML = "";
     document.getElementById('map').style.display = "block";
+    document.getElementById('map').insertAdjacentHTML('beforeend',
+        "<div id = 'return' style='text-align: center'><button class='btn btn-primary' " +
+        "type='submit' onclick = 'removeLine(); deleteMarkers();mobileMapReturnHide();mobileGetLatLng(\"" + start + "\",\"" + end + "\",\"" + predictTime + "\",\"" + predictDate + "\")'>Return to Results</button></div>");
     document.getElementById("options").style.height = "auto";
     map.setZoom(12);
     if (busPath !== undefined) {
@@ -203,10 +206,6 @@ function getRoute(i, url, start, end, predictDate, predictTime) {
 
                             );
 
-
-                            document.getElementById('lowerholder').insertAdjacentHTML('beforeend',
-                                "<div id = 'return' style='text-align: center'><button class='btn btn-primary' " +
-                                "type='submit' onclick = 'removeLine(); deleteMarkers();mobileMapReturnHide();mobileGetLatLng(\"" + start + "\",\"" + end + "\",\"" + predictTime + "\",\"" + predictDate + "\")'>Return to Results</button></div>");
                             //'<br><h4>This bus route will result in '+co2+' grams of CO2 being released into the atmosphere. <br>' +
                             //'This is compared to ' + carCo2 + ' grams of CO2 if you had used a car!</h4>')
 
