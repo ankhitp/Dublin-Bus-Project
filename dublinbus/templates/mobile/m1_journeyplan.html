@@ -70,10 +70,11 @@
         calendarBuilder();
         $(function () {
             $('#timepicker1').timepicker({
+                timeFormat: 'H:i',
                 dynamic: false,
                 dropdown: true,
                 scrollbar: true,
-                step: 15,
+                step: 30,
             })
         })
     });
@@ -139,13 +140,21 @@
 <!--**************************************Links to local JS*********************************************************-->
 <script src="{% static 'js/toword.js' %}"></script>
 <script src="{% static 'js/favRoute.js' %}"></script>
-<script src="{% static 'js/map.js' %}"></script>
+<script src="{% static 'js/mapResizeResetFunction.js' %}"></script>
 <script src="{% static 'js/mobile_getRoute.js' %}"></script>
 <script src="{% static 'js/mobileGetLatLong.js' %}"></script>
 <script src="{% static 'js/findLocation.js' %}"></script>
 <script src="{% static 'js/mobilePredict.js' %}"></script>
-
+<script src="{% static 'js/autocompleteFunctions.js' %}"></script>
+<script src="{% static 'js/changeHTML.js' %}"></script>
+<script src="{% static 'js/mapResizeResetFunctions.js' %}"></script>
+<script src="{% static 'js/realTimeDate.js' %}"></script>
+<script src="{% static 'js/routingFunctions.js' %}"></script>
+<script src="{% static 'js/map.js' %}"></script>
 <link href="{% static 'css/m_journeyplan1.css' %}" rel="stylesheet">
+
+
+
 <!--**************************************Google Maps*********************************************************-->
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvFaUDR5Wnl172znC5agS97gPJmyXHwOs&libraries=places&callback=initMap">

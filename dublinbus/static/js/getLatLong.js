@@ -39,7 +39,6 @@ function getLatLng(start, end, time, predictDate) {
                 var datearr = predictDate.split('/');
                 var newDate = datearr[2]+"-"+datearr[0]+"-"+datearr[1];
                 var newTime = newDate + "T"+ time + ":00+01:00";
-                console.log(newTime);
                 var finalNewTime = new Date(newTime);
                 finalNewTime = finalNewTime.toISOString();
                 var url = "https://transit.api.here.com/v3/route.json?app_id=tL7r9QKJ3KlE5Kc9LGYo&app_code=1arMc" +

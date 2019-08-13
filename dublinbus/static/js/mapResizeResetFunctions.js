@@ -33,8 +33,8 @@ function mobileResizeMap() {
     deleteMarkers();
     var start = document.getElementById('origin-input').value;
     var end = document.getElementById('destination-input').value;
-    var time = document.getElementById('dateField').value;
-    var date = document.getElementById('timepicker1').value;
+    var date = document.getElementById('dateField').value;
+    var time = document.getElementById('timepicker1').value;
     if (start == "" || end == "") {
         document.getElementById("header").innerHTML = "<h4 style = 'text-align: center'>Please enter a start and end location!</h4>" +
             "<div style = 'text-align: center'>" +

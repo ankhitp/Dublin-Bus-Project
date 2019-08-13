@@ -6,7 +6,7 @@ function getPrediction(routeChosen, url, start, end, date, time) {
     var rushHr;
     var monToThursRushHr = 0;
     var friday = 0;
-    var timesArray = ['7:00am', '7:30am', '8:00am', '8:30am', '4:00pm', '4:30pm', '5:00pm', '5:30pm', '6:00pm'];
+    var timesArray = ['7:00', '7:30', '8:00', '8:30', '16:00', '16:30', '17:00', '17:30', '18:00'];
     for (var i = 0; i < timesArray.length; i++) {
         if (time === timesArray[i]) {
             console.log(timesArray[i]);
@@ -18,6 +18,7 @@ function getPrediction(routeChosen, url, start, end, date, time) {
         }
     }
     var dateObj = new Date(date).getDay();
+    console.log(dateObj);
     dateObj = dateObj - 1;
     if (dateObj == -1) {
         dateObj = 6;
