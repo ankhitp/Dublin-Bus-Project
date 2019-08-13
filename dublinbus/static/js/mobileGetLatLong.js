@@ -6,6 +6,7 @@
  * and also indicates how many connections each route has.
  */
 function mobileGetLatLng(start, end, time, predictDate) {
+    console.log(predictDate);
     deleteMarkers();
     myPath.setMap(null);
     document.getElementById('map').style.display = 'none';
@@ -38,15 +39,21 @@ function mobileGetLatLng(start, end, time, predictDate) {
                 xhttp = new XMLHttpRequest();
                 var date = new Date();
                 date = date.toISOString();
+                var datearr = predictDate.split('/');
+                var newDate = datearr[2]+"-"+datearr[0]+"-"+datearr[1];
+                var newTime = newDate + "T"+ time + ":00+01:00";
+                var finalNewTime = new Date(newTime);
+                console.log(newTime);
+                finalNewTime = finalNewTime.toISOString();
                 var url = "https://transit.api.here.com/v3/route.json?app_id=tL7r9QKJ3KlE5Kc9LGYo&app_code=1arMc" +
                     "SHt_o31xFSeBRswsA&modes=bus&routing=all&dep=" + startLat + "," + startLong + "&arr=" + destLat +
-                    "," + destLong + "&time=" + date;
+                    "," + destLong + "&time=" + finalNewTime;
                 xhttp.open("GET", url, true);
                 xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
                 //xhttp.setRequestHeader('X-CSRF-Token', 'abcdef');
                 xhttp.send();
 
-                xhttp.onreadystatechange = function () {
+                xhttp.onreadystatechange = async function () {
                     if (this.readyState === 4 && this.status === 200) {
                         console.log(url);
                         //parsing this awful JSON. follow the url if you want to see how the JSON looks
@@ -69,6 +76,7 @@ function mobileGetLatLng(start, end, time, predictDate) {
                         document.getElementById('routes').insertAdjacentHTML('beforeend','<div id = "possRoutes">');
                         var parseMe = returnData['Res']['Connections']["Connection"];
                         for (var i = 0; i < parseMe.length; i++) {
+                            getPrediction(i,url,start,end,predictDate,time);
                             var myHTML = "";
                             var parsed = parseMe[i]["Sections"]["Sec"];
                             var connections = 0;
@@ -82,11 +90,12 @@ function mobileGetLatLng(start, end, time, predictDate) {
                                         myHTML += "<hr>";
                                         start = start.replace("'", "");
                                         end = end.replace("'", "");
-                                        myHTML += '<div  style="cursor: pointer;" class = "row" id ="'+ i + '" onclick = "getPredictionMobile(' + i + ', \'' + url + '\', \'' + start + '\', \'' + end +  '\',\'' + time + '\', \'' + predictDate + '\')">'+
+                                        myHTML += '<div  style="cursor: pointer;" class = "row" id ="' + i + '" onclick = "getRoute(' + i + ', \'' + url + '\', \'' + start + '\', \'' + end + '\')">' +
                                             '<div style = "text-align: center" class = "col-2">'+name+'</div>' +
                                             '<div style = "text-align: center"  class = "col-3">'+direction+'</div>' +
-                                            '<div style = "text-align: center"  class = "col-3"> 10 minutes </div>';
+                                            '<div id = "time'+i+'" style = "text-align: center"  class = "col-3">Processing...</div>';
                                         document.getElementById('possRoutes').insertAdjacentHTML('beforeend', myHTML);
+                                        await sleep(500);
 
                                     }
                                 }
@@ -152,4 +161,7 @@ function placeMarker(flag, place) {
                 myPath.setMap(map);
         }
     })
+}
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

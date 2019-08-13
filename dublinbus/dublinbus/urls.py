@@ -32,7 +32,7 @@ urlpatterns = [
     path('users/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     # path('map/', include('map.urls')),
-    path('map/', map_view.as_view(), name='map'),
+    path('', map_view.as_view(), name='map'),
     path('favourites/', favourites_view.as_view(), name='favourites'),
     # path('favourites/', include('favourites.urls')),
     path('more/', include('more.urls')),
