@@ -8,11 +8,28 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script src="https://kit.fontawesome.com/a7c1f97ec0.js"></script>
         <style>
-            /* Set the size of the div element that contains the map */
-            #map {
-                height: 75vh;
-                width: 30px;
-            }
+
+            {#https://smallenvelop.com/display-loading-icon-page-loads-completely/#}
+        .no-js #loader {
+            display: none;
+        }
+
+        .js #loader {
+            display: block;
+            position: absolute;
+            left: 100px;
+            top: 0;
+        }
+
+        .se-pre-con {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url(../static/img/animated-bus.gif) center no-repeat #2775BA;
+        }
 
             @import url('https://fonts.googleapis.com/css?family=Fira+Sans&display=swap');
         </style>
@@ -20,6 +37,7 @@
     </head>
 
     <body>
+    <div class="se-pre-con"></div>
 
     <div class="container-fluid">
 
@@ -28,16 +46,11 @@
                 <img src="{% static 'smalllogo.png' %}" class="smalllogo">
             </div>
             <div class="col-6">
-                <p>Routes</p>
+                <p style="margin-top: 5%">Dublin Bus</p>
             </div>
             <div class="col-3">
             </div>
 
-        </div>
-        <div class="row">
-            <div class="col-12">
-                {% include 'search.html' %}
-            </div>
         </div>
 
 
@@ -49,6 +62,26 @@
                             <button type="submit">Submit</button>
                         </form> -->
 
+            </div>
+        </div>
+        <datalist id="routes">
+        </datalist>
+        <div style='text-align: center;margin-top: 5%'>
+            <div class="autocomplete">
+                <input list="routes" id="busSearch" style="width: 250px; height: 40px" type="text" name="routeSearch"
+                       placeholder="Search for route..">
+            </div>
+            <br>
+            <button class="btn btn-primary" style="width: 250px" type="submit"
+                    onclick='showRoute(document.getElementById("busSearch").value)'>Search
+            </button>
+        </div>
+        <h1 style="text-align: center">A list of all bus routes!</h1>
+        <br>
+        <div id="bigList" class="col-md-6 offset-md-3" style="max-height:750px; overflow: scroll;text-align: center">
+            <div id="header" class="row">
+                <div style="text-align: center" id="route" class="col-12">
+                </div>
             </div>
         </div>
 
@@ -67,18 +100,48 @@
 
         </div>
     </div>
+    <script>
+        var routesList = {{ routesList | safe }};
+        var routeHTML = "";
+        var stopHTML = "";
+        for (var i = 0; i < routesList.length; i++) {
+            stopHTML += '<option value="' + routesList[i].Route + '">';
+            routeHTML +=
+                '<div id = "' + routesList[i].Route + '" style = "cursor: pointer; text-align: center" class = "holder col-12">' +
+                routesList[i].Route + ' going from ' + routesList[i].Stops +
+                '</div>' +
+                '<hr>';
+        }
+        document.getElementById('route').innerHTML = routeHTML;
+        document.getElementById('routes').innerHTML = stopHTML;
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
 
+    <script>
+        //paste this code under the head tag or in a separate js file.
+        // Wait for window load
+        $(window).load(function () {
+            // Animate loader off screen
+            $(".se-pre-con").fadeOut("slow");
+            ;
+        });
+    </script>
 
+    <script>
+        function showRoute(route) {
+            var html = document.getElementById(route).innerHTML;
+            var finalHtml = "<div style = 'cursor: pointer' class = 'holder' onclick = 'mapRoute(\"" + route + "\")'>" + html + "</div>";
+            document.getElementById('route').innerHTML = finalHtml;
+        }
+
+        function mapRoute() {
+
+        }
+    </script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-hR-mSsuP9TGDFilrtWVmxNR_t1i-qYo&callback=initMap">
     </script>
-<<<<<<< Updated upstream
-        <script src="{% static 'js/initmap.js' %}"></script>
-        <script src="{% static 'js/addmarker.js' %}"></script>
-=======
-    <script src="{% static 'initmap.js' %}"></script>
-    <script src="{% static 'addmarker.js' %}"></script>
->>>>>>> Stashed changes
 
 
     </body>

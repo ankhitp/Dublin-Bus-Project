@@ -17,7 +17,14 @@ def routes(request):
     routeData = json.load(json_data)
     json_data = open('static/files/routesList.json')
     routesList = json.load(json_data)
-    return render(request, 'routes.html', {'load': routeData, 'routesList': routesList})
+    user_agent = get_user_agent(request)
+    if user_agent.is_mobile:
+        return render(request, 'mobile/m_routes.html', {'load': routeData, 'routesList': routesList})
+    elif user_agent.is_tablet:
+     return render(request, 'mobile/m_routes.html', {'load': routeData, 'routesList': routesList})
+    else:
+        return render(request, 'routes.html', {'load': routeData, 'routesList': routesList})
+
 
 
 

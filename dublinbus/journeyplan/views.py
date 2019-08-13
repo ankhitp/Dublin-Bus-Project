@@ -18,6 +18,8 @@ import numpy
 import csv
 from csv import DictReader
 
+import pandas as pd
+
 
 def journeyplan(request):
     # return HttpResponse(render({}, request))
@@ -37,7 +39,6 @@ def journeyplan(request):
 
 @csrf_exempt
 def bus_prediction(request):
-
     url = 'http://api.openweathermap.org/data/2.5/weather?appid=a8e1877ec087d7a2904f50a41ed61bfa&q=Dublin&units=metric'
     weather_detalis = requests.get(url)
     weatherdata = json.loads(weather_detalis.text)
@@ -54,6 +55,12 @@ def bus_prediction(request):
     route = str(route)
     print("route is", route)
 
+
+    getroute = request.POST.get("route")
+    route = str(getroute)
+    print("route is", getroute)
+    
+    route = request.POST.get("route")
     dayOfWeek = request.POST.get("dayOfWeek")
     print("day of week is", dayOfWeek)
 
@@ -62,6 +69,8 @@ def bus_prediction(request):
 
     monThurRush = request.POST.get("monThursRush")
     print("monThurRush", monThurRush)
+    monThursRush = request.POST.get("monThursRush")
+    print("monThursRush", monThursRush)
 
     friday = request.POST.get("friday")
     print("friday", friday)
@@ -111,6 +120,7 @@ def bus_prediction(request):
         full_modelreturn = pickle.load(handle)
 
     returndict={}
+
     for key in sectionlist:
         if key in full_modelreturn:
             returndict[key] = full_modelreturn[key]
@@ -118,7 +128,8 @@ def bus_prediction(request):
             continue
 
     # # put together input dictionary
-    testinput = {'direction': direction, 'dayOfWeek': dayOfWeek, 'rushHour': rushHour, 'monToThurRushHour': monThurRush, 'friday': friday, 'windSpeed': windSpeed, 'temp': temp}
+
+    testinput = {'direction': direction, 'dayOfWeek': 6, 'rushHour': rushHour, 'monToThurRushHour': monThursRush, 'friday': friday, 'windSpeed': windSpeed, 'temp': temp}
     print("testinput", testinput)
     datainput = pd.DataFrame([testinput])
 
@@ -138,3 +149,9 @@ def bus_prediction(request):
     myValToReturn = totaljourney/60
 
     return HttpResponse(myValToReturn)
+
+    
+    print("last")
+
+    return JsonResponse(totaljourney[0], safe=False)
+
