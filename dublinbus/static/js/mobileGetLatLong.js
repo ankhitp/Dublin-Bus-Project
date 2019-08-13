@@ -6,7 +6,7 @@
  * and also indicates how many connections each route has.
  */
 function mobileGetLatLng(start, end, time, predictDate) {
-    console.log(predictDate);
+    var errorFlag = false;
     deleteMarkers();
     myPath.setMap(null);
     document.getElementById('map').style.display = 'none';
@@ -26,6 +26,13 @@ function mobileGetLatLng(start, end, time, predictDate) {
             var loc = results[0].geometry.location;
             startLat = loc.lat();
             startLong = loc.lng();
+        }else {
+            document.getElementById('routes').innerHTML=
+                "<h3>Sorry, no results were found. Perhaps you searched a start or end location that doesn't make sense. Or maybe it's the routing service/computer's fault!</h3>" +
+                "Whatever it is, we'll make sure it doesn't happen again." +
+                "<hr><div style = 'text-align: center'> <button class=" +
+                "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();mobileResetMap();'>Search Again</button></div><br>";
+            errorFlag = true;
         }
         geocoder2.geocode({'address': end}, function (results, status) {
             if (status == 'OK') {
@@ -39,8 +46,8 @@ function mobileGetLatLng(start, end, time, predictDate) {
                 var date = new Date();
                 date = date.toISOString();
                 var datearr = predictDate.split('/');
-                var newDate = datearr[2]+"-"+datearr[0]+"-"+datearr[1];
-                var newTime = newDate + "T"+ time + ":00+01:00";
+                var newDate = datearr[2] + "-" + datearr[0] + "-" + datearr[1];
+                var newTime = newDate + "T" + time + ":00+01:00";
                 var finalNewTime = new Date(newTime);
                 console.log(newTime);
                 finalNewTime = finalNewTime.toISOString();
@@ -54,65 +61,83 @@ function mobileGetLatLng(start, end, time, predictDate) {
 
                 xhttp.onreadystatechange = async function () {
                     if (this.readyState === 4 && this.status === 200) {
-                        console.log(url);
-                        //parsing this awful JSON. follow the url if you want to see how the JSON looks
-                        var returnData = JSON.parse(this.responseText);
+                        if (this.responseText != "") {
+                            console.log(url);
+                            //parsing this awful JSON. follow the url if you want to see how the JSON looks
+                            var returnData = JSON.parse(this.responseText);
 
-                        document.getElementById('routes').innerHTML = "<h5 style='text-align: center; padding-bottom: 5%;'>Possible Routes</h5>" +
-                            "<hr><div style = 'text-align: center'> <button class=" +
-                            "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();mobileResetMap();'>Search Again</button></div><br>";
-                        document.getElementById('routes').insertAdjacentHTML('beforeend',
-                            '<div id = "header" class="row">' +
-                            '<div style = "text-align: center" id = "route" class="col-2">' +
-                            '<b>Route</b>' +
-                            '</div>' +
-                            '<div style = "text-align: center" id = "direction" class="col-3">' +
-                            '<b>Towards</b>' +
-                            '</div>' +
-                            '<div style = "text-align: center" id = "time" class="col-3">' +
-                            '<b>Est. Journey Time</b>' +
-                            '</div>' +
-                            '<div style = "text-align: center" id = "connections" class="col-4">' +
-                            '<b>Connections</b>' +
-                            '</div></div>'
-                        );
-                        document.getElementById('routes').insertAdjacentHTML('beforeend', '<div id = "possRoutes">');
-                        var parseMe = returnData['Res']['Connections']["Connection"];
-                        for (var i = 0; i < parseMe.length; i++) {
-                            getPrediction(i, url, start, end, predictDate, time);
-                            var myHTML = "";
-                            var parsed = parseMe[i]["Sections"]["Sec"];
-                            var connections = 0;
-                            for (var x = 0; x < parsed.length; x++) {
-                                //mode == 5 means that it's a bus traveled method
-                                if (parsed[x]['mode'] == 5) {
-                                    connections++;
-                                    if (connections == 1) {
-                                        var name = parsed[x]['Dep']['Transport']['name'];
-                                        var direction = parsed[x]['Dep']['Transport']['dir'];
-                                        myHTML += "<hr>";
-                                        start = start.replace("'", "");
-                                        end = end.replace("'", "");
-                                        myHTML += '<div  style="cursor: pointer;" class = "row" id ="' + i + '" onclick = "getRoute(' + i + ', \'' + url + '\', \'' + start + '\', \'' + end + '\')">' +
-                                            '<div style = "text-align: center" class = "col-2">' + name + '</div>' +
-                                            '<div style = "text-align: center"  class = "col-3">' + direction + '</div>' +
-                                            '<div id = "time' + i + '" style = "text-align: center"  class = "col-3">Processing...</div>';
-                                        document.getElementById('possRoutes').insertAdjacentHTML('beforeend', myHTML);
-                                        await sleep(500);
+                            document.getElementById('routes').innerHTML = "<h5 style='text-align: center; padding-bottom: 5%;'>Possible Routes</h5>" +
+                                "<hr><div style = 'text-align: center'> <button class=" +
+                                "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();mobileResetMap();'>Search Again</button></div><br>";
+                            document.getElementById('routes').insertAdjacentHTML('beforeend',
+                                '<div id = "header" class="row">' +
+                                '<div style = "text-align: center" id = "route" class="col-2">' +
+                                '<b>Route</b>' +
+                                '</div>' +
+                                '<div style = "text-align: center" id = "direction" class="col-3">' +
+                                '<b>Towards</b>' +
+                                '</div>' +
+                                '<div style = "text-align: center" id = "time" class="col-3">' +
+                                '<b>Est. Journey Time</b>' +
+                                '</div>' +
+                                '<div style = "text-align: center" id = "connections" class="col-4">' +
+                                '<b>Connections</b>' +
+                                '</div></div>'
+                            );
+                            document.getElementById('routes').insertAdjacentHTML('beforeend', '<div id = "possRoutes">');
+                            var parseMe = returnData['Res']['Connections']["Connection"];
+                            for (var i = 0; i < parseMe.length; i++) {
+                                getPrediction(i, url, start, end, predictDate, time);
+                                var myHTML = "";
+                                var parsed = parseMe[i]["Sections"]["Sec"];
+                                var connections = 0;
+                                for (var x = 0; x < parsed.length; x++) {
+                                    //mode == 5 means that it's a bus traveled method
+                                    if (parsed[x]['mode'] == 5) {
+                                        connections++;
+                                        if (connections == 1) {
+                                            var name = parsed[x]['Dep']['Transport']['name'];
+                                            var direction = parsed[x]['Dep']['Transport']['dir'];
+                                            myHTML += "<hr>";
+                                            start = start.replace("'", "");
+                                            end = end.replace("'", "");
+                                            myHTML += '<div  style="cursor: pointer;" class = "row" id ="' + i + '" onclick = "getRoute(' + i + ', \'' + url + '\', \'' + start + '\', \'' + end + '\')">' +
+                                                '<div style = "text-align: center" class = "col-2">' + name + '</div>' +
+                                                '<div style = "text-align: center"  class = "col-3">' + direction + '</div>' +
+                                                '<div id = "time' + i + '" style = "text-align: center"  class = "col-3">Processing...</div>';
+                                            document.getElementById('possRoutes').insertAdjacentHTML('beforeend', myHTML);
+                                            await sleep(500);
 
+                                        }
                                     }
                                 }
+                                //calculate time
+                                //let the user know how many connections required per route.
+                                if (connections == 1) {
+                                    document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div class = "col-4"> No connections </div>');
+                                } else if (connections > 1) {
+                                    document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div class = "col-4">' + connections + ' Connections</div>');
+                                }
                             }
-                            //calculate time
-                            //let the user know how many connections required per route.
-                            if (connections == 1) {
-                                document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div class = "col-4"> No connections </div>');
-                            } else if (connections > 1) {
-                                document.getElementById(i.toString()).insertAdjacentHTML('beforeend', '<div class = "col-4">' + connections + ' Connections</div>');
+                        } else {
+                            if (errorFlag == false) {
+                                document.getElementById('routes').innerHTML=
+                                    "<h3>Sorry, no results were found. Perhaps you searched a start or end location that doesn't make sense. Or maybe it's the routing service/computer's fault!</h3>" +
+                                    "Whatever it is, we'll make sure it doesn't happen again." +
+                                    "<hr><div style = 'text-align: center'> <button class=" +
+                                    "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();mobileResetMap();'>Search Again</button></div><br>";
                             }
                         }
-                        //option to reset the searches
                     }
+                }
+            }
+            else {
+                if (errorFlag == false) {
+                    document.getElementById('routes').innerHTML=
+                        "<h3>Sorry, no results were found. Perhaps you searched a start or end location that doesn't make sense. Or maybe it's the routing service/computer's fault!</h3>" +
+                        "Whatever it is, we'll make sure it doesn't happen again." +
+                        "<hr><div style = 'text-align: center'> <button class=" +
+                        "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();mobileResetMap();'>Search Again</button></div><br>";
                 }
             }
         });
