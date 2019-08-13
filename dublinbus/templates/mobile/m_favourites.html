@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
@@ -108,14 +107,7 @@
 
                 <div id="one-holder"></div>
 
-                <!-- <div id="one-holder">
-                <div class="flex-container">
-                      <div id="flex1div">1</div>
-                      <div id="flex2div">
-                         <button type="button" class="btn btn-primary" id="planJourney">Plan Journey</button>
-                      </div>
-                   </div>
-                   </div> -->
+
 
 
             </div>
@@ -142,7 +134,7 @@
                 startLoc = startLoc.replace("&#39;", "");
                 endLoc = endLoc.replace("&#39;", "");
                 myHtml +=
-                    "<div class=flex-container>" +
+                    "<div class=\"flex-container\" id='\" + startLoc + endLoc + \"'>" +
                     "   <div id=flex1div>" +
                     "       <b>From: </b>" + startLocShort + "<br>" +
                     "       <b> To: </b>" + endLocShort +
@@ -156,7 +148,7 @@
             document.getElementById("favourite-Add").style.display = "block";
             document.getElementById("favourite-Input").style.display = "none";
             document.getElementById("one-holder").style.display = "block";
-x        }
+        }
     }
 </script>
 {% else %}
@@ -170,7 +162,6 @@ x        }
 <script src="{% static '/js/createfavourite.js' %}"></script>
 
 <script src="{% static '/js/map.js' %}"></script>
-<script src="{% static '/js/choosefavourite.js' %}"></script>
 <script src="{% static 'js/favRoute.js' %}"></script>
 
 <script src="{% static '/js/toword.js' %}"></script>

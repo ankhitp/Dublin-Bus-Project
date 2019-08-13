@@ -1,4 +1,4 @@
-function getPrediction(routeChosen, url, start, end, date, time) {
+function getPrediction(flag = 0, routeChosen, url, start, end, date, time) {
     var startStations = [];
     var endStations = [];
     var route = [];
@@ -18,7 +18,6 @@ function getPrediction(routeChosen, url, start, end, date, time) {
         }
     }
     var dateObj = new Date(date).getDay();
-    console.log(dateObj);
     dateObj = dateObj - 1;
     if (dateObj == -1) {
         dateObj = 6;

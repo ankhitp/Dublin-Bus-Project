@@ -94,7 +94,7 @@ function getLatLng(start, end, time, predictDate) {
                                             myHTML += "<hr>";
                                             start = start.replace("'", "");
                                             end = end.replace("'", "");
-                                            myHTML += '<div  style="cursor: pointer;background: rgba(155, 216, 255, 0.5);" class = "row" id ="' + i + '" onclick = "getRoute(' + i + ', \'' + url + '\', \'' + start + '\', \'' + end + '\')">' +
+                                            myHTML += '<div  style="cursor: pointer;" class = "row" id ="' + i + '" onclick = "getRoute(' + i + ', \'' + url + '\', \'' + start + '\', \'' + end + '\')">' +
                                                 '<div style = "text-align: center" class = "col-2">' + name + '</div>' +
                                                 '<div style= "text-align: center"  class = "col-3">' + direction + '</div>' +
                                                 '<div id = "time' + i + '" style = "text-align: center"  class = "col-3">Processing...</div>';

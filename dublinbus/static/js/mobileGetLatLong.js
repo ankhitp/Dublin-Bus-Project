@@ -8,7 +8,8 @@
 function mobileGetLatLng(start, end, time, predictDate) {
     var errorFlag = false;
     deleteMarkers();
-    myPath.setMap(null);
+    document.getElementById('routes').innerHTML = "";
+    document.getElementById('routes').style.display = 'block';
     document.getElementById('map').style.display = 'none';
     document.getElementById('options').innerHTML="";
     start = start.replace("&#39;", "");
@@ -66,9 +67,10 @@ function mobileGetLatLng(start, end, time, predictDate) {
                             //parsing this awful JSON. follow the url if you want to see how the JSON looks
                             var returnData = JSON.parse(this.responseText);
 
-                            document.getElementById('routes').innerHTML = "<h5 style='text-align: center; padding-bottom: 5%;'>Possible Routes</h5>" +
+                            document.getElementById('routes').innerHTML =
                                 "<hr><div style = 'text-align: center'> <button class=" +
-                                "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();mobileResetMap();'>Search Again</button></div><br>";
+                                "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();mobileResetMap();'>Search Again</button></div><br>" +
+                                "<h5 style='text-align: center; padding-bottom: 5%;'>Possible Routes</h5>";
                             document.getElementById('routes').insertAdjacentHTML('beforeend',
                                 '<div id = "header" class="row">' +
                                 '<div style = "text-align: center" id = "route" class="col-2">' +
@@ -87,7 +89,7 @@ function mobileGetLatLng(start, end, time, predictDate) {
                             document.getElementById('routes').insertAdjacentHTML('beforeend', '<div id = "possRoutes">');
                             var parseMe = returnData['Res']['Connections']["Connection"];
                             for (var i = 0; i < parseMe.length; i++) {
-                                getPrediction(i, url, start, end, predictDate, time);
+                                getPrediction(0, i, url, start, end, predictDate, time);
                                 var myHTML = "";
                                 var parsed = parseMe[i]["Sections"]["Sec"];
                                 var connections = 0;
@@ -101,7 +103,7 @@ function mobileGetLatLng(start, end, time, predictDate) {
                                             myHTML += "<hr>";
                                             start = start.replace("'", "");
                                             end = end.replace("'", "");
-                                            myHTML += '<div  style="cursor: pointer;" class = "row" id ="' + i + '" onclick = "getRoute(' + i + ', \'' + url + '\', \'' + start + '\', \'' + end + '\')">' +
+                                            myHTML += '<div  style="cursor: pointer;" class = "row" id ="' + i + '" onclick = "getRoute(' + i + ', \'' + url + '\', \'' + start + '\', \'' + end + '\', \'' + predictDate + '\', \'' + time + '\')">' +
                                                 '<div style = "text-align: center" class = "col-2">' + name + '</div>' +
                                                 '<div style = "text-align: center"  class = "col-3">' + direction + '</div>' +
                                                 '<div id = "time' + i + '" style = "text-align: center"  class = "col-3">Processing...</div>';
@@ -144,6 +146,12 @@ function mobileGetLatLng(start, end, time, predictDate) {
     })
 
 }
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
 var latlongLocs = [];
 function placeMarker(flag, place) {
     if (latlongLocs.length == 2) {
@@ -188,6 +196,4 @@ function placeMarker(flag, place) {
         }
     })
 }
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+ */

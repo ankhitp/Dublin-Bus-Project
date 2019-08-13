@@ -1,33 +1,39 @@
 // Initialize and add the map
 function initMap() {
+    var pos;
+    directionsService = new google.maps.DirectionsService();
+    directionsDisplay = new google.maps.DirectionsRenderer();
+
+    // The location of Dublin
     var dublin = {lat: 53.33306, lng: -6.24889};
-    var map = new google.maps.Map(document.getElementById('map'), {zoom: 16, center: dublin});
-    // The marker, positioned at Uluru
-    //var marker = new google.maps.Marker({position: dublin, map: map});
-    var infowindow = new google.maps.InfoWindow({});
+    // The map, centered at Uluru
     var im = {
         url: '../static/img/userLoc.png', // url
         scaledSize: new google.maps.Size(64, 64), // scaled size
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(0, 0) // anchor
     };
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 14,
+        center: dublin,
+        mapTypeControl: false,
+    });
+    directionsDisplay.setMap(map);
+    //uses the Google geolocation service
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            var userMarker = new google.maps.Marker({
+            var marker = new google.maps.Marker({
                 position: pos,
                 map: map,
                 icon: im
             });
             map.setCenter(pos);
-            google.maps.event.addListener(userMarker, 'click', function () {
-                infowindow.setContent('This is where you are!');
-                infowindow.open(map, userMarker);
-            });
         });
     }
-    addTourismMarkers(map, tourism);
-    addMarker(map, data);
+    addMarker(map, stopData);
+    autocompSearchBar();
+    setAutocomplete();
 
 };
 
@@ -56,46 +62,6 @@ var getJSON = function (url, callback) {
     xhr.send();
 };
 
-
-function addTourismMarkers(map, data) {
-    //get the stop data from JSON file
-    var infowindow = new google.maps.InfoWindow({});
-    //*
-    //*
-    for (var i = 0, length = data.length; i < length; i++) {
-        // var routedata = routedata[i]
-        var busdata = data[i];
-        // {#Console.log(busdata);#}
-        var myLatLng = {lat: parseFloat(busdata.lat), lng: parseFloat(busdata.lon)};
-
-
-        // console.log(route_data[busdata.actual_stop_id]);
-        var icon = {
-            url: '../static/img/tourismMarker.png', // url
-            scaledSize: new google.maps.Size(60, 60), // scaled size
-            origin: new google.maps.Point(0, 0), // origin
-            anchor: new google.maps.Point(0, 0) // anchor
-        };
-
-        // Creating  markers and putting it on the map
-        var marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            icon: icon,
-            title: busdata.actual_stop_id + "\n" + busdata.name,
-            // content is the stop info
-            content: 'Visit here to earn some tourism points! This is ' + '<b>' + busdata.name + '</b>'+ ', a well known tourist spot' +
-                ' here in Dublin. To learn more about it, visit <a href="https://www.wikipedia.com/wiki/'+busdata.name+'" style="color: palevioletred; font-weight: bolder;">this link!</a>'
-
-        });
-        google.maps.event.addListener(marker, 'click', function () {
-            infowindow.setContent('<div class="infowin">' + this.content + '</div>');
-            infowindow.open(map, this);
-
-        });
-        marker.setMap(map);
-    }
-}
 
 function addMarker(map, data) {
     //get the stop data from JSON file
@@ -133,7 +99,7 @@ function addMarker(map, data) {
 
                 '<h style="margin-left: 15%; font-family:Tangerine;  font-size:12px;"><b>Serving route:</b><br>' + '<ul id="myList">' + serviceRoute + '</ul>' + '</p></div>' +
 
-                '<button id="realtime" onclick="get_real_time_data(' + busdata.actual_stop_id + ')">' +
+                '<button class = "btn btn-primary" id="realtime" onclick="get_real_time_data(' + busdata.actual_stop_id + ')">' +
                 '<p id="realtime_p" style="font-family:Tangerine; font-size:12px;">Real Time Info</p>' +
                 '</button>' +
                 '</div>'
@@ -146,6 +112,7 @@ function addMarker(map, data) {
 
         });
         marker.setMap(map);
+        markers.push(marker);
     }
 
 
@@ -176,7 +143,7 @@ function get_real_time_data(id) {
                     minute = "mins";
                 }
 
-            // show realtime content
+                // show realtime content
                 content += `<table style=" width: 100%; margin: auto; text-align: center; border: 1px solid black; border-collapse: collapse">
                     <tr><td style=" border: 1px solid #ddd; width: 20%;font-family:Tangerine; font-size:12px;">${datainfo.results[i].route}</td>
                     <td style=" border: 1px solid #ddd; width: 50%;font-family:Tangerine; font-size:12px;">${datainfo.results[i].destination}</td>
@@ -211,4 +178,23 @@ function add_service_route(route_data) {
         elem += '<li>' + route_data[i][0] + '-' + route_data[i][1] + '</li>';
     }
     return elem;
+}
+
+function closestLocation(targetLocation, locationData) {
+    function vectorDistance(dx, dy) {
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    function locationDistance(location1, location2) {
+        var dx = location1.latitude - location2.latitude,
+            dy = location1.longitude - location2.longitude;
+
+        return vectorDistance(dx, dy);
+    }
+
+    return locationData.reduce(function (prev, curr) {
+        var prevDistance = locationDistance(targetLocation, prev),
+            currDistance = locationDistance(targetLocation, curr);
+        return (prevDistance < currDistance) ? prev : curr;
+    });
 }

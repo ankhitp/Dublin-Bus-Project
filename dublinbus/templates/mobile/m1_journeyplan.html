@@ -37,25 +37,12 @@
     <div id="map" style="width:100%;display: block"></div>
 
 </div>
-<div class="col-12 col;">
-    <div id="routes" style="width:100%;display: none; background-color: #86cfda">
+<div class="col-12 col;" style = "max-height: 60%; overflow: scroll">
+    <div id="routes" style="width:100%;display: none">
     </div>
 </div>
-<div class="lowerholder" id="lowerholder">
-    <div id="options">
-        <!-- <p> here is mypanel</p> -->
-    </div>
-
-    <div class="panel panel-default collapse" id="collapseTwo">
-        <div class="panel-heading">
-            <h4 class="panel-title" id="panel-title">
-                <!-- <p> here</p>
-                   <br>
-                   <a data-toggle="collapse" data-parent="#accordion1" href="#collapseThree">Collapsible Group Item #3
-                   </a> -->
-            </h4>
-        </div>
-    </div>
+<div class ="col-12 col" style = "max-height: 35%; overflow: scroll">
+    <div id="options" style="width:100%;display: none;"></div>
 </div>
 
 <div class="row">
@@ -103,6 +90,7 @@
     var busPath;
     var depTime;
     var stopData = {{ load | safe }};
+    var route_data = {{ routedata | safe }};
     var arrTime;
     var LocationWindow;
     var polylines = [];
@@ -150,7 +138,7 @@
 <script src="{% static 'js/mapResizeResetFunctions.js' %}"></script>
 <script src="{% static 'js/realTimeDate.js' %}"></script>
 <script src="{% static 'js/routingFunctions.js' %}"></script>
-<script src="{% static 'js/map.js' %}"></script>
+<script src="{% static 'js/mobile_map.js' %}"></script>
 <link href="{% static 'css/m_journeyplan1.css' %}" rel="stylesheet">
 
 
