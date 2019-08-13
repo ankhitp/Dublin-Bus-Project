@@ -58,9 +58,9 @@ function mobileGetLatLng(start, end, time, predictDate) {
                         //parsing this awful JSON. follow the url if you want to see how the JSON looks
                         var returnData = JSON.parse(this.responseText);
 
-                        document.getElementById('routes').innerHTML = "<h5 style='text-align: center; padding-bottom: 5%;'>Possible Routes</h5>";
-                        document.getElementById('routes').insertAdjacentHTML('beforebegin', "<hr><div style = 'text-align: center'> <button class=" +
-                            "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();mobileResetMap();'>Search Again</button></div><br>");
+                        document.getElementById('routes').innerHTML = "<h5 style='text-align: center; padding-bottom: 5%;'>Possible Routes</h5>" +
+                            "<hr><div style = 'text-align: center'> <button class=" +
+                            "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();mobileResetMap();'>Search Again</button></div><br>";
                         document.getElementById('routes').insertAdjacentHTML('beforeend',
                             '<div id = "header" class="row">' +
                             '<div style = "text-align: center" id = "route" class="col-2">' +

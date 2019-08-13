@@ -35,8 +35,8 @@ function mobileResizeMap() {
     var end = document.getElementById('destination-input').value;
     var date = document.getElementById('dateField').value;
     var time = document.getElementById('timepicker1').value;
-    if (start == "" || end == "") {
-        document.getElementById("header").innerHTML = "<h4 style = 'text-align: center'>Please enter a start and end location!</h4>" +
+    if (start == "" || end == "" || time == "" || date == "") {
+        document.getElementById("header").innerHTML = "<h4 style = 'text-align: center'>Please ensure all fields are filled out!</h4>" +
             "<div style = 'text-align: center'>" +
             "<br> <br> <button class='btn btn-primary' id = 'directionsButton'  type='submit' onclick = 'createHeader(); setAutocomplete()'>Try Again</button> " +
             "</div>";
@@ -93,6 +93,9 @@ function mobileResetMap() {
     document.getElementById('map').style.display = 'block';
     createHeader();
     setAutocomplete();
+    if (document.getElementById('againButt')) {
+        document.getElementById('againButt').remove();
+    }
 }
 
 //sets the map back to original position, resets the side bar to the 'search dublin' option
