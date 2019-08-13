@@ -150,10 +150,6 @@
             }
         </style>
 
-
-    <script src="{% static 'js/findLocation.js' %}"></script>
-    <title>"Journey Planner</title>
-
     </head>
 
     <body>
@@ -169,7 +165,7 @@
 
         <div id='options' style="overflow: scroll; width:300px">
             <div id='journeyPlan' style='display:none'>
-                <h5 id="testingid" style="text-align: center; padding-top: 15%">Start your journey here!</h5>
+                <h5 style="text-align: center; padding-top: 15%">Start your journey here!</h5>
                 <br>
                 <div style="text-align: center">
 
@@ -191,7 +187,8 @@
                 </div>
                 <br>
                 <div style="text-align: center">
-                    <button class='btn btn-primary' id="locationButton" onclick="findLocation()" style='width: 200px;' type="submit">Find Stations Near Me!
+                    <button class='btn btn-primary' id="locationButton" onclick="findLocation()" style='width: 200px;'
+                            type="submit">Find Stations Near Me!
                     </button>
                 </div>
                 <br>
@@ -332,7 +329,6 @@
     <script src="{% static 'js/realTimeDate.js' %}"></script>
     <script src="{% static 'js/routingFunctions.js' %}"></script>
     <script src="{% static 'js/map.js' %}"></script>
-    <script src="{% static 'js/test.js' %}"></script>
     <script src="{% static 'js/getRoute.js' %}"></script>
     <script src="{% static 'js/getLatLong.js' %}"></script>
     <script src="{% static 'js/findLocation.js' %}"></script>
@@ -342,23 +338,8 @@
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvFaUDR5Wnl172znC5agS97gPJmyXHwOs&libraries=places&callback=initMap">
     </script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-    <script>
-        //paste this code under the head tag or in a separate js file.
-        // Wait for window load
-        $(window).load(function () {
-            // Animate loader off screen
-            $(".se-pre-con").fadeOut("slow");
-            ;
-        });
-    </script>
-    <script>
- 
-    </script>
-
-
     </body>
 
 
 {% endblock %}
+

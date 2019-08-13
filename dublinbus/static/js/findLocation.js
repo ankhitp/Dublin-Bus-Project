@@ -30,14 +30,8 @@ function findLocation() {
                 map: map,
             });*/
             //load the stops info from the JSON file
-<<<<<<< HEAD
             $.getJSON( "../static/files/stops_info.json", function( data ) {
-=======
             // loadStops();
-
-
-            $.getJSON( "/static/files/stops_info.json", function( data ) {
->>>>>>> claredev
                 for (var i = 0; i < data.length; i++) {
                     //get the position of each stop in the file
                     var destPos = new google.maps.LatLng(data[i].latitude, data[i].longitude);
