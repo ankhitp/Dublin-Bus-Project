@@ -5,23 +5,12 @@
  * two latitude and longitude points. The function then tells the user which bus lines are possible between two points
  * and also indicates how many connections each route has.
  */
-function setupLatLng(start, end) {
-    document.getElementById('options').style.height = "26vh";
-    document.getElementById('options').innerHTML = "<h3>Possible Routes</h3>";
 
-    start = start.replace("'", "\\'");
-    //set the HTML for the routes list
-    //start and end points
-    var dublin = {
-        lat: 53.33306,
-        lng: -6.24889
-    };
-    map.panTo(dublin);
-    getLatLng(start, end)
-}
+
 
 function getLatLng(start, end) {
-    //Two geocoders, one for the start and one for end
+    var returnData = [];
+    functionfive=0;
     var geocoder = new google.maps.Geocoder();
     var geocoder2 = new google.maps.Geocoder();
     var url = "";
@@ -30,7 +19,6 @@ function getLatLng(start, end) {
     }, function(results, status) {
         if (status == 'OK') {
             var loc = results[0].geometry.location;
-            console.log("loc",loc);
             startLat = loc.lat();
             startLong = loc.lng();
         }
@@ -43,19 +31,42 @@ function getLatLng(start, end) {
                 var loc = results[0].geometry.location;
                 destLat = loc.lat();
                 destLong = loc.lng();
-                //new xhttp request to get the data from the HERE api
+                   //new xhttp request to get the data from the HERE api
                 xhttp = new XMLHttpRequest();
                 var date = new Date();
                 date = date.toISOString();
-                url = "http://transit.api.here.com/v3/route.json?app_id=tL7r9QKJ3KlE5Kc9LGYo&app_code=1arMc" +
+                var url = "https://transit.api.here.com/v3/route.json?app_id=tL7r9QKJ3KlE5Kc9LGYo&app_code=1arMc" +
                     "SHt_o31xFSeBRswsA&modes=bus&routing=all&dep=" + startLat + "," + startLong + "&arr=" + destLat +
                     "," + destLong + "&time=" + date;
-                sendRequest(url, start, end);
+                xhttp.open("GET", url, true);
+                xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+                //xhttp.setRequestHeader('X-CSRF-Token', 'abcdef');
+                xhttp.send();
+                console.log("here i am");
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        //parsing this awful JSON. follow the url if you want to see how the JSON looks
+                        var returnData = JSON.parse(this.responseText);
+                        console.log(returnData)
+                        printResults(returnData, url, start, end)
+                        // if (returnData.hasOwnProperty('Res')){
+                        //     functionreturn = returnData.Res;
+                        //     console.log("Has res proprety:", returnData)
+                        //     var a = printResults(returnData, url, start, end)
+                        //     console.log("a",a)
 
+                        //         }
+                        //     else {
+                        //         console.log("does not have res property")
+                        //     }
+                        
             }
-        })
+                }
 
+
+        }
+    }
+        )
     })
-    return geocoder2.geocode.address;
-}
-
+    return returnData;
+    }

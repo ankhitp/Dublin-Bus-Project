@@ -59,6 +59,7 @@ function getLatLng(start, end, time, predictDate) {
                 console.log(url);
                 xhttp.onreadystatechange = async function () {
                     if (this.readyState === 4 && this.status === 200) {
+<<<<<<< Updated upstream
                         if (this.responseText != "") {
                             //parsing this awful JSON. follow the url if you want to see how the JSON looks
                             var returnData = JSON.parse(this.responseText);
@@ -100,6 +101,49 @@ function getLatLng(start, end, time, predictDate) {
                                                 '<div id = "time' + i + '" style = "text-align: center"  class = "col-3">Processing...</div>';
                                             document.getElementById('possRoutes').insertAdjacentHTML('beforeend', myHTML);
                                             await sleep(500);
+=======
+                        console.log(url);
+                        //parsing this awful JSON. follow the url if you want to see how the JSON looks
+                        var returnData = JSON.parse(this.responseText);
+                        document.getElementById('options').insertAdjacentHTML('beforeend',
+                            '<div id = "header" class="row">' +
+                            '<div style = "text-align: center"  id = "route" class="col-2">' +
+                            '<b>Route</b>' +
+                            '</div>' +
+                            '<div style = "text-align: center"  id = "direction" class="col-3">' +
+                            '<b>Towards</b>' +
+                            '</div>' +
+                            '<div style = "text-align: center"  id = "time" class="col-3">' +
+                            '<b>Est. Journey Time</b>' +
+                            '</div>' +
+                            '<div style = "text-align: center"  id = "connection" class="col-4">' +
+                            '<b>Connections</b>' +
+                            '</div></div>'
+                        );
+                        document.getElementById('options').insertAdjacentHTML('beforeend', '<div id = "possRoutes">');
+                        var parseMe = returnData['Res']['Connections']["Connection"];
+                        for (var i = 0; i < parseMe.length; i++) {
+                            getPrediction(i,url,start,end,predictDate,time);
+                            var myHTML = "";
+                            var parsed = parseMe[i]["Sections"]["Sec"];
+                            var connections = 0;
+                            for (var x = 0; x < parsed.length; x++) {
+                                //mode == 5 means that it's a bus traveled method
+                                if (parsed[x]['mode'] == 5) {
+                                    connections++;
+                                    if (connections == 1) {
+                                        var name = parsed[x]['Dep']['Transport']['name'];
+                                        var direction = parsed[x]['Dep']['Transport']['dir'];
+                                        myHTML += "<hr>";
+                                        start = start.replace("'", "");
+                                        end = end.replace("'", "");
+                                        myHTML += '<div  style="cursor: pointer;background: rgba(240, 240, 240, 0.8);" class = "row" id ="' + i + '" onclick = "getRoute(' + i + ', \'' + url + '\', \'' + start + '\', \'' + end + '\')">' +
+                                            '<div style = "text-align: center" class = "col-2">' + name + '</div>' +
+                                            '<div style= "text-align: center"  class = "col-3">' + direction + '</div>' +
+                                            '<div id = "time'+i+'" style = "text-align: center"  class = "col-3">Processing...</div>';
+                                        document.getElementById('possRoutes').insertAdjacentHTML('beforeend', myHTML);
+                                        await sleep(500);
+>>>>>>> Stashed changes
 
                                         }
                                     }
