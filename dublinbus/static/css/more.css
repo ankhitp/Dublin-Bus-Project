@@ -59,7 +59,9 @@
 
         #feeddiv{
        overflow-x: hidden; 
-                overflow-x: auto; 
                 overflow-y: scroll; 
-                height:300px;
+                height:500px;
+        }
+        #feeddiv.h3{
+            color: red;
         }
