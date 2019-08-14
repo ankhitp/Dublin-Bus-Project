@@ -80,7 +80,6 @@ function getLatLng(start, end, time, predictDate) {
                             document.getElementById('options').insertAdjacentHTML('beforeend', '<div id = "possRoutes">');
                             var parseMe = returnData['Res']['Connections']["Connection"];
                             for (var i = 0; i < parseMe.length; i++) {
-                                getPrediction(i, url, start, end, predictDate, time);
                                 var myHTML = "";
                                 var parsed = parseMe[i]["Sections"]["Sec"];
                                 var connections = 0;
@@ -99,8 +98,8 @@ function getLatLng(start, end, time, predictDate) {
                                                 '<div style= "text-align: center"  class = "col-3">' + direction + '</div>' +
                                                 '<div id = "time' + i + '" style = "text-align: center"  class = "col-3">Processing...</div>';
                                             document.getElementById('possRoutes').insertAdjacentHTML('beforeend', myHTML);
+                                            getPrediction(i, url, start, end, predictDate, time);
                                             await sleep(500);
-
                                         }
                                     }
                                 }
