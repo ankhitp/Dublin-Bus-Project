@@ -85,6 +85,7 @@ function getPrediction(routeChosen, url, start, end, date, time) {
                     }
                 }
                 if (foundRoute == true) {
+                    console.log("Got ehre with bus route " + busRoute);
                     myXhttp = new XMLHttpRequest();
                     myXhttp.open("POST", 'bus_prediction', true);
                     console.log("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour=" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
