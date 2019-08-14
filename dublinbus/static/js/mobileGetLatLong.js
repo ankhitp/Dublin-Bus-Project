@@ -89,7 +89,7 @@ function mobileGetLatLng(start, end, time, predictDate) {
                             document.getElementById('routes').insertAdjacentHTML('beforeend', '<div id = "possRoutes">');
                             var parseMe = returnData['Res']['Connections']["Connection"];
                             for (var i = 0; i < parseMe.length; i++) {
-                                getPrediction(0, i, url, start, end, predictDate, time);
+                                getPrediction(i, url, start, end, predictDate, time);
                                 var myHTML = "";
                                 var parsed = parseMe[i]["Sections"]["Sec"];
                                 var connections = 0;
