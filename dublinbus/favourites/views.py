@@ -55,7 +55,7 @@ User = get_user_model()
 
     
 class favourites_view(TemplateView):
-    template_name = 'mobile/m_favourites.html.html'
+    template_name = 'mobile/m_favourites.html'
     # get method
     def get(self, request):
         print("request.Post: ", request.POST)
