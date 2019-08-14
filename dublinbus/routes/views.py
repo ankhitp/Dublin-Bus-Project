@@ -28,8 +28,8 @@ def routes(request):
 @csrf_exempt
 def getRoute(request):
     route = request.POST.get("route")
-    dirOne = open('static/busRoutes/'+route+'_direction1route.json')
-    dirTwo = open('static/busRoutes/'+route+'_direction2route.json')
+    dirOne = open('static/busroutes/'+route+'_direction1route.json')
+    dirTwo = open('static/busroutes/'+route+'_direction2route.json')
     dirOneData = json.load(dirOne)
     dirTwoData = json.load(dirTwo)
     data = json.dumps({
