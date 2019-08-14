@@ -67,10 +67,11 @@ function calendarTimeSet() {
         calendarBuilder();
         $(function () {
             $('#timepicker1').timepicker({
+                timeFormat: 'H:i',
                 dynamic: false,
                 dropdown: true,
                 scrollbar: true,
-                step: 15,
+                step: 30,
             })
         })
     });

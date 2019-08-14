@@ -200,20 +200,6 @@ function get_real_time_data(id) {
     }
 }
 
-function checkTourism() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            for (var i = 0, length = data.length; i < length; i++) {
-                if (distance(position.coords.latitude,position.coords.longitude, data[i].lat,data[i].lon ) < 0.1) {
-                    alert("You've got AIDS!");
-                }
-            }
-        })
-
-    }
-
-}
 
 function add_service_route(route_data) {
     if (route_data == null || route_data.length == 0) {

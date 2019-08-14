@@ -8,10 +8,23 @@
  /* @param end the end position for the user
  */
 function getRoute(i, url, start, end, predictDate, predictTime) {
+    var startEndTimes = [];
+    var origWalk;
+    var addTime=0;
+    var estTime = document.getElementById("time"+i).innerHTML;
+    estTime = estTime.replace ( /[^\d.]/g, '' );
+    estTime = parseInt(estTime, 10);
     document.getElementById('header').innerHTML = "";
     document.getElementById('routes').innerHTML = "";
+    document.getElementById('options').style.display = "block";
     document.getElementById('map').style.display = "block";
-    document.getElementById("options").style.height = "auto";
+    document.getElementById('options').innerHTML =
+        "<div id = 'return' style='text-align: center'><button class='btn btn-primary' " +
+        "type='submit' onclick = 'removeLine(); deleteMarkers();mobileMapReturnHide();" +
+        "mobileGetLatLng(\"" + start + "\",\"" + end + "\",\"" + predictTime + "\",\"" + predictDate + "\")'>Return to Results</button>" +
+        "</div>" +
+        "<br>" +
+        "<h3 style = 'text-align: center;'> Directions </h3>";
     map.setZoom(12);
     if (busPath !== undefined) {
         removeLine();
@@ -27,7 +40,6 @@ function getRoute(i, url, start, end, predictDate, predictTime) {
     var locations = [];
     var times = [];
     var km = 0;
-    document.getElementById("options").innerHTML = "<h3> Directions </h3>";
     //hit the HERE api for route
     xhttp = new XMLHttpRequest();
     xhttp.open("GET", url, true);
@@ -45,59 +57,48 @@ function getRoute(i, url, start, end, predictDate, predictTime) {
 
 
                 if (indivBusRouteJSON[x]["mode"] == 20 && x != indivBusRouteJSON.length - 1) {
+                    if (x == 0) {
+                        origWalk=new Date(indivBusRouteJSON[x]["Dep"]['time']);
+                        var endWalk = new Date(indivBusRouteJSON[x]["Arr"]['time']);
 
-
+                        var timeWalked = (endWalk-origWalk)/(1000*60);
+                        startEndTimes.push(timeWalked);
+                    }
                     document.getElementById('options').insertAdjacentHTML('beforeend',
-
-
-                        "<div class=\"row\">" +
-                        // "<div class=\"col-12\" id=\"myholder\">"+
-                        "<div id=\"accordion\"><div class=\"card\"><div class=\"card-header\" id=\"heading" + CSScounter + "-" + CSScounter + "\"><h5 class=\"mb-0\">" +
-                        "<button class=\"btn btn-link collapsed\" data-toggle=\"collapse\" data-target=\"#collapse" + CSScounter + "-" + CSScounter + "\"aria-expanded=\"false\" aria-controls=\"collapse" + CSScounter + "-" + CSScounter + "\">" +
-                        "<img src='../static/img/walk.png' style='width:32px;height:32px';>" + " Walk travel" +
-                        "</button>" +
-                        "</h5>" +
-                        "</div>" +
-
-                        "<div id=\"collapse" + CSScounter + "-" + CSScounter + "\"class=\"collapse\" aria-labelledby=\"heading" + CSScounter + "-" + CSScounter + "\"data-parent=\"#accordion\">" +
-                        "<div class=\"card-body\">" +
-
-                        "<img src='../static/img/walk.png' style='width:32px;height:32px';> <p>Walk to " +
-                        indivBusRouteJSON[x]["Arr"]["Stn"]["name"] + "</p> <p>" + indivBusRouteJSON[x]["Journey"]['distance'] + " meters</p><hr>" +
-                        "</div>" +
-                        " </div>" +
-                        "</div>"
-                    );
+                        "<img src='../static/img/walk.png' style='width:32px;height:32px'>" +
+                        "<div style='margin-left:3%; padding-left: 5%; border-left: 5px dotted black'><p>Walk to " +
+                        indivBusRouteJSON[x]["Arr"]["Stn"]["name"] + " <p>" + indivBusRouteJSON[x]["Journey"]['distance'] + " meters</p><hr></div>");
                 } else if (indivBusRouteJSON[x]['mode'] == 5) {
-                    console.log(indivBusRouteJSON[x]["Journey"]["Stop"].length)
-
-
-                    document.getElementById('options').insertAdjacentHTML('beforeend',
-
-
-                        "<div class=\"row\">" +
-                        // "<div class=\"col-12\" id=\"myholder\">"+
-                        "<div id=\"accordion\"><div class=\"card\"><div class=\"card-header\" id=\"heading" + CSScounter + "-" + CSScounter + "div><h5 class=\"mb-0\">" +
-                        "<button class=\"btn btn-link collapsed\" data-toggle=\"collapse\" data-target=\"#collapse" + CSScounter + "-" + CSScounter + "\"aria-expanded=\"false\" aria-controls=\"collapse" + CSScounter + "-" + CSScounter + "\">" +
-                        "<img src='../static/img/bus.png' style='width:32px;height:32px'>" + "  Take bus number " + indivBusRouteJSON[x]["Dep"]["Transport"]["name"] +
-                        "</button>" +
-                        "</h5>" +
-                        "</div>" +
-
-                        "<div id=\"collapse" + CSScounter + "-" + CSScounter + "\"class=\"collapse\" aria-labelledby=\"heading" + CSScounter + "-" + CSScounter + "\"data-parent=\"#accordion\">" +
-                        "<div class=\"card-body\">" +
-
-                        "<p>Take bus number " + indivBusRouteJSON[x]["Dep"]["Transport"]["name"] +
+                    if (x == 0) {
+                        origWalk= new Date(indivBusRouteJSON[x]["Dep"]['time']);
+                    }
+                    var insertHTML = "<img src='../static/img/bus.png' style='width:28px;height:28px; margin-bottom: 2%'>" +
+                        "<div style='margin-left:3%; padding-left: 5%;border-left: 5px solid black'><p>Take bus number " + indivBusRouteJSON[x]["Dep"]["Transport"]["name"] +
                         " toward " + indivBusRouteJSON[x]["Dep"]["Transport"]["dir"] + " from station " +
                         indivBusRouteJSON[x]["Dep"]["Stn"]["name"] + " to station " + indivBusRouteJSON[x]["Arr"]["Stn"]["name"] +
-                        "</p><p>" + indivBusRouteJSON[x]["Journey"]['Stop'].length + " stops</p>" +
-
-                        "</div>" +
-                        " </div>" +
-                        "</div>"
-                    );
+                        "</p><p>" + indivBusRouteJSON[x]["Journey"]['Stop'].length + " stops</p>";
+                    if (x == indivBusRouteJSON.length - 1) {
+                        addTime += estTime;
+                        var newDateObj = new Date(origWalk.getTime() + (addTime * 60000));
+                        // Create a new JavaScript Date object based on the timestamp
+                        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+                        var timeDate = new Date(newDateObj);
+                        // Hours part from the timestamp
+                        var timeHours = timeDate.getHours();
+                        // Minutes part from the timestamp
+                        var timeMinutes = "0" + timeDate.getMinutes();
+                        // Seconds part from the timestamp
+                        var timeSeconds = "0" + timeDate.getSeconds();
+                        var finalFormattedTime = timeHours + ':' + timeMinutes.substr(-2);
+                        insertHTML += "<br>You should reach at " + finalFormattedTime + "</div><hr>";
+                    }
+                    else {
+                        insertHTML += "</div><hr>";
+                    }
+                    document.getElementById('options').insertAdjacentHTML('beforeend', insertHTML);
 
                     for (var z = 0; z < indivBusRouteJSON[x]["Journey"]["Stop"].length; z++) {
+
                         var hold = indivBusRouteJSON[x]["Journey"]["Stop"][z]["Stn"];
                         hold.longitude = parseFloat(hold.x);
                         hold.latitude = parseFloat(hold.y);
@@ -121,7 +122,12 @@ function getRoute(i, url, start, end, predictDate, predictTime) {
                         var name = closest.stop_name;
                         var latitude = parseFloat(closest.latitude);
                         var longitude = parseFloat(closest.longitude);
-                        locations.push({lat: latitude, lng: longitude, name: name, actual_stop_id: closest.actual_stop_id});
+                        locations.push({
+                            lat: latitude,
+                            lng: longitude,
+                            name: name,
+                            actual_stop_id: closest.actual_stop_id
+                        });
                         times.push({minutes: minutes, hours: hours})
                     }
                     var icon = {
@@ -159,13 +165,12 @@ function getRoute(i, url, start, end, predictDate, predictTime) {
                         })(marker, a));
                     }
                     //if its the last direction in the route, add a return to results button.
-                    if (x == indivBusRouteJSON.length - 1) {
-                        document.getElementById('carbonholder').insertAdjacentHTML('beforeend',
-                            "<button class='btn btn-primary' " +
-                            'type="submit" onclick = "removeLine(); deleteMarkers();getLatLng(\''+start+'\',\''+end+'\',\''+predictTime+'\',\''+predictDate+'\')">Return to Results</button>'
-                        );
-                    }
                 } else if (indivBusRouteJSON[x]["mode"] == 20 && x == indivBusRouteJSON.length - 1) {
+                    var startWalk=new Date(indivBusRouteJSON[x]["Dep"]['time']);
+                    endWalk = new Date(indivBusRouteJSON[x]["Arr"]['time']);
+                    timeWalked = (endWalk-startWalk)/(1000*60);
+                    console.log(timeWalked);
+                    startEndTimes.push(timeWalked);
                     var geocoder = new google.maps.Geocoder;
                     var lat = indivBusRouteJSON[x]["Arr"]["Addr"]["y"];
                     var long = indivBusRouteJSON[x]["Arr"]["Addr"]["x"];
@@ -174,42 +179,27 @@ function getRoute(i, url, start, end, predictDate, predictTime) {
                     var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
                     geocoder.geocode({'location': latlng}, function (results, status) {
                         if (status === 'OK') {
-
-
+                            if (startEndTimes.length >= 1) {
+                                for (var e = 0; e < startEndTimes.length; e++) {
+                                    addTime+=startEndTimes[e];
+                                }
+                            }
+                            addTime += estTime;
+                            var newDateObj = new Date(origWalk.getTime() + (addTime * 60000));
+                            // Create a new JavaScript Date object based on the timestamp
+                            // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+                            var date = new Date(newDateObj);
+                            // Hours part from the timestamp
+                            var hours = date.getHours();
+                            // Minutes part from the timestamp
+                            var minutes = "0" + date.getMinutes();
+                            // Seconds part from the timestamp
+                            var seconds = "0" + date.getSeconds();
+                            var formattedTime = hours + ':' + minutes.substr(-2);
                             document.getElementById('options').insertAdjacentHTML('beforeend',
-
-
-                                "<div class=\"row\">" +
-                                "<div id=\"accordion\"><div class=\"card\"><div class=\"card-header\" id=\"heading" + CSScounter + "-" + CSScounter + "\"><h5 class=\"mb-0\">" +
-                                "<button class=\"btn btn-link collapsed\" data-toggle=\"collapse\" data-target=\"#collapse" + CSScounter + "-" + CSScounter + "\"aria-expanded=\"false\" aria-controls=\"collapse" + CSScounter + "-" + CSScounter + "\">" +
-                                "<img src='../static/img/walk.png' style='width:32px;height:32px';>" + " Walk travel" +
-                                "</button>" +
-                                "</h5>" +
-                                "</div>" +
-
-                                "<div id=\"collapse" + CSScounter + "-" + CSScounter + "\"class=\"collapse\" aria-labelledby=\"heading" + CSScounter + "-" + CSScounter + "\"data-parent=\"#accordion\">" +
-                                "<div class=\"card-body\">" +
-
                                 "<img src='../static/img/walk.png' style='width:32px;height:32px';>" +
-                                "<p>Walk to destination: " + results[0].formatted_address + "</p>" +
-
-                                "</div>" +
-                                " </div>" +
-                                "</div>"
-
-                                // '<br><h4>This bus route will result in '+co2+' grams of CO2 being released into the atmosphere. <br>' +
-                                // 'This is compared to ' + carCo2 + ' grams of CO2 if you had used a car!</h4>'
-
-
+                                "<div id = 'finalWalk' style='margin-left:3%; padding-left: 5%; border-left: 5px dotted black'><p>You'll have to walk a bit, but you'll get there around " + formattedTime + "</p></div>"
                             );
-
-
-                            document.getElementById('lowerholder').insertAdjacentHTML('beforeend',
-                                "<div id = 'return' style='text-align: center'><button class='btn btn-primary' " +
-                                "type='submit' onclick = 'removeLine(); deleteMarkers();mobileMapReturnHide();mobileGetLatLng(\"" + start + "\",\"" + end + "\",\"" + predictTime + "\",\"" + predictDate + "\")'>Return to Results</button></div>");
-                            //'<br><h4>This bus route will result in '+co2+' grams of CO2 being released into the atmosphere. <br>' +
-                            //'This is compared to ' + carCo2 + ' grams of CO2 if you had used a car!</h4>')
-
                         }
                     })
                 }

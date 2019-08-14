@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import django.conf.global_settings as DEFAULT_SETTINGS
 import os
 from django.conf import settings
+from django.urls import  reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -176,3 +177,4 @@ LOGIN_REDIRECT_URL = 'favourites'
 LOGOUT_REDIRECT_URL = 'favourites'
 AUTH_USER_MODEL = 'users.CustomUser' # new
 
+LOGIN_REDIRECT_URL = reverse_lazy('favourites')

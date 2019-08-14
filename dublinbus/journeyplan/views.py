@@ -18,24 +18,27 @@ import numpy
 import csv
 from csv import DictReader
 
+import pandas as pd
+
 
 def journeyplan(request):
     # return HttpResponse(render({}, request))
     json_data = open('static/files/stops_info.json')
     stops_data = json.load(json_data)
     user_agent = get_user_agent(request)
+    json_routedata = open('static/files/serving_route.json')
+    route_data = json.load(json_routedata)
 
     if user_agent.is_mobile:
-        return render(request, 'mobile/m1_journeyplan.html', {'load': stops_data})
+        return render(request, 'mobile/m1_journeyplan.html', {'load': stops_data, 'routedata': route_data})
     elif user_agent.is_tablet:
-        return render(request, 'mobile/m1_journeyplan.html', {'load': stops_data})
+        return render(request, 'mobile/m1_journeyplan.html', {'load': stops_data, 'routedata': route_data})
     else:
-        return render(request, 'journeyplan.html', {'load': stops_data})
+        return render(request, 'journeyplan.html', {'load': stops_data, 'routedata': route_data})
 
 
 @csrf_exempt
 def bus_prediction(request):
-
     url = 'http://api.openweathermap.org/data/2.5/weather?appid=a8e1877ec087d7a2904f50a41ed61bfa&q=Dublin&units=metric'
     weather_detalis = requests.get(url)
     weatherdata = json.loads(weather_detalis.text)
@@ -52,6 +55,12 @@ def bus_prediction(request):
     route = str(getroute)
     print("route is", getroute)
 
+
+    getroute = request.POST.get("route")
+    route = str(getroute)
+    print("route is", getroute)
+    
+    route = request.POST.get("route")
     dayOfWeek = request.POST.get("dayOfWeek")
     print("day of week is", dayOfWeek)
 
@@ -114,7 +123,8 @@ def bus_prediction(request):
             continue
 
     # # put together input dictionary
-    testinput = {'direction': direction, 'dayOfWeek': dayOfWeek, 'rushHour': rushHour, 'monToThurRushHour': monThurRush, 'friday': friday, 'windSpeed': windSpeed, 'temp': temp}
+
+    testinput = {'direction': direction, 'dayOfWeek': 6, 'rushHour': rushHour, 'monToThurRushHour': monThursRush, 'friday': friday, 'windSpeed': windSpeed, 'temp': temp}
     print("testinput", testinput)
     datainput = pd.DataFrame([testinput])
 
@@ -135,3 +145,9 @@ def bus_prediction(request):
     myValToReturn = totaljourney/60
 
     return HttpResponse(myValToReturn)
+
+    
+    print("last")
+
+    return JsonResponse(totaljourney[0], safe=False)
+

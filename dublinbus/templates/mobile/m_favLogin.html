@@ -1,29 +1,43 @@
-{% extends 'base.html' %}
+ {% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
 {% block content %}
-    {% load static %}
+
+    <body>
     <div class="container-fluid">
 
         <div class="row" id="header-row">
             <div class="col-3">
-                <img src="{% static 'smalllogo.png' %}" class="smalllogo">
+                <img class="smalllogo" style="display: inline" src="../../static/smalllogo.png">
             </div>
             <div class="col-6">
-                <p>Favourites</p>
+                <p style="margin-top: 5%">Dublin Bus</p>
             </div>
             <div class="col-3">
             </div>
+
+        </div>
+
+    <div style="z-index: 99; height: 50px; width: 100px; position: absolute; margin-left: 88%; padding-top: 5%"></div>
+
+        <a href="{% url 'm_favLogin' %}"><img src="../static/img/login-icon-yellow.png"
+                                         style="height: 40px; width: 45px;"></a>
+        <a href="{% url 'm_signup' %}"><img src="../static/img/sign-up.png"
+                                          style="height: 37px; width: 42px;"></a>
+    </div>
+    <div>
+        {% include 'tabs.html' %}
     </div>
 
-        <div class="row" id="holder-row">
-        <div class="col-12">
-        <p>Apologies, but you must login to use the favourites function</p>
-        <a href="{% url 'login' %}">Login</a>
-        <br>
-        <a href="{% url 'signup' %}">Sign Up</a>
-        </div>
-        </div>
-                {% include 'tabs.html' %}
-</div>
-    <link href="{% static 'css/m_favLogin.css' %}" rel="stylesheet">
+    <form method="post" style="padding-top: 30%; text-align: center; font-size: 50px">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit"><img src="../static/img/login-icon-yellow.png"
+                                             style="height: 80px; width: 90px;"></button>
+    </form>
+    </body>
+
+
 
 {% endblock %}

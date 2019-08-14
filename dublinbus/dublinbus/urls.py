@@ -24,7 +24,7 @@ from favourites.views import favourites_view
 from django.conf.urls import url, include
 from journeyplan import views as jpviews
 from favourites import views as fviews
-
+from users import views as uview
 
 
 urlpatterns = [
@@ -32,7 +32,7 @@ urlpatterns = [
     path('users/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     # path('map/', include('map.urls')),
-    path('map/', map_view.as_view(), name='map'),
+    path('', map_view.as_view(), name='map'),
     path('favourites/', favourites_view.as_view(), name='favourites'),
     # path('favourites/', include('favourites.urls')),
     path('more/', include('more.urls')),
@@ -42,9 +42,12 @@ urlpatterns = [
     path('jasminetest/', include('jasminetest.urls')),
 
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name="login"),
+    path('m_favLogin/', auth_views.LoginView.as_view(template_name='mobile/m_favLogin.html'), name="m_favLogin"),
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name="logout"),
     # path('bus_prediction', jpviews.bus_prediction, name='bus_prediction'),
     path('', jpviews.bus_prediction, name='bus_prediction'),
     path('favourites/delete_fav/', fviews.favourites_view.delete_fav, name='delete_fav'),
+
+    path('m_signup/', uview.SignUp.as_view(template_name='mobile/m_signup.html'), name='m_signup'),
     # path('map/', post_new, name='map'),
 ]

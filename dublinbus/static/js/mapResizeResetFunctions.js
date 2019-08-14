@@ -33,10 +33,10 @@ function mobileResizeMap() {
     deleteMarkers();
     var start = document.getElementById('origin-input').value;
     var end = document.getElementById('destination-input').value;
-    var time = document.getElementById('dateField').value;
-    var date = document.getElementById('timepicker1').value;
-    if (start == "" || end == "") {
-        document.getElementById("header").innerHTML = "<h4 style = 'text-align: center'>Please enter a start and end location!</h4>" +
+    var date = document.getElementById('dateField').value;
+    var time = document.getElementById('timepicker1').value;
+    if (start == "" || end == "" || time == "" || date == "") {
+        document.getElementById("header").innerHTML = "<h4 style = 'text-align: center'>Please ensure all fields are filled out!</h4>" +
             "<div style = 'text-align: center'>" +
             "<br> <br> <button class='btn btn-primary' id = 'directionsButton'  type='submit' onclick = 'createHeader(); setAutocomplete()'>Try Again</button> " +
             "</div>";
@@ -63,11 +63,12 @@ function mobileResizeMap() {
     $(document).ready(function () {
         calendarBuilder();
         $(function () {
-            $('#mytimepick').timepicker({
+            $('#timepicker1').timepicker({
+                timeFormat: 'H:i',
                 dynamic: false,
                 dropdown: true,
                 scrollbar: true,
-                step: 15,
+                step: 30,
             })
         })
     });
@@ -92,6 +93,9 @@ function mobileResetMap() {
     document.getElementById('map').style.display = 'block';
     createHeader();
     setAutocomplete();
+    if (document.getElementById('againButt')) {
+        document.getElementById('againButt').remove();
+    }
 }
 
 //sets the map back to original position, resets the side bar to the 'search dublin' option
@@ -168,6 +172,7 @@ function resetMap() {
     calendarBuilder();
     $(function () {
         $('#timepicker1').timepicker({
+            timeFormat: 'H:i',
             dynamic: false,
             dropdown: true,
             scrollbar: true,

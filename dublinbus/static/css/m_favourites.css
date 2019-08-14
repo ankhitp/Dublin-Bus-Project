@@ -12,7 +12,7 @@
 #middle-favourite{
     background: white;
     width: 100%;
-    height: 75vh;
+    height: 80vh;
     /* padding: 5%; */
 }
 
@@ -62,7 +62,7 @@
     padding-top: 7px;
     font-size: 3vh;
     text-align: center;
-    padding-left: 20%;
+    /*padding-left: 15%;*/
   /* height: 100%; */
   line-height:5vh;
 }
@@ -134,7 +134,7 @@
 }
 
 #flex1div{
-    width: 50%;
+    width: 70%;
     padding-top:1.5vh;
     font-size: 2.5vh;
     text-align: center;
@@ -154,7 +154,7 @@
     height: 6vh;
     width: 13vh;
     font-size: 30px;
- 
+
 }
 
 #addfavourite{
@@ -163,15 +163,15 @@
     width: auto;
     font-size: 30px;
     margin-top: 2%;
- 
+
 }
 form {
     width: 100%;
-    background-color: gainsboro;
+    /*background-color: gainsboro;*/
     padding: 5px;
     margin-bottom: 20px;
   }
-  
+
   .field-wrap {
     width: 100%;
     /* margin-bottom: 10px; */
@@ -185,13 +185,13 @@ form {
     margin-right: 10px;
     /* width: 110px; */
   }
-  
-  
+
+
 
 
 #submitbutton{
     padding: 10px;
-    text-align:right; 
+    text-align:right;
     padding-right: 15%;
 }
 

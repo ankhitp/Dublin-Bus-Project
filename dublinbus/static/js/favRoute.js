@@ -33,7 +33,7 @@ function updateUserFav(user) {
 }
 
 function removeFav(startLoc,endLoc) {
-    console.log('jdfsakjldja',startLoc,endLoc);
+    // console.log('jdfsakjldja',startLoc,endLoc);
     $.post("delete_fav/",{startLoc: startLoc,endLoc: endLoc}, function(data,status,){
         console.log(status);
         if (status == 'success'){

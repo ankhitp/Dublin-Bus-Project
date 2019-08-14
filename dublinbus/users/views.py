@@ -4,11 +4,16 @@ from django.views.decorators.csrf import csrf_exempt
 from .forms import CustomUserCreationForm
 from users.models import CustomUser
 from django.http import HttpResponse
+import json
+from django_user_agents.utils import get_user_agent
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 class SignUp(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
+
 
 @csrf_exempt
 def addFav(request):

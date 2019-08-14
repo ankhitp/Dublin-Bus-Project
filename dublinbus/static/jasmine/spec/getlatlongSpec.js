@@ -3,6 +3,7 @@ describe("testing get lat long", function() {
     var geocoder2 = new google.maps.Geocoder();
     var sampletest = new getLatLng('Bray, County Wicklow, Ireland','Howth, Dublin, Ireland');
 
+<<<<<<< HEAD
     // it("tests that geocoder objects are created", function() {
     // var testobject = getLatLng('Bray, County Wicklow, Ireland','Howth, Dublin, Ireland');
     // console.log("testobject", testobject)
@@ -46,3 +47,20 @@ describe("testing get lat long", function() {
 //     // programmer.getName();
 //     expect(sendRequest).toHaveBeenCalled();
 // })
+=======
+    it("That json return is not null", function() {
+    var sampletest = getLatLng('Bray, County Wicklow, Ireland','Howth, Dublin, Ireland');
+
+    expect(sampletest).toEqual(jasmine.anything());
+    });
+
+    // it("that json return has property", function() {
+    // var testobject = getLatLng('Bray, County Wicklow, Ireland','Howth, Dublin, Ireland');
+    // console.log("testobject", testobject)
+
+
+    // expect(sampletest).toContain('Res');
+    // });
+
+})
+>>>>>>> 429636a666b98d06d28501e42011cc34296a4b10
