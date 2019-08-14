@@ -23,8 +23,6 @@ function getPrediction(routeChosen, url, start, end, date, time) {
     var timesArray = ['7:00', '7:30', '8:00', '8:30', '16:00', '16:30', '17:00', '17:30', '18:00'];
     for (var i = 0; i < timesArray.length; i++) {
         if (time === timesArray[i]) {
-            console.log(timesArray[i]);
-            console.log(time);
             rushHr = 1;
             break;
         } else {

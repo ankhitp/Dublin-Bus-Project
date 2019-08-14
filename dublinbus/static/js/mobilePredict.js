@@ -122,7 +122,6 @@ function getPrediction(routeChosen, url, start, end, date, time) {
                             }
                         }
                         if (foundRoute == true) {
-                            console.log("Got here with bus route " + busRoute);
                             xhttp2 = new XMLHttpRequest();
                             xhttp2.open("POST", 'bus_prediction', true);
                             xhttp2.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
