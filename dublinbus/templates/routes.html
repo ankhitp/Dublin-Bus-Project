@@ -110,12 +110,7 @@
 
     function showRoute(route) {
         var html = document.getElementById(route).innerHTML;
-        var finalHtml = "<div style = 'cursor: pointer' class = 'holder' onclick = 'getRoute(\"" + route + "\")'>" + html + "</div>" +
-        "<div id=\"map\" style=\"display:none; width:100%;height:60%;\"></div>\n" +
-            "<br>\n" +
-            "<div id='reset' style=\"display:none;text-align: center\">\n" +
-            "    <button class=\"btn btn-light\" onclick=\"resetRoutes("+0+")\">Back to the list</button>\n" +
-            "</div>";
+        var finalHtml = "<div style = 'cursor: pointer' class = 'holder' onclick = 'getRoute(\"" + route + "\")'>" + html + "</div>";
         document.getElementById('route').innerHTML = finalHtml;
     }
 
@@ -132,7 +127,7 @@
             document.getElementById('input').style.display = "none";
             document.getElementById('routeHead').innerHTML = "These are all the stops the route travels through!"
             document.getElementById('map').style.display = "block";
-            document.getElementById('reset').style.display = 'block';
+            document.getElementById('reset').style.display = "block";
             addMarker(map, dirOneRoute);
             addMarker(map, dirTwoRoute);
             map.setZoom(12);
