@@ -99,6 +99,18 @@ function getRoute(i, url, start, end) {
                     }
                     var co2 = Math.round(km * 70);
                     var carCo2 = Math.round(km * 127);
+                    var diff = carCo2 - co2;
+                    if (user !== undefined) {
+                        var myNewXmlHttp = new XMLHttpRequest();
+                        myNewXmlHttp.open("POST", "addCO2", true);
+                        myNewXmlHttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+                        myNewXmlHttp.send("co2=" + diff + "&user=" + user);
+                        myNewXmlHttp.onreadystatechange = function () {
+                            if (this.responseText == 400) {
+                                alert("Something went wrong, we weren't able to log your co2 savings! Our apologies.")
+                            }
+                        }
+                    }
                     var newCenter = new google.maps.LatLng(locations[0].lat, locations[0].lng);
                     var icon = {
                         url: '../static/img/iconsmarker1.png', // url
