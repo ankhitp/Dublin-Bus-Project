@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from django.template import loader
 import json
+from users.models import CustomUser
 from django_user_agents.utils import get_user_agent
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -35,6 +36,29 @@ def journeyplan(request):
         return render(request, 'mobile/m1_journeyplan.html', {'load': stops_data, 'routedata': route_data})
     else:
         return render(request, 'journeyplan.html', {'load': stops_data, 'routedata': route_data})
+
+
+@csrf_exempt
+def addCO2(request):
+    co2 = request.POST.get("co2")
+    myUser = request.POST.get('user')
+    print(myUser)
+    t = CustomUser.objects.get(username=myUser)
+    if t.last_name != "":
+        hold = int(t.last_name)+int(co2)
+        t.last_name = str(hold)
+        try:
+            t.save()
+            return HttpResponse(status=200)
+        except:
+            return HttpResponse(status=400)
+    else:
+        t.last_name = str(co2)
+        try:
+            t.save()
+            return HttpResponse(status =200)
+        except:
+            return HttpResponse(status =400)
 
 
 @csrf_exempt
