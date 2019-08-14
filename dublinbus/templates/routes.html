@@ -110,7 +110,12 @@
 
     function showRoute(route) {
         var html = document.getElementById(route).innerHTML;
-        var finalHtml = "<div style = 'cursor: pointer' class = 'holder' onclick = 'getRoute(\"" + route + "\")'>" + html + "</div>";
+        var finalHtml = "<div style = 'cursor: pointer' class = 'holder' onclick = 'getRoute(\"" + route + "\")'>" + html + "</div>" +
+        "<div id=\"map\" style=\"display:none; width:100%;height:60%;\"></div>\n" +
+            "<br>\n" +
+            "<div id='reset' style=\"display:none;text-align: center\">\n" +
+            "    <button class=\"btn btn-light\" onclick=\"resetRoutes("+0+")\">Back to the list</button>\n" +
+            "</div>";
         document.getElementById('route').innerHTML = finalHtml;
     }
 
@@ -186,13 +191,32 @@
 
     }
 
-    function resetRoutes() {
-        document.getElementById('bigList').style.display = "block";
-        document.getElementById('input').style.display = "block";
-        document.getElementById('routeHead').innerHTML = "A list of all the routes!"
-        document.getElementById('map').style.display = "none";
-        document.getElementById('reset').style.display = 'none';
-        deleteMarkers();
+    function resetRoutes(flag = 1) {
+        if (flag == 1) {
+            document.getElementById('bigList').style.display = "block";
+            document.getElementById('input').style.display = "block";
+            document.getElementById('routeHead').innerHTML = "A list of all the routes!"
+            document.getElementById('map').style.display = "none";
+            document.getElementById('reset').style.display = 'none';
+            deleteMarkers();
+        } else {
+            for (var i = 0; i < routesList.length; i++) {
+                stopHTML += '<option value="' + routesList[i].Route + '">';
+                routeHTML +=
+                    '<div onclick = "getRoute(\'' + routesList[i].Route + '\')" id = "' + routesList[i].Route + '" style = "cursor: pointer; text-align: center" class = "holder col-12">' +
+                    routesList[i].Route + ' going from ' + routesList[i].Stops +
+                    '</div>' +
+                    '<hr>';
+            }
+            document.getElementById('route').innerHTML = routeHTML;
+            document.getElementById('routes').innerHTML = stopHTML;
+            document.getElementById('bigList').style.display = "block";
+            document.getElementById('input').style.display = "block";
+            document.getElementById('routeHead').innerHTML = "A list of all the routes!"
+            document.getElementById('map').style.display = "none";
+            document.getElementById('reset').style.display = 'none';
+            deleteMarkers();
+        }
     }
 
     function clearMarkers() {
