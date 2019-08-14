@@ -64,10 +64,16 @@ function getRoute(i, url, start, end, predictDate, predictTime) {
                         var timeWalked = (endWalk-origWalk)/(1000*60);
                         startEndTimes.push(timeWalked);
                     }
+                    // Hours part from the timestamp
+                    var origWalkHours = origWalk.getHours();
+                    // Minutes part from the timestamp
+                    var origWalkMinutes = "0" + origWalk.getMinutes();
+                    // Seconds part from the timestamp
+                    var finalFormTime = origWalkHours + ':' + origWalkMinutes.substr(-2);
                     document.getElementById('options').insertAdjacentHTML('beforeend',
                         "<img src='../static/img/walk.png' style='width:32px;height:32px'>" +
                         "<div style='margin-left:3%; padding-left: 5%; border-left: 5px dotted black'><p>Walk to " +
-                        indivBusRouteJSON[x]["Arr"]["Stn"]["name"] + " <p>" + indivBusRouteJSON[x]["Journey"]['distance'] + " meters</p><hr></div>");
+                        indivBusRouteJSON[x]["Arr"]["Stn"]["name"] + ", leaving at "+finalFormTime+"<p>" + indivBusRouteJSON[x]["Journey"]['distance'] + " meters</p><hr></div>");
                 } else if (indivBusRouteJSON[x]['mode'] == 5) {
                     if (x == 0) {
                         origWalk= new Date(indivBusRouteJSON[x]["Dep"]['time']);
@@ -137,6 +143,18 @@ function getRoute(i, url, start, end, predictDate, predictTime) {
                     };
                     var co2 = Math.round(km * 70);
                     var carCo2 = Math.round(km * 127);
+                    var diff = carCo2 - co2;
+                    if (typeof user !== 'undefined') {
+                        var myNewXmlHttp = new XMLHttpRequest();
+                        myNewXmlHttp.open("POST", "addCO2", true);
+                        myNewXmlHttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+                        myNewXmlHttp.send("co2=" + diff + "&user=" + user);
+                        myNewXmlHttp.onreadystatechange = function () {
+                            if (this.responseText == 400) {
+                                alert("Something went wrong, we weren't able to log your co2 savings! Our apologies.")
+                            }
+                        }
+                    }
                     var newCenter = new google.maps.LatLng(locations[0].lat, locations[0].lng);
                     map.panTo(newCenter);
                     //go through all the entries in our array and create markers from them, and then create

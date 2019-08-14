@@ -4,6 +4,7 @@
     {% load static %}
 
     <head>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 {#        <script src="https://kit.fontawesome.com/a7c1f97ec0.js"></script>#}
@@ -144,7 +145,23 @@
             {% endif %}
         </div>
         <button class="accordion"><h1>Co2</h1></button>
-        <div class="panel"></div>
+        <div class="panel">{% if user.is_authenticated %}
+            <p id = 'co2para'></p>
+            <script>
+                var random = Math.floor((Math.random() * 4) + 1);
+                var user = '{{ user.username }}';
+                var co2 = '{{ user.last_name }}';
+                var textArr = ["the amount of emissions required to provide electricity to charge 1275 smartphones.",
+                    "11 pounds of coal burned at a coal fired power plant.", "the amount of emissions to drive a car 24 miles",
+                    "the amount of emissions emitted in a gallon of diesel fuel.", "a trash bag being recycled instead of sent to a landfill."];
+                document.getElementById('co2para').innerHTML = "If you took every route you looked up, you would" +
+                    " have saved " + co2/1000 + " kilograms of CO2 emissions compared to driving a car. 10 kg of" +
+                    " CO2 is the same as " + textArr[random];
+            </script>
+            {% else %}
+            <p>Please log in to see the amount of CO2 you've saved by using a bus. Where's the fun in saving the world
+            if you can't keep score?</p>
+            {% endif %}</div>
 
         <button class="accordion"><h1>Weather Forecast</h1></button>
         <div class="panel">

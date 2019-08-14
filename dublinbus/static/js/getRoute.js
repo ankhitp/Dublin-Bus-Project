@@ -100,7 +100,7 @@ function getRoute(i, url, start, end) {
                     var co2 = Math.round(km * 70);
                     var carCo2 = Math.round(km * 127);
                     var diff = carCo2 - co2;
-                    if (user !== undefined) {
+                    if (typeof user !== 'undefined') {
                         var myNewXmlHttp = new XMLHttpRequest();
                         myNewXmlHttp.open("POST", "addCO2", true);
                         myNewXmlHttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
