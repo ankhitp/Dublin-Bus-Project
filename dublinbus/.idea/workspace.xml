@@ -4,22 +4,7 @@
     <list default="true" id="15a88855-e3e3-4741-9797-27493f40d171" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dublinbus/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dublinbus/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dublinbus/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dublinbus/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/m_favourites.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/m_favourites.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/createfavourite.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/createfavourite.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/favRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/favRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/findLocation.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/findLocation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/favourites.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/favourites.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/mobile/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mobile/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/mobile/m_favLogin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mobile/m_favLogin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/mobile/m_favourites.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mobile/m_favourites.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/mobile/m_login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/mobile/m_map.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mobile/m_map.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/mobile/m_more.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mobile/m_more.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/mobile/m_signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mobile/m_signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/more.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/more.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,32 +36,34 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/mobile/m_favourites.html">
+        <entry file="file://$PROJECT_DIR$/static/css/m_favourites.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-947">
-              <caret line="75" column="29" lean-forward="true" selection-start-line="75" selection-start-column="29" selection-end-line="75" selection-end-column="29" />
-              <folding>
-                <element signature="e#3195#3218#0#HTML" expanded="true" />
-                <element signature="e#4337#4389#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/mobile/m_map.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="134" column="15" lean-forward="true" selection-start-line="134" selection-start-column="15" selection-end-line="134" selection-end-column="15" />
+            <state relative-caret-position="2550">
+              <caret line="170" column="4" selection-start-line="170" selection-start-column="4" selection-end-line="170" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/m_favourites.css">
+        <entry file="file://$PROJECT_DIR$/dublinbus/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="170" column="4" lean-forward="true" selection-start-line="170" selection-start-column="4" selection-end-line="170" selection-end-column="4" />
+            <state relative-caret-position="147">
+              <caret line="28" selection-start-line="28" selection-end-line="28" />
+              <folding>
+                <element signature="e#633#665#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/functional_tests.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="34" column="36" lean-forward="true" selection-start-line="34" selection-start-column="36" selection-end-line="34" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#30#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -90,37 +77,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/js/bootstrap.js">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/mobile/m_more.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-28">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state relative-caret-position="162">
+              <caret line="101" column="14" lean-forward="true" selection-start-line="101" selection-start-column="14" selection-end-line="101" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/autocompleteFunctions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-28">
-              <folding>
-                <element signature="n#style#0;n#p#0;n#button#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/bootstrap.bundle.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-28">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -131,7 +104,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/favourites.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="982">
+            <state relative-caret-position="6825">
               <caret line="455" column="68" selection-start-line="455" selection-start-column="68" selection-end-line="455" selection-end-column="68" />
             </state>
           </provider>
@@ -139,20 +112,7 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/getRoute.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-34">
-              <folding>
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#h6#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#h#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#h#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -251,19 +211,18 @@
         <option value="$PROJECT_DIR$/dublinbus/urls.py" />
         <option value="$PROJECT_DIR$/templates/mobile/m_signup.html" />
         <option value="$PROJECT_DIR$/templates/more.html" />
-        <option value="$PROJECT_DIR$/templates/mobile/m_more.html" />
         <option value="$PROJECT_DIR$/static/js/mapResizeResetFunctions.js" />
         <option value="$PROJECT_DIR$/static/js/favRoute.js" />
         <option value="$PROJECT_DIR$/static/css/m_favourites.css" />
         <option value="$PROJECT_DIR$/templates/mobile/m_favourites.html" />
         <option value="$PROJECT_DIR$/templates/mobile/m_map.html" />
+        <option value="$PROJECT_DIR$/templates/mobile/m_more.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="454" />
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="826" />
+    <option name="width" value="1280" />
     <option name="height" value="751" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -279,6 +238,11 @@
             <path>
               <item name="dublinbus" type="b2602c69:ProjectViewProjectNode" />
               <item name="dublinbus" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dublinbus" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dublinbus" type="462c0819:PsiDirectoryNode" />
+              <item name="more" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="dublinbus" type="b2602c69:ProjectViewProjectNode" />
@@ -393,9 +357,9 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Django server.dublinbus" />
       <item itemvalue="Django tests.Test: routes.tests.ViewTest.test_routes_page" />
       <item itemvalue="Python.views" />
-      <item itemvalue="Django server.dublinbus" />
     </list>
     <recent_temporary>
       <list>
@@ -437,7 +401,8 @@
       <workItem from="1565351218122" duration="229000" />
       <workItem from="1565351485042" duration="6000" />
       <workItem from="1565351517426" duration="35320000" />
-      <workItem from="1565733735262" duration="10679000" />
+      <workItem from="1565733735262" duration="10836000" />
+      <workItem from="1565776354578" duration="467000" />
     </task>
     <servers />
   </component>
@@ -450,7 +415,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="311341000" />
+    <option name="totallyTimeSpent" value="311965000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -465,7 +430,7 @@
     <frame x="0" y="23" width="1280" height="751" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20355412" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20678514" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -479,7 +444,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.4985694" weight="0.32776934" />
       <window_info anchor="bottom" id="Database Changes" order="9" sideWeight="0.4985694" weight="0.32806325" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.24168694" side_tool="true" weight="0.3414264" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.66423357" weight="0.31562975" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.66423357" weight="0.4430956" />
       <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49928468" weight="0.32776934" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -515,13 +480,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/css/m_favLogin.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/css/m_journeyplan.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="148">
@@ -551,16 +509,6 @@
           <caret line="16" column="44" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dublinbus/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="37" column="32" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
-          <folding>
-            <element signature="e#633#665#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -644,13 +592,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
           <caret line="18" column="6" lean-forward="true" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/mobile/m_more.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="170" column="42" lean-forward="true" selection-start-line="170" selection-start-column="42" selection-end-line="170" selection-end-column="42" />
         </state>
       </provider>
     </entry>
@@ -947,50 +888,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/autocompleteFunctions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-28">
-          <folding>
-            <element signature="n#style#0;n#p#0;n#button#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/bootstrap.bundle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-28">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/addfavourite.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/favourites.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="982">
-          <caret line="455" column="68" selection-start-line="455" selection-start-column="68" selection-end-line="455" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/getRoute.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
-          <folding>
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h6#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#h#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/js/favRoute.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
@@ -998,10 +895,67 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/mobile/m_favourites.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1125">
+          <caret line="75" column="29" selection-start-line="75" selection-start-column="29" selection-end-line="75" selection-end-column="29" />
+          <folding>
+            <element signature="e#3195#3218#0#HTML" expanded="true" />
+            <element signature="e#4337#4389#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/mobile/m_map.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1830">
+          <caret line="122" column="15" selection-start-line="122" selection-start-column="15" selection-end-line="122" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/css/m_favourites.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="170" column="4" lean-forward="true" selection-start-line="170" selection-start-column="4" selection-end-line="170" selection-end-column="4" />
+        <state relative-caret-position="2550">
+          <caret line="170" column="4" selection-start-line="170" selection-start-column="4" selection-end-line="170" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/autocompleteFunctions.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/bootstrap.bundle.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/addfavourite.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/favourites.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6825">
+          <caret line="455" column="68" selection-start-line="455" selection-start-column="68" selection-end-line="455" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/getRoute.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dublinbus/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+          <folding>
+            <element signature="e#633#665#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functional_tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" column="36" lean-forward="true" selection-start-line="34" selection-start-column="36" selection-end-line="34" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1012,21 +966,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/mobile/m_favourites.html">
+    <entry file="file://$PROJECT_DIR$/templates/mobile/m_more.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-947">
-          <caret line="75" column="29" lean-forward="true" selection-start-line="75" selection-start-column="29" selection-end-line="75" selection-end-column="29" />
-          <folding>
-            <element signature="e#3195#3218#0#HTML" expanded="true" />
-            <element signature="e#4337#4389#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/mobile/m_map.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="134" column="15" lean-forward="true" selection-start-line="134" selection-start-column="15" selection-end-line="134" selection-end-column="15" />
+        <state relative-caret-position="162">
+          <caret line="101" column="14" lean-forward="true" selection-start-line="101" selection-start-column="14" selection-end-line="101" selection-end-column="14" />
         </state>
       </provider>
     </entry>
