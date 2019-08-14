@@ -15,23 +15,21 @@ function findLocation() {
         origin: new google.maps.Point(0, 0), // origin
     };
     var pos;
-    console.log("made it to here")
-
     var infowindow = new google.maps.InfoWindow();
-
     //uses the Google geolocation service
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             map.setCenter(pos);
             //marker where the user is
-           /* var marker = new google.maps.Marker({
-                position: pos,
-                map: map,
-            });*/
+            /* var marker = new google.maps.Marker({
+                 position: pos,
+                 map: map,
+             });*/
             //load the stops info from the JSON file
-            $.getJSON( "../static/files/stops_info.json", function( data ) {
-            // loadStops();
+
+            $.getJSON("../static/files/stops_info.json", function (data) {
+
                 for (var i = 0; i < data.length; i++) {
                     //get the position of each stop in the file
                     var destPos = new google.maps.LatLng(data[i].latitude, data[i].longitude);
@@ -98,26 +96,22 @@ function add_service_route(route_data) {
     return elem;
 }
 
-
-
-
 //distance calculator between two latitudes and longitudes.
 function distance(lat1, lon1, lat2, lon2) {
     if ((lat1 == lat2) && (lon1 == lon2)) {
         return 0;
-    }
-    else {
-        var radlat1 = Math.PI * lat1/180;
-        var radlat2 = Math.PI * lat2/180;
-        var theta = lon1-lon2;
-        var radtheta = Math.PI * theta/180;
+    } else {
+        var radlat1 = Math.PI * lat1 / 180;
+        var radlat2 = Math.PI * lat2 / 180;
+        var theta = lon1 - lon2;
+        var radtheta = Math.PI * theta / 180;
         var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
         if (dist > 1) {
             dist = 1;
         }
         dist = Math.acos(dist);
-        dist = dist * 180/Math.PI;
+        dist = dist * 180 / Math.PI;
         dist = dist * 60 * 1.1515;
-        return dist * 1.609344 ;
+        return dist * 1.609344;
     }
 }

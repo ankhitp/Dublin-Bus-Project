@@ -6,7 +6,7 @@
     <head>
         <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-        <script src="https://kit.fontawesome.com/a7c1f97ec0.js"></script>
+{#        <script src="https://kit.fontawesome.com/a7c1f97ec0.js"></script>#}
         <script type="text/javascript" src="https://www.google.com/jsapi?key=AIzaSyC-hR-mSsuP9TGDFilrtWVmxNR_t1i-qYo">
         </script>
 
@@ -14,6 +14,39 @@
             google.load("feeds", "1") //Load Google Ajax Feed API (version 1)
         </script>
         <style>
+
+            #bodyblue {
+              text-align: center;
+            }
+
+            .accordion {
+            {#background-color: #b3d7ff;#} background-color: rgba(2, 147, 222, 0.5);
+                color: #444;
+                cursor: pointer;
+                padding: 18px;
+                width: 100%;
+                border: none;
+                text-align: center;
+                font-weight: bolder;
+                outline: none;
+                font-size: 15px;
+                transition: 0.4s;
+
+            }
+
+            .active, .accordion:hover {
+                background-color: #ccc;
+            }
+
+            .panel {
+                padding: 0 18px;
+                background-color: rgba(2, 147, 222, 0.5);
+                height: 200px;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.2s ease-out;
+            }
+
 
             {#https://smallenvelop.com/display-loading-icon-page-loads-completely/#}
             .no-js #loader {
@@ -42,113 +75,112 @@
 
     </head>
 
-    <body>
-    <div class="se-pre-con"></div>
 
+    <div class="se-pre-con"></div>
+    {##}
     <div class="container-fluid">
 
-        <div class="row" id="header-row">
-            <div class="col-3">
-                <img src="{% static 'smalllogo.png' %}" class="smalllogo">
-            </div>
-            <div class="col-6">
-                <p style="margin-top: 5%">Dublin Bus</p>
-            </div>
-            <div class="col-3">
-            </div>
-
+    <div class="row" id="header-row">
+        <div class="col-3">
+            <img src="{% static 'smalllogo.png' %}" class="smalllogo">
+        </div>
+        <div class="col-6">
+            <p style="margin-top: 5%">Dublin Bus</p>
+        </div>
+        <div class="col-3">
         </div>
 
+    </div>
 
-        <div class="row">
-            <div class="col-12">
-                <!-- <form method="POST">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <button type="submit">Submit</button>
-                        </form> -->
+    {% if user.is_authenticated %}
+        Hi {{ user.username }}!
+        <button class='btn btn-light btn-sm'>
+            <a href="{% url 'logout' %}" style="color: darkblue" ; class="button;"><img
+                    src="../static/img/logout-yellow.png"
+                    style="height: 40px; width: 45px;"></a>
+        </button>
+    {% else %}
+        <div class="container-fluid">
 
-            </div>
-        </div>
-        {% if user.is_authenticated %}
-            <div style="z-index: 99; height: 50px; width: 100px; position: absolute; margin-left: 88%;">
-                <h5>Hi {{ user.username }}!</h5>
-
-                <a href="{% url 'logout' %}" style="color: darkblue" ; class="button;"><img
-                        src="../static/img/logout-yellow.png"
-                        style="height: 40px; width: 45px;"></a>
-            </div>
-        {% else %}
-            <div style="z-index: 99; height: 50px; width: 100px; position: absolute; margin-left: 88%;">
-
-                <a href="{% url 'm_login' %}"><img src="../static/img/login-icon-yellow.png"
-                                                 style="height: 40px; width: 45px;"></a>
-                <a href="{% url 'm_signup' %}"><img src="../static/img/sign-up.png"
-                                                  style="height: 37px; width: 42px;"></a>
-            </div>
-        {% endif %}
-      x
-        <div id="bodyblue">
-
-            <button class="accordion">Game</button>
-            <div class="panel"><h6>How many points have you earned?</h6>
-                {% if user.is_authenticated %}
-                    <p id='pointsPara'></p>
-                    <script>
-                        var user = '{{ user.username }}';
-                        var points = '{{ user.points }}';
-                        document.getElementById('pointsPara').innerHTML = "You have earned " + points + " points. Nice job " + user + "!"
-                    </script>
-                {% else %}
-                    <p>Please log in to see your points! Haven't signed up yet? What are you waiting for? If you don't
-                        sign up, you can't add favorites or earn points for exploring. You're missing out!</p>
-                {% endif %}
-            </div>
-            <button class="accordion">Co2</button>
-            <div class="panel"></div>
-
-            <button class="accordion">Weather Forecast</button>
-            <div class="panel">
-                <!--this div is to show the weather forcast, input a date and choose a time to call the fuction show weather forecast in 5 days-->
-                <div id="search_date" style="font-family: unset; float: left">
-                    <h6 style="margin-top: 2%">Choose a date(in 5 days) and time to see the weather:</h6>
-                    <input type="date" name="date" id="date_weather_forcast">
-                    <select id="time_weather_forcast" style="display: block" name="time">
-                        <option value='06:00:00'>06:00:00</option>
-                        <option value='09:00:00'>09:00:00</option>
-                        <option value='12:00:00'>12:00:00</option>
-                        <option value='15:00:00'>15:00:00</option>
-                        <option value='18:00:00'>18:00:00</option>
-                        <option value='21:00:00'>21:00:00</option>
-                        <option value='00:00:00'>00:00:00</option>
-                        <option value='03:00:00'>03:00:00</option>
-                    </select>
-                    <button onclick="display()" type="button">Show forecast</button>
-                    <div id="show_forecast" style="color: black; margin-bottom: 80%">
-                    </div>
+            <div class="row" id="header-row">
+                <div class="col-3">
+                    <img class="smalllogo" style="display: inline" src="../../static/smalllogo.png">
                 </div>
-
-            </div>
-            <button class="accordion">Traffic Update</button>
-            <div class="panel">
-                <div id="search_date" style="font-family: unset; float: left">
-                    <div id="feeddiv"></div>
-
+                <div class="col-6">
+                    <p style="margin-top: 5%">Dublin Bus</p>
+                </div>
+                <div class="col-3">
                 </div>
 
             </div>
 
+            <div style="z-index: 99; height: 50px; width: 100px; position: absolute; margin-left: 88%; padding-top: 5%"></div>
+
+            <a href="{% url 'm_favLogin' %}"><img src="../static/img/login-icon-yellow.png"
+                                                  style="height: 40px; width: 45px;"></a>
+            <a href="{% url 'm_signup' %}"><img src="../static/img/sign-up.png"
+                                                style="height: 37px; width: 42px;"></a>
+        </div>
+        <div>
+            {% include 'tabs.html' %}
         </div>
 
 
-        <div class="row">
+    {% endif %}
+    <div id="bodyblue">
 
-            <div class="col-12" id="footer-div">
+        <button class="accordion"><h1>Game</h1></button>
+        <div class="panel"><h2 style="padding: 2%">How many points have you earned?</h2>
+            {% if user.is_authenticated %}
+                <p id='pointsPara'></p>
+                <script>
+                    var user = '{{ user.username }}';
+                    var points = '{{ user.points }}';
+                    document.getElementById('pointsPara').innerHTML = " <h3>You have earned "  + points + " points. Nice job " + user+ "!</h3>"
+                </script>
+            {% else %}s
+                <p>Please log in to see your points! Haven't signed up yet? What are you waiting for? If you don't
+                    sign up, you can't add favorites or earn points for exploring. You're missing out!</p>
+            {% endif %}
+        </div>
+        <button class="accordion"><h1>Co2</h1></button>
+        <div class="panel"></div>
 
-                {% include 'tabs.html' %}
+        <button class="accordion"><h1>Weather Forecast</h1></button>
+        <div class="panel">
+            <!--this div is to show the weather forcast, input a date and choose a time to call the fuction show weather forecast in 5 days-->
+            <div id="search_date" style="font-family: unset; float: left">
+                <h3 style="margin-top: 2%; text-align: center">Choose a date(in 5 days) and time to see the weather:</h3>
+                <input type="date" name="date" id="date_weather_forcast">
+                <select id="time_weather_forcast"  name="time" style="   -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(...);">
+                    <option value='06:00:00'>06:00:00</option>
+                    <option value='09:00:00'>09:00:00</option>
+                    <option value='12:00:00'>12:00:00</option>
+                    <option value='15:00:00'>15:00:00</option>
+                    <option value='18:00:00'>18:00:00</option>
+                    <option value='21:00:00'>21:00:00</option>
+                    <option value='00:00:00'>00:00:00</option>
+                    <option value='03:00:00'>03:00:00</option>
+                </select>
+                <button onclick="display()" type="button" style="background-color: whitesmoke"><b>Show forecast</b></button>
+                <div id="show_forecast" style="color: black; margin-bottom: 80%">
+                </div>
+            </div>
+
+        </div>
+        <button class="accordion"><h1>Traffic Update</h1></button>
+        <div class="panel">
+            <div id="search_date" style="font-family: unset; float: left">
+                <div id="feeddiv"></div>
 
             </div>
 
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12">
+            {% include 'tabs.html' %}
         </div>
     </div>
     <script type="text/javascript">
@@ -168,9 +200,9 @@
                         for (var i = 0; i < data.list.length; i++) {
                             if (data.list[i].dt_txt == date + ' ' + time) {
 
-                                let fore = "<div >" + "<img src = 'https://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png' > " + data.list[i].weather[0].description +
+                                let fore = "<div style='text-align: center'>" + "<img src = 'https://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png' > " + "<h4>"+data.list[i].weather[0].description+"</h4>" +
 
-                                    "<h6 style='padding-top:0;'>" + data.list[i].main.temp + "&deg;C</h6>";
+                                    "<h3 style='padding-top:0;'>" + data.list[i].main.temp + "&deg;C</h3>";
                                 document.getElementById("show_forecast").innerHTML = fore;
                                 var a = 1;
                             }
@@ -208,7 +240,7 @@
 
     <script type="text/javascript" src="https://rss2json.com/gfapi.js"></script>
 
-    <script type="text/javascript">
+    <script>
 
         google.load("feeds", "1");
 
