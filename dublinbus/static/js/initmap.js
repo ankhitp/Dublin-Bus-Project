@@ -148,7 +148,6 @@ function addMarker(map, data) {
         marker.setMap(map);
     }
 
-
 }
 // this function calls realtime api to get the real time info
 

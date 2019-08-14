@@ -88,7 +88,7 @@ def bus_prediction(request):
         busroute1 = [row["actual_stop_id"] for row in DictReader(f)]
     with open("static/busroutes/"+routecsv2) as f:
         busroute2 = [row["actual_stop_id"] for row in DictReader(f)]
-
+    print(busroute2)
     if startingPoint in busroute1:
         direction = 1
         routeholder = busroute1
@@ -101,7 +101,7 @@ def bus_prediction(request):
         direction = 1
         startingPoint = busroute1[0]
         routeholder = busroute1
-        endstop = busrouute1[len(busroute1)-1]
+        endstop = busroute1[len(busroute1)-1]
         print("not in the route")
 
 

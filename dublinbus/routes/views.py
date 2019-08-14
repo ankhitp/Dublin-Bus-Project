@@ -25,7 +25,18 @@ def routes(request):
     else:
         return render(request, 'routes.html', {'load': routeData, 'routesList': routesList})
 
-
+@csrf_exempt
+def getRoute(request):
+    route = request.POST.get("route")
+    dirOne = open('static/busRoutes/'+route+'_direction1route.json')
+    dirTwo = open('static/busRoutes/'+route+'_direction2route.json')
+    dirOneData = json.load(dirOne)
+    dirTwoData = json.load(dirTwo)
+    data = json.dumps({
+            'dirOneFinal': dirOneData,
+            'dirTwoFinal': dirTwoData,
+        })
+    return HttpResponse(data)
 
 
 
