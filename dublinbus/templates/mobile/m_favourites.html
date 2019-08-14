@@ -69,16 +69,17 @@
                     <div class="col-12" id="favourite-holder">
                         <div id="favourite-Add">
                             <div id="add-holder">
-                                <h1>Add new favourite route
+                                <h2>Add new favourite route
                                     <button aria-pressed="false" autocomplete="off" class="btn btn-primary"
                                             data-toggle="button"
                                             id="add-button" type="button">
                                         <img src="../static/img/plus.png"
-                                             style="height: 80px; width: 80px; margin-top: -10%;">
-                                        {#                                        <i class="fas fa-plus-circle" id="plusicon"></i>#}
+                                             style="height: 40px; width: 40px; margin-top: -10%;">
+                                        {# <i class="fas fa-plus-circle" id="plusicon"></i>#}
                                     </button>
-                                </h1>
+                                </h2>
                             </div>
+
                         </div>
                         <br><br>
 
@@ -109,9 +110,8 @@
                             </div>
                         </div>
 
-
-                        <div id="one-holder"></div>
-
+                        <br>
+                        <div id="one-holder" style = "max-height: 420px; overflow: scroll; padding-bottom: 150px"></div>
 
                     </div>
 
@@ -142,8 +142,8 @@
                         myHtml +=
                             "<div class=\"flex-container\" id='" + startLoc + endLoc + "'>" +
                             "<div id=\"flex1div\"> <b>From: </b>" + startLoc + "<b> To: </b>" + endLoc +
-                            "</div><div id=\"flex2div\" style=\"margin-left: 1%;\"><img src=\"../static/img/place.png\" style=\"height: 60px; width: 60px\"; value='" + startLoc + "|" + endLoc + "' id=\"planJourney\" onclick=\"getFavRoute('" + startLoc + "','" + endLoc + "')\">" + "&nbsp" + "&nbsp" + "&nbsp" +
-                            "<img src=\"../static/img/like.png\" style=\"height: 60px; width: 60px; id=\"delete\" onclick=\"removeFav('" + startLoc + "','" + endLoc + "')\">" +
+                            "</div><div id=\"flex2div\" style=\"margin-left: 1%;\"><img src=\"../static/img/place.png\" style=\"height: 30px; width: 30px\"; value='" + startLoc + "|" + endLoc + "' id=\"planJourney\" onclick=\"getFavRoute('" + startLoc + "','" + endLoc + "')\">" + "&nbsp" + "&nbsp" + "&nbsp" +
+                            "<img src=\"../static/img/like.png\" style=\"height: 30px; width: 30px; id=\"delete\" onclick=\"removeFav('" + startLoc + "','" + endLoc + "')\">" +
                             "</div>" +
                             "</div>";
                     }

@@ -260,11 +260,14 @@
             var url = new URL(window.location.href);
             var arr = window.location.href.split('?');
             if (arr.length > 1 && arr[1] !== '') {
+                document.getElementById("optionsButton").click();
                 var passedStart = url.searchParams.get("start");
                 var passedEnd = url.searchParams.get("end");
                 document.getElementById("origin-input").value = passedStart;
                 document.getElementById("destination-input").value = passedEnd;
                 document.getElementById("directionsButton").click();
+                history.pushState(null, '', '/');
+                alert("We've set the start and end location, just enter a time and day!")
             }
             calendarBuilder();
             $(function () {
