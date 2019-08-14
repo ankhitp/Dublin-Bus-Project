@@ -115,6 +115,7 @@
         var html = document.getElementById(route).innerHTML;
         var finalHtml = "<div style = 'cursor: pointer' class = 'holder' onclick = 'getRoute(\"" + route + "\")'>" + html + "</div>";
         document.getElementById('route').innerHTML = finalHtml;
+        document.getElementById('reset').innerHTML = "    <button class=\"btn btn-light\" onclick=\"resetRoutes("+0+")\">Back to the list</button>";
     }
 
     function getRoute(route) {
