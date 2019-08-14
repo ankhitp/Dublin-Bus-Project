@@ -121,7 +121,6 @@ function getPrediction(routeChosen, url, start, end, date, time) {
                             }
                         }
                         if (foundRoute == true) {
-                            console.log("Got here with bus route " + busRoute);
                             xhttp2 = new XMLHttpRequest();
                             xhttp2.open("POST", 'bus_prediction', true);
                             xhttp2.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
@@ -135,14 +134,18 @@ function getPrediction(routeChosen, url, start, end, date, time) {
                             }
                         }
                         else {
+                            let checkConnect = 0;
                             for (let x = 0; x < parsed.length; x++) {
                                 //mode == 5 means that it's a bus traveled method
                                 if (parsed[x]['mode'] == 5) {
-                                    var tempStartTime = new Date(parsed[x]['Dep']['time']);
-                                    var tempEndTime = new Date(parsed[x]['Arr']['time']);
-                                    var timePassed = (tempEndTime - tempStartTime) / (1000 * 60);
-                                    multiTimeFunc(timePassed);
-                                    break;
+                                    if (checkConnect === j) {
+                                        var tempStartTime = new Date(parsed[x]['Dep']['time']);
+                                        var tempEndTime = new Date(parsed[x]['Arr']['time']);
+                                        var timePassed = (tempEndTime - tempStartTime) / (1000 * 60);
+                                        multiTimeFunc(timePassed);
+                                        break;
+                                    }
+                                    checkConnect++;
                                 }
                             }
                             j++;
