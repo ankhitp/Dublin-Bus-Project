@@ -63,7 +63,7 @@
 
         #coTwo {
             position: absolute;
-            left: 79%;
+            max-width: 600px;
             z-index: 99;
             text-align: center;
             font-family: Arial;
@@ -277,8 +277,6 @@
             $(function () {
                 $('#timepicker1').timepicker({
                     timeFormat: 'H:i',
-                    minTime: '5:00',
-                    maxTime: '00:00',
                     dynamic: false,
                     dropdown: true,
                     scrollbar: true,

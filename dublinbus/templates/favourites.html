@@ -208,7 +208,6 @@
 
                 #addfavourite {
                     border-radius: 20px;
-                    height: 11vh;
                     font-size: 20px;
                     margin-top: 2%;
 
@@ -294,9 +293,6 @@
                 //setting up the autcomplete and adding the bound circle of 10KM for suggestions
                 var originAutocomplete = new google.maps.places.Autocomplete(originInput);
                 // set route numbers here?
-                setTimeout(function () {
-                    $(".pac-container").append('<div id="are" class="pac-item" onmousedown="alert(\'Yes workingt\')"><span class="pac-icon icon-airport"></span><span class="pac-item-query"><span class="pac-matched"></span>sample Address</span> <span>it\'s Working</span></div>');
-                }, 500);
                 var destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
                 originAutocomplete.setBounds(circle.getBounds());
                 destinationAutocomplete.setBounds(circle.getBounds());
@@ -396,14 +392,17 @@
                         var startStop = favsArray[i].split(':');
                         var startLoc = startStop[0];
                         var endLoc = startStop[1];
-                        console.log('asdfada', startLoc + " : " + endLoc);
-                        {#<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"                 title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"                 title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>#}
-                        {#<div>Icons made by <a href="https://www.flaticon.com/authors/prettycons" title="prettycons">prettycons</a> from <a href="https://www.flaticon.com/"                 title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"                 title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>#}
+                        var startLocShort = startLoc.split(",")[0];
+                        var endLocShort = endLoc.split(",")[0];
+                        startLoc = startLoc.replace("&#39;","");
+                        endLoc = endLoc.replace("&#39;","");
+                        let startLocRem = startLoc.replace("&#39;", "4343");
+                        let endLocRem = endLoc.replace("&#39;", "4343");
                         document.getElementById('one-holder').insertAdjacentHTML('beforeend',
-                            "<div class=\"flex-container\" id='" + startLoc + endLoc + "'>" +
-                            "<div id=\"flex1div\"> <b>From: </b>" + startLoc + "<b> To: </b>" + endLoc +
-                            "</div><div id=\"flex2div\" style=\"margin-left: 3%;\"><img src=\"../static/img/place.png\" style=\"height: 35px; width: 35px\"; value='" + startLoc + "|" + endLoc + "' id=\"planJourney\" onclick=\"getFavRoute('" + startLoc + "','" + endLoc + "')\">" + "&nbsp" + "&nbsp" + "&nbsp" +
-                            "<img src=\"../static/img/like.png\" style=\"height: 35px; width: 35px; id=\"delete\" onclick=\"removeFav('" + startLoc + "','" + endLoc + "')\">" +
+                            "<div class=\"flex-container\" id='" + startLocShort + endLocShort + "'>" +
+                            "<div id=\"flex1div\"> <b>From: </b>" + startLocShort + "<b> To: </b>" + endLocShort +
+                            "</div><div id=\"flex2div\" style=\"margin-left: 3%;\"><img src=\"../static/img/place.png\" style=\"height: 35px; width: 35px\"; value='" + startLoc + "|" + endLoc + "' id=\"planJourney\" onclick=\"getFavRoute('" + startLoc + "','" + endLoc + "')\">"+
+                            "<img src='../static/img/like.png' style='height: 35px; width: 35px;' id='delete' onclick='removeFav(\"" + startLocRem + "\",\"" + endLocRem + "\",\"" + user + "\")'>" +
                             "</div>" +
                             "</div>");
 

@@ -52,8 +52,6 @@ function getRoute(i, url, start, end, predictDate, predictTime) {
             var firstLayerJSON = returnData['Res']['Connections']["Connection"];
             var indivBusRouteJSON = firstLayerJSON[i]["Sections"]["Sec"];
             for (var x = 0; x < indivBusRouteJSON.length; x++) {
-                var mycounter = convertNumberToWords(x + 1);
-                var CSScounter = mycounter.trim();
 
 
                 if (indivBusRouteJSON[x]["mode"] == 20 && x != indivBusRouteJSON.length - 1) {

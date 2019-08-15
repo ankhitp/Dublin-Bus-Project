@@ -17,9 +17,9 @@ class SignUp(CreateView):
 
 @csrf_exempt
 def addFav(request):
-    start = request.POST.get('start', '')
-    end = request.POST.get('end', '')
-    myUser = request.POST.get('user', '')
+    start = request.POST.get('start')
+    end = request.POST.get('end')
+    myUser = request.POST.get('user')
     t = CustomUser.objects.get(username=myUser)
     if len(t.favourites) == 0:
         t.favourites = start + ":" + end

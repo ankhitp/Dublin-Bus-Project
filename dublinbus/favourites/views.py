@@ -91,7 +91,6 @@ class favourites_view(TemplateView):
         # return render(request, self.template_name, args)
         user_agent = get_user_agent(request)
         args = {'form': form}
-        print("user agent is", user_agent)
         if user_agent.is_mobile:
             return render(request, 'mobile/m_favourites.html', args)
         elif user_agent.is_tablet:
@@ -101,20 +100,23 @@ class favourites_view(TemplateView):
 
     @csrf_exempt
     def delete_fav(request):
-        user_info = request.user
-        startLoc = request.POST.get('startLoc')
-        endLoc = request.POST.get('endLoc')
-        print(user_info,startLoc,endLoc)
+        user_info = request.POST.get('user')
+        startLoc = request.POST.get('start')
+        endLoc = request.POST.get('end')
         user = CustomUser.objects.get(username=user_info)
-        print(user.favourites)
+        print("RAW IS: " + user.favourites)
         favourites_items = user.favourites.split("*")
-        print(favourites_items)
         new_item = ""
         for item in favourites_items:
+            print("Delete: " + startLoc+":" +endLoc + " Current is: " + item)
             if startLoc+":"+endLoc != item:
-                new_item += "*" + item
-        print(new_item)
-        user.favourites = new_item[1:]
+                if new_item != "":
+                    new_item += '*' + item
+                else:
+                    new_item += item
+            else:
+                print("DELETING")
+        user.favourites = new_item
         try:
             user.save()
             return HttpResponse(status=200)

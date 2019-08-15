@@ -59,10 +59,6 @@
                 });
                 //setting up the autcomplete and adding the bound circle of 10KM for suggestions
                 var originAutocomplete = new google.maps.places.Autocomplete(originInput);
-                // set route numbers here?
-                setTimeout(function () {
-                    $(".pac-container").append('<div id="are" class="pac-item" onmousedown="alert(\'Yes workingt\')"><span class="pac-icon icon-airport"></span><span class="pac-item-query"><span class="pac-matched"></span>sample Address</span> <span>it\'s Working</span></div>');
-                }, 500);
                 var destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
                 originAutocomplete.setBounds(circle.getBounds());
                 destinationAutocomplete.setBounds(circle.getBounds());
@@ -147,13 +143,15 @@
                         var endLoc = startStop[1];
                         var startLocShort = startLoc.split(",")[0];
                         var endLocShort = endLoc.split(",")[0];
-                        startLoc = startLoc.replace("&#39;", "");
-                        endLoc = endLoc.replace("&#39;", "");
+                        startLoc = startLoc.replace("&#39;","");
+                        endLoc = endLoc.replace("&#39;","");
+                        let startLocRem = startLoc.replace("&#39;", "4343");
+                        let endLocRem = endLoc.replace("&#39;", "4343");
                         myHtml +=
-                            "<div class=\"flex-container\" id='" + startLoc + endLoc + "'>" +
-                            "<div id=\"flex1div\"> <b>From: </b>" + startLoc + "<b> To: </b>" + endLoc +
+                            "<div class=\"flex-container\" id='" + startLocShort + endLocShort + "'>" +
+                            "<div id=\"flex1div\"> <b>From: </b>" + startLocShort + "<b> To: </b>" + endLocShort +
                             "</div><div id=\"flex2div\" style=\"margin-left: 1%;\"><img src=\"../static/img/place.png\" style=\"height: 30px; width: 30px\"; value='" + startLoc + "|" + endLoc + "' id=\"planJourney\" onclick=\"getFavRoute('" + startLoc + "','" + endLoc + "')\">" + "&nbsp" + "&nbsp" + "&nbsp" +
-                            "<img src=\"../static/img/like.png\" style=\"height: 30px; width: 30px; id=\"delete\" onclick=\"removeFav('" + startLoc + "','" + endLoc + "')\">" +
+                            "<img src=\"../static/img/like.png\" style='height: 30px; width: 30px;' id='delete' onclick='removeFav(\"" + startLocRem + "\",\"" + endLocRem + "\",\"" + user + "\")'>" +
                             "</div>" +
                             "</div>";
                     }
@@ -182,7 +180,6 @@
     {% endif %}
     <link href="{% static 'css/m_favourites.css' %}" rel="stylesheet">
     <script src="{% static '/js/addfavourite.js' %}"></script>
-    <script src="{% static '/js/createfavourite.js' %}"></script>
 
     <script src="{% static '/js/map.js' %}"></script>
     <script src="{% static 'js/favRoute.js' %}"></script>
