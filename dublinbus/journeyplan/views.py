@@ -67,7 +67,8 @@ def bus_prediction(request):
     weather_detalis = requests.get(url)
     weatherdata = json.loads(weather_detalis.text)
     print("request", request)
-
+    hereUrl = request.POST.get("url")
+    routeChosen = request.POST.get("routeChosen")
     endPoint = request.POST.get("endPoint")
     print("end point", endPoint)
 
@@ -130,8 +131,28 @@ def bus_prediction(request):
 
 
     # make a list of only stops you want
-    first = routeholder.index(startingPoint)
-    second = routeholder.index(endPoint)
+    try:
+        first = routeholder.index(startingPoint)
+        second = routeholder.index(endPoint)
+    except ValueError:
+        returnData = requests.get(hereUrl)
+        parseMe = returnData['Res']['Connections']["Connection"];
+        connections = parseMe[routeChosen]['transfers'];
+        parsed = parseMe[routeChosen]["Sections"]["Sec"];
+        x = 0
+        while x < len(parsed):
+            if parsed[x]["mode"] == 5:
+                if int(parsed[x]['Dep']['Transport']['name']) == int(busRoute):
+                    a = dateutil.parser.parse(parsed[x]['Dep']['time'])
+                    b = dateutil.parser.parse(parsed[x]['Arr']['time'])
+                    minutes = b - a
+                    minutes = str(minutes).split(":")
+                    minutes = minutes[1]
+                    x+=100000
+            x += 1
+        return minutes
+
+
     sectionlist = [routeholder[x]+":"+ routeholder[x+1] for x in range(first, second)]
 
     # open model dictionary, filter to only stops that you want
@@ -169,9 +190,3 @@ def bus_prediction(request):
     myValToReturn = totaljourney/60
 
     return HttpResponse(myValToReturn)
-
-    
-    print("last")
-
-    return JsonResponse(totaljourney[0], safe=False)
-

@@ -85,9 +85,8 @@ function getPrediction(routeChosen, url, start, end, date, time) {
                 if (foundRoute == true) {
                     myXhttp = new XMLHttpRequest();
                     myXhttp.open("POST", 'bus_prediction', true);
-                    console.log("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour=" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
                     myXhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-                    myXhttp.send("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour=" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
+                    myXhttp.send("routeChosen="+routeChosen+"&url="+url+"&route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour=" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
                     myXhttp.onreadystatechange = function () {
                         if (myXhttp.readyState === 4 && myXhttp.status === 200) {
                             processFunc(JSON.parse(myXhttp.responseText));
@@ -120,9 +119,9 @@ function getPrediction(routeChosen, url, start, end, date, time) {
                         }
                         if (foundRoute == true) {
                             xhttp2 = new XMLHttpRequest();
-                            xhttp2.open("POST", 'bus_prediction', true);
-                            xhttp2.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-                            xhttp2.send("route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour=" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
+                            myXhttp.open("POST", 'bus_prediction', true);
+                            myXhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+                            myXhttp.send("routeChosen="+routeChosen+"&url="+url+"&route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour=" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
                             xhttp2.onreadystatechange = function () {
                                 if (xhttp2.readyState === 4 && xhttp2.status === 200) {
                                     j++;

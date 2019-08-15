@@ -149,7 +149,7 @@ function resetMap() {
         "            <div style='text-align: center'>\n" +
         "                <input class='controls' id='dateField' name='daterange' style='width:250px' type='text'>\n" +
         "                <input autocomplete='off' class='controls' id='timepicker1' placeholder='Please select a time'\n" +
-        "                       style='width:250px' type='text'>\"" +
+        "                       style='width:250px' type='text'>" +
         "                <br>"+
         "                <br>"+
         "                <button class='btn btn-primary' id=\"directionsButton2\" onclick=\"resizeMap()\" type=\"submit\">Search\n" +
@@ -184,7 +184,6 @@ function resetMap() {
     var numberOfDaysToAdd = 4;
     currentDate.setDate(currentDate.getDate() + 1);
     endDate.setDate(currentDate.getDate() + numberOfDaysToAdd);
-
     function calendarBuilder() {
         $('input[name="daterange"]').daterangepicker({
             singleDatePicker: true,
