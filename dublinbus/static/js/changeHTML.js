@@ -68,6 +68,8 @@ function calendarTimeSet() {
         $(function () {
             $('#timepicker1').timepicker({
                 timeFormat: 'H:i',
+                minTime: '5:00',
+                maxTime: '00:00',
                 dynamic: false,
                 dropdown: true,
                 scrollbar: true,

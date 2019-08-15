@@ -101,7 +101,7 @@
         stopHTML += '<option value="' + routesList[i].Route + '">';
         routeHTML +=
             '<div onclick = "getRoute(\'' + routesList[i].Route + '\')" id = "' + routesList[i].Route + '" style = "cursor: pointer; text-align: center" class = "holder col-12">' +
-            routesList[i].Route + ' going from ' + routesList[i].Stops +
+            routesList[i].Route + ' | ' + routesList[i].Stops +
             '</div>' +
             '<hr>';
     }
@@ -127,11 +127,11 @@
             var dirTwoRoute = response['dirTwoFinal'];
             document.getElementById('bigList').style.display = "none";
             document.getElementById('input').style.display = "none";
-            document.getElementById('routeHead').innerHTML = "These are all the stops the route travels through!"
+            document.getElementById('routeHead').innerHTML = "These are all the stops the route travels through:";
             document.getElementById('map').style.display = "block";
             document.getElementById('reset').style.display = "block";
-            addMarker(map, dirOneRoute);
-            addMarker(map, dirTwoRoute);
+            addMarker(1,map, dirOneRoute);
+            addMarker(2,map, dirTwoRoute);
             map.setZoom(12);
 
         }
@@ -140,7 +140,7 @@
 
 
 <script>
-    function addMarker(map, data) {
+    function addMarker(flag,map, data) {
         //get the stop data from JSON file
         var infowindow = new google.maps.InfoWindow({});
         //*
@@ -151,13 +151,21 @@
             // {#Console.log(busdata);#}
             var myLatLng = {lat: parseFloat(busdata.stop_lat), lng: parseFloat(busdata.stop_lon)};
 
-
-            // console.log(route_data[busdata.actual_stop_id]);
-            var icon = {
-                url: '../static/img/iconsmarker1.png', // url
-                scaledSize: new google.maps.Size(40, 40), // scaled size
-                origin: new google.maps.Point(0, 0), // origin
-            };
+            if (flag == 1) {
+                // console.log(route_data[busdata.actual_stop_id]);
+                var icon = {
+                    url: '../static/img/route1.png', // url
+                    scaledSize: new google.maps.Size(40, 40), // scaled size
+                    origin: new google.maps.Point(0, 0), // origin
+                };
+            }
+            else {
+                var icon = {
+                    url: '../static/img/route2.png', // url
+                    scaledSize: new google.maps.Size(40, 40), // scaled size
+                    origin: new google.maps.Point(0, 0), // origin
+                };
+            }
 
             // Creating  markers and putting it on the map
             var marker = new google.maps.Marker({
@@ -192,7 +200,7 @@
         if (flag == 1) {
             document.getElementById('bigList').style.display = "block";
             document.getElementById('input').style.display = "block";
-            document.getElementById('routeHead').innerHTML = "A list of all the routes!"
+            document.getElementById('routeHead').innerHTML = "A list of all the routes:"
             document.getElementById('map').style.display = "none";
             document.getElementById('reset').style.display = 'none';
             deleteMarkers();
@@ -201,7 +209,7 @@
                 stopHTML += '<option value="' + routesList[i].Route + '">';
                 routeHTML +=
                     '<div onclick = "getRoute(\'' + routesList[i].Route + '\')" id = "' + routesList[i].Route + '" style = "cursor: pointer; text-align: center" class = "holder col-12">' +
-                    routesList[i].Route + ' going from ' + routesList[i].Stops +
+                    routesList[i].Route + ' | ' + routesList[i].Stops +
                     '</div>' +
                     '<hr>';
             }
@@ -209,7 +217,7 @@
             document.getElementById('routes').innerHTML = stopHTML;
             document.getElementById('bigList').style.display = "block";
             document.getElementById('input').style.display = "block";
-            document.getElementById('routeHead').innerHTML = "A list of all the routes!"
+            document.getElementById('routeHead').innerHTML = "A list of all the routes:"
             document.getElementById('map').style.display = "none";
             document.getElementById('reset').style.display = 'none';
             deleteMarkers();
