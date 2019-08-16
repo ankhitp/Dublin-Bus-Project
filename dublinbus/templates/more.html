@@ -9,7 +9,7 @@
 <script type="text/javascript">
 google.load("feeds", "1") //Load Google Ajax Feed API (version 1)
 </script>
-    
+
     <style>
         .controls {
             margin-top: 10px;
@@ -178,12 +178,13 @@ google.load("feeds", "1") //Load Google Ajax Feed API (version 1)
 
         <button class="accordion">Weather Forecast</button>
         <div class="panel">
+            <h3 style="margin-top: 2%; text-align: center">Choose a date (within the next 5 days) and time to see the weather:</h3>
             <!--this div is to show the weather forcast, input a date and choose a time to call the fuction show weather forecast in 5 days-->
-            <div id="search_date" style="font-family: unset; float: left">
-                <h3 style="margin-top: 2%; text-align: center">Choose a date (within the next 5 days) and time to see the weather:</h3>
+            <div class = "row">
+            <div id="search_date" style="font-family: unset; text-align: center; max-width: 400px">
                 <input type="date" name="date" id="date_weather_forcast">
                 <br>
-                <select class ='controls' id="time_weather_forcast" style="display: block" name="time">
+                <select class ='controls' id="time_weather_forcast" style="display: block; margin: 0 auto;" name="time">
                     <option value='06:00:00'>06:00:00</option>
                     <option value='09:00:00'>09:00:00</option>
                     <option value='12:00:00'>12:00:00</option>
@@ -195,24 +196,25 @@ google.load("feeds", "1") //Load Google Ajax Feed API (version 1)
                 </select>
                 <br>
                 <button style = "width:140px" class = "btn btn-primary" onclick="display()" type="button">Show forecast</button>
-                <div id="show_forecast" style="color: black; margin-bottom: 80%">
-                </div>
+            </div>
+                <br>
+            <div id="show_forecast" style="color: black; float: right; margin-bottom: 80%"></div>
             </div>
 
         </div>
         <button class="accordion">Traffic Update</button>
         <div class="panel" id="feeddiv" style = "max-height: 300px; overflow:scroll">
-         <div id="search_date" style="font-family: unset; float: left">
-            <div id="feeddiv"></div>
+            <div id="search_date" style="font-family: unset; float: left">
+                <div id="feeddiv"></div>
 
             </div>
-        
+
         </div>
 
     </div>
 
     <!-- <using ajax, weather forecast function, if the date and time equals to input, get the weather forecast from openweather api -->
-   
+
     <script type="text/javascript">
 
         function display() {
@@ -230,7 +232,7 @@ google.load("feeds", "1") //Load Google Ajax Feed API (version 1)
                         for (var i = 0; i < data.list.length; i++) {
                             if (data.list[i].dt_txt == date + ' ' + time) {
 
-                                let fore = "<div >" + "<img src = 'https://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png' > " + data.list[i].weather[0].description +
+                                let fore = "<img src = 'https://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png' > " + data.list[i].weather[0].description +
 
                                     "<h6 style='padding-top:0;'>" + data.list[i].main.temp + "&deg;C</h6>";
                                 document.getElementById("show_forecast").innerHTML = fore;
@@ -240,7 +242,7 @@ google.load("feeds", "1") //Load Google Ajax Feed API (version 1)
 
                         }
                         if (a == 0) {
-                            alert("Error");
+                            alert("Please make sure the date is within 5 days.");
                         }
 
 
@@ -286,7 +288,7 @@ google.load("feeds", "1") //Load Google Ajax Feed API (version 1)
             // div.appendChild(document.createTextNode(entry.title+ "<br>"+ entry.content+"<br><br>"));
             // div.appendChild(document.createTextNode(entry.content));
             div.innerHTML="<br><br><h3>"+entry.title+"</h3>"+entry.publishedDate+"<br><p><a href=\""+entry.link+"\">More details</a></p><p>"+entry.content+"</p>"
-           
+
             container.appendChild(div);
           }
         }

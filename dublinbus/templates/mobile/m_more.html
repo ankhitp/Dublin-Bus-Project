@@ -140,8 +140,8 @@
     {% endif %}
     <div id="bodyblue" style = "overflow:scroll">
 
-        <button class="accordion"><h3>Game</h3></button>
-        <div class="panel"><br><h2 style="padding: 2%">How many points have you earned?</h2>
+        <button class="accordion"><h4>Game</h4></button>
+        <div class="panel"><br><h4 style="padding: 2%">How many points have you earned?</h4>
             {% if user.is_authenticated %}
             <p id='pointsPara'></p>
             <script>
@@ -155,11 +155,11 @@
                 }
             </script>
             {% else %}
-            <br><p>Please log in to see your points! Haven't signed up yet? What are you waiting for? If you don't
+            <p>Please log in to see your points! Haven't signed up yet? What are you waiting for? If you don't
                 sign up, you can't add favorites or earn points for exploring. You're missing out!</p>
             {% endif %}
         </div>
-        <button class="accordion"><h3>Co2</h3></button>
+        <button class="accordion"><h4>Co2</h4></button>
         <div class="panel">{% if user.is_authenticated %}
             <p id = 'co2para'></p>
             <script>
@@ -178,11 +178,11 @@
                 if you can't keep score?</p>
             {% endif %}</div>
 
-        <button class="accordion"><h3>Weather Forecast</h3></button>
+        <button class="accordion"><h4>Weather Forecast</h4></button>
         <div class="panel" style = "overflow: scroll">
             <!--this div is to show the weather forcast, input a date and choose a time to call the fuction show weather forecast in 5 days-->
             <div id="search_date" style="font-family: unset; float: left">
-                <h3 style="margin-top: 2%; text-align: center">Choose a date (within the next 5 days) and time to see the weather:</h3>
+                <h6 style="margin-top: 2%; text-align: center">Choose a date (within the next 5 days) and time to see the weather:</h6>
                 <input type="date" name="date" id="date_weather_forcast">
                 <select id="time_weather_forcast"  name="time" style="   -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(...);">
                     <option value='06:00:00'>06:00:00</option>
@@ -200,7 +200,7 @@
             </div>
 
         </div>
-        <button class="accordion"><h3>Traffic Update</h3></button>
+        <button class="accordion"><h4>Traffic Update</h4></button>
         <div class="panel">
             <div id="search_date" style="font-family: unset; float: left">
                 <div id="feeddiv"></div>
