@@ -99,6 +99,7 @@
 
         <img class="smalllogo" src="{% static 'smalllogo.png' %}">
         <h2 style="display: inline">Dublin Bus</h2>
+        <div style = "cursor: pointer; color:white;float: right; max-width:150px"><h6 data-toggle="modal" data-target="#myModal">Have you been playing our game? If not, click here to learn more!</h6></div>
     </div>
     </div>
     {% if user.is_authenticated %}
@@ -127,9 +128,30 @@
     <div class="row">
         <div class="col-12" id="map"></div>
     </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Game Information</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Hello there! Whether you're new to Dublin, or a South Dublin girl who went to Mount Anville and
+                        knows nothing but Dublin, we bet there's some places you haven't visited yet. If you look
+                        around the map, you'll notice purple markers that look different than the orange station markers.
+                        These are what we believe to be the best spots in Dublin, and there's 20 spread out across
+                        the map. For every one you visit, we'll give you 10 points. And for every 50 points you earn, we'll
+                        exchange that for 5 Euro of Dublin Bus credit. Now get exploring!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
 
+        </div>
     </div>
+
     <script>
         var data = {{ load | safe }};
         var route_data = {{ routedata | safe }};
@@ -150,7 +172,8 @@
                     }
                     pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                     for (var i = 0; i < tourism.length; i++) {
-                        if (distance(position.coords.latitude, position.coords.longitude, tourism[i].lat, tourism[i].lon) < 0.1 && favsArray.includes(tourism[i].name) == true ) {
+                        if (distance(position.coords.latitude, position.coords.longitude, tourism[i].lat, tourism[i].lon)
+                            < 0.1 && favsArray.includes(tourism[i].name) == true ) {
                             alert("You have just visited " + tourism[i].name + ", earning 10 points. Nice one! Keep exploring!");
                             tourismXHTTP = new XMLHttpRequest();
                             tourismXHTTP.open("POST", '/users/addLocation/');
@@ -186,7 +209,8 @@
             jsonpCallback: "jsonp",
             success: function (data) {
 
-                let widget = "<img src = 'http://openweathermap.org/img/w/" + data.weather[0].icon + ".png' > " + "<br/>" + "<b>" + data.weather[0].description + "</b>"
+                let widget = "<img src = 'http://openweathermap.org/img/w/" + data.weather[0].icon + ".png' > " + "<br/>"
+                    + "<b>" + data.weather[0].description + "</b>"
                 document.getElementById("weather_box").innerHTML = widget;
 
             }

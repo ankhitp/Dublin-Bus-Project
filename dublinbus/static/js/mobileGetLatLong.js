@@ -50,7 +50,6 @@ function mobileGetLatLng(start, end, time, predictDate) {
                 var newDate = datearr[2] + "-" + datearr[0] + "-" + datearr[1];
                 var newTime = newDate + "T" + time + ":00+01:00";
                 var finalNewTime = new Date(newTime);
-                console.log(newTime);
                 finalNewTime = finalNewTime.toISOString();
                 var url = "https://transit.api.here.com/v3/route.json?app_id=tL7r9QKJ3KlE5Kc9LGYo&app_code=1arMc" +
                     "SHt_o31xFSeBRswsA&modes=bus&routing=all&dep=" + startLat + "," + startLong + "&arr=" + destLat +
@@ -63,7 +62,6 @@ function mobileGetLatLng(start, end, time, predictDate) {
                 xhttp.onreadystatechange = async function () {
                     if (this.readyState === 4 && this.status === 200) {
                         if (this.responseText != "") {
-                            console.log(url);
                             //parsing this awful JSON. follow the url if you want to see how the JSON looks
                             var returnData = JSON.parse(this.responseText);
 

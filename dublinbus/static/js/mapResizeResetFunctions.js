@@ -169,6 +169,11 @@ function resetMap() {
         "                </button>\n" +
         "            </div>\n" +
         "        </div>";
+    var currentDate = new Date();
+    var endDate = new Date();
+    var numberOfDaysToAdd = 4;
+    currentDate.setDate(currentDate.getDate() + 1);
+    endDate.setDate(currentDate.getDate() + numberOfDaysToAdd);
     calendarBuilder();
     $(function () {
         $('#timepicker1').timepicker({
@@ -179,11 +184,6 @@ function resetMap() {
             step: 30,
         })
     });
-    var currentDate = new Date();
-    var endDate = new Date();
-    var numberOfDaysToAdd = 4;
-    currentDate.setDate(currentDate.getDate() + 1);
-    endDate.setDate(currentDate.getDate() + numberOfDaysToAdd);
     function calendarBuilder() {
         $('input[name="daterange"]').daterangepicker({
             singleDatePicker: true,

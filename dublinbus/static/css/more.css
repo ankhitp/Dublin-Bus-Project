@@ -10,8 +10,6 @@
         }
 
         .accordion {
-        {#background-color: #b3d7ff;#} background-color: rgba(2, 147, 222, 0.5);
-            color: #444;
             cursor: pointer;
             padding: 18px;
             width: 100%;
@@ -22,13 +20,9 @@
             transition: 0.4s;
         }
 
-        .active, .accordion:hover {
-            background-color: #ccc;
-        }
 
         .panel {
             padding: 0 18px;
-            background-color: rgba(2, 147, 222, 0.5);
             height: 200px;
             max-height: 0;
             overflow: hidden;
@@ -58,8 +52,8 @@
         }
 
         #feeddiv{
-       overflow-x: hidden; 
-                overflow-y: scroll; 
+       overflow-x: hidden;
+                overflow-y: scroll;
                 height:500px;
         }
         #feeddiv.h3{

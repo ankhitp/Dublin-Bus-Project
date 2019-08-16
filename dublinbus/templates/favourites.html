@@ -305,11 +305,35 @@
         <div id="head" style="background: rgba(4, 36, 85, 0.5); padding-top: 1%">
             <img class="smalllogo" src="{% static 'smalllogo.png' %}" style="display: inline">
             <h2 style="display: inline">Dublin Bus</h2>
+            <div style = "cursor: pointer; color:white;float: right; max-width:150px"><h6 data-toggle="modal" data-target="#myModal">Have you been playing our game? If not, click here to learn more!</h6></div>
+
         </div>
         <div>
             {% include 'header.html' %}
         </div>
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
 
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Game Information</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Hello there! Whether you're new to Dublin, or a South Dublin girl who went to Mount Anville and
+                            knows nothing but Dublin, we bet there's some places you haven't visited yet. If you look
+                            around the map, you'll notice purple markers that look different than the orange station markers.
+                            These are what we believe to be the best spots in Dublin, and there's 20 spread out across
+                            the map. For every one you visit, we'll give you 10 points. And for every 50 points you earn, we'll
+                            exchange that for 5 Euro of Dublin Bus credit. Now get exploring!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
         <div style="z-index: 99;height: 50px;width: 100px;position: absolute;margin-left: 88%;">
             <h5>Hi {{ user.username }}!</h5>
@@ -394,10 +418,11 @@
                         var endLoc = startStop[1];
                         var startLocShort = startLoc.split(",")[0];
                         var endLocShort = endLoc.split(",")[0];
-                        startLoc = startLoc.replace("&#39;","");
-                        endLoc = endLoc.replace("&#39;","");
-                        let startLocRem = startLoc.replace("&#39;", "4343");
-                        let endLocRem = endLoc.replace("&#39;", "4343");
+                        let startLocRem = startLoc.replace(/&#39;/g, "4343");
+                        let endLocRem = endLoc.replace(/&#39;/g, "4343");
+                        startLoc = startLoc.replace(/&#39;/g,"");
+                        endLoc = endLoc.replace(/&#39;/g,"");
+                        console.log(endLocRem);
                         document.getElementById('one-holder').insertAdjacentHTML('beforeend',
                             "<div class=\"flex-container\" id='" + startLocShort + endLocShort + "'>" +
                             "<div id=\"flex1div\"> <b>From: </b>" + startLocShort + "<b> To: </b>" + endLocShort +

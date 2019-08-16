@@ -3,6 +3,7 @@ function getPrediction(routeChosen, url, start, end, date, time) {
     var endStations = [];
     var route = [];
     var times = [];
+    var startEndTimes = [];
     var foundRoute = false;
     var realRoutes = ['68', '25B', '25A', '14', '77A', '39', '16', '40D', '27B',
         '142', '83', '130', '15', '46A', '33', '7', '39A', '49', '1',
@@ -70,6 +71,12 @@ function getPrediction(routeChosen, url, start, end, date, time) {
                     endStations.push({actual_stop_id: endStop.actual_stop_id});
                     route.push({number: parsed[x]["Dep"]["Transport"]['name']});
                 }
+                else {
+                    let newOrig =new Date(parsed[x]["Dep"]['time']);
+                    let endWalk = new Date(parsed[x]["Arr"]['time']);
+                    let timeWalked = (endWalk-newOrig)/(1000*60);
+                    startEndTimes.push(timeWalked);
+                }
             }
             if (connections == 0) {
                 var endPoint = endStations[0].actual_stop_id;
@@ -83,10 +90,12 @@ function getPrediction(routeChosen, url, start, end, date, time) {
                     }
                 }
                 if (foundRoute == true) {
-                    myXhttp = new XMLHttpRequest();
+                    let myXhttp = new XMLHttpRequest();
                     myXhttp.open("POST", 'bus_prediction', true);
                     myXhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-                    myXhttp.send("routeChosen="+routeChosen+"&url="+url+"&route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour=" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
+                    let myUrl = url;
+                    myUrl = url.replace(/&/g, "80085")
+                    myXhttp.send("routeChosen="+routeChosen+"&url="+myUrl+"&route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour=" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
                     myXhttp.onreadystatechange = function () {
                         if (myXhttp.readyState === 4 && myXhttp.status === 200) {
                             processFunc(JSON.parse(myXhttp.responseText));
@@ -117,15 +126,18 @@ function getPrediction(routeChosen, url, start, end, date, time) {
                                 break;
                             }
                         }
+
                         if (foundRoute == true) {
-                            xhttp2 = new XMLHttpRequest();
+                            let myXhttp = new XMLHttpRequest();
                             myXhttp.open("POST", 'bus_prediction', true);
+                            let myUrl = url;
+                            myUrl = url.replace(/&/g, "80085");
                             myXhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-                            myXhttp.send("routeChosen="+routeChosen+"&url="+url+"&route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour=" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
-                            xhttp2.onreadystatechange = function () {
-                                if (xhttp2.readyState === 4 && xhttp2.status === 200) {
+                            myXhttp.send("routeChosen="+routeChosen+"&url="+myUrl+"&route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour=" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
+                            myXhttp.onreadystatechange = function () {
+                                if (myXhttp.readyState === 4 && myXhttp.status === 200) {
                                     j++;
-                                    multiTimeFunc(JSON.parse(xhttp2.responseText));
+                                    multiTimeFunc(JSON.parse(myXhttp.responseText));
                                     next();
                                 }
                             }
@@ -157,6 +169,9 @@ function getPrediction(routeChosen, url, start, end, date, time) {
 
     function processFunc(content) {
         content = Math.floor(content);
+        for (let y = 0; y < startEndTimes.length; y++) {
+            content+=startEndTimes[y];
+        }
         document.getElementById('time' + routeChosen).innerHTML = content + " minutes";
     }
 
@@ -166,6 +181,9 @@ function getPrediction(routeChosen, url, start, end, date, time) {
         if (times.length == startStations.length) {
             for (var a = 0; a < times.length; a++) {
                 timeToPred += times[a];
+            }
+            for (let y = 0; y < startEndTimes.length; y++) {
+                timeToPred+=startEndTimes[y];
             }
             timeToPred = Math.floor(timeToPred);
             document.getElementById('time' + routeChosen).innerHTML = timeToPred + " minutes";

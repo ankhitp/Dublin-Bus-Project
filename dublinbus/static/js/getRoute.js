@@ -10,6 +10,9 @@
  */
 function getRoute(i, url, start, end) {
     var checkFirst = true;
+    var origWalk;
+    var startEndTimes = [];
+    var estTime = document.getElementById("time"+i).innerHTML;
     var elem = document.getElementById("para" + i);
     if (elem) {
         checkFirst = false;
@@ -40,9 +43,37 @@ function getRoute(i, url, start, end) {
             for (var x = 0; x < indivBusRouteJSON.length; x++) {
                 //if the direction is to walk and it's not the last step of the route
                 if (indivBusRouteJSON[x]["mode"] === 20 && x !== indivBusRouteJSON.length - 1) {
-                    document.getElementById('directions').insertAdjacentHTML('beforeend',
-                        "<img src='../static/img/walk.png' style='width:32px;height:32px';> <p>Walk to " +
-                        indivBusRouteJSON[x]["Arr"]["Stn"]["name"] + "</p> <p>" + indivBusRouteJSON[x]["Journey"]['distance'] + " meters</p><hr>");
+                    if (x == 0) {
+                        origWalk=new Date(indivBusRouteJSON[x]["Dep"]['time']);
+
+                        var endWalk = new Date(indivBusRouteJSON[x]["Arr"]['time']);
+
+                        var timeWalked = (endWalk-origWalk)/(1000*60);
+                        startEndTimes.push(timeWalked);
+                    }
+                    else {
+                        let newOrig =new Date(indivBusRouteJSON[x]["Dep"]['time']);
+                        endWalk = new Date(indivBusRouteJSON[x]["Arr"]['time']);
+
+                        timeWalked = (endWalk-newOrig)/(1000*60);
+                        startEndTimes.push(timeWalked);
+                    }
+                    // Hours part from the timestamp
+                    var origWalkHours = origWalk.getHours();
+                    // Minutes part from the timestamp
+                    var origWalkMinutes = "0" + origWalk.getMinutes();
+                    // Seconds part from the timestamp
+                    var finalFormTime = origWalkHours + ':' + origWalkMinutes.substr(-2);
+                    if (x == 0) {
+                        document.getElementById('directions').insertAdjacentHTML('beforeend',
+                            "<img src='../static/img/walk.png' style='width:32px;height:32px';> <p>Walk to " +
+                            indivBusRouteJSON[x]["Arr"]["Stn"]["name"] + ", leaving at " + finalFormTime + "</p> <p>" + indivBusRouteJSON[x]["Journey"]['distance'] + " meters</p><hr>");
+                    }
+                    else {
+                        document.getElementById('directions').insertAdjacentHTML('beforeend',
+                            "<img src='../static/img/walk.png' style='width:32px;height:32px';> <p>Walk to " +
+                            indivBusRouteJSON[x]["Arr"]["Stn"]["name"] + ", walking about " + timeWalked + " minutes.</p> <p>" + indivBusRouteJSON[x]["Journey"]['distance'] + " meters</p><hr>");
+                    }
                 }
                 //if the direction is to take a bus
                 else if (indivBusRouteJSON[x]['mode'] === 5) {
@@ -151,6 +182,12 @@ function getRoute(i, url, start, end) {
                 }
                 //if its the last step in the route and it's a walking instruction.
                 else if (indivBusRouteJSON[x]["mode"] == 20 && x == indivBusRouteJSON.length - 1) {
+                    let newOrig =new Date(indivBusRouteJSON[x]["Dep"]['time']);
+                    endWalk = new Date(indivBusRouteJSON[x]["Arr"]['time']);
+
+                    timeWalked = (endWalk-newOrig)/(1000*60);
+                    startEndTimes.push(timeWalked);
+
                     //use the geocoder to get an address from a latitude and longitude (HERE api only gives us lat and long
                     //so we need to transform that back to an address to present to the user. All this logic here is just
                     //getting it in the right format for the Google Geocoder service.
@@ -162,10 +199,28 @@ function getRoute(i, url, start, end) {
                     var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
                     geocoder.geocode({'location': latlng}, function (results, status) {
                         if (status === 'OK') {
+                            var addTime = 0;
+                            if (startEndTimes.length >= 1) {
+                                for (var e = 0; e < startEndTimes.length; e++) {
+                                    addTime+=startEndTimes[e];
+                                }
+                            }
+                            addTime += parseInt(estTime,10);
+                            var newDateObj = new Date(origWalk.getTime() + (addTime * 60000));
+                            // Create a new JavaScript Date object based on the timestamp
+                            // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+                            var date = new Date(newDateObj);
+
+                            // Hours part from the timestamp
+                            var hours = date.getHours();
+                            // Minutes part from the timestamp
+                            var minutes = "0" + date.getMinutes();
+                            // Seconds part from the timestamp
+                            var formattedTime = hours + ':' + minutes.substr(-2);
                             //Just building the html to say "walk to destination X" and add return to results button.
                             document.getElementById('directions').insertAdjacentHTML('beforeend',
                                 "<img src='../static/img/walk.png' style='width:32px;height:32px';>" +
-                                "<p>Walk to destination: " + results[0].formatted_address + "</p>");
+                                "<p>You'll have to walk " + timeWalked + " minutes, but you'll get there around " + formattedTime + "</p>");
                             document.getElementById('coTwo').innerHTML = 'This bus route will result in ' + '<b>' + co2 + '</b>' + ' grams of CO2 being released into the atmosphere. <br>' +
                                 'This is compared to ' + '<b>' + carCo2 + '</b>' + ' grams of CO2 if you had used a car!';
 

@@ -15,8 +15,8 @@ async function updateUserFav(user) {
 }
 
 async function removeFav(startLoc,endLoc,user) {
-    startLoc = startLoc.replace("4343", "'");
-    endLoc = endLoc.replace("4343", "'");
+    startLoc = startLoc.replace(/4343/g, "'");
+    endLoc = endLoc.replace(/4343/g, "'");
     var myReq = new XMLHttpRequest();
     myReq.open("POST", 'delete_fav/');
     myReq.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');

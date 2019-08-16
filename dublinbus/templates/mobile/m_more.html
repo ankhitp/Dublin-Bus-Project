@@ -21,27 +21,27 @@
         }
 
         .accordion {
-        {#background-color: #b3d7ff;#} background-color: rgba(2, 147, 222, 0.5);
-        color: #444;
-        cursor: pointer;
-        padding: 18px;
-        width: 100%;
-        border: none;
-        text-align: center;
-        font-weight: bolder;
-        outline: none;
-        font-size: 15px;
-        transition: 0.4s;
+        {#background-color: #b3d7ff;#} background-color: lightgrey;
+            color: green;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: center;
+            font-weight: bolder;
+            outline: none;
+            font-size: 15px;
+            transition: 0.4s;
 
         }
 
         .active, .accordion:hover {
-            background-color: #ccc;
+            background-color: lightblue;
         }
 
         .panel {
             padding: 0 18px;
-            background-color: rgba(2, 147, 222, 0.5);
+            background-color: white;
             height: 200px;
             max-height: 0;
             overflow: hidden;
@@ -86,7 +86,29 @@
 <div class="se-pre-con"></div>
 {##}
 <div class="container-fluid">
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Game Information</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Hello there! Whether you're new to Dublin, or a South Dublin girl who went to Mount Anville and
+                        knows nothing but Dublin, we bet there's some places you haven't visited yet. If you look
+                        around the map, you'll notice purple markers that look different than the orange station markers.
+                        These are what we believe to be the best spots in Dublin, and there's 20 spread out across
+                        the map. For every one you visit, we'll give you 10 points. And for every 50 points you earn, we'll
+                        exchange that for 5 Euro of Dublin Bus credit. Now get exploring!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
     <div class="row" id="header-row">
         <div class="col-3">
             <img src="{% static 'smalllogo.png' %}" class="smalllogo">
@@ -94,6 +116,7 @@
         <div class="col-6">
             <p style="margin-top: 5%">Dublin Bus</p>
         </div>
+        <div style = "cursor: pointer; color:white;float: right; max-width:75px"><h6 data-toggle="modal" data-target="#myModal">Tourist game info if you click here!</h6></div>
         <div class="col-3">
         </div>
 
@@ -136,21 +159,26 @@
     {% endif %}
     <div id="bodyblue">
 
-        <button class="accordion"><h1>Game</h1></button>
-        <div class="panel"><h2 style="padding: 2%">How many points have you earned?</h2>
+        <button class="accordion"><h3>Game</h3></button>
+        <div class="panel"><br><h2 style="padding: 2%">How many points have you earned?</h2>
             {% if user.is_authenticated %}
             <p id='pointsPara'></p>
             <script>
                 var user = '{{ user.username }}';
                 var points = '{{ user.points }}';
-                document.getElementById('pointsPara').innerHTML = " <h3>You have earned "  + points + " points. Nice job " + user+ "!</h3>"
+                if (parseInt(points,10) == 0) {
+                    document.getElementById('pointsPara').innerHTML = " <h5>0. <br> You need to work on getting some more points, " + user + ", 0 just isn't enough!</h5>";
+                }
+                else {
+                    document.getElementById('pointsPara').innerHTML = " <h5>You have earned " + points + " points. Nice job " + user + "!</h5>";
+                }
             </script>
             {% else %}s
-            <p>Please log in to see your points! Haven't signed up yet? What are you waiting for? If you don't
+            <br><p>Please log in to see your points! Haven't signed up yet? What are you waiting for? If you don't
                 sign up, you can't add favorites or earn points for exploring. You're missing out!</p>
             {% endif %}
         </div>
-        <button class="accordion"><h1>Co2</h1></button>
+        <button class="accordion"><h3>Co2</h3></button>
         <div class="panel">{% if user.is_authenticated %}
             <p id = 'co2para'></p>
             <script>
@@ -160,7 +188,7 @@
                 var textArr = ["the amount of emissions required to provide electricity to charge 1275 smartphones.",
                     "11 pounds of coal burned at a coal fired power plant.", "the amount of emissions to drive a car 24 miles",
                     "the amount of emissions emitted in a gallon of diesel fuel.", "a trash bag being recycled instead of sent to a landfill."];
-                document.getElementById('co2para').innerHTML = "If you took every route you looked up, you would" +
+                document.getElementById('co2para').innerHTML = "<br>If you took every route you looked up, you would" +
                     " have saved " + co2/1000 + " kilograms of CO2 emissions compared to driving a car. 10 kg of" +
                     " CO2 is the same as " + textArr[random];
             </script>
@@ -169,11 +197,11 @@
                 if you can't keep score?</p>
             {% endif %}</div>
 
-        <button class="accordion"><h1>Weather Forecast</h1></button>
+        <button class="accordion"><h3>Weather Forecast</h3></button>
         <div class="panel">
             <!--this div is to show the weather forcast, input a date and choose a time to call the fuction show weather forecast in 5 days-->
             <div id="search_date" style="font-family: unset; float: left">
-                <h3 style="margin-top: 2%; text-align: center">Choose a date(in 5 days) and time to see the weather:</h3>
+                <h3 style="margin-top: 2%; text-align: center">Choose a date (within the next 5 days) and time to see the weather:</h3>
                 <input type="date" name="date" id="date_weather_forcast">
                 <select id="time_weather_forcast"  name="time" style="   -webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: url(...);">
                     <option value='06:00:00'>06:00:00</option>
@@ -191,7 +219,7 @@
             </div>
 
         </div>
-        <button class="accordion"><h1>Traffic Update</h1></button>
+        <button class="accordion"><h3>Traffic Update</h3></button>
         <div class="panel">
             <div id="search_date" style="font-family: unset; float: left">
                 <div id="feeddiv"></div>
@@ -201,6 +229,7 @@
         </div>
 
     </div>
+</div>
     <div class="row">
         <div class="col-12">
             {% include 'tabs.html' %}
@@ -233,7 +262,7 @@
 
                         }
                         if (a == 0) {
-                            alert("Error");
+                            alert("Please make sure the date is within 5 days.");
                         }
 
 

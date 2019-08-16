@@ -62,16 +62,30 @@ function getRoute(i, url, start, end, predictDate, predictTime) {
                         var timeWalked = (endWalk-origWalk)/(1000*60);
                         startEndTimes.push(timeWalked);
                     }
+                    else {
+                        origWalk=new Date(indivBusRouteJSON[x]["Dep"]['time']);
+                        endWalk = new Date(indivBusRouteJSON[x]["Arr"]['time']);
+                        timeWalked = (endWalk-origWalk)/(1000*60);
+                        startEndTimes.push(timeWalked);
+                    }
                     // Hours part from the timestamp
                     var origWalkHours = origWalk.getHours();
                     // Minutes part from the timestamp
                     var origWalkMinutes = "0" + origWalk.getMinutes();
                     // Seconds part from the timestamp
                     var finalFormTime = origWalkHours + ':' + origWalkMinutes.substr(-2);
-                    document.getElementById('options').insertAdjacentHTML('beforeend',
-                        "<img src='../static/img/walk.png' style='width:32px;height:32px'>" +
-                        "<div style='margin-left:3%; padding-left: 5%; border-left: 5px dotted black'><p>Walk to " +
-                        indivBusRouteJSON[x]["Arr"]["Stn"]["name"] + ", leaving at "+finalFormTime+"<p>" + indivBusRouteJSON[x]["Journey"]['distance'] + " meters</p><hr></div>");
+                    if (x == 0) {
+                        document.getElementById('options').insertAdjacentHTML('beforeend',
+                            "<img src='../static/img/walk.png' style='width:32px;height:32px'>" +
+                            "<div style='margin-left:3%; padding-left: 5%; border-left: 5px dotted black'><p>Walk to " +
+                            indivBusRouteJSON[x]["Arr"]["Stn"]["name"] + ", leaving at " + finalFormTime + "<p>" + indivBusRouteJSON[x]["Journey"]['distance'] + " meters</p><hr></div>");
+                    }
+                    else {
+                        document.getElementById('options').insertAdjacentHTML('beforeend',
+                            "<img src='../static/img/walk.png' style='width:32px;height:32px'>" +
+                            "<div style='margin-left:3%; padding-left: 5%; border-left: 5px dotted black'><p>Walk to " +
+                            indivBusRouteJSON[x]["Arr"]["Stn"]["name"] + ", walking about " + timeWalked + " minutes.</p> <p>" + indivBusRouteJSON[x]["Journey"]['distance'] + " meters</p><hr></div>");
+                    }
                 } else if (indivBusRouteJSON[x]['mode'] == 5) {
                     if (x == 0) {
                         origWalk= new Date(indivBusRouteJSON[x]["Dep"]['time']);
@@ -182,10 +196,9 @@ function getRoute(i, url, start, end, predictDate, predictTime) {
                     }
                     //if its the last direction in the route, add a return to results button.
                 } else if (indivBusRouteJSON[x]["mode"] == 20 && x == indivBusRouteJSON.length - 1) {
-                    var startWalk=new Date(indivBusRouteJSON[x]["Dep"]['time']);
-                    endWalk = new Date(indivBusRouteJSON[x]["Arr"]['time']);
+                    let startWalk=new Date(indivBusRouteJSON[x]["Dep"]['time']);
+                    let endWalk = new Date(indivBusRouteJSON[x]["Arr"]['time']);
                     timeWalked = (endWalk-startWalk)/(1000*60);
-                    console.log(timeWalked);
                     startEndTimes.push(timeWalked);
                     var geocoder = new google.maps.Geocoder;
                     var lat = indivBusRouteJSON[x]["Arr"]["Addr"]["y"];
@@ -214,7 +227,7 @@ function getRoute(i, url, start, end, predictDate, predictTime) {
                             var formattedTime = hours + ':' + minutes.substr(-2);
                             document.getElementById('options').insertAdjacentHTML('beforeend',
                                 "<img src='../static/img/walk.png' style='width:32px;height:32px';>" +
-                                "<div id = 'finalWalk' style='margin-left:3%; padding-left: 5%; border-left: 5px dotted black'><p>You'll have to walk a bit, but you'll get there around " + formattedTime + "</p></div>"
+                                "<div id = 'finalWalk' style='margin-left:3%; padding-left: 5%; border-left: 5px dotted black'><p>You'll have to walk " + timeWalked + " minutes, but you'll get there around " + formattedTime + "</p></div>"
                             );
                         }
                     })

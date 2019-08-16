@@ -7,7 +7,6 @@ div.container-fluid {
 }
 
 #mobile-nav {
-    background: red;
     position: fixed;
     right: 0;
     bottom: 8vh;

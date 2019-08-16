@@ -59,9 +59,17 @@
     </script>
 </head>
 <body>
-<div id="head" style="background: rgba(4, 36, 85, 0.5); padding-top: 1%">
-    <img class="smalllogo" src="{% static 'smalllogo.png' %}" style="display: inline">
-    <h2 style="display: inline">Dublin Bus</h2>
+<div class="row" id="header-row">
+    <div class="col-3">
+        <img src="{% static 'smalllogo.png' %}" class="smalllogo">
+    </div>
+    <div class="col-6">
+        <p style="margin-top: 5%">Dublin Bus</p>
+    </div>
+    <div style = "cursor: pointer; color:white;float: right; max-width:75px"><h6 data-toggle="modal" data-target="#myModal">Tourist game info if you click here!</h6></div>
+    <div class="col-3">
+    </div>
+
 </div>
 <datalist id="routes">
 </datalist>
@@ -75,7 +83,9 @@
             type="submit">Search
     </button>
 </div>
-<h1 id='routeHead' style="text-align: center">A list of all bus routes!</h1>
+<h3 id='routeHead' style="text-align: center">A list of all bus routes!</h3>
+<br>
+<h6 id = 'blueRed' style="display: none;text-align: center">(Blue is west/southbound stops, red is east/northbound)</h6>
 <br>
 <div class="col-md-6 offset-md-3" id="bigList"
      style="display:block;max-height:750px; overflow: scroll;text-align: center">
@@ -84,7 +94,7 @@
         </div>
     </div>
 </div>
-<div id="map" style="display:none; width:100%;height:45%;"></div>
+<div id="map" style="display:none; width:100%;height:40%;"></div>
 <br>
 <div id='reset' style="display:none;text-align: center">
     <button class="btn btn-light" onclick="resetRoutes()">Back to the list</button>
@@ -102,11 +112,18 @@
     var stopHTML = "";
     for (var i = 0; i < routesList.length; i++) {
         stopHTML += '<option value="' + routesList[i].Route + '">';
-        routeHTML +=
-            '<div onclick = "getRoute(\'' + routesList[i].Route + '\')" id = "' + routesList[i].Route + '" style = "cursor: pointer; text-align: center" class = "holder col-12">' +
-            routesList[i].Route + ' going from ' + routesList[i].Stops +
-            '</div>' +
-            '<hr>';
+        if (i % 2 == 0) {
+            routeHTML +=
+                '<div style = "background-color: white; cursor: pointer" onclick = "getRoute(\'' + routesList[i].Route + '\')" id = "' + routesList[i].Route + '" style = "cursor: pointer; text-align: center" class = "holder col-12">' +
+                routesList[i].Route + ' | ' + routesList[i].Stops +
+                '</div>';
+        }
+        else {
+            routeHTML +=
+                '<div style = "background-color:lightgray; color:black; cursor: pointer" onclick = "getRoute(\'' + routesList[i].Route + '\')" id = "' + routesList[i].Route + '" style = "cursor: pointer; text-align: center" class = "holder col-12">' +
+                routesList[i].Route + ' | ' + routesList[i].Stops +
+                '</div>';
+        }
     }
     document.getElementById('route').innerHTML = routeHTML;
     document.getElementById('routes').innerHTML = stopHTML;
@@ -129,7 +146,8 @@
             var dirTwoRoute = response['dirTwoFinal'];
             document.getElementById('bigList').style.display = "none";
             document.getElementById('input').style.display = "none";
-            document.getElementById('routeHead').innerHTML = "These are all the stops the route travels through!"
+            document.getElementById('routeHead').innerHTML = "These are all the stops the route travels through:";
+            document.getElementById('blueRed').style.display ="block";
             document.getElementById('map').style.display = "block";
             document.getElementById('reset').style.display = "block";
             addMarker(1,map, dirOneRoute);
@@ -203,7 +221,8 @@
         if (flag == 1) {
             document.getElementById('bigList').style.display = "block";
             document.getElementById('input').style.display = "block";
-            document.getElementById('routeHead').innerHTML = "A list of all the routes!"
+            document.getElementById('routeHead').innerHTML = "A list of all the routes:";
+            document.getElementById('blueRed').style.display ="none";
             document.getElementById('map').style.display = "none";
             document.getElementById('reset').style.display = 'none';
             deleteMarkers();
@@ -211,17 +230,25 @@
         else {
             for (var i = 0; i < routesList.length; i++) {
                 stopHTML += '<option value="' + routesList[i].Route + '">';
-                routeHTML +=
-                    '<div onclick = "getRoute(\'' + routesList[i].Route + '\')" id = "' + routesList[i].Route + '" style = "cursor: pointer; text-align: center" class = "holder col-12">' +
-                    routesList[i].Route + ' going from ' + routesList[i].Stops +
-                    '</div>' +
-                    '<hr>';
+                if (i % 2 == 0) {
+                    routeHTML +=
+                        '<div style = "background-color: white; cursor: pointer" onclick = "getRoute(\'' + routesList[i].Route + '\')" id = "' + routesList[i].Route + '" style = "cursor: pointer; text-align: center" class = "holder col-12">' +
+                        routesList[i].Route + ' | ' + routesList[i].Stops +
+                        '</div>';
+                }
+                else {
+                    routeHTML +=
+                        '<div style = "background-color:lightgray; color:black; cursor: pointer" onclick = "getRoute(\'' + routesList[i].Route + '\')" id = "' + routesList[i].Route + '" style = "cursor: pointer; text-align: center" class = "holder col-12">' +
+                        routesList[i].Route + ' | ' + routesList[i].Stops +
+                        '</div>';
+                }
             }
             document.getElementById('route').innerHTML = routeHTML;
             document.getElementById('routes').innerHTML = stopHTML;
             document.getElementById('bigList').style.display = "block";
             document.getElementById('input').style.display = "block";
-            document.getElementById('routeHead').innerHTML = "A list of all the routes!"
+            document.getElementById('routeHead').innerHTML = "A list of all the routes:";
+            document.getElementById('blueRed').style.display ="none";
             document.getElementById('map').style.display = "none";
             document.getElementById('reset').style.display = 'none';
             deleteMarkers();
