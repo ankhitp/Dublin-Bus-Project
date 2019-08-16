@@ -144,7 +144,7 @@ google.load("feeds", "1") //Load Google Ajax Feed API (version 1)
                 var user = '{{ user.username }}';
                 var points = '{{ user.points }}';
                 if (parseInt(points,10) == 0) {
-                    document.getElementById('pointsPara').innerHTML = "You need to work on getting some more points, " + user + ", 0 just isn't enough!";
+                    document.getElementById('pointsPara').innerHTML = "<h5>0.<br>You need to work on getting some more points, " + user + ", 0 just isn't enough!";
                 }
                 else {
                     document.getElementById('pointsPara').innerHTML = " You have earned " + points + " points. Nice job " + user + "!";
@@ -156,7 +156,7 @@ google.load("feeds", "1") //Load Google Ajax Feed API (version 1)
             {% endif %}
         </div>
         <button class="accordion">Co2</button>
-        <div class="panel">
+        <div class="panel" style = "overflow: scroll">
             {% if user.is_authenticated %}
             <p id = 'co2para'></p>
             <script>

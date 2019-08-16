@@ -173,7 +173,7 @@
                     document.getElementById('pointsPara').innerHTML = " <h5>You have earned " + points + " points. Nice job " + user + "!</h5>";
                 }
             </script>
-            {% else %}s
+            {% else %}
             <br><p>Please log in to see your points! Haven't signed up yet? What are you waiting for? If you don't
                 sign up, you can't add favorites or earn points for exploring. You're missing out!</p>
             {% endif %}
@@ -198,7 +198,7 @@
             {% endif %}</div>
 
         <button class="accordion"><h3>Weather Forecast</h3></button>
-        <div class="panel">
+        <div class="panel" style = "overflow: scroll">>
             <!--this div is to show the weather forcast, input a date and choose a time to call the fuction show weather forecast in 5 days-->
             <div id="search_date" style="font-family: unset; float: left">
                 <h3 style="margin-top: 2%; text-align: center">Choose a date (within the next 5 days) and time to see the weather:</h3>

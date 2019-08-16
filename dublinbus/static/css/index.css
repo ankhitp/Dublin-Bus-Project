@@ -9,7 +9,7 @@ div.container-fluid {
 #mobile-nav {
     position: fixed;
     right: 0;
-    bottom: 8vh;
+    bottom: 4vh;
     left: 0;
     z-index: 1030;
 }
