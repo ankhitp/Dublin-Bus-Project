@@ -1,4 +1,6 @@
-// Initialize and add the map
+/**
+ * Initialize map and get user location
+ */
 function initMap() {
     var dublin = {lat: 53.33306, lng: -6.24889};
     var map = new google.maps.Map(document.getElementById('map'), {zoom: 16, center: dublin});
@@ -58,7 +60,11 @@ var getJSON = function (url, callback) {
     xhr.send();
 };
 
-
+/**
+ * Add the 20 tourism markers to the map for gamification innovation
+ * @param map The map to which the markers will be added
+ * @param data the array containing all the markers
+ */
 function addTourismMarkers(map, data) {
     //get the stop data from JSON file
     var infowindow = new google.maps.InfoWindow({});
@@ -99,6 +105,12 @@ function addTourismMarkers(map, data) {
     }
 }
 
+
+/**
+ * Add the markers to the map for all bus stops
+ * @param map The map to which the markers will be added
+ * @param data the array containing all the markers
+ */
 function addMarker(map, data) {
     //get the stop data from JSON file
     var infowindow = new google.maps.InfoWindow({});
@@ -151,8 +163,12 @@ function addMarker(map, data) {
     }
 
 }
-// this function calls realtime api to get the real time info
 
+
+/**
+ * this function calls realtime api to get the real time info
+ * @param id Is the ID of the stop for which we will get data.
+ */
 function get_real_time_data(id) {
     if (document.getElementById('realtime' + id) == null) {
         getJSON('https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=' + id + '&format=json', function (err, datainfo) {
@@ -201,7 +217,11 @@ function get_real_time_data(id) {
     }
 }
 
-
+/**
+ * Adds information about which routes serve this stop
+ * @param route_data All information about routes
+ * @returns {string|string|string}  Stop information
+ */
 function add_service_route(route_data) {
     if (route_data == null || route_data.length == 0) {
         return "";

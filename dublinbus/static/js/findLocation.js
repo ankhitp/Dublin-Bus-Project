@@ -7,7 +7,10 @@ function myLocation() {
     console.log("made it here again");
 }
 
-
+/**
+ * Finds the location of any stop within .6 km of the user's current location. If no location permission is given, returns
+ * an InfoWindow which says that an error has occurred in the geolocation service.
+ */
 function findLocation() {
     var icon = {
         url: '../static/img/iconsmarker1.png', // url
@@ -84,18 +87,6 @@ function findLocation() {
     }
 }
 
-
-function add_service_route(route_data) {
-    if (route_data == null || route_data.length == 0) {
-        return "";
-    }
-
-    let elem = "";
-    for (let i = 0; i < route_data.length; i++) {
-        elem += '<li>' + route_data[i][0] + '-' + route_data[i][1] + '</li>';
-    }
-    return elem;
-}
 
 //distance calculator between two latitudes and longitudes.
 function distance(lat1, lon1, lat2, lon2) {

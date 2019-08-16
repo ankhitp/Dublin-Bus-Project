@@ -28,7 +28,10 @@ function resizeMap(passedStart, passedEnd) {
     }
 }
 
-//resizes map for directions on the right side
+/**
+ * resizes mobile page for directions to be shown.
+ * Error handling in case fields aren't filled
+ */
 function mobileResizeMap() {
     deleteMarkers();
     var start = document.getElementById('origin-input').value;
@@ -88,6 +91,9 @@ function mobileResizeMap() {
     }
 }
 
+/**
+ * Resets the mobile page completely
+ */
 function mobileResetMap() {
     document.getElementById('routes').style.display = 'none';
     document.getElementById('map').style.display = 'block';
@@ -98,7 +104,10 @@ function mobileResetMap() {
     }
 }
 
-//sets the map back to original position, resets the side bar to the 'search dublin' option
+/**
+ * sets the map back to original position, resets the side bar to the 'search dublin' option
+ *
+ */
 function resetMap() {
     document.getElementById('directions').style.display = "none";
     document.getElementById('coTwo').innerHTML = "";
@@ -197,18 +206,26 @@ function resetMap() {
 
 }
 
+/**
+ * Return to possible routes and hide map
+ */
 function mobileMapReturnHide() {
     document.getElementById('map').style.display = "none";
     document.getElementById('return').innerHTML = "";
 
 }
 
+/**
+ * If you click 'show journey planner' on main page for desktop
+ */
 function showOptions() {
     document.getElementById('searchOnly').style = 'display:none';
     document.getElementById('options').style.height = "auto";
     document.getElementById('journeyPlan').style = 'display:block';
 }
-
+/**
+ * If you click 'hide options' on main page for desktop
+ */
 function hideOptions() {
     document.getElementById('journeyPlan').style = 'display:none';
     document.getElementById('options').style.height = "300px";

@@ -1,3 +1,6 @@
+/**
+ * Called to set the desktop map up
+ */
 function initMap() {
     var infowindow = new google.maps.InfoWindow();
     var pos;
@@ -125,7 +128,10 @@ function autocompSearchBar() {
     });
 }
 
-
+/**
+ * Populate the map with markers
+ * @param map
+ */
 function addMarker(map) {
     for (var i = 0, length = data.length; i < length; i++) {
         var busdata = data[i];
@@ -211,13 +217,17 @@ function setMapOnAll(map) {
     }
 }
 
-//CALL THIS TO REMOVE MARKERS FROM MAP, IT USES THE OTHER MARKER RELATED FUNCTIONS!
+/**
+ * Called to delete any markers from the map. Only works if the markers are added to the marker array. Calls clearMarkers
+ */
 function deleteMarkers() {
     clearMarkers();
     markers = [];
 }
 
-//sets the map back to original position, resets the side bar to the 'search dublin' option
+/**
+ * sets the map back to original position, resets the side bar to the 'search dublin' option
+ */
 function resetMap() {
     document.getElementById('directions').style.display = "none";
     document.getElementById('options').style.width='300px';
@@ -271,7 +281,9 @@ function resetMap() {
 }
 
 
-//resizes map for directions on the right side
+/**
+ * resizes map for directions on the right side
+ */
 function resizeMap() {
     deleteMarkers();
     // console.log("resizing map function")
@@ -305,6 +317,9 @@ function resizeMap() {
     }
 }
 
+/**
+ * If you click 'show journey planner'
+ */
 function showOptions() {
     // document.getElementById('header').innerHTML = '<p>Plan your journey!</p>';
     document.getElementById('searchOnly').style = 'display:none';
@@ -312,6 +327,9 @@ function showOptions() {
     document.getElementById('journeyPlan').style = 'display:block';
 }
 
+/**
+ * if you click 'hide options'
+ */
 function hideOptions() {
     // document.getElementById('header').innerHTML = '<p>Search for a place to go!</p>';
     document.getElementById('journeyPlan').style = 'display:none';

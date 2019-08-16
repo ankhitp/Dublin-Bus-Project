@@ -1,3 +1,9 @@
+/**
+ * Adds a favourite to the user's account
+ *
+ * @param user who will have the favourite added
+ * @returns {Promise<void>}
+ */
 async function updateUserFav(user) {
     var origin = document.getElementById("origin-input").value;
     var destination = document.getElementById("destination-input").value;
@@ -14,6 +20,13 @@ async function updateUserFav(user) {
 
 }
 
+/**
+ * Removes a favourites from the database.
+ * @param startLoc Starting location
+ * @param endLoc Ending location
+ * @param user that will have the favourite removed
+ * @returns {Promise<void>}
+ */
 async function removeFav(startLoc,endLoc,user) {
     startLoc = startLoc.replace(/4343/g, "'");
     endLoc = endLoc.replace(/4343/g, "'");

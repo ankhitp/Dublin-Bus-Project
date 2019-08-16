@@ -37,7 +37,12 @@ function initMap() {
 
 };
 
-
+/**
+ * Used to get the real time information and handle it for the marker info windows
+ *
+ * @param url for the API
+ * @param callback function called if status is 'OK'
+ */
 var getJSON = function (url, callback) {
 
     var xhr = new XMLHttpRequest();

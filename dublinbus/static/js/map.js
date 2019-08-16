@@ -1,3 +1,6 @@
+/**
+ * Initialize map and get user location
+ */
 function initMap() {
     var pos;
     directionsService = new google.maps.DirectionsService();
@@ -38,7 +41,10 @@ function initMap() {
 
 }
 
-
+/**
+ * Add the markers to the map for all bus stops
+ * @param map The map to which the markers will be added
+ */
 function addMarker(map) {
     for (var i = 0, length = data.length; i < length; i++) {
         var busdata = data[i];
@@ -59,7 +65,14 @@ function addMarker(map) {
     }
 }
 
-
+/**
+ * Used to match HERE API stop IDs to Dublin Bus stop IDs. Pass it the JSON data full of Dublin Bus Stop IDs, it will check
+ * the longitude and latitude against every one in the JSON list, and match two closest
+ *
+ * @param targetLocation Stop we want to match for
+ * @param locationData JSON list of all stops
+ * @returns Station Object
+ */
 function closestLocation(targetLocation, locationData) {
     function vectorDistance(dx, dy) {
         return Math.sqrt(dx * dx + dy * dy);

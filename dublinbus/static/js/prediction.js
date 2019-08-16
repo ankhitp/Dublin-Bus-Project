@@ -1,3 +1,15 @@
+/**
+ * The getPrediction function handles setting up the data to pass to the Django View to be processed. The day of week,
+ * whether it's a rush hour time, whether the historical data exists for the route, etc., is all figured out here.
+ * Comments are in the code too.
+ *
+ * @param routeChosen don't have to reparse data
+ * @param url URL for HERE api call
+ * @param start starting location
+ * @param end destination for route
+ * @param date is the day user has chosen for a route
+ * @param time is the time the user has chosen for a route
+ */
 function getPrediction(routeChosen, url, start, end, date, time) {
     var startStations = [];
     var endStations = [];
@@ -78,6 +90,7 @@ function getPrediction(routeChosen, url, start, end, date, time) {
                     startEndTimes.push(timeWalked);
                 }
             }
+            //if a non multi connection route
             if (connections == 0) {
                 var endPoint = endStations[0].actual_stop_id;
                 var startingStation = startStations[0].actual_stop_id;
@@ -89,18 +102,22 @@ function getPrediction(routeChosen, url, start, end, date, time) {
                         break;
                     }
                 }
+                //if route is one with historical data
                 if (foundRoute == true) {
                     let myXhttp = new XMLHttpRequest();
                     myXhttp.open("POST", 'bus_prediction', true);
                     myXhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
                     let myUrl = url;
                     myUrl = url.replace(/&/g, "80085")
-                    myXhttp.send("routeChosen="+routeChosen+"&url="+myUrl+"&route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour=" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
+                    myXhttp.send("routeChosen="+routeChosen+"&url="+myUrl+"&route=" + busRoute +
+                        "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj +
+                        "&rushHour=" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
                     myXhttp.onreadystatechange = function () {
                         if (myXhttp.readyState === 4 && myXhttp.status === 200) {
                             processFunc(JSON.parse(myXhttp.responseText));
                         }
                     }
+                    //otherwise fall back to HERE api prediction
                 } else {
                     for (let x = 0; x < parsed.length; x++) {
                         //mode == 5 means that it's a bus traveled method
@@ -112,6 +129,7 @@ function getPrediction(routeChosen, url, start, end, date, time) {
                     var timePassed = (tempEndTime - tempStartTime) / (1000 * 60);
                     processFunc(timePassed);
                 }
+                //if route has more than 1 bus
             } else if (connections > 0) {
                 var j = 0;
                 function next() {
@@ -126,14 +144,16 @@ function getPrediction(routeChosen, url, start, end, date, time) {
                                 break;
                             }
                         }
-
+                        //if route has historical data
                         if (foundRoute == true) {
                             let myXhttp = new XMLHttpRequest();
                             myXhttp.open("POST", 'bus_prediction', true);
                             let myUrl = url;
                             myUrl = url.replace(/&/g, "80085");
                             myXhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-                            myXhttp.send("routeChosen="+routeChosen+"&url="+myUrl+"&route=" + busRoute + "&startingPoint=" + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour=" + rushHr + "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
+                            myXhttp.send("routeChosen="+routeChosen+"&url="+myUrl+"&route=" + busRoute + "&startingPoint="
+                                + startingStation + "&endPoint=" + endPoint + "&dayOfWeek=" + dateObj + "&rushHour=" + rushHr +
+                                "&monThursRush=" + monToThursRushHr + "&friday=" + friday);
                             myXhttp.onreadystatechange = function () {
                                 if (myXhttp.readyState === 4 && myXhttp.status === 200) {
                                     j++;
@@ -142,6 +162,7 @@ function getPrediction(routeChosen, url, start, end, date, time) {
                                 }
                             }
                         }
+                        //fall back to HERE api
                         else {
                             let checkConnect = 0;
                             for (let x = 0; x < parsed.length; x++) {
@@ -167,6 +188,12 @@ function getPrediction(routeChosen, url, start, end, date, time) {
         }
     };
 
+    /**
+     * Callback function for single route XMLHttpRequest to backend. Adds up estimated bus time with walking journey
+     * time.
+     *
+     * @param content the returned time from the model
+     */
     function processFunc(content) {
         content = Math.floor(content);
         for (let y = 0; y < startEndTimes.length; y++) {
@@ -175,6 +202,12 @@ function getPrediction(routeChosen, url, start, end, date, time) {
         document.getElementById('time' + routeChosen).innerHTML = content + " minutes";
     }
 
+    /**
+     * Callback function for multi connection route XMLHttpRequest to backend. Adds up estimated bus times with walking journey
+     * time.
+     *
+     * @param content the returned time from the model for each route
+     */
     function multiTimeFunc(content) {
         var timeToPred = 0;
         times.push(content);

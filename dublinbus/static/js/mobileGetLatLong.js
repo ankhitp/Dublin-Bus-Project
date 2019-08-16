@@ -1,9 +1,15 @@
 /**
- * The getLatLng() function is the first one called in the setting up of the directions window. The function gets the start
+ *  The getLatLng() function is the first one called in the setting up of the directions window. The function gets the start
  * and end points off of the input boxes, and then calls the Google Geocode Service to get latitude and longitudes for each
  * spot. From there, it calls the HERE Transit API, which will provide a list of routes and directions between the
  * two latitude and longitude points. The function then tells the user which bus lines are possible between two points
- * and also indicates how many connections each route has.
+ * and also indicates how many connections each route has. This also calls the getPrediction() function, which handles calling
+ * the backend prediction models.
+ *
+ * @param start the starting location of the route
+ * @param end the ending location of the route
+ * @param time is the time chosen by the user
+ * @param predictDate is the date at which the user wants to take the route
  */
 function mobileGetLatLng(start, end, time, predictDate) {
     var errorFlag = false;

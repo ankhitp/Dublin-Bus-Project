@@ -1,4 +1,10 @@
-
+/**
+ * Rebuilds the date and time portion of the Options menu for journey planner.
+ *
+ * @param flag indicates to the function whether a start and end has been passed properly, otherwise asks to try again.
+ * @param myStart starting location value
+ * @param myEnd ending location value
+ */
 function buildDateTime(flag = 1, myStart = '', myEnd = '') {
     if (flag == 1) {
         document.getElementById('options').style.height = '300px';
@@ -35,6 +41,10 @@ function buildDateTime(flag = 1, myStart = '', myEnd = '') {
     }
 
 }
+
+/**
+ * Creates the header for the mobile page options, which means that it will create a destination, origin, time and date.
+ */
 function createHeader() {
     document.getElementById('header').innerHTML =
         '<div id = "header" class = "col-12">' +
@@ -43,11 +53,11 @@ function createHeader() {
         '    <h4 style="text-align: center">Enter a start and end location</h4>' +
         '    <div style = \'text-align: center\'>' +
         '        <input autocomplete="off" class="controls" id="origin-input"' +
-        '               placeholder="Enter an origin location" type="text" onchange ="placeMarker(1, document.getElementById(\'origin-input\').value)">' +
+        '               placeholder="Enter an origin location" type="text">' +
         '    </div>' +
         '    <div style = \'text-align: center\'>' +
         '        <input autocomplete="off" class="controls" id="destination-input"' +
-        '               placeholder="Enter a destination location" type="text" onchange ="placeMarker(2, document.getElementById(\'destination-input\').value); ">' +
+        '               placeholder="Enter a destination location" type="text">' +
         '    </div' +
         "<div style = 'text-align: center'>" +
         "            <input style = 'width:150px' class=\"controls\" id='dateField' name='daterange' type='text''/>" +
@@ -62,6 +72,9 @@ function createHeader() {
     calendarTimeSet();
 }
 
+/**
+ * Gets the date and time inputs properly working by assigning their values.
+ */
 function calendarTimeSet() {
     $(document).ready(function () {
         calendarBuilder();
