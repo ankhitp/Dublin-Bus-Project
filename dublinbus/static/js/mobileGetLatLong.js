@@ -50,7 +50,15 @@ function mobileGetLatLng(start, end, time, predictDate) {
                 var newDate = datearr[2] + "-" + datearr[0] + "-" + datearr[1];
                 var newTime = newDate + "T" + time + ":00+01:00";
                 var finalNewTime = new Date(newTime);
-                finalNewTime = finalNewTime.toISOString();
+                try {
+                    finalNewTime = finalNewTime.toISOString();
+                }
+                catch (e) {
+                    document.getElementById('routes').innerHTML = "<br><br>Sorry, there was an error in the processing " +
+                        "of your request. Please try again. Check that all your inputs are valid and make sense." +
+                        "<div style='text-align: center'><button class=" +
+                        "'btn btn-primary' type='submit' onclick = 'removeLine();deleteMarkers();resetMap();'>Search Again</button>";
+                }
                 var url = "https://transit.api.here.com/v3/route.json?app_id=tL7r9QKJ3KlE5Kc9LGYo&app_code=1arMc" +
                     "SHt_o31xFSeBRswsA&modes=bus&routing=all&dep=" + startLat + "," + startLong + "&arr=" + destLat +
                     "," + destLong + "&time=" + finalNewTime;

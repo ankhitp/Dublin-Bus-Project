@@ -184,6 +184,7 @@ function getRoute(i, url, start, end, predictDate, predictTime) {
                                 '</button>' +
                                 '</div>',
                             map: map,
+                            animation: google.maps.Animation.DROP,
                             icon: icon
                         });
                         markers.push(marker);

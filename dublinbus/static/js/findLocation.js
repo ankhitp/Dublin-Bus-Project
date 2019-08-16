@@ -40,6 +40,7 @@ function findLocation() {
                             position: destPos,
                             map: map,
                             icon: icon,
+                            animation: google.maps.Animation.DROP,
                             title: data[i].actual_stop_id + "\n" + data[i].stop_name,
                             // content is the stop info
                             content: '<div id="content' + data[i].actual_stop_id + '" >' +

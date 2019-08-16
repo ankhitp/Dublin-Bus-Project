@@ -180,8 +180,8 @@ google.load("feeds", "1") //Load Google Ajax Feed API (version 1)
         <div class="panel">
             <!--this div is to show the weather forcast, input a date and choose a time to call the fuction show weather forecast in 5 days-->
             <div id="search_date" style="font-family: unset; float: left">
-                <h6 style="margin-top: 2%">Choose a date(in 5 days) and time to see the weather:</h6>
-                <input class='controls' id='dateField' name='daterange' type='text'>
+                <h3 style="margin-top: 2%; text-align: center">Choose a date (within the next 5 days) and time to see the weather:</h3>
+                <input type="date" name="date" id="date_weather_forcast">
                 <br>
                 <select class ='controls' id="time_weather_forcast" style="display: block" name="time">
                     <option value='06:00:00'>06:00:00</option>
@@ -281,7 +281,7 @@ google.load("feeds", "1") //Load Google Ajax Feed API (version 1)
           var container = document.getElementById("feeddiv");
           for (var i = 0; i < result.feed.entries.length; i++) {
             var entry = result.feed.entries[i];
-            var content = entry.content
+            var content = entry.content;
             var div = document.createElement("div");
             // div.appendChild(document.createTextNode(entry.title+ "<br>"+ entry.content+"<br><br>"));
             // div.appendChild(document.createTextNode(entry.content));
@@ -315,25 +315,6 @@ google.load("feeds", "1") //Load Google Ajax Feed API (version 1)
             ;
         });
     </script>
-<script>
-    window.onload = function () {
-        var currentDate = new Date();
-        var endDate = new Date();
-        var numberOfDaysToAdd = 4;
-        currentDate.setDate(currentDate.getDate() + 1);
-        endDate.setDate(currentDate.getDate() + numberOfDaysToAdd);
-        function calendarBuilder() {
-            $('input[name="daterange"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minDate: currentDate,
-                maxDate: endDate
-            })
-        }
-        calendarBuilder();
-    }
-</script>
-
 
 
 <!--datePicker for javascript-->
