@@ -117,9 +117,6 @@
             <p style="margin-top: 5%">Dublin Bus</p>
         </div>
         <div style = "cursor: pointer; color:white;float: right; max-width:75px"><h6 data-toggle="modal" data-target="#myModal">Click here for tourist game info!</h6></div>
-        <div class="col-3">
-        </div>
-
     </div>
 
     {% if user.is_authenticated %}
@@ -141,7 +138,7 @@
 
 
     {% endif %}
-    <div id="bodyblue">
+    <div id="bodyblue" style = "overflow:scroll">
 
         <button class="accordion"><h3>Game</h3></button>
         <div class="panel"><br><h2 style="padding: 2%">How many points have you earned?</h2>

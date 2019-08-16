@@ -17,6 +17,8 @@ function initMap() {
             var userMarker = new google.maps.Marker({
                 position: pos,
                 map: map,
+                gestureHandling: 'greedy',
+                animation: google.maps.Animation.DROP,
                 icon: im
             });
             map.setCenter(pos);

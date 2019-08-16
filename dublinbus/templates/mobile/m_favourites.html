@@ -12,8 +12,6 @@
         <p style="margin-top: 5%">Dublin Bus</p>
     </div>
         <div style = "cursor: pointer; color:white;float: right; max-width:75px"><h6 data-toggle="modal" data-target="#myModal">Click here for tourist game info!</h6></div>
-    <div class="col-3">
-    </div>
 
 </div>
 <div class="row">
@@ -186,20 +184,14 @@ Hi {{ user.username }}!
 </script>
 
 {% else %}
-<a href="{% url 'm_favLogin' %}"><img src="../static/img/login-icon-yellow.png"
-                                      style="height: 40px; width: 45px;"></a>
-
-<a href="{% url 'm_signup' %}"><img src="../static/img/sign-up.png" style="height: 37px; width: 42px;"></a>
-
-{#        {% include 'mobile/m_favLogin.html' %}#}
+ <a href="{% url 'm_favLogin' %}"><img src="../static/img/login-icon-yellow.png"
+                                             style="height: 40px; width: 45px;"></a>
+            <a href="{% url 'm_signup' %}"><img src="../static/img/sign-up.png"
+                                              style="height: 37px; width: 42px;"></a>
 <div class="row" id="holder-row">
-    {#
-    <div class="col-12">#}
+    <div class="col-12">
         <h3 style="padding: 5%">Apologies, but you must login to use the favourites function</h3>
-
-        {#
     </div>
-    #}
 </div>
 
 {% endif %}
